@@ -13,3 +13,5 @@ engine designed for on-device game creation.
 Note as of 2022 (Mark Nelson): This codebase is in Swift 3, which current Xcode
 won't touch, either to compile or upgrade. Xcode 10.1 appears to be the last
 Xcode that will do a 3->4 conversion.
+
+Note as of 2024 (Swen Gaudl): Codebase runs in XCode 14.2 and Swift 4 but needs testing.
