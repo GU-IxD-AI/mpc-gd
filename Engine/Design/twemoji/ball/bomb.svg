@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="128" height="128" viewBox="0 0 128 128">
+  <defs>
+    <polygon id="bomb-a" points="0 47.5 47.5 47.5 47.5 0 0 0"/>
+  </defs>
+  <g fill="none" fill-rule="evenodd" transform="matrix(1 0 0 -1 40 87.5)">
+    <polygon fill="#CCD6DD" fill-rule="nonzero" points="3.75 0 1.055 2.696 8.125 9.768 10.82 7.071" transform="translate(30.43 31.483)"/>
+    <mask id="bomb-b" fill="#fff">
+      <use xlink:href="#bomb-a"/>
+    </mask>
+    <g mask="url(#bomb-b)">
+      <g transform="translate(1.25 1.25)">
+        <path fill="#292F33" fill-rule="nonzero" d="M35,17.5 C35,7.83625 27.16375,0 17.5,0 C7.835,0 0,7.83625 0,17.5 C0,27.165 7.835,35 17.5,35 C27.16375,35 35,27.165 35,17.5"/>
+        <polygon fill="#292F33" fill-rule="nonzero" points="7.5 0 .43 7.071 7.5 14.143 14.57 7.071" transform="translate(23.32 23.75)"/>
+        <path fill="#F18F26" fill-rule="nonzero" d="M10,5 C10,2.23875 7.76125,0 5,0 C2.23875,0 0,2.23875 0,5 C0,7.76125 2.23875,10 5,10 C7.76125,10 10,7.76125 10,5" transform="translate(35 35)"/>
+        <path fill="#FDCB58" fill-rule="nonzero" d="M5,2.5 C5,1.12 3.88,0 2.5,0 C1.12,0 0,1.12 0,2.5 C0,3.88 1.12,5 2.5,5 C3.88,5 5,3.88 5,2.5" transform="translate(37.5 37.5)"/>
+      </g>
+    </g>
+  </g>
+</svg>

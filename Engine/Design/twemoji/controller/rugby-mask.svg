@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1024px" height="1024px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.1 (39012) - http://www.bohemiancoding.com/sketch -->
+    <title>twemoji/controller/rugby-mask</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Twemoji" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="twemoji/controller/rugby-mask" fill-rule="nonzero" fill="#000000">
+            <g id="rugby" transform="translate(16.000000, 16.000000)">
+                <path d="M761.638957,222.601956 C562.29287,20.4179556 227.767652,-64.7284889 71.1067826,72.3468444 C-64.0445217,231.266178 19.9067826,570.525511 219.25287,772.709511 C418.598957,974.893511 753.096348,1060.03996 909.785043,922.964622 C1074.09809,704.863289 960.985043,424.785956 761.638957,222.601956" id="Shape" transform="translate(496.926198, 497.655733) scale(-1, 1) rotate(-180.000000) translate(-496.926198, -497.655733) "></path>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,6 @@
+credits:
+InspectorJ
+Lose Life 164651__adam-n__hoot-1.wav
+Bounce 160500__timmy-h123__whoosh-01.wav
+Lose Points 322956__klankbeeld__coot-call.wav
+Gain Points 263786__isteak__seagull-single-call.ogg

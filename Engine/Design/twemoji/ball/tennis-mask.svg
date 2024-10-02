@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="128px" height="128px" viewBox="0 0 128 128" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.1 (39012) - http://www.bohemiancoding.com/sketch -->
+    <title>twemoji/ball/tennis-mask</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Twemoji" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="twemoji/ball/tennis-mask" fill-rule="nonzero" fill="#000000">
+            <g id="tennis" transform="translate(2.000000, 2.000000)">
+                <path d="M61.326087,0.673913043 C27.8292391,0.673913043 0.673913043,27.8292391 0.673913043,61.326087 C0.673913043,94.8229348 27.8292391,121.978261 61.326087,121.978261 C94.8229348,121.978261 121.978261,94.8229348 121.978261,61.326087 C121.978261,27.8292391 94.8195652,0.673913043 61.326087,0.673913043" id="Shape" transform="translate(61.326087, 61.326087) scale(-1, 1) rotate(-180.000000) translate(-61.326087, -61.326087) "></path>
+            </g>
+        </g>
+    </g>
+</svg>

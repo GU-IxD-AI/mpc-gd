@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1024px" height="1024px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.1 (39012) - http://www.bohemiancoding.com/sketch -->
+    <title>twemoji/controller/earth-mask</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Twemoji" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="twemoji/controller/earth-mask" fill-rule="nonzero" fill="#000000">
+            <g id="earth" transform="translate(16.000000, 16.000000)">
+                <path d="M992,496 C992,222.070222 769.929778,0 496,0 C222.070222,0 0,222.070222 0,496 C0,769.929778 222.070222,992 496,992 C769.929778,992 992,769.929778 992,496" id="Shape" transform="translate(496.000000, 496.000000) scale(-1, 1) rotate(-180.000000) translate(-496.000000, -496.000000) "></path>
+            </g>
+        </g>
+    </g>
+</svg>

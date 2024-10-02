@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1024px" height="1024px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>mask/bird</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="exports" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="mask/bird" fill="#000000">
+            <path d="M133.401435,315.351508 C63.7943084,387.877844 22,480.755386 22,582 C22,813.959595 241.380473,1002 512,1002 C782.619527,1002 1002,813.959595 1002,582 C1002,480.755386 960.205692,387.877844 890.598565,315.351508 C891.526473,307.655324 892,299.866954 892,292 C892,142.883118 721.868205,22 512,22 C302.131795,22 132,142.883118 132,292 C132,299.866954 132.473527,307.655324 133.401435,315.351508 Z" id="Combined-Shape"></path>
+        </g>
+    </g>
+</svg>

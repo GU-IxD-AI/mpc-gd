@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <g fill="none" transform="matrix(1 0 0 -1 41.25 82.5)">
+    <polygon fill="#BDDDF4" points="16.25 11.25 8.75 11.25 0 0 12.5 0" transform="translate(0 26.25)"/>
+    <polygon fill="#5DADEC" points="16.25 0 7.5 11.25 0 11.25 3.75 0" transform="translate(28.75 26.25)"/>
+    <polygon fill="#4289C1" points="10 26.25 22.5 26.25 0 0" transform="translate(22.5)"/>
+    <polygon fill="#8CCAF7" points="12.5 26.25 0 26.25 22.5 0"/>
+    <polygon fill="#8CCAF7" points="3.75 11.25 0 0 20 0 16.25 11.25" transform="translate(12.5 26.25)"/>
+    <polygon fill="#5DADEC" points="10 0 0 26.25 20 26.25" transform="translate(12.5)"/>
+  </g>
+</svg>

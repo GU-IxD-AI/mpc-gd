@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="128" height="128" viewBox="0 0 128 128">
+  <defs>
+    <polygon id="raindrop-a" points="0 47.5 47.5 47.5 47.5 0 0 0"/>
+  </defs>
+  <g fill="none" fill-rule="evenodd" transform="matrix(1 0 0 -1 40 87.5)">
+    <mask id="raindrop-b" fill="#fff">
+      <use xlink:href="#raindrop-a"/>
+    </mask>
+    <g mask="url(#raindrop-b)">
+      <path fill="#5DADEC" fill-rule="nonzero" d="M27.5,22.5 L14.75625,43.3475 L2.945,22.64125 C0.195,18.255 -0.04375,12.54875 2.84375,7.825 C6.95125,1.10875 15.79875,-1.0475 22.6075,3.0025 C29.415,7.05375 31.60625,15.77875 27.5,22.5" transform="translate(9.18 1.54)"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,46 @@
+Animals
+
+Birds 269570__vonora__cuckoo-the-nightingale-duet.mp3
+Frogs 18930__inchadney__frogs.wav
+Monkeys 197431__teammasaka__team-masaka-monkeys.flac
+Owls 64544__benboncan__tawny-owls-2.wav
+Seagulls 38956__acclivity__urbanherringgulls.wav
+Sheep 39947__acclivity__sheepandlambs.mp3
+
+Insects
+
+Bats 97383__soundbytez__bats.wav
+Bees 35089__erdie__bee-colony.flac
+Cicadas 20064__euroblues__cicadas-euroblues.wav
+Jungle 347638__wilhelm-screaming__brazillianjungle-vinyl-78-to-33-3rpm.mp3
+Swarm 130695__setuniman__the-swarm-v31m3.wav
+Wings 269047__nebulousflynn__insect-bee-stereo.mp3
+
+Music
+
+Chimes 35722__offthesky__wind-chimes.wav
+Drums 198490__peridactyloptrix__african-tribal-drums-beat-2.wav
+Flute 37145__kerri__overblow-echo.mp3
+Guitar 168646__klankbeeld__street-musician-classical-guitar-01.flac
+Khim 263460__stomachache__khim-thai-stringed-instrument.wav
+Sax 188062__iluppai__teak-saxophone-sounds-like-duduk.wav
+Guitar(new) 148695__strangereight__ambient-acoustic.wav
+Didge 85779__sandyrb__didgeridoo-04.wav
+
+Vehicles
+
+Copter 201541__gutek__helicopter.mp3
+Drone 192293__be-steele__dspacedrone.aiff
+Plane 337709__iesp__airplane-overhead.wav
+Siren 54084__guitarguy1985__civildefense.wav
+Traffic 335890__yoyodaman234__cars-passing-overhead.mp3
+UFO 328668__limetoe__alien-ufo-lab-1.wav
+
+Weather
+
+Fire 18766__reinsamba__chimney-fire.wav
+Rain 188655__yzhamua__1-minute-rain-medium.mp3
+Thunder 169083__mangiabambini__3-hoar-s-thunders.mp3
+Waves 21754__c97059890__fiji-beach-stereo-128kbps.mp3
+Water 24054__reinsamba__waterfall.wav
+Wind 159509__mistersherlock__halloween-graveyard-at-night-howling-wind.mp3

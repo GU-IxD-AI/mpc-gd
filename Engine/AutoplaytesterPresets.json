@@ -1,0 +1,646 @@
+ [
+  {
+  "ID" : {
+  "presetName" : "CIG16: Perfect",
+  "format" : 2,
+  "designScreenName" : "Player"
+  },
+  "Values" : {
+  "tactic 5" : 0,
+  "tactic 0" : 4,
+  "tactic 6" : 0,
+  "Max game time" : 180,
+  "tactic 1" : 5,
+  "Show stats" : true,
+  "Human settings" : 3,
+  "Max trials" : 1000,
+  "tactic 2" : 2,
+  "tactic 7" : 0,
+  "Abort game condition" : "timeElapsed",
+  "tactic 3" : 1,
+  "tactic 8" : 0,
+  "tactic 9" : 0,
+  "tactic 4" : 0,
+  "Bot tick every n frames" : 1
+  }
+  },
+  {
+  "ID" : {
+  "presetName" : "Too Difficult",
+  "format" : 2,
+  "designScreenName" : "Test"
+  },
+  "Values" : {
+  "Test when" : "ContinuallyDuringGame",
+  "AutoPlayer override" : 2,
+  "Test what" : "Score",
+  "Test how" : "InTarget",
+  "Upper target bound" : -30,
+  "ProgressMeasuredBy" : "IncreasingTime",
+  "Lower target bound" : -500
+  }
+  },
+  {
+  "ID" : {
+  "presetName" : "Unblock",
+  "format" : 2,
+  "designScreenName" : "Strategy"
+  },
+  "Values" : {
+  "tertiary tie break type" : "Random",
+  "quiescent threshold" : 0.01244514611771386,
+  "movement prediction" : true,
+  "destroy cluster-blockers only" : true,
+  "secondary tie break choice" : "Smallest",
+  "distance threshold" : 1.1,
+  "secondary tie break type" : "Random",
+  "wait time" : 1,
+  "tactic" : "DestroyBlueBlockingWhites",
+  "which ball" : "Foe",
+  "primary tie break type" : "DistanceFromTop",
+  "primary tie break choice" : "Smallest",
+  "tertiary tie break choice" : "Smallest",
+  "quiescent check type" : "NoMovement"
+  }
+  },
+  {
+  "ID" : {
+  "presetName" : "Jiggle when whites stuck",
+  "format" : 2,
+  "designScreenName" : "Strategy"
+  },
+  "Values" : {
+  "tertiary tie break type" : "Random",
+  "quiescent threshold" : 0.003981071705534972,
+  "movement prediction" : true,
+  "destroy cluster-blockers only" : true,
+  "secondary tie break choice" : "Smallest",
+  "distance threshold" : 1,
+  "secondary tie break type" : "Random",
+  "wait time" : 3,
+  "tactic" : "JiggleWhenQuiescent",
+  "which ball" : "Friend",
+  "primary tie break type" : "Random",
+  "primary tie break choice" : "Smallest",
+  "tertiary tie break choice" : "Smallest",
+  "quiescent check type" : "FoesMaxed"
+  }
+  },
+  {
+  "ID" : {
+  "presetName" : "DC Hub: Random",
+  "format" : 2,
+  "designScreenName" : "Player"
+  },
+  "Values" : {
+  "tactic 5" : 0,
+  "tactic 0" : 4,
+  "tactic 6" : 0,
+  "Max game time" : 180,
+  "tactic 1" : 0,
+  "Show stats" : true,
+  "Human settings" : 3,
+  "Max trials" : 1000,
+  "tactic 2" : 0,
+  "tactic 7" : 0,
+  "Abort game condition" : "timeElapsed",
+  "tactic 3" : 0,
+  "tactic 8" : 0,
+  "tactic 9" : 0,
+  "tactic 4" : 0,
+  "Bot tick every n frames" : 8
+  }
+  },
+  {
+  "ID" : {
+  "presetName" : "Random blue small cluster",
+  "format" : 2,
+  "designScreenName" : "Strategy"
+  },
+  "Values" : {
+  "tertiary tie break type" : "Random",
+  "quiescent threshold" : 1.071519305237606,
+  "movement prediction" : true,
+  "destroy cluster-blockers only" : true,
+  "secondary tie break choice" : "Smallest",
+  "distance threshold" : 1.2,
+  "secondary tie break type" : "ClusterSize",
+  "wait time" : 1,
+  "tactic" : "TapRandomlyWhenQuiescent",
+  "which ball" : "Friend",
+  "primary tie break type" : "TouchingOtherType",
+  "primary tie break choice" : "Largest",
+  "tertiary tie break choice" : "Smallest",
+  "quiescent check type" : "NoMovement"
+  }
+  },
+  {
+  "ID" : {
+  "presetName" : "DC Hub: Imperfect",
+  "format" : 2,
+  "designScreenName" : "Player"
+  },
+  "Values" : {
+  "tactic 5" : 0,
+  "tactic 0" : 5,
+  "tactic 6" : 0,
+  "Max game time" : 180,
+  "tactic 1" : 3,
+  "Show stats" : true,
+  "Human settings" : 2,
+  "Max trials" : 1000,
+  "tactic 2" : 6,
+  "tactic 7" : 0,
+  "Abort game condition" : "timeElapsed",
+  "tactic 3" : 0,
+  "tactic 8" : 0,
+  "tactic 9" : 0,
+  "tactic 4" : 0,
+  "Bot tick every n frames" : 8
+  }
+  },
+  {
+  "ID" : {
+  "presetName" : "CIG16: Human",
+  "format" : 2,
+  "designScreenName" : "Player"
+  },
+  "Values" : {
+  "tactic 5" : 0,
+  "tactic 0" : 4,
+  "tactic 6" : 0,
+  "Max game time" : 180,
+  "tactic 1" : 5,
+  "Show stats" : true,
+  "Human settings" : 1,
+  "Max trials" : 1000,
+  "tactic 2" : 2,
+  "tactic 7" : 0,
+  "Abort game condition" : "timeElapsed",
+  "tactic 3" : 1,
+  "tactic 8" : 0,
+  "tactic 9" : 0,
+  "tactic 4" : 0,
+  "Bot tick every n frames" : 1
+  }
+  },
+  {
+  "ID" : {
+  "presetName" : "Random blue tap",
+  "format" : 2,
+  "designScreenName" : "Strategy"
+  },
+  "Values" : {
+  "tertiary tie break type" : "Random",
+  "quiescent threshold" : 999.9999999999998,
+  "movement prediction" : true,
+  "destroy cluster-blockers only" : true,
+  "secondary tie break choice" : "Smallest",
+  "distance threshold" : 1,
+  "secondary tie break type" : "Random",
+  "wait time" : 0,
+  "tactic" : "TapRandomlyWhenQuiescent",
+  "which ball" : "Friend",
+  "primary tie break type" : "Random",
+  "primary tie break choice" : "Smallest",
+  "tertiary tie break choice" : "Smallest",
+  "quiescent check type" : "NoMovement"
+  }
+  },
+  {
+  "ID" : {
+  "presetName" : "Not perfect",
+  "format" : 2,
+  "designScreenName" : "Human"
+  },
+  "Values" : {
+  "max reaction delay" : 0.16,
+  "tie break fuzziness" : 4.3,
+  "max tap position error" : 10.4,
+  "time between actions" : 0.25
+  }
+  },
+  {
+  "ID" : {
+  "presetName" : "Stop blue cluster",
+  "format" : 2,
+  "designScreenName" : "Strategy"
+  },
+  "Values" : {
+  "tertiary tie break type" : "Random",
+  "quiescent threshold" : 0.01244514611771386,
+  "movement prediction" : true,
+  "destroy cluster-blockers only" : true,
+  "secondary tie break choice" : "Smallest",
+  "distance threshold" : 1.2,
+  "secondary tie break type" : "Random",
+  "wait time" : 0,
+  "tactic" : "StopClusterFromForming",
+  "which ball" : "Friend",
+  "primary tie break type" : "Speed",
+  "primary tie break choice" : "Largest",
+  "tertiary tie break choice" : "Smallest",
+  "quiescent check type" : "NoMovement"
+  }
+  },
+  {
+  "ID" : {
+  "presetName" : "Random Search",
+  "format" : 2,
+  "designScreenName" : "Tune"
+  },
+  "Values" : {
+  "Parameter 9 range (%)" : 30,
+  "Fix parameter 9" : "None",
+  "Test 9" : 0,
+  "Plays per trial" : 3,
+  "Max play time" : 90,
+  "Fix parameter 10" : "None",
+  "Test 8" : 0,
+  "Parameter 6 range (%)" : 30,
+  "Test 7" : 0,
+  "Fix parameter 2" : "FoeSize",
+  "Parameter 2 range (%)" : 30,
+  "Fix parameter 4" : "FoeSpeed",
+  "Test 6" : 6,
+  "Search type" : "Random",
+  "Fix parameter 6" : "MaxFoes",
+  "Test 5" : 5,
+  "Parameter 3 range (%)" : 30,
+  "Fix parameter 8" : "FoeSpawnRate",
+  "Test 4" : 7,
+  "Parameter 7 range (%)" : 30,
+  "Test 10" : 0,
+  "Test 3" : 8,
+  "Physics speed" : 4,
+  "Test 2" : 1,
+  "Number of trials" : 100,
+  "Parameter 8 range (%)" : 30,
+  "Fix parameter 1" : "FriendSize",
+  "Parameter 4 range (%)" : 30,
+  "Test 1" : 4,
+  "Fix parameter 3" : "FriendSpeed",
+  "Parameter 10 range (%)" : 30,
+  "AutoPlayer" : 2,
+  "Fix parameter 5" : "MaxFriends",
+  "Parameter 5 range (%)" : 30,
+  "Fix parameter 7" : "FriendSpawnRate",
+  "Parameter 1 range (%)" : 30
+  }
+  },
+  {
+  "ID" : {
+  "presetName" : "Average Trial Time",
+  "format" : 2,
+  "designScreenName" : "Test"
+  },
+  "Values" : {
+  "Test when" : "TrialEnd",
+  "AutoPlayer override" : 0,
+  "Test what" : "TimeTaken",
+  "Test how" : "AvInTarget",
+  "Upper target bound" : 60,
+  "ProgressMeasuredBy" : "IncreasingScore",
+  "Lower target bound" : 30
+  }
+  },
+  {
+  "ID" : {
+  "presetName" : "Perfect",
+  "format" : 2,
+  "designScreenName" : "Human"
+  },
+  "Values" : {
+  "max reaction delay" : 0,
+  "tie break fuzziness" : 0,
+  "max tap position error" : 0,
+  "time between actions" : 0
+  }
+  },
+  {
+  "ID" : {
+  "presetName" : "Too Easy",
+  "format" : 2,
+  "designScreenName" : "Test"
+  },
+  "Values" : {
+  "Test when" : "GameEnds",
+  "AutoPlayer override" : 0,
+  "Test what" : "TimeTaken",
+  "Test how" : "InTarget",
+  "Upper target bound" : 30,
+  "ProgressMeasuredBy" : "IncreasingScore",
+  "Lower target bound" : 0
+  }
+  },
+  {
+  "ID" : {
+  "presetName" : "All in target time",
+  "format" : 2,
+  "designScreenName" : "Test"
+  },
+  "Values" : {
+  "Test when" : "GameEnds",
+  "AutoPlayer override" : 0,
+  "Test what" : "TimeTaken",
+  "Test how" : "OutsideTarget",
+  "Upper target bound" : 80,
+  "ProgressMeasuredBy" : "IncreasingScore",
+  "Lower target bound" : 20
+  }
+  },
+  {
+  "ID" : {
+  "presetName" : "Do Nothing",
+  "format" : 2,
+  "designScreenName" : "Player"
+  },
+  "Values" : {
+  "tactic 5" : 0,
+  "tactic 0" : 0,
+  "tactic 6" : 0,
+  "Max game time" : 180,
+  "tactic 1" : 0,
+  "Show stats" : true,
+  "Human settings" : 3,
+  "Max trials" : 1000,
+  "tactic 2" : 0,
+  "tactic 7" : 0,
+  "Abort game condition" : "timeElapsed",
+  "tactic 3" : 0,
+  "tactic 8" : 0,
+  "tactic 9" : 0,
+  "tactic 4" : 0,
+  "Bot tick every n frames" : 8
+  }
+  },
+  {
+  "ID" : {
+  "presetName" : "Too Easy For Do Nothing",
+  "format" : 2,
+  "designScreenName" : "Test"
+  },
+  "Values" : {
+  "Test when" : "GameEnds",
+  "AutoPlayer override" : 6,
+  "Test what" : "TimeTaken",
+  "Test how" : "InTarget",
+  "Upper target bound" : 85,
+  "ProgressMeasuredBy" : "IncreasingScore",
+  "Lower target bound" : 0
+  }
+  },
+  {
+  "ID" : {
+  "presetName" : "Random Search with Human",
+  "format" : 2,
+  "designScreenName" : "Tune"
+  },
+  "Values" : {
+  "Parameter 9 range (%)" : 30,
+  "Fix parameter 9" : "None",
+  "Test 9" : 0,
+  "Plays per trial" : 3,
+  "Max play time" : 90,
+  "Fix parameter 10" : "None",
+  "Test 8" : 0,
+  "Parameter 6 range (%)" : 30,
+  "Test 7" : 0,
+  "Fix parameter 2" : "FoeSize",
+  "Parameter 2 range (%)" : 30,
+  "Fix parameter 4" : "FoeSpeed",
+  "Test 6" : 0,
+  "Search type" : "Random",
+  "Fix parameter 6" : "MaxFoes",
+  "Test 5" : 0,
+  "Parameter 3 range (%)" : 30,
+  "Fix parameter 8" : "FoeSpawnRate",
+  "Test 4" : 9,
+  "Parameter 7 range (%)" : 30,
+  "Test 10" : 0,
+  "Test 3" : 3,
+  "Physics speed" : 4,
+  "Test 2" : 7,
+  "Number of trials" : 100,
+  "Parameter 8 range (%)" : 30,
+  "Fix parameter 1" : "FriendSize",
+  "Parameter 4 range (%)" : 30,
+  "Test 1" : 2,
+  "Fix parameter 3" : "FriendSpeed",
+  "Parameter 10 range (%)" : 30,
+  "AutoPlayer" : 1,
+  "Fix parameter 5" : "MaxFriends",
+  "Parameter 5 range (%)" : 30,
+  "Fix parameter 7" : "FriendSpawnRate",
+  "Parameter 1 range (%)" : 30
+  }
+  },
+  {
+  "ID" : {
+  "presetName" : "DC Hub: Perfect",
+  "format" : 2,
+  "designScreenName" : "Player"
+  },
+  "Values" : {
+  "tactic 5" : 0,
+  "tactic 0" : 3,
+  "tactic 6" : 0,
+  "Max game time" : 180,
+  "tactic 1" : 1,
+  "Show stats" : true,
+  "Human settings" : 3,
+  "Max trials" : 1000,
+  "tactic 2" : 4,
+  "tactic 7" : 0,
+  "Abort game condition" : "timeElapsed",
+  "tactic 3" : 0,
+  "tactic 8" : 0,
+  "tactic 9" : 0,
+  "tactic 4" : 0,
+  "Bot tick every n frames" : 8
+  }
+  },
+  {
+  "ID" : {
+  "presetName" : "Above target time",
+  "format" : 2,
+  "designScreenName" : "Test"
+  },
+  "Values" : {
+  "Test when" : "GameEnds",
+  "AutoPlayer override" : 2,
+  "Test what" : "TimeTaken",
+  "Test how" : "InTarget",
+  "Upper target bound" : 500,
+  "ProgressMeasuredBy" : "DecreasingTime",
+  "Lower target bound" : 80
+  }
+  },
+  {
+  "ID" : {
+  "presetName" : "Below target time",
+  "format" : 2,
+  "designScreenName" : "Test"
+  },
+  "Values" : {
+  "Test when" : "GameEnds",
+  "AutoPlayer override" : 2,
+  "Test what" : "TimeTaken",
+  "Test how" : "InTarget",
+  "Upper target bound" : 20,
+  "ProgressMeasuredBy" : "IncreasingTime",
+  "Lower target bound" : 0
+  }
+  },
+  {
+  "ID" : {
+  "presetName" : "CIG16 human",
+  "format" : 2,
+  "designScreenName" : "Human"
+  },
+  "Values" : {
+  "max reaction delay" : 0,
+  "tie break fuzziness" : 0,
+  "max tap position error" : 20.3,
+  "time between actions" : 0.33
+  }
+  },
+  {
+  "ID" : {
+  "presetName" : "Tapping Too Fast",
+  "format" : 2,
+  "designScreenName" : "Test"
+  },
+  "Values" : {
+  "Test when" : "GameEnds",
+  "AutoPlayer override" : 2,
+  "Test what" : "TapsPer10Seconds",
+  "Test how" : "InTarget",
+  "Upper target bound" : 500,
+  "ProgressMeasuredBy" : "IncreasingTime",
+  "Lower target bound" : 35
+  }
+  },
+  {
+  "ID" : {
+  "presetName" : "Not quiescent enough",
+  "format" : 2,
+  "designScreenName" : "Test"
+  },
+  "Values" : {
+  "Test when" : "GameEnds",
+  "AutoPlayer override" : 2,
+  "Test what" : "QuiescentMomentsX10",
+  "Test how" : "InTarget",
+  "Upper target bound" : 15,
+  "ProgressMeasuredBy" : "IncreasingTime",
+  "Lower target bound" : 0
+  }
+  },
+  {
+  "ID" : {
+  "presetName" : "Distance too big",
+  "format" : 2,
+  "designScreenName" : "Test"
+  },
+  "Values" : {
+  "Test when" : "GameEnds",
+  "AutoPlayer override" : 2,
+  "Test what" : "DistancePerTap",
+  "Test how" : "OutsideTarget",
+  "Upper target bound" : 200,
+  "ProgressMeasuredBy" : "IncreasingTime",
+  "Lower target bound" : 0
+  }
+  },
+  {
+  "ID" : {
+  "presetName" : "Random Search 20",
+  "format" : 2,
+  "designScreenName" : "Tune"
+  },
+  "Values" : {
+  "Parameter 9 range (%)" : 20,
+  "Fix parameter 9" : "None",
+  "Test 9" : 0,
+  "Plays per trial" : 3,
+  "Max play time" : 90,
+  "Fix parameter 10" : "None",
+  "Test 8" : 0,
+  "Parameter 6 range (%)" : 20,
+  "Test 7" : 0,
+  "Fix parameter 2" : "FoeSize",
+  "Parameter 2 range (%)" : 20,
+  "Fix parameter 4" : "FoeSpeed",
+  "Test 6" : 6,
+  "Search type" : "Random",
+  "Fix parameter 6" : "MaxFoes",
+  "Test 5" : 5,
+  "Parameter 3 range (%)" : 20,
+  "Fix parameter 8" : "FoeSpawnRate",
+  "Test 4" : 7,
+  "Parameter 7 range (%)" : 20,
+  "Test 10" : 0,
+  "Test 3" : 8,
+  "Physics speed" : 4,
+  "Test 2" : 1,
+  "Number of trials" : 100,
+  "Parameter 8 range (%)" : 20,
+  "Fix parameter 1" : "FriendSize",
+  "Parameter 4 range (%)" : 20,
+  "Test 1" : 4,
+  "Fix parameter 3" : "FriendSpeed",
+  "Parameter 10 range (%)" : 20,
+  "AutoPlayer" : 2,
+  "Fix parameter 5" : "MaxFriends",
+  "Parameter 5 range (%)" : 20,
+  "Fix parameter 7" : "FriendSpawnRate",
+  "Parameter 1 range (%)" : 20
+  }
+  },
+  {
+  "ID" : {
+  "presetName" : "Random Search 15",
+  "format" : 2,
+  "designScreenName" : "Tune"
+  },
+  "Values" : {
+  "Parameter 9 range (%)" : 15,
+  "Fix parameter 9" : "None",
+  "Test 9" : 0,
+  "Plays per trial" : 3,
+  "Max play time" : 90,
+  "Fix parameter 10" : "None",
+  "Test 8" : 0,
+  "Parameter 6 range (%)" : 15,
+  "Test 7" : 0,
+  "Fix parameter 2" : "FoeSize",
+  "Parameter 2 range (%)" : 15,
+  "Fix parameter 4" : "FoeSpeed",
+  "Test 6" : 6,
+  "Search type" : "Random",
+  "Fix parameter 6" : "MaxFoes",
+  "Test 5" : 5,
+  "Parameter 3 range (%)" : 15,
+  "Fix parameter 8" : "FoeSpawnRate",
+  "Test 4" : 7,
+  "Parameter 7 range (%)" : 15,
+  "Test 10" : 0,
+  "Test 3" : 8,
+  "Physics speed" : 4,
+  "Test 2" : 1,
+  "Number of trials" : 100,
+  "Parameter 8 range (%)" : 15,
+  "Fix parameter 1" : "FriendSize",
+  "Parameter 4 range (%)" : 15,
+  "Test 1" : 4,
+  "Fix parameter 3" : "FriendSpeed",
+  "Parameter 10 range (%)" : 15,
+  "AutoPlayer" : 2,
+  "Fix parameter 5" : "MaxFriends",
+  "Parameter 5 range (%)" : 15,
+  "Fix parameter 7" : "FriendSpawnRate",
+  "Parameter 1 range (%)" : 15
+  }
+  }
+  ]

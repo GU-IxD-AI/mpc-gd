@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="128" height="128" viewBox="0 0 128 128">
+  <defs>
+    <polygon id="heart-green-a" points="0 47.5 47.5 47.5 47.5 0 0 0"/>
+  </defs>
+  <g fill="none" fill-rule="evenodd" transform="matrix(1 0 0 -1 40 87.5)">
+    <mask id="heart-green-b" fill="#fff">
+      <use xlink:href="#heart-green-a"/>
+    </mask>
+    <g mask="url(#heart-green-b)">
+      <path fill="#78B159" fill-rule="nonzero" d="M45,28.75 C45,35.5625 39.4775,41.085 32.66625,41.085 C28.53125,41.085 24.8825,39.04375 22.64375,35.92375 C20.40625,39.04375 16.75625,41.085 12.6225,41.085 C5.81,41.085 0.2875,35.5625 0.2875,28.75 C0.2875,27.785 0.41,26.85 0.62,25.94875 C2.33375,15.30875 14.16375,4.08125 22.64375,0.99875 C31.1225,4.08125 42.955,15.30875 44.665,25.94875 C44.8775,26.85 45,27.785 45,28.75" transform="translate(1.106 2.708)"/>
+    </g>
+  </g>
+</svg>

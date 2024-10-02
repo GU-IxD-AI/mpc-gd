@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1024px" height="1024px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.1 (39012) - http://www.bohemiancoding.com/sketch -->
+    <title>twemoji/controller/football-mask</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Twemoji" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="twemoji/controller/football-mask" fill-rule="nonzero" fill="#000000">
+            <g id="football" transform="translate(16.000000, 16.000000)">
+                <path d="M786.820622,208.490844 C594.034622,15.7048444 280.767956,-56.6004889 63.9084,63.9084 C-56.6004889,280.796178 15.7048444,594.062844 208.490844,786.820622 C401.248622,979.606622 714.515289,1051.91196 931.403067,931.403067 C1051.91196,714.543511 979.606622,401.276844 786.820622,208.490844" id="Shape" transform="translate(497.655733, 497.655733) scale(-1, 1) rotate(-180.000000) translate(-497.655733, -497.655733) "></path>
+            </g>
+        </g>
+    </g>
+</svg>
