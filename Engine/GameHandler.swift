@@ -18,7 +18,7 @@ class PackAlias {
     fileprivate static func fetchEntry(_ pack: String) -> NSManagedObject? {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
         let context = appDelegate.managedObjectContext
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "PackAlias")
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Packalias")
 
         do {
             let entries = try context.fetch(request)

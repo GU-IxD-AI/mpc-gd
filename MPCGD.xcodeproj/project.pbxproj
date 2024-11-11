@@ -33,7 +33,6 @@
 		312D7A2D1C90825000560133 /* EnumGene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A08E271C64C05A00356B63 /* EnumGene.swift */; };
 		312D7A331C90825600560133 /* DrawingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42C52091BFFE3A0001DC85C /* DrawingHandler.swift */; };
 		312D7AB11C90827A00560133 /* BaseCampType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E130F41BD5923200D5DF76 /* BaseCampType.swift */; };
-		312D7AB81C90827E00560133 /* MPCGD.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F41D77D41BC7EF3200956D26 /* MPCGD.xcdatamodeld */; };
 		312D7ABA1C90828700560133 /* CategorisationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D78811BCBBED300956D26 /* CategorisationType.swift */; };
 		312D7ACE1C90829600560133 /* Backgrounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D783F1BC82A4D00956D26 /* Backgrounds.swift */; };
 		312D7ACF1C90829600560133 /* Colours.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D78021BC7F9B300956D26 /* Colours.swift */; };
@@ -105,6 +104,7 @@
 		31EC8F3F1C6A1B3D00C30F9C /* GridSwipeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EC8F3E1C6A1B3D00C30F9C /* GridSwipeController.swift */; };
 		31F94F431BD1316E005BC7B4 /* BitMask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F94F421BD1316E005BC7B4 /* BitMask.swift */; };
 		4691BA3F1E3674CE00DAFC7A /* GameHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4691BA3E1E3674CE00DAFC7A /* GameHandler.swift */; };
+		46A929F92CE2CC420081F96D /* MPCGD.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 46A929F72CE2CC410081F96D /* MPCGD.xcdatamodeld */; };
 		5C04C66F1E2CD4590034F716 /* StatsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C04C66E1E2CD4590034F716 /* StatsScreen.swift */; };
 		5C65D40B1CA29E70002A2FAB /* AutoSizedLabelNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314F07261CA19B9B00090ED5 /* AutoSizedLabelNode.swift */; };
 		5CD0885E1CB7A720003F2CAB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D77A01BC7EDEF00956D26 /* AppDelegate.swift */; };
@@ -169,7 +169,6 @@
 		F41D77AA1BC7EDEF00956D26 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F41D77A81BC7EDEF00956D26 /* Main.storyboard */; };
 		F41D77AC1BC7EDEF00956D26 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F41D77AB1BC7EDEF00956D26 /* Assets.xcassets */; };
 		F41D77AF1BC7EDEF00956D26 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F41D77AD1BC7EDEF00956D26 /* LaunchScreen.storyboard */; };
-		F41D77D61BC7EF3200956D26 /* MPCGD.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F41D77D41BC7EF3200956D26 /* MPCGD.xcdatamodeld */; };
 		F41D77DB1BC7F1A200956D26 /* SKNodeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D77DA1BC7F1A200956D26 /* SKNodeExtension.swift */; };
 		F41D77DF1BC7F22D00956D26 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D77DE1BC7F22D00956D26 /* ArrayExtension.swift */; };
 		F41D77E11BC7F24900956D26 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D77E01BC7F24900956D26 /* UIColorExtension.swift */; };
@@ -889,25 +888,19 @@
 		31E23C6B1C5129F400161C15 /* TowardsFingerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TowardsFingerController.swift; sourceTree = "<group>"; };
 		31EC8F3E1C6A1B3D00C30F9C /* GridSwipeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridSwipeController.swift; sourceTree = "<group>"; };
 		31F94F421BD1316E005BC7B4 /* BitMask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BitMask.swift; sourceTree = "<group>"; };
-		4691BA3D1E366E9900DAFC7A /* MPCGD 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MPCGD 4.xcdatamodel"; sourceTree = "<group>"; };
 		4691BA3E1E3674CE00DAFC7A /* GameHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameHandler.swift; sourceTree = "<group>"; };
+		46A929F82CE2CC410081F96D /* MPCGD.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MPCGD.xcdatamodel; sourceTree = "<group>"; };
 		5C04C66E1E2CD4590034F716 /* StatsScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatsScreen.swift; sourceTree = "<group>"; };
 		852B02261DFAF11D00B7F420 /* ExceptionCatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExceptionCatcher.h; sourceTree = "<group>"; };
 		852B02271DFAF11D00B7F420 /* MPCGD-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MPCGD-Bridging-Header.h"; sourceTree = "<group>"; };
-		85518AF01E785650007BAF31 /* MPCGD 8.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MPCGD 8.xcdatamodel"; sourceTree = "<group>"; };
-		8574B9E21E4A3ECD00BB200C /* MPCGD 5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MPCGD 5.xcdatamodel"; sourceTree = "<group>"; };
 		858C2A7D1E2D217F00AAC61F /* UserHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserHandler.swift; sourceTree = "<group>"; };
 		858C2A7F1E2D220800AAC61F /* InfoTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoTag.swift; sourceTree = "<group>"; };
 		858C2A811E2D229700AAC61F /* SessionHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionHandler.swift; sourceTree = "<group>"; };
-		858C2A831E2D2F2800AAC61F /* MPCGD 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MPCGD 2.xcdatamodel"; sourceTree = "<group>"; };
 		859E00BB1E0BE9E3007601ED /* MPCGD.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MPCGD.entitlements; sourceTree = "<group>"; };
 		85B469C81DF9826C0060E30B /* LAF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LAF.swift; sourceTree = "<group>"; };
 		85BBE5EF1DF9B278007E5C9D /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		85BBE5F11DF9BDC0007E5C9D /* Label.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
 		85BBE5F41DF9C255007E5C9D /* MultiLineLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiLineLabel.swift; sourceTree = "<group>"; };
-		85C6A4321E70175C00D023E4 /* MPCGD 7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MPCGD 7.xcdatamodel"; sourceTree = "<group>"; };
-		85C9094D1E54886D00500330 /* MPCGD 6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MPCGD 6.xcdatamodel"; sourceTree = "<group>"; };
-		85EA46671E2FCE2C00B8182E /* MPCGD 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MPCGD 3.xcdatamodel"; sourceTree = "<group>"; };
 		C17305B81EC47DA700729046 /* Music_1_1.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = Music_1_1.m4a; path = "Engine/Music/track-1/Music_1_1.m4a"; sourceTree = "<group>"; };
 		C17305B91EC47DA700729046 /* Music_1_2.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = Music_1_2.m4a; path = "Engine/Music/track-1/Music_1_2.m4a"; sourceTree = "<group>"; };
 		C17305BA1EC47DA700729046 /* Music_1_3.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = Music_1_3.m4a; path = "Engine/Music/track-1/Music_1_3.m4a"; sourceTree = "<group>"; };
@@ -938,7 +931,6 @@
 		C17305EC1EC47E0A00729046 /* Music_6_3.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = Music_6_3.m4a; path = "Engine/Music/track-6/Music_6_3.m4a"; sourceTree = "<group>"; };
 		C17305ED1EC47E0A00729046 /* Music_6_4.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = Music_6_4.m4a; path = "Engine/Music/track-6/Music_6_4.m4a"; sourceTree = "<group>"; };
 		C17305EE1EC47E0A00729046 /* Music_6_5.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = Music_6_5.m4a; path = "Engine/Music/track-6/Music_6_5.m4a"; sourceTree = "<group>"; };
-		C17497E21E8AD27F00737EB6 /* MPCGD 9.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "MPCGD 9.xcdatamodel"; sourceTree = "<group>"; };
 		E18E91481E30CA6700C06B21 /* JFiPad_genome.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = JFiPad_genome.json; path = Engine/Genomes/JFiPad_genome.json; sourceTree = "<group>"; };
 		E18E914A1E30CCC800C06B21 /* SSiPad_genome.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = SSiPad_genome.json; path = Engine/Genomes/SSiPad_genome.json; sourceTree = "<group>"; };
 		E99F52BF1BD631A500413199 /* Ball.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ball.swift; sourceTree = "<group>"; };
@@ -967,7 +959,6 @@
 		F41D77BB1BC7EDEF00956D26 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F41D77C41BC7EDEF00956D26 /* EngineUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngineUITests.swift; sourceTree = "<group>"; };
 		F41D77C61BC7EDEF00956D26 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F41D77D51BC7EF3200956D26 /* MPCGD.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MPCGD.xcdatamodel; sourceTree = "<group>"; };
 		F41D77DA1BC7F1A200956D26 /* SKNodeExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKNodeExtension.swift; sourceTree = "<group>"; };
 		F41D77DE1BC7F22D00956D26 /* ArrayExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		F41D77E01BC7F24900956D26 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
@@ -1853,8 +1844,8 @@
 		F41D77D31BC7EEBB00956D26 /* DatabaseHandlers */ = {
 			isa = PBXGroup;
 			children = (
+				46A929F72CE2CC410081F96D /* MPCGD.xcdatamodeld */,
 				F4E130F41BD5923200D5DF76 /* BaseCampType.swift */,
-				F41D77D41BC7EF3200956D26 /* MPCGD.xcdatamodeld */,
 				858C2A7D1E2D217F00AAC61F /* UserHandler.swift */,
 				858C2A811E2D229700AAC61F /* SessionHandler.swift */,
 				858C2A7F1E2D220800AAC61F /* InfoTag.swift */,
@@ -3121,10 +3112,11 @@
 				TargetAttributes = {
 					312D79F51C9080B800560133 = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = W2LG27ZR35;
 					};
 					F41D779C1BC7EDEF00956D26 = {
 						CreatedOnToolsVersion = 7.0;
-						DevelopmentTeam = 62984XJBH2;
+						DevelopmentTeam = W2LG27ZR35;
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -3140,6 +3132,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -3859,7 +3852,6 @@
 				312D7ACE1C90829600560133 /* Backgrounds.swift in Sources */,
 				312D7A1E1C90824C00560133 /* TransformType.swift in Sources */,
 				312D7FD01C9082C400560133 /* SKRoundButtonNode.swift in Sources */,
-				312D7AB81C90827E00560133 /* MPCGD.xcdatamodeld in Sources */,
 				312D7FB61C9082BE00560133 /* DragMoveController.swift in Sources */,
 				312D7FD11C9082C400560133 /* SpriteUtils.swift in Sources */,
 				312D7FC71C9082C400560133 /* DrawingText.swift in Sources */,
@@ -3870,7 +3862,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F41D77D61BC7EF3200956D26 /* MPCGD.xcdatamodeld in Sources */,
 				31E23C681C5127CC00161C15 /* DragMoveController.swift in Sources */,
 				F441A9761E9AED4F0086632A /* GeneratorHelpScreen.swift in Sources */,
 				F4CA9D471EEBF34200A2D380 /* OldStatsScreen.swift in Sources */,
@@ -4022,6 +4013,7 @@
 				858C2A821E2D229700AAC61F /* SessionHandler.swift in Sources */,
 				F41D77DB1BC7F1A200956D26 /* SKNodeExtension.swift in Sources */,
 				F484DA201EDA533C0067CDCD /* SpawnScreen.swift in Sources */,
+				46A929F92CE2CC420081F96D /* MPCGD.xcdatamodeld in Sources */,
 				19C109AB1DF9A3FF00AEAD5B /* SoundTheme.swift in Sources */,
 				F41D78861BCBFB3900956D26 /* ZPositionConstants.swift in Sources */,
 				19C109AA1DF9A3FF00AEAD5B /* SoundQueue.swift in Sources */,
@@ -4072,10 +4064,12 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = W2LG27ZR35;
 				INFOPLIST_FILE = EngineOSX/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				PRODUCT_BUNDLE_IDENTIFIER = com.metamakers.EngineOSX;
+				PRODUCT_BUNDLE_IDENTIFIER = com.metamakers.MPCGDOSX;
 				PRODUCT_NAME = MPCGD;
 				SDKROOT = macosx;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
@@ -4091,10 +4085,12 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = W2LG27ZR35;
 				INFOPLIST_FILE = EngineOSX/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				PRODUCT_BUNDLE_IDENTIFIER = com.metamakers.EngineOSX;
+				PRODUCT_BUNDLE_IDENTIFIER = com.metamakers.MPCGDOSX;
 				PRODUCT_NAME = MPCGD;
 				SDKROOT = macosx;
 				SWIFT_INSTALL_OBJC_HEADER = NO;
@@ -4208,9 +4204,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 62984XJBH2;
+				DEVELOPMENT_TEAM = W2LG27ZR35;
 				INFOPLIST_FILE = Engine/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = MPCGD;
 				PRODUCT_NAME = MPCGD;
@@ -4227,9 +4224,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 62984XJBH2;
+				DEVELOPMENT_TEAM = W2LG27ZR35;
 				INFOPLIST_FILE = Engine/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = MPCGD;
 				PRODUCT_NAME = MPCGD;
@@ -4274,20 +4272,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		F41D77D41BC7EF3200956D26 /* MPCGD.xcdatamodeld */ = {
+		46A929F72CE2CC410081F96D /* MPCGD.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				C17497E21E8AD27F00737EB6 /* MPCGD 9.xcdatamodel */,
-				85518AF01E785650007BAF31 /* MPCGD 8.xcdatamodel */,
-				85C6A4321E70175C00D023E4 /* MPCGD 7.xcdatamodel */,
-				85C9094D1E54886D00500330 /* MPCGD 6.xcdatamodel */,
-				8574B9E21E4A3ECD00BB200C /* MPCGD 5.xcdatamodel */,
-				4691BA3D1E366E9900DAFC7A /* MPCGD 4.xcdatamodel */,
-				85EA46671E2FCE2C00B8182E /* MPCGD 3.xcdatamodel */,
-				858C2A831E2D2F2800AAC61F /* MPCGD 2.xcdatamodel */,
-				F41D77D51BC7EF3200956D26 /* MPCGD.xcdatamodel */,
+				46A929F82CE2CC410081F96D /* MPCGD.xcdatamodel */,
 			);
-			currentVersion = C17497E21E8AD27F00737EB6 /* MPCGD 9.xcdatamodel */;
+			currentVersion = 46A929F82CE2CC410081F96D /* MPCGD.xcdatamodel */;
 			path = MPCGD.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

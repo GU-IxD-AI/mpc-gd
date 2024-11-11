@@ -19,11 +19,12 @@ class GameViewController: UIViewController {
         super.viewWillLayoutSubviews()
         let skView = self.view as! SKView
         if skView.scene == nil {
-            setUser()
-            scene = MainScene()
-            scene.viewController = self
-            scene.scaleMode = .aspectFill
-            skView.presentScene(scene)
+            DispatchQueue.main.async {
+                self.setUser()
+                self.scene = MainScene()
+                self.scene.viewController = self
+                self.scene.scaleMode = .aspectFill
+                skView.presentScene(self.scene)}
         }
     }
     

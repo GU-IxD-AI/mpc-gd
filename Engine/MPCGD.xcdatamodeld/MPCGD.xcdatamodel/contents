@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21513" systemVersion="21H1320" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Cache" representedClassName="Cache" syncable="YES" codeGenerationType="class">
+        <attribute name="cachedData" optional="YES" attributeType="String"/>
+        <attribute name="cacheType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+    </entity>
+    <entity name="GeneratedGames" representedClassName="GeneratedGames" syncable="YES" codeGenerationType="class">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="gameID" optional="YES" attributeType="String"/>
+        <attribute name="gamePackID" optional="YES" attributeType="String"/>
+        <attribute name="gameParameters" optional="YES" attributeType="String"/>
+        <attribute name="isLocked" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="Packalias" representedClassName="Packalias" syncable="YES" codeGenerationType="class">
+        <attribute name="alias" optional="YES" attributeType="String"/>
+        <attribute name="pack" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="Sessioninformation" representedClassName="Sessioninformation" syncable="YES" codeGenerationType="class">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="jsonRepresentation" optional="YES" attributeType="String"/>
+        <attribute name="level" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="Userinformation" representedClassName="Userinformation" syncable="YES" codeGenerationType="class">
+        <attribute name="jsonRepresentation" optional="YES" attributeType="String"/>
+        <attribute name="presetsLoaded" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="tutorials" optional="YES" attributeType="String"/>
+    </entity>
+</model>
