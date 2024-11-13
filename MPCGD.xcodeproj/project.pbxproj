@@ -33,7 +33,6 @@
 		312D7A2D1C90825000560133 /* EnumGene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A08E271C64C05A00356B63 /* EnumGene.swift */; };
 		312D7A331C90825600560133 /* DrawingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42C52091BFFE3A0001DC85C /* DrawingHandler.swift */; };
 		312D7AB11C90827A00560133 /* BaseCampType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E130F41BD5923200D5DF76 /* BaseCampType.swift */; };
-		312D7ABA1C90828700560133 /* CategorisationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D78811BCBBED300956D26 /* CategorisationType.swift */; };
 		312D7ACE1C90829600560133 /* Backgrounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D783F1BC82A4D00956D26 /* Backgrounds.swift */; };
 		312D7ACF1C90829600560133 /* Colours.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D78021BC7F9B300956D26 /* Colours.swift */; };
 		312D7AD01C90829600560133 /* ColourNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D78031BC7F9B300956D26 /* ColourNames.swift */; };
@@ -206,7 +205,6 @@
 		F41D787A1BCB2DC400956D26 /* SKRoundButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D78791BCB2DC400956D26 /* SKRoundButtonNode.swift */; };
 		F41D787C1BCB2DD200956D26 /* FontUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D787B1BCB2DD200956D26 /* FontUtils.swift */; };
 		F41D787E1BCB2DF200956D26 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D787D1BCB2DF200956D26 /* Fonts.swift */; };
-		F41D78821BCBBED300956D26 /* CategorisationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D78811BCBBED300956D26 /* CategorisationType.swift */; };
 		F41D78841BCBF39500956D26 /* ThreadUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D78831BCBF39500956D26 /* ThreadUtils.swift */; };
 		F41D78861BCBFB3900956D26 /* ZPositionConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D78851BCBFB3900956D26 /* ZPositionConstants.swift */; };
 		F42327061BFC07BD0090E35A /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42327051BFC07BD0090E35A /* UIImageExtension.swift */; };
@@ -698,7 +696,6 @@
 		F484DA201EDA533C0067CDCD /* SpawnScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F484DA1F1EDA533C0067CDCD /* SpawnScreen.swift */; };
 		F485A8271E25A5AF00F8CB55 /* HKToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F485A8261E25A5AF00F8CB55 /* HKToolBar.swift */; };
 		F485D2351E1CF4C800E45D01 /* SSiPhone_genome.json in Resources */ = {isa = PBXBuildFile; fileRef = F485D2341E1CF4C800E45D01 /* SSiPhone_genome.json */; };
-		F4893C1E1E21B56500804C47 /* FrostAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4893C1D1E21B56500804C47 /* FrostAnimation.swift */; };
 		F48F07C01CF12D6A001777A8 /* ImageAndLightingChromosome.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F07BF1CF12D6A001777A8 /* ImageAndLightingChromosome.swift */; };
 		F48F07C11CF12D6A001777A8 /* ImageAndLightingChromosome.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F07BF1CF12D6A001777A8 /* ImageAndLightingChromosome.swift */; };
 		F48F07C31CF12FC4001777A8 /* Patterns.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F07C21CF12FC4001777A8 /* Patterns.swift */; };
@@ -992,7 +989,6 @@
 		F41D78791BCB2DC400956D26 /* SKRoundButtonNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKRoundButtonNode.swift; sourceTree = "<group>"; };
 		F41D787B1BCB2DD200956D26 /* FontUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontUtils.swift; sourceTree = "<group>"; };
 		F41D787D1BCB2DF200956D26 /* Fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Fonts\U001b.swift"; sourceTree = "<group>"; };
-		F41D78811BCBBED300956D26 /* CategorisationType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategorisationType.swift; sourceTree = "<group>"; };
 		F41D78831BCBF39500956D26 /* ThreadUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreadUtils.swift; sourceTree = "<group>"; };
 		F41D78851BCBFB3900956D26 /* ZPositionConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZPositionConstants.swift; sourceTree = "<group>"; };
 		F42327051BFC07BD0090E35A /* UIImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
@@ -1484,7 +1480,6 @@
 		F484DA1F1EDA533C0067CDCD /* SpawnScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpawnScreen.swift; sourceTree = "<group>"; };
 		F485A8261E25A5AF00F8CB55 /* HKToolBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HKToolBar.swift; sourceTree = "<group>"; };
 		F485D2341E1CF4C800E45D01 /* SSiPhone_genome.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = SSiPhone_genome.json; path = Engine/Genomes/SSiPhone_genome.json; sourceTree = "<group>"; };
-		F4893C1D1E21B56500804C47 /* FrostAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrostAnimation.swift; sourceTree = "<group>"; };
 		F48F07BF1CF12D6A001777A8 /* ImageAndLightingChromosome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageAndLightingChromosome.swift; sourceTree = "<group>"; };
 		F48F07C21CF12FC4001777A8 /* Patterns.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Patterns.swift; sourceTree = "<group>"; };
 		F49161371E93071500A5C76D /* GridSizeScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridSizeScreen.swift; sourceTree = "<group>"; };
@@ -1789,7 +1784,6 @@
 				F41D785A1BC9337A00956D26 /* ContentGeneration */,
 				F41D77F61BC7F91200956D26 /* Chromosome */,
 				F41D77D31BC7EEBB00956D26 /* DatabaseHandlers */,
-				F41D785F1BC9C3F600956D26 /* FascinatorTemplates */,
 				F41D78011BC7F9A200956D26 /* LookAndFeel */,
 				F41D77EC1BC7F40200956D26 /* MainScene */,
 				F41D77D21BC7EE5000956D26 /* MainView */,
@@ -1879,7 +1873,6 @@
 				F46990DB1CAD3B6A00946AB6 /* FascinatorLoader.swift */,
 				F41D77A61BC7EDEF00956D26 /* GameViewController.swift */,
 				F41D78851BCBFB3900956D26 /* ZPositionConstants.swift */,
-				F4893C1D1E21B56500804C47 /* FrostAnimation.swift */,
 				F4D3034A1E361CE5005E5844 /* GenButton.swift */,
 				F4D3034C1E363E8E005E5844 /* ButtonSetEnum.swift */,
 				F4F38B6D1E3E2A5A00FBB6F5 /* MPCGDGenomeGenerator.swift */,
@@ -1980,14 +1973,6 @@
 				F41D78221BC802C400956D26 /* TransformType.swift */,
 			);
 			name = ContentGeneration;
-			sourceTree = "<group>";
-		};
-		F41D785F1BC9C3F600956D26 /* FascinatorTemplates */ = {
-			isa = PBXGroup;
-			children = (
-				F41D78811BCBBED300956D26 /* CategorisationType.swift */,
-			);
-			name = FascinatorTemplates;
 			sourceTree = "<group>";
 		};
 		F42B44D21EC4534900622C88 /* Journey */ = {
@@ -3783,7 +3768,6 @@
 				312D7FD31C9082C800560133 /* CGFloatExtension.swift in Sources */,
 				312D7A2B1C90825000560133 /* IntGene.swift in Sources */,
 				312D7A221C90825000560133 /* ChoiceGene.swift in Sources */,
-				312D7ABA1C90828700560133 /* CategorisationType.swift in Sources */,
 				312D7A151C90824C00560133 /* LightingType.swift in Sources */,
 				312D7FB81C9082BE00560133 /* GridSwipeController.swift in Sources */,
 				312D7A2C1C90825000560133 /* LogarithmicFloatGene.swift in Sources */,
@@ -3928,7 +3912,6 @@
 				F4D5654B1E1FB7E40043CAE8 /* SlushSloshTacticswift.swift in Sources */,
 				314F07271CA19B9B00090ED5 /* AutoSizedLabelNode.swift in Sources */,
 				F41D781B1BC7FB5700956D26 /* ChoiceGene.swift in Sources */,
-				F4893C1E1E21B56500804C47 /* FrostAnimation.swift in Sources */,
 				31E23C651C5123BB00161C15 /* ArtImageController.swift in Sources */,
 				F49C37881EC1C79C003F5DED /* MPCGDAudioPlayer.swift in Sources */,
 				319AA6C91C036078006D8A5D /* Edge.swift in Sources */,
@@ -3951,7 +3934,6 @@
 				F41A8F1A1E117F96005D7ABF /* RainRainTactic.swift in Sources */,
 				F41D780D1BC7FA4C00956D26 /* ArrayUtils.swift in Sources */,
 				4691BA3F1E3674CE00DAFC7A /* GameHandler.swift in Sources */,
-				F41D78821BCBBED300956D26 /* CategorisationType.swift in Sources */,
 				F45309411ED443F200633D6B /* EndGameTextGenerator.swift in Sources */,
 				F4DC7BFA1E056D28007AE2A5 /* MPCGDPlaytester.swift in Sources */,
 				F4EB7FF61E350CEC00CE71DA /* GeneratorScreen.swift in Sources */,
