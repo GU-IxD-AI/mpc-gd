@@ -84,7 +84,6 @@
 		313AF0FB1CDCC87600CFF93B /* JsonUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313AF0F91CDCAE3A00CFF93B /* JsonUtils.swift */; };
 		314D1A231C9083E9000956F2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314D1A211C9083E9000956F2 /* AppDelegate.swift */; };
 		314D1A261C90857E000956F2 /* OSXTypeAliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314D1A251C90857E000956F2 /* OSXTypeAliases.swift */; };
-		314D1A3B1C9088E2000956F2 /* ImageVerticesHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44B67381C722EB2007A5263 /* ImageVerticesHandler.swift */; };
 		314D1A3F1C908AEE000956F2 /* UIGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314D1A3E1C908AEE000956F2 /* UIGraphics.swift */; };
 		314D1A431C90946E000956F2 /* UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314D1A421C90946E000956F2 /* UIAlertController.swift */; };
 		314F07271CA19B9B00090ED5 /* AutoSizedLabelNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314F07261CA19B9B00090ED5 /* AutoSizedLabelNode.swift */; };
@@ -277,7 +276,6 @@
 		F4499E181EE07A5800B28459 /* SFXLosePointsOutline.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F4499E101EE07A5800B28459 /* SFXLosePointsOutline.pdf */; };
 		F4499E191EE07A5800B28459 /* SFXTapOutline.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F4499E111EE07A5800B28459 /* SFXTapOutline.pdf */; };
 		F4499E1A1EE07A5800B28459 /* SFXWinGameOutline.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F4499E121EE07A5800B28459 /* SFXWinGameOutline.pdf */; };
-		F44B67391C722EB2007A5263 /* ImageVerticesHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44B67381C722EB2007A5263 /* ImageVerticesHandler.swift */; };
 		F44F60691EB12CC2001907B8 /* DesignScreenName.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44F60681EB12CC2001907B8 /* DesignScreenName.swift */; };
 		F44F606B1EB1513D001907B8 /* CharacterIconHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44F606A1EB1513D001907B8 /* CharacterIconHandler.swift */; };
 		F44F60771EB162C7001907B8 /* characters.csv in Resources */ = {isa = PBXBuildFile; fileRef = F44F60761EB162C7001907B8 /* characters.csv */; };
@@ -804,7 +802,6 @@
 		F4C175691E94FAD600F47BC3 /* ParticleEmitterHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C175681E94FAD600F47BC3 /* ParticleEmitterHandler.swift */; };
 		F4C1756D1E96395F00F47BC3 /* GameEndingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C1756C1E96395E00F47BC3 /* GameEndingsScreen.swift */; };
 		F4CA9D451EEAF4E400A2D380 /* Generated Games.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4CA9D441EEAF4E400A2D380 /* Generated Games.txt */; };
-		F4CA9D471EEBF34200A2D380 /* OldStatsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CA9D461EEBF34200A2D380 /* OldStatsScreen.swift */; };
 		F4D273D71CAAB231009A9ACF /* DrawingPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D273D61CAAB231009A9ACF /* DrawingPath.swift */; };
 		F4D273D81CAAB249009A9ACF /* DrawingPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D273D61CAAB231009A9ACF /* DrawingPath.swift */; };
 		F4D273DA1CABCF80009A9ACF /* FascinatorDrawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D273D91CABCF80009A9ACF /* FascinatorDrawing.swift */; };
@@ -1065,7 +1062,6 @@
 		F4499E101EE07A5800B28459 /* SFXLosePointsOutline.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = SFXLosePointsOutline.pdf; path = Engine/AudioIcons/SFXLosePointsOutline.pdf; sourceTree = "<group>"; };
 		F4499E111EE07A5800B28459 /* SFXTapOutline.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = SFXTapOutline.pdf; path = Engine/AudioIcons/SFXTapOutline.pdf; sourceTree = "<group>"; };
 		F4499E121EE07A5800B28459 /* SFXWinGameOutline.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = SFXWinGameOutline.pdf; path = Engine/AudioIcons/SFXWinGameOutline.pdf; sourceTree = "<group>"; };
-		F44B67381C722EB2007A5263 /* ImageVerticesHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageVerticesHandler.swift; path = ../ImageVerticesHandler.swift; sourceTree = "<group>"; };
 		F44F60681EB12CC2001907B8 /* DesignScreenName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignScreenName.swift; sourceTree = "<group>"; };
 		F44F606A1EB1513D001907B8 /* CharacterIconHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharacterIconHandler.swift; sourceTree = "<group>"; };
 		F44F60761EB162C7001907B8 /* characters.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = characters.csv; path = Engine/CharacterIcons/characters.csv; sourceTree = "<group>"; };
@@ -1589,7 +1585,6 @@
 		F4C175681E94FAD600F47BC3 /* ParticleEmitterHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParticleEmitterHandler.swift; sourceTree = "<group>"; };
 		F4C1756C1E96395E00F47BC3 /* GameEndingsScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameEndingsScreen.swift; sourceTree = "<group>"; };
 		F4CA9D441EEAF4E400A2D380 /* Generated Games.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "Generated Games.txt"; path = "Engine/Presets/Generated Games.txt"; sourceTree = "<group>"; };
-		F4CA9D461EEBF34200A2D380 /* OldStatsScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OldStatsScreen.swift; sourceTree = "<group>"; };
 		F4D273D61CAAB231009A9ACF /* DrawingPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawingPath.swift; sourceTree = "<group>"; };
 		F4D273D91CABCF80009A9ACF /* FascinatorDrawing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FascinatorDrawing.swift; sourceTree = "<group>"; };
 		F4D273DB1CABE36C009A9ACF /* DrawingPathTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawingPathTag.swift; sourceTree = "<group>"; };
@@ -1795,7 +1790,6 @@
 				F41D77F61BC7F91200956D26 /* Chromosome */,
 				F41D77D31BC7EEBB00956D26 /* DatabaseHandlers */,
 				F41D785F1BC9C3F600956D26 /* FascinatorTemplates */,
-				F45F33E51CAD2EED009A9BCB /* ImageHandling */,
 				F41D78011BC7F9A200956D26 /* LookAndFeel */,
 				F41D77EC1BC7F40200956D26 /* MainScene */,
 				F41D77D21BC7EE5000956D26 /* MainView */,
@@ -1874,7 +1868,6 @@
 				F4D303481E3612DD005E5844 /* MPCGDGenome.swift */,
 				5C04C66E1E2CD4590034F716 /* StatsScreen.swift */,
 				F49C37871EC1C79C003F5DED /* MPCGDAudioPlayer.swift */,
-				F4CA9D461EEBF34200A2D380 /* OldStatsScreen.swift */,
 				F44F60681EB12CC2001907B8 /* DesignScreenName.swift */,
 				F4D273DB1CABE36C009A9ACF /* DrawingPathTag.swift */,
 				F4D273D61CAAB231009A9ACF /* DrawingPath.swift */,
@@ -2472,14 +2465,6 @@
 				313AF0F61CDCAA6E00CFF93B /* ParticleEffects */,
 			);
 			name = Assets;
-			sourceTree = "<group>";
-		};
-		F45F33E51CAD2EED009A9BCB /* ImageHandling */ = {
-			isa = PBXGroup;
-			children = (
-				F44B67381C722EB2007A5263 /* ImageVerticesHandler.swift */,
-			);
-			name = ImageHandling;
 			sourceTree = "<group>";
 		};
 		F4702FFE1EB8CD98006D738E /* Polygons */ = {
@@ -3760,7 +3745,6 @@
 				312D7FC91C9082C400560133 /* FontUtils.swift in Sources */,
 				312D7FCC1C9082C400560133 /* ImageUtils.swift in Sources */,
 				312D7A231C90825000560133 /* Chromosome.swift in Sources */,
-				314D1A3B1C9088E2000956F2 /* ImageVerticesHandler.swift in Sources */,
 				312D7AD61C90829A00560133 /* DragType.swift in Sources */,
 				312D7FDC1C9082C800560133 /* BitMask.swift in Sources */,
 				F4D273D81CAAB249009A9ACF /* DrawingPath.swift in Sources */,
@@ -3846,7 +3830,6 @@
 			files = (
 				31E23C681C5127CC00161C15 /* DragMoveController.swift in Sources */,
 				F441A9761E9AED4F0086632A /* GeneratorHelpScreen.swift in Sources */,
-				F4CA9D471EEBF34200A2D380 /* OldStatsScreen.swift in Sources */,
 				F49C378A1EC23D66003F5DED /* AudioEqualiserScreen.swift in Sources */,
 				F41D77E31BC7F29A00956D26 /* CGFloatExtension.swift in Sources */,
 				F42BABB31E09FFA800EFE1CA /* MakeItStopPlaytester.swift in Sources */,
@@ -3960,7 +3943,6 @@
 				F469DD951E05B9690047F335 /* HKStyle.swift in Sources */,
 				31EC8F3F1C6A1B3D00C30F9C /* GridSwipeController.swift in Sources */,
 				31E23C6C1C5129F400161C15 /* TowardsFingerController.swift in Sources */,
-				F44B67391C722EB2007A5263 /* ImageVerticesHandler.swift in Sources */,
 				19C109A71DF9A3FF00AEAD5B /* MusicChannel.swift in Sources */,
 				F47133A91EDD6FE900C615CA /* ZoneScoreScreen.swift in Sources */,
 				F42327061BFC07BD0090E35A /* UIImageExtension.swift in Sources */,
