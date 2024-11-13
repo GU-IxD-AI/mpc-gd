@@ -235,7 +235,6 @@ enum AttractionTarget: Int { case none, centre, image, oppositeSide, finger }
 
     let physicsSpeed = ChoiceGene<CGFloat>(name: "physics speed", choices: [0.5, 1.0, 2.0, 4.0, 8.0], def: 1, designScreenName: .Movement)
     
-    let imageIcon = EnumGene<IconTypeEnum>(name: "image icon", def: .none, designScreenName: .Appearance)
     let imageBounciness = FloatGene(name: "image bounciness", min: 0, max: 1, step: 0.01, def: 0.3, designScreenName: .Movement)
     let wallBounciness = FloatGene(name: "wall bounciness", min: 0, max: 1, step: 0.01, def: 0.3, designScreenName: .Movement)
     let ballLighting = EnumGene<BallLightingType>(name: "ball lighting appearance", def: .round, designScreenName: .Lighting)

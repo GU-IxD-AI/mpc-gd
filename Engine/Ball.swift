@@ -107,12 +107,6 @@ class Ball{
     var explosionColour : UIColor {
         // TODO: Fix
         return colour
-//        if iconNode != nil {
-//            return ScaledImageCache.getDominantColour(chromosome.icon.value, size: iconNode.size * 2, maintainAspectRatio: true)
-//        }
-//        else {
-//            return sprite.color
-//        }
     }
     
     var collectionNum = 0

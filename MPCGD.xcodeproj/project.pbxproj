@@ -85,13 +85,10 @@
 		314D1A231C9083E9000956F2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314D1A211C9083E9000956F2 /* AppDelegate.swift */; };
 		314D1A261C90857E000956F2 /* OSXTypeAliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314D1A251C90857E000956F2 /* OSXTypeAliases.swift */; };
 		314D1A3B1C9088E2000956F2 /* ImageVerticesHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44B67381C722EB2007A5263 /* ImageVerticesHandler.swift */; };
-		314D1A3C1C9088E2000956F2 /* IconTypeEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = F442A0831C72387900038B9F /* IconTypeEnum.swift */; };
-		314D1A3D1C9088E2000956F2 /* ScaledImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31827B3C1C7320CE00EB05FA /* ScaledImageCache.swift */; };
 		314D1A3F1C908AEE000956F2 /* UIGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314D1A3E1C908AEE000956F2 /* UIGraphics.swift */; };
 		314D1A431C90946E000956F2 /* UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314D1A421C90946E000956F2 /* UIAlertController.swift */; };
 		314F07271CA19B9B00090ED5 /* AutoSizedLabelNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314F07261CA19B9B00090ED5 /* AutoSizedLabelNode.swift */; };
 		315931D01CBFE31F00D5673F /* CommandLineHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315931CF1CBFE31F00D5673F /* CommandLineHandler.swift */; };
-		31827B3D1C7320CE00EB05FA /* ScaledImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31827B3C1C7320CE00EB05FA /* ScaledImageCache.swift */; };
 		319AA6C91C036078006D8A5D /* Edge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319AA6C81C036078006D8A5D /* Edge.swift */; };
 		31A08E281C64C05A00356B63 /* EnumGene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A08E271C64C05A00356B63 /* EnumGene.swift */; };
 		31B0596A1CA3F784003C716E /* SubChromosome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B059691CA3F784003C716E /* SubChromosome.swift */; };
@@ -271,7 +268,6 @@
 		F43B678A1ED6F6550094A853 /* weather_lose_points.aiff in Resources */ = {isa = PBXBuildFile; fileRef = F43B67891ED6F6550094A853 /* weather_lose_points.aiff */; };
 		F43B678C1ED6F7690094A853 /* weather_gain_points.aiff in Resources */ = {isa = PBXBuildFile; fileRef = F43B678B1ED6F7690094A853 /* weather_gain_points.aiff */; };
 		F441A9761E9AED4F0086632A /* GeneratorHelpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F441A9751E9AED4F0086632A /* GeneratorHelpScreen.swift */; };
-		F442A0841C72387900038B9F /* IconTypeEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = F442A0831C72387900038B9F /* IconTypeEnum.swift */; };
 		F4499E091EDFE10E00B28459 /* Stock Games.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4499E081EDFE10E00B28459 /* Stock Games.txt */; };
 		F4499E131EE07A5800B28459 /* SFXBounceOutline.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F4499E0B1EE07A5800B28459 /* SFXBounceOutline.pdf */; };
 		F4499E141EE07A5800B28459 /* SFXExplodeOutline.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F4499E0C1EE07A5800B28459 /* SFXExplodeOutline.pdf */; };
@@ -876,7 +872,6 @@
 		314D1A421C90946E000956F2 /* UIAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAlertController.swift; sourceTree = "<group>"; };
 		314F07261CA19B9B00090ED5 /* AutoSizedLabelNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoSizedLabelNode.swift; sourceTree = "<group>"; };
 		315931CF1CBFE31F00D5673F /* CommandLineHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandLineHandler.swift; sourceTree = "<group>"; };
-		31827B3C1C7320CE00EB05FA /* ScaledImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScaledImageCache.swift; path = ../ScaledImageCache.swift; sourceTree = "<group>"; };
 		319AA6C81C036078006D8A5D /* Edge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Edge.swift; sourceTree = "<group>"; };
 		31A08E271C64C05A00356B63 /* EnumGene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnumGene.swift; sourceTree = "<group>"; };
 		31B059691CA3F784003C716E /* SubChromosome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubChromosome.swift; sourceTree = "<group>"; };
@@ -1061,7 +1056,6 @@
 		F43B67891ED6F6550094A853 /* weather_lose_points.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = weather_lose_points.aiff; sourceTree = "<group>"; };
 		F43B678B1ED6F7690094A853 /* weather_gain_points.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = weather_gain_points.aiff; sourceTree = "<group>"; };
 		F441A9751E9AED4F0086632A /* GeneratorHelpScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratorHelpScreen.swift; sourceTree = "<group>"; };
-		F442A0831C72387900038B9F /* IconTypeEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconTypeEnum.swift; sourceTree = "<group>"; };
 		F4499E081EDFE10E00B28459 /* Stock Games.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "Stock Games.txt"; path = "Engine/Presets/Stock Games.txt"; sourceTree = "<group>"; };
 		F4499E0B1EE07A5800B28459 /* SFXBounceOutline.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = SFXBounceOutline.pdf; path = Engine/AudioIcons/SFXBounceOutline.pdf; sourceTree = "<group>"; };
 		F4499E0C1EE07A5800B28459 /* SFXExplodeOutline.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = SFXExplodeOutline.pdf; path = Engine/AudioIcons/SFXExplodeOutline.pdf; sourceTree = "<group>"; };
@@ -2175,14 +2169,6 @@
 			name = SFXActionsOutline;
 			sourceTree = "<group>";
 		};
-		F44B67321C7227BF007A5263 /* Images */ = {
-			isa = PBXGroup;
-			children = (
-				F442A0831C72387900038B9F /* IconTypeEnum.swift */,
-			);
-			name = Images;
-			sourceTree = "<group>";
-		};
 		F44F606C1EB161D0001907B8 /* CharacterIcons */ = {
 			isa = PBXGroup;
 			children = (
@@ -2483,7 +2469,6 @@
 				F4530B6A1EA6CCEE00EAD3F8 /* Presets */,
 				F4EB7FF71E352E1C00CE71DA /* Fonts */,
 				F42BABAD1E0984CE00EFE1CA /* GameGenomes */,
-				F44B67321C7227BF007A5263 /* Images */,
 				313AF0F61CDCAA6E00CFF93B /* ParticleEffects */,
 			);
 			name = Assets;
@@ -2493,7 +2478,6 @@
 			isa = PBXGroup;
 			children = (
 				F44B67381C722EB2007A5263 /* ImageVerticesHandler.swift */,
-				31827B3C1C7320CE00EB05FA /* ScaledImageCache.swift */,
 			);
 			name = ImageHandling;
 			sourceTree = "<group>";
@@ -3791,7 +3775,6 @@
 				312D7AD11C90829600560133 /* Fonts.swift in Sources */,
 				312D7FD21C9082C800560133 /* ArrayExtension.swift in Sources */,
 				F48F07C41CF12FC4001777A8 /* Patterns.swift in Sources */,
-				314D1A3C1C9088E2000956F2 /* IconTypeEnum.swift in Sources */,
 				312D7FC51C9082C400560133 /* ArrayUtils.swift in Sources */,
 				312D7FD51C9082C800560133 /* CGRectExtension.swift in Sources */,
 				312D7ADB1C90829A00560133 /* ZPositionConstants.swift in Sources */,
@@ -3835,7 +3818,6 @@
 				312D7FD71C9082C800560133 /* CGVectorExtension.swift in Sources */,
 				312D7FE11C9082C800560133 /* Edge.swift in Sources */,
 				312D7FDB1C9082C800560133 /* ThreadUtils.swift in Sources */,
-				314D1A3D1C9088E2000956F2 /* ScaledImageCache.swift in Sources */,
 				312D7AD21C90829600560133 /* LAFSettings.swift in Sources */,
 				313AF0FB1CDCC87600CFF93B /* JsonUtils.swift in Sources */,
 				312D7FC81C9082C400560133 /* FileUtils.swift in Sources */,
@@ -3889,10 +3871,8 @@
 				F4C0586E1E19C3BB00F4C74D /* HKButton.swift in Sources */,
 				F41D786E1BC9D15600956D26 /* ChromosomeName.swift in Sources */,
 				F44F606B1EB1513D001907B8 /* CharacterIconHandler.swift in Sources */,
-				F442A0841C72387900038B9F /* IconTypeEnum.swift in Sources */,
 				F41D78071BC7F9CE00956D26 /* FileUtils.swift in Sources */,
 				F4DC7BF01E05649D007AE2A5 /* JiggleWhenQuiescent.swift in Sources */,
-				31827B3D1C7320CE00EB05FA /* ScaledImageCache.swift in Sources */,
 				E99F52C21BD631A500413199 /* Ball.swift in Sources */,
 				F41D78001BC7F98B00956D26 /* MathsUtils.swift in Sources */,
 				F4DC7BE41E056034007AE2A5 /* MacroActionPlaytester.swift in Sources */,

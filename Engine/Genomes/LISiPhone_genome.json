@@ -275,7 +275,6 @@
     "image bounciness": 0, 
     "image can rotate": false, 
     "image control": "dragMove", 
-    "image icon": "none", 
     "image snap to grid": false, 
     "image touch action": "nothing", 
     "maximum number of balls on screen": 1000, 

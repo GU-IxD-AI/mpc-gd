@@ -430,17 +430,7 @@ class Fascinator: NSObject, SKPhysicsContactDelegate{
         if force || scale != lastScale {
             
             //           calculateImageLayers()
-            if chromosome.imageIcon.value == .none {
-                artImage = ImageUtils.getScaledImageOnCanvasWithSize(artImage, scale: scale, canvasSize: sceneSize * 2)
-            }
-            else {
-                let size = sceneSize * 2 * scale
-                let iconImage = PDFImage(named: "rocket", size: size)!
-//                let iconImage = ScaledImageCache.getScaledImage(chromosome.imageIcon.value, size: size, maintainAspectRatio: true)!
-                //let canvas = ImageUtils.getTransparentImage(sceneSize * 2)
-                let canvas = ImageUtils.getBlankImage(sceneSize * 2, colour: UIColor.white)
-                artImage = ImageUtils.drawImageInImageCentre(canvas, topImage: iconImage, opaque: true)
-            }
+            artImage = ImageUtils.getScaledImageOnCanvasWithSize(artImage, scale: scale, canvasSize: sceneSize * 2)
             
             artImageNode.texture = SKTexture(image: artImage)
             artImageNode.size = sceneSize
