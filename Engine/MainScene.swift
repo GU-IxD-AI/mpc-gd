@@ -339,8 +339,6 @@ class MainScene: BaseScene, UITextFieldDelegate{
     
     var startInfoNode: SKSpriteNode! = nil
     
-    var orangeNode: SKSpriteNode! = nil
-    
     var hideTutorialNode: SKLabelNode! = nil
     
     var tutorialNode: SKNode! = nil
@@ -732,7 +730,8 @@ class MainScene: BaseScene, UITextFieldDelegate{
 //        self.playButton.isHidden = false
 //        return
 //
-        let sfLogo = SKSpriteNode(imageNamed: "MPCGD-Rainbow")
+        
+        let sfLogo = SKSpriteNode(imageNamed: "Logo-images")
         sfLogo.setScale(0.5 * size.width / sfLogo.width)
         sfLogo.position = CGPoint(x: size.width/2, y: 0.75 * size.height)
         sfLogo.zPosition = 10
@@ -781,28 +780,20 @@ class MainScene: BaseScene, UITextFieldDelegate{
         startInfoNode.position = CGPoint(x: scene!.size.width * 1.5, y: scene!.size.height * infoGraphicsY)
         startInfoNode.zPosition = 10
         addChild(startInfoNode)
-
+        
         okButton = HKButton(image: UIImage(named: "OKButton")!)
         okButton.position = CGPoint(x: scene!.size.width/2, y: scene!.size.height * buttonYPos)
         okButton.zPosition = 10
         okButton.alpha = 0
         addChild(okButton)
         okButton.onTapStartCode = {
-            if !self.isAnimatingOpening{
-                if self.openingScreenNum == 0{
-                    self.isAnimatingOpening = true
-                    self.startInfoNode.run(self.fadeOut, completion: {
-                        self.showSecondOpeningScreen()
-                    })
-                }
-                else{
+            
                     self.isAnimatingOpening = true
                     logoNode.run(self.fadeOut, completion: {
                         logoNode.removeFromParent()
                     })
                     self.okButton.run(self.fadeOut, completion: {
 //                        self.okButton.removeFromParent()
-                        self.orangeNode.removeAllActions()
                     })
                     self.startInfoNode.run(self.fadeOut, completion: {
                         self.startTheGame()
@@ -823,64 +814,10 @@ class MainScene: BaseScene, UITextFieldDelegate{
                         self.changeSettingsColours(wG!)
                         self.changeLogoPipsColour(colour)
                     }
-                }
-            }
+                
+            
         }
         startInfoNode.run(action4)
-    }
-    
-    func showSecondOpeningScreen(){
-        openingScreenNum = 1
-        let flyInFromRight = HKEasing.moveXBy(-size.width, duration: TimeInterval(0.4), easingFunction: BackEaseOut)
-        let image = UIImage(named: "OpeningGraphics2")!
-        startInfoNode = SKSpriteNode(texture: SKTexture(image: image))
-        startInfoNode.zPosition = 10
-        startInfoNode.position = CGPoint(x: scene!.size.width * 1.5, y: scene!.size.height * infoGraphicsY)
-        addChild(startInfoNode)
-        let genScreen = GeneratorScreen(size: image.size, lineColour: Colours.getColour(.black), showGameDesignLabel: false, includeLock: false, isLocked: false, includeHelpButton: false, includeBest: false, gameID: "")
-        genScreen.alterButtonsForLiveMPCGDGenome()
-        genScreen.position.y -= 30
-        let genImage = view?.texture(from: genScreen)!
-        let genSprite = SKSpriteNode(texture: genImage)
-        genSprite.size = genSprite.size * 0.45
-        genSprite.position.x += 2
-        genSprite.position.y -= 66
-        genSprite.zPosition = 100
-        startInfoNode.addChild(genSprite)
-        orangeNode = SKSpriteNode(color: HKButton.highlightColour, size: CGSize(width: 35, height: 38))
-        genSprite.addChild(orangeNode)
-        orangeNode.position.y = orangeNode.position.y + 2
-        orangeNode.position.x = orangeNode.position.x + 5
-        moveOrange(orangeNode)
-        startInfoNode.run(flyInFromRight, completion: {
-            self.isAnimatingOpening = false
-        })
-    }
-    
-    func moveOrange(_ orangeNode: SKSpriteNode){
-        var randPoint = CGPoint(x: orangeNode.position.x, y: orangeNode.position.y)
-        while randPoint.x == orangeNode.position.x && randPoint.y == orangeNode.position.y{
-            let randX = CGFloat(RandomUtils.randomChoice([-1, 0, 1]))
-            let randY = CGFloat(RandomUtils.randomChoice([-1, 0, 1]))
-            randPoint = CGPoint(x: (randX * orangeNode.width) + 2, y: (randY * orangeNode.height) + 2)
-            if randY == 1{
-            //    randPoint.y += 1
-            }
-            if randY == -1{
-                randPoint.y -= 1
-            }
-            if randX == -1{
-                randPoint.x -= 3
-            }
-            else if randX == 0{
-                randPoint.x -= 1
-            }
-        }
-        let move = SKAction.move(to: randPoint, duration: 0.3)
-        let sequence = SKAction.sequence([SKAction.wait(forDuration: 0.5), move])
-        orangeNode.run(sequence, completion: {
-            self.moveOrange(orangeNode)
-        })
     }
     
     func startTheGame(){
