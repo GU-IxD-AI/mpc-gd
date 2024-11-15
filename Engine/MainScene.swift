@@ -1238,7 +1238,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
             creditNode.addChild(logo)
             logo.position = CGPoint(x: size.width * 0.25, y: size.height * 0.23)
         }
-        let eraLabel =  SKMultilineLabel(text: "Research funded by the\n~ERA ~programme", size: CGSize(width: size.width * 0.8, height: size.height), pos: CGPoint(x: size.width * 0.625, y: size.height * 0.238), fontName: "Helvetica Neue Thin" , fontSize: 14, fontColor: textColour, alignment: .center, shouldShowBorder : false, spacing: 1.6)
+        let eraLabel =  SKMultilineLabel(text: "Research funded until 2018 by the\n~ERA ~programme", size: CGSize(width: size.width * 0.8, height: size.height), pos: CGPoint(x: size.width * 0.625, y: size.height * 0.238), fontName: "Helvetica Neue Thin" , fontSize: 14, fontColor: textColour, alignment: .center, shouldShowBorder : false, spacing: 1.6)
         creditNode.addChild(eraLabel)
         
         var mmText = "~MetaMakers: Heidi Ball, Simon Colton,\nMichael Cook, Swen Gaudl, Kamran\nHarandy, Peter Ivey, Tanya Krzywinska,\nMark Nelson, Blanca Pérez Ferrer,\nEdward Powley and Rob Saunders."

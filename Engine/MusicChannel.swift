@@ -3,7 +3,7 @@
 //  Engine
 //
 //  Created by Powley, Edward on 09/06/2016.
-//  Copyright © 2016 Simon Colton. All rights reserved.
+//  Copyright © 2016 ThoseMetamakers. All rights reserved.
 //
 #if false
 import Foundation

@@ -3,7 +3,7 @@
 //  MPCGD
 //
 //  Created by Gaudl, Swen on 09/12/2016.
-//  Copyright © 2016 Simon Colton. All rights reserved.
+//  Copyright © 2016 ThoseMetamakers. All rights reserved.
 //
 
 #ifndef MPCGD_Bridging_Header_h

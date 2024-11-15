@@ -3,7 +3,7 @@
 //  EngineOSX
 //
 //  Created by Powley, Edward gon 09/03/2016.
-//  Copyright (c) 2016 Simon Colton. All rights reserved.
+//  Copyright (c) 2016 ThoseMetamakers. All rights reserved.
 //
 
 

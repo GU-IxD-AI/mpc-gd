@@ -3,7 +3,7 @@
 //  MPCGD
 //
 //  Created by Simon Colton on 07/02/2017.
-//  Copyright © 2017 Simon Colton. All rights reserved.
+//  Copyright © 2017 ThoseMetamakers. All rights reserved.
 //
 
 import Foundation
