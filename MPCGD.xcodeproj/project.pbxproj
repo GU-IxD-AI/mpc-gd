@@ -98,6 +98,45 @@
 		31E23C6C1C5129F400161C15 /* TowardsFingerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E23C6B1C5129F400161C15 /* TowardsFingerController.swift */; };
 		31EC8F3F1C6A1B3D00C30F9C /* GridSwipeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EC8F3E1C6A1B3D00C30F9C /* GridSwipeController.swift */; };
 		31F94F431BD1316E005BC7B4 /* BitMask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F94F421BD1316E005BC7B4 /* BitMask.swift */; };
+		464B9E762CE7948D00E13F2F /* MainScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42A7E4F1E49FEBF004AE6AA /* MainScene.swift */; };
+		464B9E772CE79A5D00E13F2F /* DesignScreenName.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44F60681EB12CC2001907B8 /* DesignScreenName.swift */; };
+		464B9E782CE79A7100E13F2F /* MPCGDAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49C37871EC1C79C003F5DED /* MPCGDAudioPlayer.swift */; };
+		464B9E792CE79A8000E13F2F /* GameOverReason.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45309421ED446FB00633D6B /* GameOverReason.swift */; };
+		464B9E7A2CE79A8A00E13F2F /* MacroTacticPlaytester.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DC7BE11E055FAD007AE2A5 /* MacroTacticPlaytester.swift */; };
+		464B9E7B2CE79AC300E13F2F /* MacroActionPlaytester.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DC7BE31E056034007AE2A5 /* MacroActionPlaytester.swift */; };
+		464B9E7C2CE79AD500E13F2F /* HumanSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DC7BE51E0561AB007AE2A5 /* HumanSettings.swift */; };
+		464B9E7D2CE79ADF00E13F2F /* AutoplayerSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DC7BD51E055C07007AE2A5 /* AutoplayerSettings.swift */; };
+		464B9E7E2CE79AE800E13F2F /* StrategySettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DC7BFD1E057BF7007AE2A5 /* StrategySettings.swift */; };
+		464B9E7F2CE79B1900E13F2F /* MacroTactic.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DC7BDF1E055F7C007AE2A5 /* MacroTactic.swift */; };
+		464B9E802CE79B2300E13F2F /* StatsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C04C66E1E2CD4590034F716 /* StatsScreen.swift */; };
+		464B9E812CE79B2E00E13F2F /* AutomatedPlaytester.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DC7BD31E055B9E007AE2A5 /* AutomatedPlaytester.swift */; };
+		464B9E822CE79B3900E13F2F /* MacroAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DC7BDB1E055EDD007AE2A5 /* MacroAction.swift */; };
+		464B9E832CE79B7200E13F2F /* GamePackScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D5E8D21E604F44007A519A /* GamePackScreen.swift */; };
+		464B9E842CE79B8300E13F2F /* HKButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C0586D1E19C3BB00F4C74D /* HKButton.swift */; };
+		464B9E852CE79B8B00E13F2F /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85BBE5EF1DF9B278007E5C9D /* Button.swift */; };
+		464B9E862CE79B9500E13F2F /* HKEasing.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DC7C001E05B7B8007AE2A5 /* HKEasing.swift */; };
+		464B9E872CE79BA900E13F2F /* HKTextBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F9D3461E3C062E001CE378 /* HKTextBox.swift */; };
+		464B9E882CE79BC100E13F2F /* HKToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F485A8261E25A5AF00F8CB55 /* HKToolBar.swift */; };
+		464B9E892CE79BC100E13F2F /* HKComponentCardChooser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F0F5641E30C11400E9C1D5 /* HKComponentCardChooser.swift */; };
+		464B9E8A2CE79BC100E13F2F /* HKTextComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D565361E1DD0F80043CAE8 /* HKTextComponent.swift */; };
+		464B9E8B2CE79BC100E13F2F /* HKComponentCycler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41A8F1F1E119450005D7ABF /* HKComponentCycler.swift */; };
+		464B9E8C2CE79BC100E13F2F /* HKCardChooser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B59E231E0963610059D560 /* HKCardChooser.swift */; };
+		464B9E8D2CE79BC100E13F2F /* HKTextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D565381E1E7BB90043CAE8 /* HKTextButton.swift */; };
+		464B9E8E2CE79BC100E13F2F /* HKBarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D429CE1E2C50C000067FFC /* HKBarChart.swift */; };
+		464B9E8F2CE79BC100E13F2F /* HKComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DC7C041E05B826007AE2A5 /* HKComponent.swift */; };
+		464B9E902CE79BC100E13F2F /* HKImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DC7C061E05B851007AE2A5 /* HKImage.swift */; };
+		464B9E912CE79BC100E13F2F /* HKMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = F469DD961E05BAB20047F335 /* HKMath.swift */; };
+		464B9E922CE79BC100E13F2F /* HKStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F469DD941E05B9690047F335 /* HKStyle.swift */; };
+		464B9E932CE79BC100E13F2F /* HKSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DC7C021E05B7DE007AE2A5 /* HKSlider.swift */; };
+		464B9E942CE79BCF00E13F2F /* AutoplaytesterPresets.json in Resources */ = {isa = PBXBuildFile; fileRef = F4DC7BFB1E05709A007AE2A5 /* AutoplaytesterPresets.json */; };
+		464B9E952CE79BD800E13F2F /* TapRandomlyWhenQuiescent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DC7BF11E0564B9007AE2A5 /* TapRandomlyWhenQuiescent.swift */; };
+		464B9E962CE79BD800E13F2F /* DestroyBlueBlockingWhite.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DC7BF71E056C73007AE2A5 /* DestroyBlueBlockingWhite.swift */; };
+		464B9E972CE79BD800E13F2F /* JackFrostTactic.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D5653E1E1FA61B0043CAE8 /* JackFrostTactic.swift */; };
+		464B9E982CE79BD800E13F2F /* SlushSloshTacticswift.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D5654A1E1FB7E40043CAE8 /* SlushSloshTacticswift.swift */; };
+		464B9E992CE79BD800E13F2F /* JiggleWhenQuiescent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DC7BEF1E05649D007AE2A5 /* JiggleWhenQuiescent.swift */; };
+		464B9E9A2CE79BD800E13F2F /* WhenQuiescent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DC7BF31E0564DE007AE2A5 /* WhenQuiescent.swift */; };
+		464B9E9B2CE79BD800E13F2F /* StopClusterFromForming.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DC7BF51E056C4F007AE2A5 /* StopClusterFromForming.swift */; };
+		464B9E9C2CE79BD800E13F2F /* RainRainTactic.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41A8F191E117F96005D7ABF /* RainRainTactic.swift */; };
 		4691BA3F1E3674CE00DAFC7A /* GameHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4691BA3E1E3674CE00DAFC7A /* GameHandler.swift */; };
 		46A929F92CE2CC420081F96D /* MPCGD.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 46A929F72CE2CC410081F96D /* MPCGD.xcdatamodeld */; };
 		5C04C66F1E2CD4590034F716 /* StatsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C04C66E1E2CD4590034F716 /* StatsScreen.swift */; };
@@ -2970,6 +3009,7 @@
 			);
 			name = HUDKit;
 			sourceTree = "<group>";
+			usesTabs = 0;
 		};
 		F4EB7FF71E352E1C00CE71DA /* Fonts */ = {
 			isa = PBXGroup;
@@ -3072,6 +3112,7 @@
 			files = (
 				312D7FBF1C9082BE00560133 /* spark.png in Resources */,
 				312D79FF1C9080B800560133 /* Assets.xcassets in Resources */,
+				464B9E942CE79BCF00E13F2F /* AutoplaytesterPresets.json in Resources */,
 				312D7AD31C90829600560133 /* NamedColours.csv in Resources */,
 				312D7A021C9080B800560133 /* MainMenu.xib in Resources */,
 			);
@@ -3681,26 +3722,43 @@
 			buildActionMask = 2147483647;
 			files = (
 				312D7FC91C9082C400560133 /* FontUtils.swift in Sources */,
+				464B9E8D2CE79BC100E13F2F /* HKTextButton.swift in Sources */,
 				312D7FCC1C9082C400560133 /* ImageUtils.swift in Sources */,
+				464B9E982CE79BD800E13F2F /* SlushSloshTacticswift.swift in Sources */,
+				464B9E932CE79BC100E13F2F /* HKSlider.swift in Sources */,
+				464B9E882CE79BC100E13F2F /* HKToolBar.swift in Sources */,
 				312D7A231C90825000560133 /* Chromosome.swift in Sources */,
 				312D7AD61C90829A00560133 /* DragType.swift in Sources */,
+				464B9E832CE79B7200E13F2F /* GamePackScreen.swift in Sources */,
 				312D7FDC1C9082C800560133 /* BitMask.swift in Sources */,
 				F4D273D81CAAB249009A9ACF /* DrawingPath.swift in Sources */,
+				464B9E7F2CE79B1900E13F2F /* MacroTactic.swift in Sources */,
 				F46990DD1CAD3B6A00946AB6 /* FascinatorLoader.swift in Sources */,
 				F4A966541CA43F5E00A03911 /* SubChromosome.swift in Sources */,
+				464B9E812CE79B2E00E13F2F /* AutomatedPlaytester.swift in Sources */,
+				464B9E872CE79BA900E13F2F /* HKTextBox.swift in Sources */,
 				312D7AD01C90829600560133 /* ColourNames.swift in Sources */,
 				312D7FC21C9082BE00560133 /* Fascinator.swift in Sources */,
 				312D7A331C90825600560133 /* DrawingHandler.swift in Sources */,
+				464B9E7A2CE79A8A00E13F2F /* MacroTacticPlaytester.swift in Sources */,
+				464B9E852CE79B8B00E13F2F /* Button.swift in Sources */,
+				464B9E8C2CE79BC100E13F2F /* HKCardChooser.swift in Sources */,
 				85BBE5F61DF9C255007E5C9D /* MultiLineLabel.swift in Sources */,
+				464B9E8A2CE79BC100E13F2F /* HKTextComponent.swift in Sources */,
 				312D7FB91C9082BE00560133 /* ImpotentController.swift in Sources */,
+				464B9E952CE79BD800E13F2F /* TapRandomlyWhenQuiescent.swift in Sources */,
+				464B9E822CE79B3900E13F2F /* MacroAction.swift in Sources */,
+				464B9E7D2CE79ADF00E13F2F /* AutoplayerSettings.swift in Sources */,
 				F4D273E01CAC06F7009A9ACF /* FascinatorDrawing.swift in Sources */,
 				312D7AD11C90829600560133 /* Fonts.swift in Sources */,
 				312D7FD21C9082C800560133 /* ArrayExtension.swift in Sources */,
+				464B9E7E2CE79AE800E13F2F /* StrategySettings.swift in Sources */,
 				F48F07C41CF12FC4001777A8 /* Patterns.swift in Sources */,
 				312D7FC51C9082C400560133 /* ArrayUtils.swift in Sources */,
 				312D7FD51C9082C800560133 /* CGRectExtension.swift in Sources */,
 				312D7ADB1C90829A00560133 /* ZPositionConstants.swift in Sources */,
 				312D7AB11C90827A00560133 /* BaseCampType.swift in Sources */,
+				464B9E792CE79A8000E13F2F /* GameOverReason.swift in Sources */,
 				85B469CA1DF9826C0060E30B /* LAF.swift in Sources */,
 				85BBE5F31DF9BDC0007E5C9D /* Label.swift in Sources */,
 				312D7FBA1C9082BE00560133 /* TowardsFingerController.swift in Sources */,
@@ -3708,11 +3766,14 @@
 				F48F07C11CF12D6A001777A8 /* ImageAndLightingChromosome.swift in Sources */,
 				312D7FDA1C9082C800560133 /* UIImageExtension.swift in Sources */,
 				312D7ACF1C90829600560133 /* Colours.swift in Sources */,
+				464B9E772CE79A5D00E13F2F /* DesignScreenName.swift in Sources */,
 				312D7FD41C9082C800560133 /* CGPointExtension.swift in Sources */,
 				312D7A101C90824C00560133 /* FascinatorContent.swift in Sources */,
 				314D1A261C90857E000956F2 /* OSXTypeAliases.swift in Sources */,
 				312D7FC61C9082C400560133 /* DrawingShapes.swift in Sources */,
+				464B9E782CE79A7100E13F2F /* MPCGDAudioPlayer.swift in Sources */,
 				315931D01CBFE31F00D5673F /* CommandLineHandler.swift in Sources */,
+				464B9E8E2CE79BC100E13F2F /* HKBarChart.swift in Sources */,
 				312D7A251C90825000560133 /* ColourGene.swift in Sources */,
 				312D7FDE1C9082C800560133 /* WeakRef.swift in Sources */,
 				312D7A291C90825000560133 /* Gene.swift in Sources */,
@@ -3720,8 +3781,11 @@
 				312D7A281C90825000560133 /* FloatGene.swift in Sources */,
 				312D7FD31C9082C800560133 /* CGFloatExtension.swift in Sources */,
 				312D7A2B1C90825000560133 /* IntGene.swift in Sources */,
+				464B9E862CE79B9500E13F2F /* HKEasing.swift in Sources */,
+				464B9E902CE79BC100E13F2F /* HKImage.swift in Sources */,
 				312D7A221C90825000560133 /* ChoiceGene.swift in Sources */,
 				312D7A151C90824C00560133 /* LightingType.swift in Sources */,
+				464B9E842CE79B8300E13F2F /* HKButton.swift in Sources */,
 				312D7FB81C9082BE00560133 /* GridSwipeController.swift in Sources */,
 				312D7A2C1C90825000560133 /* LogarithmicFloatGene.swift in Sources */,
 				314D1A431C90946E000956F2 /* UIAlertController.swift in Sources */,
@@ -3731,18 +3795,25 @@
 				312D7A2D1C90825000560133 /* EnumGene.swift in Sources */,
 				312D7FD91C9082C800560133 /* UIColorExtension.swift in Sources */,
 				312D7A1D1C90824C00560133 /* ShapeType.swift in Sources */,
+				464B9E802CE79B2300E13F2F /* StatsScreen.swift in Sources */,
+				464B9E972CE79BD800E13F2F /* JackFrostTactic.swift in Sources */,
 				5C65D40B1CA29E70002A2FAB /* AutoSizedLabelNode.swift in Sources */,
 				312D7FCF1C9082C400560133 /* RandomUtils.swift in Sources */,
+				464B9E7C2CE79AD500E13F2F /* HumanSettings.swift in Sources */,
 				312D7FD81C9082C800560133 /* SKNodeExtension.swift in Sources */,
 				312D7A211C90825000560133 /* BoolGene.swift in Sources */,
 				312D7FC01C9082BE00560133 /* Ball.swift in Sources */,
 				312D7FD71C9082C800560133 /* CGVectorExtension.swift in Sources */,
+				464B9E9C2CE79BD800E13F2F /* RainRainTactic.swift in Sources */,
 				312D7FE11C9082C800560133 /* Edge.swift in Sources */,
 				312D7FDB1C9082C800560133 /* ThreadUtils.swift in Sources */,
 				312D7AD21C90829600560133 /* LAFSettings.swift in Sources */,
+				464B9E9B2CE79BD800E13F2F /* StopClusterFromForming.swift in Sources */,
 				313AF0FB1CDCC87600CFF93B /* JsonUtils.swift in Sources */,
+				464B9E892CE79BC100E13F2F /* HKComponentCardChooser.swift in Sources */,
 				312D7FC81C9082C400560133 /* FileUtils.swift in Sources */,
 				314D1A231C9083E9000956F2 /* AppDelegate.swift in Sources */,
+				464B9E7B2CE79AC300E13F2F /* MacroActionPlaytester.swift in Sources */,
 				312D7A141C90824C00560133 /* LayersType.swift in Sources */,
 				312D7ADA1C90829A00560133 /* BaseScene.swift in Sources */,
 				312D7A2A1C90825000560133 /* GeneBase.swift in Sources */,
@@ -3751,12 +3822,20 @@
 				F4D273DF1CAC06F3009A9ACF /* DrawingPathTag.swift in Sources */,
 				312D7FCB1C9082C400560133 /* ImageData.swift in Sources */,
 				312D7FCA1C9082C400560133 /* MathsUtils.swift in Sources */,
+				464B9E992CE79BD800E13F2F /* JiggleWhenQuiescent.swift in Sources */,
 				312D7A241C90825000560133 /* ChromosomeName.swift in Sources */,
+				464B9E762CE7948D00E13F2F /* MainScene.swift in Sources */,
 				312D7ACE1C90829600560133 /* Backgrounds.swift in Sources */,
 				312D7A1E1C90824C00560133 /* TransformType.swift in Sources */,
+				464B9E8F2CE79BC100E13F2F /* HKComponent.swift in Sources */,
 				312D7FD01C9082C400560133 /* SKRoundButtonNode.swift in Sources */,
 				312D7FB61C9082BE00560133 /* DragMoveController.swift in Sources */,
 				312D7FD11C9082C400560133 /* SpriteUtils.swift in Sources */,
+				464B9E8B2CE79BC100E13F2F /* HKComponentCycler.swift in Sources */,
+				464B9E922CE79BC100E13F2F /* HKStyle.swift in Sources */,
+				464B9E962CE79BD800E13F2F /* DestroyBlueBlockingWhite.swift in Sources */,
+				464B9E9A2CE79BD800E13F2F /* WhenQuiescent.swift in Sources */,
+				464B9E912CE79BC100E13F2F /* HKMath.swift in Sources */,
 				312D7FC71C9082C400560133 /* DrawingText.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3965,7 +4044,7 @@
 				INFOPLIST_FILE = EngineOSX/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.metamakers.MPCGDOSX;
 				PRODUCT_NAME = MPCGD;
 				SDKROOT = macosx;
@@ -3987,7 +4066,7 @@
 				INFOPLIST_FILE = EngineOSX/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.metamakers.MPCGDOSX;
 				PRODUCT_NAME = MPCGD;
 				SDKROOT = macosx;
@@ -4049,6 +4128,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -4099,6 +4179,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};

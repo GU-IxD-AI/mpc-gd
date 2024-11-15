@@ -11,6 +11,8 @@ import SpriteKit
 
 #if os(iOS)
     import CoreMotion
+#elseif os(OSX)
+    import CoreMotion
 #endif
 
 class BaseScene: SKScene{
@@ -50,15 +52,20 @@ class BaseScene: SKScene{
     
     override func didMove(to view: SKView) {
        // view.multipleTouchEnabled = true
-        
+#if os(iOS)
         let pauseGesture = UISwipeGestureRecognizer(target: self, action: #selector(BaseScene.onPauseGesture))
         pauseGesture.direction = UISwipeGestureRecognizerDirection.down
         pauseGesture.numberOfTouchesRequired = 2
         view.addGestureRecognizer(pauseGesture)
+#elseif os(OSX)
+        
+#endif
         //BaseScene.enableGyro()
     }
-    
+    #if os(iOS)
     static var motionManager: CMMotionManager! = nil
+    #elseif os(OSX)
+    #endif
     static var gyroEnabled = false
     static var deviceShakeCount = 0
 
@@ -66,10 +73,12 @@ class BaseScene: SKScene{
         if BaseScene.gyroEnabled {
             return
         }
+        #if os(iOS)
         if BaseScene.motionManager == nil {
             BaseScene.motionManager = CMMotionManager()
         }
         BaseScene.motionManager.startGyroUpdates()
+        #endif
         BaseScene.deviceShakeCount = 0
         BaseScene.gyroEnabled = true
     }
@@ -77,7 +86,9 @@ class BaseScene: SKScene{
     static func disableGyro() {
         BaseScene.deviceShakeCount = 0
         if BaseScene.gyroEnabled {
+            #if os(iOS)
             BaseScene.motionManager.stopGyroUpdates()
+            #endif
             BaseScene.gyroEnabled = false
         }
     }
@@ -156,22 +167,22 @@ class BaseScene: SKScene{
     
     #elseif os(OSX)
     
-        final override func mouseDown(theEvent: NSEvent) {
+        final override func mouseDown(with theEvent: NSEvent) {
             if !ignoreUser{
                 touchDownPoint = theEvent.locationInWindow
-                touchDownPoint = convertPointFromView(touchDownPoint)
+                touchDownPoint = convertPoint(fromView: touchDownPoint)
                 previousTouchPoint = touchDownPoint
                 touchesBegan(touchDownPoint)
             }
         }
         
-        final override func mouseDragged(theEvent: NSEvent) {
+        final override func mouseDragged(with theEvent: NSEvent) {
             if !ignoreUser{
                 currentTouchPoint = theEvent.locationInWindow
-                currentTouchPoint = convertPointFromView(currentTouchPoint)
+                currentTouchPoint = convertPoint(fromView: currentTouchPoint)
                 if previousTouchPoint != nil{
                     let dragVector = CGVectorMake(currentTouchPoint.x - previousTouchPoint.x, currentTouchPoint.y - previousTouchPoint.y)
-                    if dragType == DragType.XAndYStraight && !isDraggingHorizontally && !isDraggingVertically{
+                    if dragType == DragType.xAndYStraight && !isDraggingHorizontally && !isDraggingVertically{
                         if abs(dragVector.dx) > abs(dragVector.dy){
                             isDraggingHorizontally = true
                         }
@@ -189,15 +200,15 @@ class BaseScene: SKScene{
                     touchesDragged(currentTouchPoint, clampedDragVector: clampedDragVector, dragVector: dragVector)
                 }
                 previousTouchPoint = theEvent.locationInWindow
-                previousTouchPoint = convertPointFromView(previousTouchPoint)
+                previousTouchPoint = convertPoint(fromView: previousTouchPoint)
             }
         }
         
-        final override func mouseUp(theEvent: NSEvent) {
+        final override func mouseUp(with theEvent: NSEvent) {
             if !ignoreUser{
                 if previousTouchPoint != nil{
                     currentTouchPoint = theEvent.locationInWindow
-                    currentTouchPoint = convertPointFromView(currentTouchPoint)
+                    currentTouchPoint = convertPoint(fromView: currentTouchPoint)
                     
                     if theEvent.clickCount == 1 {
                         tapAt(currentTouchPoint)
@@ -225,7 +236,7 @@ class BaseScene: SKScene{
     }
     
     func setBackground(_ image: UIImage) -> SKSpriteNode{
-        let bgTexture = SKTexture(cgImage: image.cgImage!)
+        let bgTexture = SKTexture(cgImage: image.cgImage as! CGImage)
         let bg = SKSpriteNode(texture: bgTexture, size: (view?.frame.size)!)
         bg.position = CGPoint(x: (view?.frame.size.width)! * 0.5, y: (view?.frame.size.height)! * 0.5)
         bg.zPosition = -1 // Put it at the back
