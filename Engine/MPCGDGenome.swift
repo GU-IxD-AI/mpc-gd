@@ -1233,7 +1233,7 @@ class MPCGDGenome{
             fascinator.controllerCollectionNum = nil
             fascinator.controllerCharacterNum = nil
             fascinator.drawingPaths = []
-            LAFSettings.wallOffScreenNess = (3, 3)
+            LAF.wallOffScreenNess = (3, 3)
         }
         else if controllerPack == 1{
             let iPhoneGameDimensions = CGSize(width: 320 * 2 - 4, height: 568 * 2 - 4)
@@ -1260,9 +1260,9 @@ class MPCGDGenome{
             fascinator.controllerCharacterNum = nil
             let gg = GridGenerator()
             bb = gg.getBoundingBox(fascinator.sceneSize * 0.5, controllerPack: controllerPack, shape: gridShape, orientation: gridOrientation, grain: gridGrain, size: gridSize, reflectionID: gridReflection, useIconSize: true)
-            LAFSettings.wallOffScreenNess = (bb.width * 2, bb.height * 2)
+            LAF.wallOffScreenNess = (bb.width * 2, bb.height * 2)
             if gridControl == 5 || gridControl == 6{
-                LAFSettings.wallOffScreenNess = (5, 5)
+                LAF.wallOffScreenNess = (5, 5)
             }
         }
         else if controllerPack == 2{
@@ -1281,9 +1281,9 @@ class MPCGDGenome{
             }
             let radius = fascinator.sceneSize.width * fascinator.controllerSize * 0.5
             bb = CharacterIconHandler.getCharacterBoundingBox(radius: radius, collectionNum: gridShape, characterNum: gridOrientation, centreOffset: CGPoint(x: 0, y: 0))
-            LAFSettings.wallOffScreenNess = (bb.width * 2, bb.height * 2)
+            LAF.wallOffScreenNess = (bb.width * 2, bb.height * 2)
             if gridControl == 5 || gridControl == 6{
-                LAFSettings.wallOffScreenNess = (bb.width, bb.height)
+                LAF.wallOffScreenNess = (bb.width, bb.height)
             }
         }
         

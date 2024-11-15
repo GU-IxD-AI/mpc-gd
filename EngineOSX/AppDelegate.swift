@@ -18,7 +18,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         let frame = window.frame
-        window.setFrame(CGRect(origin: frame.origin, size: LAFSettings.standardSceneSize), display: true, animate: false)
+        window.setFrame(CGRect(origin: frame.origin, size: LAF.standardSceneSize), display: true, animate: false)
         
         let scene = MainScene()
         self.skView!.presentScene(scene)

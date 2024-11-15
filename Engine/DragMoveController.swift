@@ -149,7 +149,7 @@ class DragMoveController : ArtImageController {
             
             if useBoundingBoxFix{
                 // If the controller is near the bottom wall, and being dragged downwards...
-                if bounds.minY < fascinator.deviceSimulationYOffset - LAFSettings.wallOffScreenNess.1 && velocity.dy < 0 {
+                if bounds.minY < fascinator.deviceSimulationYOffset - LAF.wallOffScreenNess.1 && velocity.dy < 0 {
                     // Kill the downward velocity
                     velocity.dy = 0
                     
@@ -159,17 +159,17 @@ class DragMoveController : ArtImageController {
                 }
                 
                 // Now the same for the top...
-                if bounds.maxY > fascinator.sceneSize.height + fascinator.deviceSimulationYOffset + LAFSettings.wallOffScreenNess.1 && velocity.dy > 0 {
+                if bounds.maxY > fascinator.sceneSize.height + fascinator.deviceSimulationYOffset + LAF.wallOffScreenNess.1 && velocity.dy > 0 {
                     velocity.dy = 0
                     dragLocalPoint.y = convertPointSceneToLocal(dragWorldTargetPoint).y
                 }
                 // ... and the left...
-                if bounds.minX < -LAFSettings.wallOffScreenNess.0 + fascinator.deviceSimulationXOffset && velocity.dx < 0 {
+                if bounds.minX < -LAF.wallOffScreenNess.0 + fascinator.deviceSimulationXOffset && velocity.dx < 0 {
                     velocity.dx = 0
                     dragLocalPoint.x = convertPointSceneToLocal(dragWorldTargetPoint).x
                 }
                 // ... and the right
-                if bounds.maxX > fascinator.sceneSize.width + fascinator.deviceSimulationXOffset + LAFSettings.wallOffScreenNess.0 && velocity.dx > 0 {
+                if bounds.maxX > fascinator.sceneSize.width + fascinator.deviceSimulationXOffset + LAF.wallOffScreenNess.0 && velocity.dx > 0 {
                     velocity.dx = 0
                     dragLocalPoint.x = convertPointSceneToLocal(dragWorldTargetPoint).x
                 }                

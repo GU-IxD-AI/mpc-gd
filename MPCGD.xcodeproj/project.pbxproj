@@ -37,7 +37,6 @@
 		312D7ACF1C90829600560133 /* Colours.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D78021BC7F9B300956D26 /* Colours.swift */; };
 		312D7AD01C90829600560133 /* ColourNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D78031BC7F9B300956D26 /* ColourNames.swift */; };
 		312D7AD11C90829600560133 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D787D1BCB2DF200956D26 /* Fonts.swift */; };
-		312D7AD21C90829600560133 /* LAFSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D78711BCB26B300956D26 /* LAFSettings.swift */; };
 		312D7AD31C90829600560133 /* NamedColours.csv in Resources */ = {isa = PBXBuildFile; fileRef = F41D783D1BC81D0200956D26 /* NamedColours.csv */; };
 		312D7AD61C90829A00560133 /* DragType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D77EF1BC7F54E00956D26 /* DragType.swift */; };
 		312D7ADA1C90829A00560133 /* BaseScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D77ED1BC7F50600956D26 /* BaseScene.swift */; };
@@ -235,7 +234,6 @@
 		F41D78401BC82A4D00956D26 /* Backgrounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D783F1BC82A4D00956D26 /* Backgrounds.swift */; };
 		F41D785C1BC9724600956D26 /* FascinatorContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D785B1BC9724600956D26 /* FascinatorContent.swift */; };
 		F41D786E1BC9D15600956D26 /* ChromosomeName.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D786D1BC9D15600956D26 /* ChromosomeName.swift */; };
-		F41D78721BCB26B300956D26 /* LAFSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D78711BCB26B300956D26 /* LAFSettings.swift */; };
 		F41D78741BCB2CD500956D26 /* SpriteUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D78731BCB2CD500956D26 /* SpriteUtils.swift */; };
 		F41D78771BCB2DAF00956D26 /* DrawingShapes.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D78751BCB2DAF00956D26 /* DrawingShapes.swift */; };
 		F41D78781BCB2DAF00956D26 /* DrawingText.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D78761BCB2DAF00956D26 /* DrawingText.swift */; };
@@ -1007,7 +1005,6 @@
 		F41D783F1BC82A4D00956D26 /* Backgrounds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Backgrounds.swift; sourceTree = "<group>"; };
 		F41D785B1BC9724600956D26 /* FascinatorContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FascinatorContent.swift; sourceTree = "<group>"; };
 		F41D786D1BC9D15600956D26 /* ChromosomeName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChromosomeName.swift; sourceTree = "<group>"; };
-		F41D78711BCB26B300956D26 /* LAFSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LAFSettings.swift; sourceTree = "<group>"; };
 		F41D78731BCB2CD500956D26 /* SpriteUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpriteUtils.swift; sourceTree = "<group>"; };
 		F41D78751BCB2DAF00956D26 /* DrawingShapes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawingShapes.swift; sourceTree = "<group>"; };
 		F41D78761BCB2DAF00956D26 /* DrawingText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawingText.swift; sourceTree = "<group>"; };
@@ -1956,7 +1953,6 @@
 				F41D78021BC7F9B300956D26 /* Colours.swift */,
 				F41D78031BC7F9B300956D26 /* ColourNames.swift */,
 				F41D787D1BCB2DF200956D26 /* Fonts.swift */,
-				F41D78711BCB26B300956D26 /* LAFSettings.swift */,
 				F41D783D1BC81D0200956D26 /* NamedColours.csv */,
 				F48F07C21CF12FC4001777A8 /* Patterns.swift */,
 				85BBE5F11DF9BDC0007E5C9D /* Label.swift */,
@@ -3887,7 +3883,6 @@
 				F42C520C1C00C512001DC85C /* LayersType.swift in Sources */,
 				F402C1C41E66213100BB5044 /* BallChoiceScreen.swift in Sources */,
 				F42C520E1C00C740001DC85C /* LightingType.swift in Sources */,
-				F41D78721BCB26B300956D26 /* LAFSettings.swift in Sources */,
 				F41D78781BCB2DAF00956D26 /* DrawingText.swift in Sources */,
 				F41D78401BC82A4D00956D26 /* Backgrounds.swift in Sources */,
 				F49C37861EC129AF003F5DED /* TeleportController.swift in Sources */,
