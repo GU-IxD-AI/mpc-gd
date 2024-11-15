@@ -151,8 +151,6 @@
 		E99F52C41BD631A500413199 /* Fascinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99F52C11BD631A500413199 /* Fascinator.swift */; };
 		E99F52CE1BD6540800413199 /* PhysicsUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99F52CD1BD6540800413199 /* PhysicsUtils.swift */; };
 		F402C1C41E66213100BB5044 /* BallChoiceScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F402C1C31E66213100BB5044 /* BallChoiceScreen.swift */; };
-		F40C36B91E81E90900DC997C /* PurpleSnow.sks in Resources */ = {isa = PBXBuildFile; fileRef = F40C36AC1E81E90900DC997C /* PurpleSnow.sks */; };
-		F40C36BB1E81E90900DC997C /* Snow.sks in Resources */ = {isa = PBXBuildFile; fileRef = F40C36AE1E81E90900DC997C /* Snow.sks */; };
 		F41A3C221ED6EB2F00C1657B /* farm_win_game.aiff in Resources */ = {isa = PBXBuildFile; fileRef = F41A3C211ED6EB2F00C1657B /* farm_win_game.aiff */; };
 		F41A3C261ED6EC5B00C1657B /* farm_lose_game.aiff in Resources */ = {isa = PBXBuildFile; fileRef = F41A3C251ED6EC5B00C1657B /* farm_lose_game.aiff */; };
 		F41A8F1A1E117F96005D7ABF /* RainRainTactic.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41A8F191E117F96005D7ABF /* RainRainTactic.swift */; };
@@ -334,9 +332,6 @@
 		F4530B6C1EA6CD4000EAD3F8 /* Simple Games.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4530B6B1EA6CD4000EAD3F8 /* Simple Games.txt */; };
 		F4530B701EA6CD6900EAD3F8 /* Tricky Games.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4530B6D1EA6CD6900EAD3F8 /* Tricky Games.txt */; };
 		F4530B711EA6CD6900EAD3F8 /* Fast Games.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4530B6E1EA6CD6900EAD3F8 /* Fast Games.txt */; };
-		F45985B71E93F73D0058B344 /* Clouds.sks in Resources */ = {isa = PBXBuildFile; fileRef = F45985B61E93F73D0058B344 /* Clouds.sks */; };
-		F45985B91E93FFD50058B344 /* Rain.sks in Resources */ = {isa = PBXBuildFile; fileRef = F45985B81E93FFD50058B344 /* Rain.sks */; };
-		F45985BB1E9400FC0058B344 /* Fog.sks in Resources */ = {isa = PBXBuildFile; fileRef = F45985BA1E9400FC0058B344 /* Fog.sks */; };
 		F46990DC1CAD3B6A00946AB6 /* FascinatorLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46990DB1CAD3B6A00946AB6 /* FascinatorLoader.swift */; };
 		F46990DD1CAD3B6A00946AB6 /* FascinatorLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46990DB1CAD3B6A00946AB6 /* FascinatorLoader.swift */; };
 		F469DD951E05B9690047F335 /* HKStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F469DD941E05B9690047F335 /* HKStyle.swift */; };
@@ -790,13 +785,6 @@
 		F4B3E8C11E1B71CE002EF89A /* JFiPhone_genome.json in Resources */ = {isa = PBXBuildFile; fileRef = F4B3E8C01E1B71CE002EF89A /* JFiPhone_genome.json */; };
 		F4B59E241E0963610059D560 /* HKCardChooser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B59E231E0963610059D560 /* HKCardChooser.swift */; };
 		F4C0586E1E19C3BB00F4C74D /* HKButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C0586D1E19C3BB00F4C74D /* HKButton.swift */; };
-		F4C1755B1E94465A00F47BC3 /* Flowers.sks in Resources */ = {isa = PBXBuildFile; fileRef = F4C1755A1E94465A00F47BC3 /* Flowers.sks */; };
-		F4C1755F1E9456D400F47BC3 /* Birds.sks in Resources */ = {isa = PBXBuildFile; fileRef = F4C1755E1E9456D400F47BC3 /* Birds.sks */; };
-		F4C175611E945CF900F47BC3 /* Bats.sks in Resources */ = {isa = PBXBuildFile; fileRef = F4C175601E945CF900F47BC3 /* Bats.sks */; };
-		F4C175631E945EC900F47BC3 /* Steam.sks in Resources */ = {isa = PBXBuildFile; fileRef = F4C175621E945EC900F47BC3 /* Steam.sks */; };
-		F4C175651E9466D600F47BC3 /* FireBalls.sks in Resources */ = {isa = PBXBuildFile; fileRef = F4C175641E9466D600F47BC3 /* FireBalls.sks */; };
-		F4C175671E9470EE00F47BC3 /* SwirlingLeaves.sks in Resources */ = {isa = PBXBuildFile; fileRef = F4C175661E9470EE00F47BC3 /* SwirlingLeaves.sks */; };
-		F4C175691E94FAD600F47BC3 /* ParticleEmitterHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C175681E94FAD600F47BC3 /* ParticleEmitterHandler.swift */; };
 		F4C1756D1E96395F00F47BC3 /* GameEndingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C1756C1E96395E00F47BC3 /* GameEndingsScreen.swift */; };
 		F4CA9D451EEAF4E400A2D380 /* Generated Games.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4CA9D441EEAF4E400A2D380 /* Generated Games.txt */; };
 		F4D273D71CAAB231009A9ACF /* DrawingPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D273D61CAAB231009A9ACF /* DrawingPath.swift */; };
@@ -927,8 +915,6 @@
 		E99F52C11BD631A500413199 /* Fascinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fascinator.swift; sourceTree = "<group>"; };
 		E99F52CD1BD6540800413199 /* PhysicsUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicsUtils.swift; sourceTree = "<group>"; };
 		F402C1C31E66213100BB5044 /* BallChoiceScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BallChoiceScreen.swift; sourceTree = "<group>"; };
-		F40C36AC1E81E90900DC997C /* PurpleSnow.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = PurpleSnow.sks; path = ParticleEffects/PurpleSnow.sks; sourceTree = "<group>"; };
-		F40C36AE1E81E90900DC997C /* Snow.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = Snow.sks; path = ParticleEffects/Snow.sks; sourceTree = "<group>"; };
 		F40C36BD1E81E97800DC997C /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		F41A3C211ED6EB2F00C1657B /* farm_win_game.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = farm_win_game.aiff; sourceTree = "<group>"; };
 		F41A3C251ED6EC5B00C1657B /* farm_lose_game.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = farm_lose_game.aiff; sourceTree = "<group>"; };
@@ -1118,9 +1104,6 @@
 		F4530B6B1EA6CD4000EAD3F8 /* Simple Games.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "Simple Games.txt"; path = "Engine/Presets/Simple Games.txt"; sourceTree = "<group>"; };
 		F4530B6D1EA6CD6900EAD3F8 /* Tricky Games.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "Tricky Games.txt"; path = "Engine/Presets/Tricky Games.txt"; sourceTree = "<group>"; };
 		F4530B6E1EA6CD6900EAD3F8 /* Fast Games.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "Fast Games.txt"; path = "Engine/Presets/Fast Games.txt"; sourceTree = "<group>"; };
-		F45985B61E93F73D0058B344 /* Clouds.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = Clouds.sks; path = ParticleEffects/Clouds.sks; sourceTree = "<group>"; };
-		F45985B81E93FFD50058B344 /* Rain.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = Rain.sks; path = ParticleEffects/Rain.sks; sourceTree = "<group>"; };
-		F45985BA1E9400FC0058B344 /* Fog.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = Fog.sks; path = ParticleEffects/Fog.sks; sourceTree = "<group>"; };
 		F46990DB1CAD3B6A00946AB6 /* FascinatorLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FascinatorLoader.swift; sourceTree = "<group>"; };
 		F469DD941E05B9690047F335 /* HKStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HKStyle.swift; sourceTree = "<group>"; };
 		F469DD961E05BAB20047F335 /* HKMath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HKMath.swift; sourceTree = "<group>"; };
@@ -1571,13 +1554,6 @@
 		F4B3E8C01E1B71CE002EF89A /* JFiPhone_genome.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = JFiPhone_genome.json; path = Engine/Genomes/JFiPhone_genome.json; sourceTree = "<group>"; };
 		F4B59E231E0963610059D560 /* HKCardChooser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HKCardChooser.swift; sourceTree = "<group>"; };
 		F4C0586D1E19C3BB00F4C74D /* HKButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HKButton.swift; sourceTree = "<group>"; };
-		F4C1755A1E94465A00F47BC3 /* Flowers.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = Flowers.sks; path = ParticleEffects/Flowers.sks; sourceTree = "<group>"; };
-		F4C1755E1E9456D400F47BC3 /* Birds.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = Birds.sks; path = ParticleEffects/Birds.sks; sourceTree = "<group>"; };
-		F4C175601E945CF900F47BC3 /* Bats.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = Bats.sks; path = ParticleEffects/Bats.sks; sourceTree = "<group>"; };
-		F4C175621E945EC900F47BC3 /* Steam.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = Steam.sks; path = ParticleEffects/Steam.sks; sourceTree = "<group>"; };
-		F4C175641E9466D600F47BC3 /* FireBalls.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = FireBalls.sks; path = ParticleEffects/FireBalls.sks; sourceTree = "<group>"; };
-		F4C175661E9470EE00F47BC3 /* SwirlingLeaves.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = SwirlingLeaves.sks; path = ParticleEffects/SwirlingLeaves.sks; sourceTree = "<group>"; };
-		F4C175681E94FAD600F47BC3 /* ParticleEmitterHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParticleEmitterHandler.swift; sourceTree = "<group>"; };
 		F4C1756C1E96395E00F47BC3 /* GameEndingsScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameEndingsScreen.swift; sourceTree = "<group>"; };
 		F4CA9D441EEAF4E400A2D380 /* Generated Games.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "Generated Games.txt"; path = "Engine/Presets/Generated Games.txt"; sourceTree = "<group>"; };
 		F4D273D61CAAB231009A9ACF /* DrawingPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawingPath.swift; sourceTree = "<group>"; };
@@ -1675,18 +1651,7 @@
 			isa = PBXGroup;
 			children = (
 				F46EF0261EB49105004CAAB1 /* BallExplode.sks */,
-				F4C175661E9470EE00F47BC3 /* SwirlingLeaves.sks */,
-				F4C175641E9466D600F47BC3 /* FireBalls.sks */,
-				F4C175621E945EC900F47BC3 /* Steam.sks */,
-				F4C175601E945CF900F47BC3 /* Bats.sks */,
-				F4C1755E1E9456D400F47BC3 /* Birds.sks */,
-				F4C1755A1E94465A00F47BC3 /* Flowers.sks */,
-				F45985BA1E9400FC0058B344 /* Fog.sks */,
-				F45985B81E93FFD50058B344 /* Rain.sks */,
-				F40C36AE1E81E90900DC997C /* Snow.sks */,
-				F45985B61E93F73D0058B344 /* Clouds.sks */,
 				F40C36BD1E81E97800DC997C /* GameScene.sks */,
-				F40C36AC1E81E90900DC997C /* PurpleSnow.sks */,
 				31B798981BD78D43006AE110 /* spark.png */,
 			);
 			name = ParticleEffects;
@@ -1882,7 +1847,6 @@
 				F4325CD61E7FEC0100BB928F /* BallBehavioursScreen.swift */,
 				F47D77C91E8C80630044809E /* Device.swift */,
 				F49161371E93071500A5C76D /* GridSizeScreen.swift */,
-				F4C175681E94FAD600F47BC3 /* ParticleEmitterHandler.swift */,
 				F4C1756C1E96395E00F47BC3 /* GameEndingsScreen.swift */,
 				F441A9751E9AED4F0086632A /* GeneratorHelpScreen.swift */,
 				F42BD67C1EAA2060006427D5 /* BallTapScreen.swift */,
@@ -3128,7 +3092,6 @@
 				C17305CB1EC47DC000729046 /* Music_2_5.m4a in Resources */,
 				C17305D31EC47DD200729046 /* Music_3_3.m4a in Resources */,
 				F47030F01EB8CDCC006D738E /* Drone-t100.csv in Resources */,
-				F4C1755B1E94465A00F47BC3 /* Flowers.sks in Resources */,
 				F470307D1EB8CDB0006D738E /* Star-polys.csv in Resources */,
 				F49512FD1EC6740400735785 /* Mountain2.pdf in Resources */,
 				F42B45061EC4FE8700622C88 /* Monkeys.m4a in Resources */,
@@ -3254,7 +3217,6 @@
 				F473F7101ECB2A5800A64524 /* AudioCicadas.pdf in Resources */,
 				F47031261EB8CDCC006D738E /* Zeppelin-t100.csv in Resources */,
 				F47030701EB8CDB0006D738E /* Pear-polys.csv in Resources */,
-				F4C175611E945CF900F47BC3 /* Bats.sks in Resources */,
 				F453089B1ED3145900633D6B /* 8-bit_win_game.aiff in Resources */,
 				F42B451F1EC4FEC400622C88 /* Guitar.m4a in Resources */,
 				F47030E21EB8CDCC006D738E /* Boar-t100.csv in Resources */,
@@ -3288,7 +3250,6 @@
 				F42B451D1EC4FEC400622C88 /* Drums.m4a in Resources */,
 				F45308E81ED315C400633D6B /* farm_explode.aiff in Resources */,
 				F49512FC1EC6740400735785 /* Mountain1.pdf in Resources */,
-				F45985BB1E9400FC0058B344 /* Fog.sks in Resources */,
 				C17305F31EC47E0A00729046 /* Music_6_5.m4a in Resources */,
 				F470305A1EB8CDB0006D738E /* Football-polys.csv in Resources */,
 				F473F7401ECB2A5800A64524 /* music2@2x.png in Resources */,
@@ -3338,7 +3299,6 @@
 				F47026B71EB24ADB006D738E /* Sun.pdf in Resources */,
 				F47031051EB8CDCC006D738E /* Monkey-t100.csv in Resources */,
 				F45309321ED316FB00633D6B /* sport_gain_points.aiff in Resources */,
-				F4C1755F1E9456D400F47BC3 /* Birds.sks in Resources */,
 				F473F7391ECB2A5800A64524 /* frog@2x.png in Resources */,
 				F47031021EB8CDCC006D738E /* Lightning-t100.csv in Resources */,
 				F483ED121ED6E1B40024A134 /* arcade_lose_life.aiff in Resources */,
@@ -3467,7 +3427,6 @@
 				C17305D21EC47DD200729046 /* Music_3_2.m4a in Resources */,
 				F45308B31ED3150300633D6B /* cartoon_win_game.aiff in Resources */,
 				C17305F21EC47E0A00729046 /* Music_6_4.m4a in Resources */,
-				F40C36B91E81E90900DC997C /* PurpleSnow.sks in Resources */,
 				F473F7491ECB2A5800A64524 /* siren@2x.png in Resources */,
 				F470310E1EB8CDCC006D738E /* Pig-t100.csv in Resources */,
 				F453089F1ED3145900633D6B /* 8-bit_tap.aiff in Resources */,
@@ -3537,14 +3496,12 @@
 				F47026C41EB24AF1006D738E /* Beachball.pdf in Resources */,
 				F47026FB1EB24BFC006D738E /* Chicken.pdf in Resources */,
 				F45308EE1ED315C400633D6B /* farm_gain_points.aiff in Resources */,
-				F45985B91E93FFD50058B344 /* Rain.sks in Resources */,
 				F470304B1EB8CDB0006D738E /* Bunny-polys.csv in Resources */,
 				F49512D71EC6740400735785 /* Forest0.pdf in Resources */,
 				F453092A1ED316FB00633D6B /* sport_bounce.aiff in Resources */,
 				F473F7261ECB2A5800A64524 /* AudioSiren.pdf in Resources */,
 				F47030761EB8CDB0006D738E /* Raindrop-polys.csv in Resources */,
 				F47026DA1EB24B08006D738E /* Jet.pdf in Resources */,
-				F4C175651E9466D600F47BC3 /* FireBalls.sks in Resources */,
 				F47030D71EB8CDCC006D738E /* Air rescue-t100.csv in Resources */,
 				F47026A11EB24AD0006D738E /* Dandelion.pdf in Resources */,
 				F49513011EC6740400735785 /* Mountain6.pdf in Resources */,
@@ -3576,7 +3533,6 @@
 				31BC56251E955326008B4950 /* ControllerPolygons.json in Resources */,
 				F49512DD1EC6740400735785 /* Forest6.pdf in Resources */,
 				F47026A61EB24AD0006D738E /* Sunflower.pdf in Resources */,
-				F45985B71E93F73D0058B344 /* Clouds.sks in Resources */,
 				F47030E51EB8CDCC006D738E /* Butterfly-t100.csv in Resources */,
 				F47031121EB8CDCC006D738E /* Raincloud-t100.csv in Resources */,
 				F47026FC1EB24BFC006D738E /* Cow.pdf in Resources */,
@@ -3679,7 +3635,6 @@
 				F43B677C1ED6EE500094A853 /* glass_lose_points.aiff in Resources */,
 				F47030811EB8CDB0006D738E /* Umbrella-polys.csv in Resources */,
 				F495130C1EC6740400735785 /* Volcano8.pdf in Resources */,
-				F4C175631E945EC900F47BC3 /* Steam.sks in Resources */,
 				F47030441EB8CDB0006D738E /* Alien-polys.csv in Resources */,
 				F470266A1EB24A81006D738E /* Butterfly.pdf in Resources */,
 				F470311F1EB8CDCC006D738E /* Sunflower-t100.csv in Resources */,
@@ -3689,7 +3644,6 @@
 				F47026A31EB24AD0006D738E /* Maple leaf.pdf in Resources */,
 				F45308B21ED3150300633D6B /* cartoon_lose_game.aiff in Resources */,
 				F47030E81EB8CDCC006D738E /* Chick-t100.csv in Resources */,
-				F40C36BB1E81E90900DC997C /* Snow.sks in Resources */,
 				F473F70F1ECB2A5800A64524 /* AudioChimes.pdf in Resources */,
 				F483ED0F1ED6E1B40024A134 /* arcade_bounce.aiff in Resources */,
 				F470266C1EB24A81006D738E /* Dragonfly.pdf in Resources */,
@@ -3709,7 +3663,6 @@
 				F49512ED1EC6740400735785 /* Jungle4.pdf in Resources */,
 				F45308BA1ED3150300633D6B /* cartoon_gain_points.aiff in Resources */,
 				F4499E141EE07A5800B28459 /* SFXExplodeOutline.pdf in Resources */,
-				F4C175671E9470EE00F47BC3 /* SwirlingLeaves.sks in Resources */,
 				F47030691EB8CDB0006D738E /* Monkey-polys.csv in Resources */,
 				F45308B71ED3150300633D6B /* cartoon_tap.aiff in Resources */,
 				F49512C11EC6740400735785 /* City5.pdf in Resources */,
@@ -3866,7 +3819,6 @@
 				F41D787C1BCB2DD200956D26 /* FontUtils.swift in Sources */,
 				F41D77E51BC7F2FF00956D26 /* CGPointExtension.swift in Sources */,
 				F4DC7BFE1E057BF7007AE2A5 /* StrategySettings.swift in Sources */,
-				F4C175691E94FAD600F47BC3 /* ParticleEmitterHandler.swift in Sources */,
 				F43380B81E57603E00BD9CDA /* DeviceType.swift in Sources */,
 				F41D78171BC7FB1700956D26 /* LogarithmicFloatGene.swift in Sources */,
 				5C04C66F1E2CD4590034F716 /* StatsScreen.swift in Sources */,

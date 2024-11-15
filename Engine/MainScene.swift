@@ -377,8 +377,6 @@ class MainScene: BaseScene, UITextFieldDelegate{
     
     var quitThisButton: HKButton! = nil
     
-    var backgroundParticleEmitter: SKEmitterNode! = nil
-    
     var aboutButton: HKButton! = nil
     
     var creditsButton: HKButton! = nil
@@ -526,7 +524,6 @@ class MainScene: BaseScene, UITextFieldDelegate{
         let wG = MPCGDGenome()
         wG.backgroundChoice = 6
         loadBackgroundForSplashScreenFade(wG)
-        changeBackgroundParticleEmitter(wG)
         physicsWorld.gravity = CGVector.zero
         setupBackgroundAndMaskNode()
 
@@ -837,34 +834,6 @@ class MainScene: BaseScene, UITextFieldDelegate{
         self.settingsButton.run(action5)
     }
     
-    func changeBackgroundParticleEmitter(_ MPCGDGenome: MPCGDGenome, forceIt: Bool = false){
-        if backgroundParticleEmitter != nil{
-            let hasChangedExistingEmitter = ParticleEmitterHandler.effectChange(forceIt: forceIt, existingBackgroundChoice: currentParticleEmitterBackgroundNum, existingBackgroundShade: currentParticleEmitterBackgroundShade, newMPCGDGenome: MPCGDGenome, emitter: backgroundParticleEmitter, screenSize: size)
-            if !hasChangedExistingEmitter{
-                backgroundParticleEmitter.run(fadeOut, completion: {
-                    self.backgroundParticleEmitter.removeAllActions()
-                    self.backgroundParticleEmitter.removeFromParent()
-                    self.addNewBackgroundParticleEmitter(MPCGDGenome)
-                })
-            }
-        }
-        else{
-            addNewBackgroundParticleEmitter(MPCGDGenome)
-        }
-    }
-    
-    func addNewBackgroundParticleEmitter(_ MPCGDGenome: MPCGDGenome){
-        backgroundParticleEmitter = ParticleEmitterHandler.getBackgroundEmitter(size, MPCGDGenome: MPCGDGenome)
-        addChild(self.backgroundParticleEmitter)
-        let alpha = self.backgroundParticleEmitter.alpha
-        backgroundParticleEmitter.alpha = 0
-        backgroundParticleEmitter.run(SKAction.fadeAlpha(to: alpha, duration: 0.3))
-        backgroundParticleEmitter.zPosition = 3
-        currentParticleEmitterBackgroundNum = MPCGDGenome.backgroundChoice
-        currentParticleEmitterBackgroundShade = MPCGDGenome.backgroundShade
-        oldDayNightChoice = MPCGDGenome.dayNightCycle
-    }
- 
     static var pooker = 0
     
     func addStartupScreen(){
@@ -1362,7 +1331,6 @@ class MainScene: BaseScene, UITextFieldDelegate{
         }
         let MPCGDGenome = loadedMPCGDGenomes[currentGameName]!
         changeBackground(MPCGDGenome, forceIt: true)
-        changeBackgroundParticleEmitter(MPCGDGenome, forceIt: true)
         menuNode?.run(self.fadeIn, completion: {
             self.logoImageCycler.enabled = true
         })
@@ -1660,8 +1628,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
             oldBackgroundChoice != mpcgdGenome.backgroundChoice || oldBackgroundShade != mpcgdGenome.backgroundShade{
             let wG = MPCGDGenome()
             wG.backgroundChoice = mpcgdGenome.backgroundChoice
-            wG.backgroundShade = (mpcgdGenome.dayNightCycle == 0) ? mpcgdGenome.backgroundShade : 0
-            changeBackgroundParticleEmitter(wG, forceIt: oldDayNightChoice != mpcgdGenome.dayNightCycle)
+            wG.backgroundShade = mpcgdGenome.backgroundShade
             changeBackground(mpcgdGenome)
             currentGamePack.MPCGDGenomeShowingInBackground = mpcgdGenome
             currentGamePack.backgroundIsDark = isBackgroundDark(mpcgdGenome)
@@ -1852,7 +1819,6 @@ class MainScene: BaseScene, UITextFieldDelegate{
                     self.changeLabelColour(self.fascinator.scoreDisplay, textColour: self.fascinator.scoreColour)
                     self.changeLabelColour(self.fascinator.scoreDisplay.children[0] as! SKLabelNode, textColour: self.fascinator.scoreColour)
                     self.changeLabelColour(self.fascinator.livesDisplay, textColour: self.fascinator.scoreColour)
-                    self.changeBackgroundParticleEmitter(wG)
                 })
             }
             else{
@@ -1861,7 +1827,6 @@ class MainScene: BaseScene, UITextFieldDelegate{
                         self.backgroundNode.texture = t
                     }
                     self.cycleBackground(backgrounds, imageStem: imageStem, nextShadePos: nextShadePos + 1, preFadeTime: preFadeTime, fadeDuration: fadeDuration)
-                    self.changeBackgroundParticleEmitter(wG)
                 })
             }
         }
@@ -1914,7 +1879,6 @@ class MainScene: BaseScene, UITextFieldDelegate{
                     self.backgroundNode.texture = texture
                     let f = SKAction.fadeOut(withDuration: 0.5)
                     self.backgroundMaskNode.run(f)
-                    self.changeBackgroundParticleEmitter(MPCGDGenome)
                     BackgroundTextureShadeCache.paused = false
                 }
             })
@@ -2152,7 +2116,6 @@ class MainScene: BaseScene, UITextFieldDelegate{
 
             let MPCGDGenome = loadedMPCGDGenomes[currentGameName]!
             changeBackground(MPCGDGenome, forceIt: true)
-            changeBackgroundParticleEmitter(MPCGDGenome, forceIt: true)
             currentGamePack.logoColour = getTextColourForMPCGDGenome(MPCGDGenome)
             
             changeLogoColour(currentGamePack.logoColour, logo: currentGamePack.gameLogo)
@@ -2268,7 +2231,6 @@ class MainScene: BaseScene, UITextFieldDelegate{
             bottomLetterBoxNode.run(SKAction.move(by: CGVector(dx: 0, dy: -topLetterBoxNode.size.height), duration: 0.3))
             backgroundNode.run(SKAction.scale(to: 1, duration: 0.3), completion: completion)
             backgroundMaskNode.setScale(1)
-            backgroundParticleEmitter.run(SKAction.moveTo(y: backgroundParticleEmitter.position.y - bottomLetterBoxNode.size.height, duration: 0.3))
         }
         else if DeviceType.isIPad && DeviceType.simulationIs == Device.iPhone{
             // TO DO
@@ -2286,7 +2248,6 @@ class MainScene: BaseScene, UITextFieldDelegate{
             let scale = size.width/backgroundNode.width
             backgroundNode.run(SKAction.scale(to: scale, duration: 0.3), completion: completion)
             backgroundMaskNode.setScale(scale)
-            backgroundParticleEmitter.run(SKAction.moveTo(y: backgroundParticleEmitter.position.y + bottomLetterBoxNode.size.height, duration: 0.3))
         }
         else if DeviceType.isIPad && DeviceType.simulationIs == Device.iPhone{
             // TO DO
