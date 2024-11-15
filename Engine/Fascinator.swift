@@ -453,7 +453,7 @@ class Fascinator: NSObject, SKPhysicsContactDelegate{
         walls = SKNode()
         let thickness: CGFloat = 1000
         
-        let offScreenNess = LAFSettings.wallOffScreenNess
+        let offScreenNess = LAF.wallOffScreenNess
         
         for edge in Edge.allEdges {
             let size: CGSize
