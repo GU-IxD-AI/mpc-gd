@@ -262,7 +262,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
     
     var backgroundSize: CGSize! = nil
 
-    static let backgroundIDs = ["City", "Desert", "Farm", "Forest", "Island", "Jungle", "Meadow", "Mountain", "Volcano"]
+    static let backgroundIDs = ["City", "City", "City", "City", "City", "City", "City", "City", "City"] //FIXME: these should be different colored backgrounds which are linked in Assets
     
     var numTimesTwoFingersShown = 0
     
@@ -729,7 +729,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
 //        return
 //
         
-        let sfLogo = SKSpriteNode(imageNamed: "Logo-images")
+        let sfLogo = SKSpriteNode(imageNamed: "MPCGDLogo")
         sfLogo.setScale(0.5 * size.width / sfLogo.width)
         sfLogo.position = CGPoint(x: size.width/2, y: 0.75 * size.height)
         sfLogo.zPosition = 10
@@ -747,7 +747,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
             MPCGDAudio.playSound(path: MPCGDSounds.winGame)
         })
         
-        let (fluidicLogoNodes, _) = getWordLabels("Fluidic Games", fontSize: 45)
+        let (fluidicLogoNodes, _) = getWordLabels("Parametric Design", fontSize: 35)
         let logoNode = SKNode()
         for node in fluidicLogoNodes{
             logoNode.addChild(node)

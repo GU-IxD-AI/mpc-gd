@@ -217,9 +217,9 @@ class GeneratorScreen: HKComponent{
         for backgroundID in MainScene.backgroundIDs{
             var iPadImageSet: [UIImage] = []
             var iPhoneImageSet: [UIImage] = []
-            for pos in 0...8{
-                let iPadIcon = UIImage(named: "\(backgroundID)\(pos)Icon-iPad")!
-                let iPhoneIcon = UIImage(named: "\(backgroundID)\(pos)Icon-iPhone")!
+            for pos in 0...8{ //FIXME: this is too specific for iphones and ipads which does not make sense
+                let iPadIcon = UIImage(named: "\(backgroundID)\(pos)")!
+                let iPhoneIcon = UIImage(named: "\(backgroundID)\(pos)")!
                 iPadImageSet.append(iPadIcon)
                 iPhoneImageSet.append(iPhoneIcon)
             }
