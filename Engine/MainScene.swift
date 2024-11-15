@@ -4,7 +4,7 @@
 //  Engine
 //
 //  Created by Simon Colton on 09/10/2015.
-//  Copyright © 2015 Simon Colton. All rights reserved.
+//  Copyright © 2018 ThoseMetamakers. All rights reserved.
 //
 // Another dummy commit
 

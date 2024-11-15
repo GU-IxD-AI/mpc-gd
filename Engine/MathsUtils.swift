@@ -3,7 +3,7 @@
 //  Fask
 //
 //  Created by Powley, Edward on 01/10/2015.
-//  Copyright © 2015 Simon Colton. All rights reserved.
+//  Copyright © 2018 ThoseMetamakers. All rights reserved.
 //
 
 import Foundation

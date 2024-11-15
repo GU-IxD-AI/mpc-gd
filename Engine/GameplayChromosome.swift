@@ -3,7 +3,7 @@
 //  Beeee
 //
 //  Created by Powley, Edward on 26/08/2015.
-//  Copyright (c) 2015 Simon Colton. All rights reserved.
+//  Copyright (c) 2018 ThoseMetamakers. All rights reserved.
 //
 
 import Foundation

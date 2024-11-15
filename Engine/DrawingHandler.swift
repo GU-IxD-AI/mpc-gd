@@ -3,7 +3,7 @@
 //  Engine
 //
 //  Created by Simon Colton on 20/11/2015.
-//  Copyright © 2015 Simon Colton. All rights reserved.
+//  Copyright © 2018 ThoseMetamakers. All rights reserved.
 //
 
 import Foundation
