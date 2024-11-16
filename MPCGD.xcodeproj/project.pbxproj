@@ -47,7 +47,6 @@
 		312D7FB81C9082BE00560133 /* GridSwipeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EC8F3E1C6A1B3D00C30F9C /* GridSwipeController.swift */; };
 		312D7FB91C9082BE00560133 /* ImpotentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FF58061C68C06C006FA198 /* ImpotentController.swift */; };
 		312D7FBA1C9082BE00560133 /* TowardsFingerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E23C6B1C5129F400161C15 /* TowardsFingerController.swift */; };
-		312D7FBF1C9082BE00560133 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 31B798981BD78D43006AE110 /* spark.png */; };
 		312D7FC01C9082BE00560133 /* Ball.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99F52BF1BD631A500413199 /* Ball.swift */; };
 		312D7FC11C9082BE00560133 /* GameplayChromosome.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99F52C01BD631A500413199 /* GameplayChromosome.swift */; };
 		312D7FC21C9082BE00560133 /* Fascinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99F52C11BD631A500413199 /* Fascinator.swift */; };
@@ -89,7 +88,6 @@
 		319AA6C91C036078006D8A5D /* Edge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319AA6C81C036078006D8A5D /* Edge.swift */; };
 		31A08E281C64C05A00356B63 /* EnumGene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A08E271C64C05A00356B63 /* EnumGene.swift */; };
 		31B0596A1CA3F784003C716E /* SubChromosome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B059691CA3F784003C716E /* SubChromosome.swift */; };
-		31B7989C1BD78D43006AE110 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 31B798981BD78D43006AE110 /* spark.png */; };
 		31BC56251E955326008B4950 /* ControllerPolygons.json in Resources */ = {isa = PBXBuildFile; fileRef = 31BC56241E955326008B4950 /* ControllerPolygons.json */; };
 		31E23C651C5123BB00161C15 /* ArtImageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E23C641C5123BB00161C15 /* ArtImageController.swift */; };
 		31E23C681C5127CC00161C15 /* DragMoveController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E23C671C5127CC00161C15 /* DragMoveController.swift */; };
@@ -147,8 +145,6 @@
 		85B469C91DF9826C0060E30B /* LAF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B469C81DF9826C0060E30B /* LAF.swift */; };
 		85B469CA1DF9826C0060E30B /* LAF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B469C81DF9826C0060E30B /* LAF.swift */; };
 		85BBE5F01DF9B278007E5C9D /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85BBE5EF1DF9B278007E5C9D /* Button.swift */; };
-		85BBE5F21DF9BDC0007E5C9D /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85BBE5F11DF9BDC0007E5C9D /* Label.swift */; };
-		85BBE5F31DF9BDC0007E5C9D /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85BBE5F11DF9BDC0007E5C9D /* Label.swift */; };
 		85BBE5F51DF9C255007E5C9D /* MultiLineLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85BBE5F41DF9C255007E5C9D /* MultiLineLabel.swift */; };
 		85BBE5F61DF9C255007E5C9D /* MultiLineLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85BBE5F41DF9C255007E5C9D /* MultiLineLabel.swift */; };
 		85C60D0E1ECB101E007CC0CE /* Didge.m4a in Resources */ = {isa = PBXBuildFile; fileRef = F473F67D1ECA666300A64524 /* Didge.m4a */; };
@@ -894,7 +890,6 @@
 		319AA6C81C036078006D8A5D /* Edge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Edge.swift; sourceTree = "<group>"; };
 		31A08E271C64C05A00356B63 /* EnumGene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnumGene.swift; sourceTree = "<group>"; };
 		31B059691CA3F784003C716E /* SubChromosome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubChromosome.swift; sourceTree = "<group>"; };
-		31B798981BD78D43006AE110 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		31BC56241E955326008B4950 /* ControllerPolygons.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = ControllerPolygons.json; path = Engine/ControllerPolygons.json; sourceTree = "<group>"; };
 		31E23C641C5123BB00161C15 /* ArtImageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtImageController.swift; sourceTree = "<group>"; };
 		31E23C671C5127CC00161C15 /* DragMoveController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DragMoveController.swift; sourceTree = "<group>"; };
@@ -913,7 +908,6 @@
 		859E00BB1E0BE9E3007601ED /* MPCGD.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MPCGD.entitlements; sourceTree = "<group>"; };
 		85B469C81DF9826C0060E30B /* LAF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LAF.swift; sourceTree = "<group>"; };
 		85BBE5EF1DF9B278007E5C9D /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
-		85BBE5F11DF9BDC0007E5C9D /* Label.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
 		85BBE5F41DF9C255007E5C9D /* MultiLineLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiLineLabel.swift; sourceTree = "<group>"; };
 		C17305B81EC47DA700729046 /* Music_1_1.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = Music_1_1.m4a; path = "Engine/Music/track-1/Music_1_1.m4a"; sourceTree = "<group>"; };
 		C17305B91EC47DA700729046 /* Music_1_2.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = Music_1_2.m4a; path = "Engine/Music/track-1/Music_1_2.m4a"; sourceTree = "<group>"; };
@@ -1688,7 +1682,6 @@
 			children = (
 				F46EF0261EB49105004CAAB1 /* BallExplode.sks */,
 				F40C36BD1E81E97800DC997C /* GameScene.sks */,
-				31B798981BD78D43006AE110 /* spark.png */,
 			);
 			name = ParticleEffects;
 			path = Engine;
@@ -1955,7 +1948,6 @@
 				F41D787D1BCB2DF200956D26 /* Fonts.swift */,
 				F41D783D1BC81D0200956D26 /* NamedColours.csv */,
 				F48F07C21CF12FC4001777A8 /* Patterns.swift */,
-				85BBE5F11DF9BDC0007E5C9D /* Label.swift */,
 				85BBE5F41DF9C255007E5C9D /* MultiLineLabel.swift */,
 			);
 			name = LookAndFeel;
@@ -3106,7 +3098,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				312D7FBF1C9082BE00560133 /* spark.png in Resources */,
 				312D79FF1C9080B800560133 /* Assets.xcassets in Resources */,
 				464B9E942CE79BCF00E13F2F /* AutoplaytesterPresets.json in Resources */,
 				312D7AD31C90829600560133 /* NamedColours.csv in Resources */,
@@ -3277,7 +3268,6 @@
 				F47030FF1EB8CDCC006D738E /* Ladybird-t100.csv in Resources */,
 				F473F7371ECB2A5800A64524 /* fire@2x.png in Resources */,
 				F47030581EB8CDB0006D738E /* Fireball-polys.csv in Resources */,
-				31B7989C1BD78D43006AE110 /* spark.png in Resources */,
 				F47026D81EB24B08006D738E /* Hang glider.pdf in Resources */,
 				F473F7271ECB2A5800A64524 /* AudioSwarm.pdf in Resources */,
 				F470265A1EB24A78006D738E /* Frog.pdf in Resources */,
@@ -3756,7 +3746,6 @@
 				312D7AB11C90827A00560133 /* BaseCampType.swift in Sources */,
 				464B9E792CE79A8000E13F2F /* GameOverReason.swift in Sources */,
 				85B469CA1DF9826C0060E30B /* LAF.swift in Sources */,
-				85BBE5F31DF9BDC0007E5C9D /* Label.swift in Sources */,
 				312D7FBA1C9082BE00560133 /* TowardsFingerController.swift in Sources */,
 				312D7FC11C9082BE00560133 /* GameplayChromosome.swift in Sources */,
 				F48F07C11CF12D6A001777A8 /* ImageAndLightingChromosome.swift in Sources */,
@@ -3901,7 +3890,6 @@
 				F4D5653B1E1F24000043CAE8 /* JackFrostPlaytester.swift in Sources */,
 				19C109A81DF9A3FF00AEAD5B /* SoundChannel.swift in Sources */,
 				F41D78231BC802C400956D26 /* TransformType.swift in Sources */,
-				85BBE5F21DF9BDC0007E5C9D /* Label.swift in Sources */,
 				F4D3034D1E363E8E005E5844 /* ButtonSetEnum.swift in Sources */,
 				858C2A801E2D220800AAC61F /* InfoTag.swift in Sources */,
 				F41D77EE1BC7F50600956D26 /* BaseScene.swift in Sources */,
