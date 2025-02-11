@@ -351,7 +351,7 @@ class Fascinator: NSObject, SKPhysicsContactDelegate{
         fascinatorContent.imageOnWhite = controllerImage
          
         // HACK FOR LET IT SNOW
-        backing = UIImage(named: "City0")
+        backing = UIImage(named: "City2")
         
         backingNode = SKSpriteNode(texture: SKTexture(image: backing))
         backingNode.size = sceneSize

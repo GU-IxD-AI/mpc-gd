@@ -240,7 +240,7 @@ class BackgroundTextureCache {
 
         DispatchQueue.global(qos: .userInteractive).async(flags: .barrier) {
             autoreleasepool {
-                let name = "\(MainScene.backgroundIDs[choice])\(shade)"
+                let name = "\(MainScene.backgroundIDs[choice])\(shade)" //TODO: setting scene background needs fixing as this place is hard to find
                 let image = PDFImage(named: name, size: dimension)
                 let texture = SKTexture(image: image!)
                 block(texture)
@@ -2477,7 +2477,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
                 fascinatorNode.run(SKAction.fadeAlpha(to: 0.2, duration: 0.5))
                 fascinator.artImageNode.run(fadeOut)
                 logoImageCycler.enabled = true
-       //         logoImageCycler.pipsNode.isHidden = false
+                logoImageCycler.pipsNode.isHidden = false
                 showInfoCycler()
        //         changeGenScreenHelpTextColour(logoColour!, genScreen: infoCyclers[currentGameName]?.selectedHKComponent as! GeneratorScreen)
                 hideLetterBox({

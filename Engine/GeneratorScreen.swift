@@ -4446,20 +4446,18 @@ class GeneratorScreen: HKComponent{
         let gridImage = gg.getGridIcon(iconSize: gridImageSize, controllerPack: liveMPCGDGenome.controllerPack, shape: liveMPCGDGenome.gridShape, orientation: liveMPCGDGenome.gridOrientation, grain: liveMPCGDGenome.gridGrain, size: liveMPCGDGenome.gridSize, colour: MPCGDGenome.getGridShades(liveMPCGDGenome.gridColour)[liveMPCGDGenome.gridShade], includeBorder: false)
         
         var backgroundIcon: UIImage! = nil
-        if DeviceType.simulationIs == .iPad{
-            backgroundIcon = liveMPCGDGenome.dayNightCycle == 0 ? GeneratorScreen.backgroundIconsIPad[liveMPCGDGenome.backgroundChoice][liveMPCGDGenome.backgroundShade] : GeneratorScreen.backgroundIconsIPad[liveMPCGDGenome.backgroundChoice][0]
-        }
-        else{
-            backgroundIcon = liveMPCGDGenome.dayNightCycle == 0 ? GeneratorScreen.backgroundIconsIPhone[liveMPCGDGenome.backgroundChoice][liveMPCGDGenome.backgroundShade] : GeneratorScreen.backgroundIconsIPhone[liveMPCGDGenome.backgroundChoice][0]
-        }
+
+        backgroundIcon = liveMPCGDGenome.dayNightCycle == 0 ? GeneratorScreen.backgroundIconsIPhone[liveMPCGDGenome.backgroundChoice][liveMPCGDGenome.backgroundShade] : GeneratorScreen.backgroundIconsIPad[liveMPCGDGenome.backgroundChoice][0]
+
         
         let backingNode = SKSpriteNode(texture: SKTexture(image: backgroundIcon))
         
         if DeviceType.simulationIs == .iPad {
-            backingNode.size = backingNode.size * 0.9 * (DeviceType.simulationIs == .iPad ? (3.0 / 4.0) : 1.0)
+            backingNode.size = backingNode.size * 0.15 * (DeviceType.simulationIs == .iPad ? (3.0 / 4.0) : 1.0)
         }
         else{
-            backingNode.size = backingNode.size * 0.7
+            backingNode.size = backingNode.size * 0.15
+            backingNode.width = backingNode.width * 0.8
         }
         
         backingNode.position.x = 23

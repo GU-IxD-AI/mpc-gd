@@ -135,6 +135,15 @@
 		464B9E9B2CE79BD800E13F2F /* StopClusterFromForming.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DC7BF51E056C4F007AE2A5 /* StopClusterFromForming.swift */; };
 		464B9E9C2CE79BD800E13F2F /* RainRainTactic.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41A8F191E117F96005D7ABF /* RainRainTactic.swift */; };
 		4691BA3F1E3674CE00DAFC7A /* GameHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4691BA3E1E3674CE00DAFC7A /* GameHandler.swift */; };
+		4694E0782D5B9FCA00AA1891 /* City4.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 4694E06F2D5B9FC900AA1891 /* City4.pdf */; };
+		4694E0792D5B9FCA00AA1891 /* City1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 4694E0702D5B9FC900AA1891 /* City1.pdf */; };
+		4694E07A2D5B9FCA00AA1891 /* City7.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 4694E0712D5B9FC900AA1891 /* City7.pdf */; };
+		4694E07B2D5B9FCA00AA1891 /* City2.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 4694E0722D5B9FC900AA1891 /* City2.pdf */; };
+		4694E07C2D5B9FCA00AA1891 /* City3.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 4694E0732D5B9FC900AA1891 /* City3.pdf */; };
+		4694E07D2D5B9FCA00AA1891 /* City6.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 4694E0742D5B9FCA00AA1891 /* City6.pdf */; };
+		4694E07E2D5B9FCA00AA1891 /* City8.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 4694E0752D5B9FCA00AA1891 /* City8.pdf */; };
+		4694E07F2D5B9FCA00AA1891 /* City5.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 4694E0762D5B9FCA00AA1891 /* City5.pdf */; };
+		4694E0802D5B9FCA00AA1891 /* City0.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 4694E0772D5B9FCA00AA1891 /* City0.pdf */; };
 		46A929F92CE2CC420081F96D /* MPCGD.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 46A929F72CE2CC410081F96D /* MPCGD.xcdatamodeld */; };
 		5C04C66F1E2CD4590034F716 /* StatsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C04C66E1E2CD4590034F716 /* StatsScreen.swift */; };
 		5C65D40B1CA29E70002A2FAB /* AutoSizedLabelNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314F07261CA19B9B00090ED5 /* AutoSizedLabelNode.swift */; };
@@ -729,87 +738,6 @@
 		F48F07C31CF12FC4001777A8 /* Patterns.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F07C21CF12FC4001777A8 /* Patterns.swift */; };
 		F48F07C41CF12FC4001777A8 /* Patterns.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F07C21CF12FC4001777A8 /* Patterns.swift */; };
 		F49161381E93071500A5C76D /* GridSizeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49161371E93071500A5C76D /* GridSizeScreen.swift */; };
-		F49512BC1EC6740400735785 /* City0.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F495126B1EC6740400735785 /* City0.pdf */; };
-		F49512BD1EC6740400735785 /* City1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F495126C1EC6740400735785 /* City1.pdf */; };
-		F49512BE1EC6740400735785 /* City2.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F495126D1EC6740400735785 /* City2.pdf */; };
-		F49512BF1EC6740400735785 /* City3.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F495126E1EC6740400735785 /* City3.pdf */; };
-		F49512C01EC6740400735785 /* City4.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F495126F1EC6740400735785 /* City4.pdf */; };
-		F49512C11EC6740400735785 /* City5.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512701EC6740400735785 /* City5.pdf */; };
-		F49512C21EC6740400735785 /* City6.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512711EC6740400735785 /* City6.pdf */; };
-		F49512C31EC6740400735785 /* City7.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512721EC6740400735785 /* City7.pdf */; };
-		F49512C41EC6740400735785 /* City8.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512731EC6740400735785 /* City8.pdf */; };
-		F49512C51EC6740400735785 /* Desert0.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512741EC6740400735785 /* Desert0.pdf */; };
-		F49512C61EC6740400735785 /* Desert1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512751EC6740400735785 /* Desert1.pdf */; };
-		F49512C71EC6740400735785 /* Desert2.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512761EC6740400735785 /* Desert2.pdf */; };
-		F49512C81EC6740400735785 /* Desert3.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512771EC6740400735785 /* Desert3.pdf */; };
-		F49512C91EC6740400735785 /* Desert4.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512781EC6740400735785 /* Desert4.pdf */; };
-		F49512CA1EC6740400735785 /* Desert5.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512791EC6740400735785 /* Desert5.pdf */; };
-		F49512CB1EC6740400735785 /* Desert6.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F495127A1EC6740400735785 /* Desert6.pdf */; };
-		F49512CC1EC6740400735785 /* Desert7.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F495127B1EC6740400735785 /* Desert7.pdf */; };
-		F49512CD1EC6740400735785 /* Desert8.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F495127C1EC6740400735785 /* Desert8.pdf */; };
-		F49512CE1EC6740400735785 /* Farm0.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F495127D1EC6740400735785 /* Farm0.pdf */; };
-		F49512CF1EC6740400735785 /* Farm1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F495127E1EC6740400735785 /* Farm1.pdf */; };
-		F49512D01EC6740400735785 /* Farm2.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F495127F1EC6740400735785 /* Farm2.pdf */; };
-		F49512D11EC6740400735785 /* Farm3.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512801EC6740400735785 /* Farm3.pdf */; };
-		F49512D21EC6740400735785 /* Farm4.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512811EC6740400735785 /* Farm4.pdf */; };
-		F49512D31EC6740400735785 /* Farm5.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512821EC6740400735785 /* Farm5.pdf */; };
-		F49512D41EC6740400735785 /* Farm6.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512831EC6740400735785 /* Farm6.pdf */; };
-		F49512D51EC6740400735785 /* Farm7.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512841EC6740400735785 /* Farm7.pdf */; };
-		F49512D61EC6740400735785 /* Farm8.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512851EC6740400735785 /* Farm8.pdf */; };
-		F49512D71EC6740400735785 /* Forest0.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512861EC6740400735785 /* Forest0.pdf */; };
-		F49512D81EC6740400735785 /* Forest1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512871EC6740400735785 /* Forest1.pdf */; };
-		F49512D91EC6740400735785 /* Forest2.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512881EC6740400735785 /* Forest2.pdf */; };
-		F49512DA1EC6740400735785 /* Forest3.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512891EC6740400735785 /* Forest3.pdf */; };
-		F49512DB1EC6740400735785 /* Forest4.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F495128A1EC6740400735785 /* Forest4.pdf */; };
-		F49512DC1EC6740400735785 /* Forest5.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F495128B1EC6740400735785 /* Forest5.pdf */; };
-		F49512DD1EC6740400735785 /* Forest6.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F495128C1EC6740400735785 /* Forest6.pdf */; };
-		F49512DE1EC6740400735785 /* Forest7.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F495128D1EC6740400735785 /* Forest7.pdf */; };
-		F49512DF1EC6740400735785 /* Forest8.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F495128E1EC6740400735785 /* Forest8.pdf */; };
-		F49512E01EC6740400735785 /* Island0.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F495128F1EC6740400735785 /* Island0.pdf */; };
-		F49512E11EC6740400735785 /* Island1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512901EC6740400735785 /* Island1.pdf */; };
-		F49512E21EC6740400735785 /* Island2.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512911EC6740400735785 /* Island2.pdf */; };
-		F49512E31EC6740400735785 /* Island3.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512921EC6740400735785 /* Island3.pdf */; };
-		F49512E41EC6740400735785 /* Island4.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512931EC6740400735785 /* Island4.pdf */; };
-		F49512E51EC6740400735785 /* Island5.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512941EC6740400735785 /* Island5.pdf */; };
-		F49512E61EC6740400735785 /* Island6.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512951EC6740400735785 /* Island6.pdf */; };
-		F49512E71EC6740400735785 /* Island7.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512961EC6740400735785 /* Island7.pdf */; };
-		F49512E81EC6740400735785 /* Island8.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512971EC6740400735785 /* Island8.pdf */; };
-		F49512E91EC6740400735785 /* Jungle0.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512981EC6740400735785 /* Jungle0.pdf */; };
-		F49512EA1EC6740400735785 /* Jungle1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512991EC6740400735785 /* Jungle1.pdf */; };
-		F49512EB1EC6740400735785 /* Jungle2.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F495129A1EC6740400735785 /* Jungle2.pdf */; };
-		F49512EC1EC6740400735785 /* Jungle3.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F495129B1EC6740400735785 /* Jungle3.pdf */; };
-		F49512ED1EC6740400735785 /* Jungle4.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F495129C1EC6740400735785 /* Jungle4.pdf */; };
-		F49512EE1EC6740400735785 /* Jungle5.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F495129D1EC6740400735785 /* Jungle5.pdf */; };
-		F49512EF1EC6740400735785 /* Jungle6.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F495129E1EC6740400735785 /* Jungle6.pdf */; };
-		F49512F01EC6740400735785 /* Jungle7.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F495129F1EC6740400735785 /* Jungle7.pdf */; };
-		F49512F11EC6740400735785 /* Jungle8.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512A01EC6740400735785 /* Jungle8.pdf */; };
-		F49512F21EC6740400735785 /* Meadow0.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512A11EC6740400735785 /* Meadow0.pdf */; };
-		F49512F31EC6740400735785 /* Meadow1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512A21EC6740400735785 /* Meadow1.pdf */; };
-		F49512F41EC6740400735785 /* Meadow2.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512A31EC6740400735785 /* Meadow2.pdf */; };
-		F49512F51EC6740400735785 /* Meadow3.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512A41EC6740400735785 /* Meadow3.pdf */; };
-		F49512F61EC6740400735785 /* Meadow4.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512A51EC6740400735785 /* Meadow4.pdf */; };
-		F49512F71EC6740400735785 /* Meadow5.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512A61EC6740400735785 /* Meadow5.pdf */; };
-		F49512F81EC6740400735785 /* Meadow6.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512A71EC6740400735785 /* Meadow6.pdf */; };
-		F49512F91EC6740400735785 /* Meadow7.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512A81EC6740400735785 /* Meadow7.pdf */; };
-		F49512FA1EC6740400735785 /* Meadow8.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512A91EC6740400735785 /* Meadow8.pdf */; };
-		F49512FB1EC6740400735785 /* Mountain0.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512AA1EC6740400735785 /* Mountain0.pdf */; };
-		F49512FC1EC6740400735785 /* Mountain1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512AB1EC6740400735785 /* Mountain1.pdf */; };
-		F49512FD1EC6740400735785 /* Mountain2.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512AC1EC6740400735785 /* Mountain2.pdf */; };
-		F49512FE1EC6740400735785 /* Mountain3.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512AD1EC6740400735785 /* Mountain3.pdf */; };
-		F49512FF1EC6740400735785 /* Mountain4.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512AE1EC6740400735785 /* Mountain4.pdf */; };
-		F49513001EC6740400735785 /* Mountain5.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512AF1EC6740400735785 /* Mountain5.pdf */; };
-		F49513011EC6740400735785 /* Mountain6.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512B01EC6740400735785 /* Mountain6.pdf */; };
-		F49513021EC6740400735785 /* Mountain7.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512B11EC6740400735785 /* Mountain7.pdf */; };
-		F49513031EC6740400735785 /* Mountain8.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512B21EC6740400735785 /* Mountain8.pdf */; };
-		F49513041EC6740400735785 /* Volcano0.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512B31EC6740400735785 /* Volcano0.pdf */; };
-		F49513051EC6740400735785 /* Volcano1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512B41EC6740400735785 /* Volcano1.pdf */; };
-		F49513061EC6740400735785 /* Volcano2.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512B51EC6740400735785 /* Volcano2.pdf */; };
-		F49513071EC6740400735785 /* Volcano3.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512B61EC6740400735785 /* Volcano3.pdf */; };
-		F49513081EC6740400735785 /* Volcano4.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512B71EC6740400735785 /* Volcano4.pdf */; };
-		F49513091EC6740400735785 /* Volcano5.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512B81EC6740400735785 /* Volcano5.pdf */; };
-		F495130A1EC6740400735785 /* Volcano6.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512B91EC6740400735785 /* Volcano6.pdf */; };
-		F495130B1EC6740400735785 /* Volcano7.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512BA1EC6740400735785 /* Volcano7.pdf */; };
-		F495130C1EC6740400735785 /* Volcano8.pdf in Resources */ = {isa = PBXBuildFile; fileRef = F49512BB1EC6740400735785 /* Volcano8.pdf */; };
 		F495130E1EC6810800735785 /* ClustersScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F495130D1EC6810800735785 /* ClustersScreen.swift */; };
 		F49C37861EC129AF003F5DED /* TeleportController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49C37851EC129AF003F5DED /* TeleportController.swift */; };
 		F49C37881EC1C79C003F5DED /* MPCGDAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49C37871EC1C79C003F5DED /* MPCGDAudioPlayer.swift */; };
@@ -898,6 +826,15 @@
 		31EC8F3E1C6A1B3D00C30F9C /* GridSwipeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridSwipeController.swift; sourceTree = "<group>"; };
 		31F94F421BD1316E005BC7B4 /* BitMask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BitMask.swift; sourceTree = "<group>"; };
 		4691BA3E1E3674CE00DAFC7A /* GameHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameHandler.swift; sourceTree = "<group>"; };
+		4694E06F2D5B9FC900AA1891 /* City4.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = City4.pdf; path = Engine/Backgrounds/City4.pdf; sourceTree = "<group>"; };
+		4694E0702D5B9FC900AA1891 /* City1.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = City1.pdf; path = Engine/Backgrounds/City1.pdf; sourceTree = "<group>"; };
+		4694E0712D5B9FC900AA1891 /* City7.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = City7.pdf; path = Engine/Backgrounds/City7.pdf; sourceTree = "<group>"; };
+		4694E0722D5B9FC900AA1891 /* City2.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = City2.pdf; path = Engine/Backgrounds/City2.pdf; sourceTree = "<group>"; };
+		4694E0732D5B9FC900AA1891 /* City3.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = City3.pdf; path = Engine/Backgrounds/City3.pdf; sourceTree = "<group>"; };
+		4694E0742D5B9FCA00AA1891 /* City6.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = City6.pdf; path = Engine/Backgrounds/City6.pdf; sourceTree = "<group>"; };
+		4694E0752D5B9FCA00AA1891 /* City8.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = City8.pdf; path = Engine/Backgrounds/City8.pdf; sourceTree = "<group>"; };
+		4694E0762D5B9FCA00AA1891 /* City5.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = City5.pdf; path = Engine/Backgrounds/City5.pdf; sourceTree = "<group>"; };
+		4694E0772D5B9FCA00AA1891 /* City0.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = City0.pdf; path = Engine/Backgrounds/City0.pdf; sourceTree = "<group>"; };
 		46A929F82CE2CC410081F96D /* MPCGD.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MPCGD.xcdatamodel; sourceTree = "<group>"; };
 		5C04C66E1E2CD4590034F716 /* StatsScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatsScreen.swift; sourceTree = "<group>"; };
 		852B02261DFAF11D00B7F420 /* ExceptionCatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExceptionCatcher.h; sourceTree = "<group>"; };
@@ -1496,87 +1433,6 @@
 		F48F07BF1CF12D6A001777A8 /* ImageAndLightingChromosome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageAndLightingChromosome.swift; sourceTree = "<group>"; };
 		F48F07C21CF12FC4001777A8 /* Patterns.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Patterns.swift; sourceTree = "<group>"; };
 		F49161371E93071500A5C76D /* GridSizeScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridSizeScreen.swift; sourceTree = "<group>"; };
-		F495126B1EC6740400735785 /* City0.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = City0.pdf; path = Engine/Backgrounds/City0.pdf; sourceTree = "<group>"; };
-		F495126C1EC6740400735785 /* City1.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = City1.pdf; path = Engine/Backgrounds/City1.pdf; sourceTree = "<group>"; };
-		F495126D1EC6740400735785 /* City2.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = City2.pdf; path = Engine/Backgrounds/City2.pdf; sourceTree = "<group>"; };
-		F495126E1EC6740400735785 /* City3.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = City3.pdf; path = Engine/Backgrounds/City3.pdf; sourceTree = "<group>"; };
-		F495126F1EC6740400735785 /* City4.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = City4.pdf; path = Engine/Backgrounds/City4.pdf; sourceTree = "<group>"; };
-		F49512701EC6740400735785 /* City5.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = City5.pdf; path = Engine/Backgrounds/City5.pdf; sourceTree = "<group>"; };
-		F49512711EC6740400735785 /* City6.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = City6.pdf; path = Engine/Backgrounds/City6.pdf; sourceTree = "<group>"; };
-		F49512721EC6740400735785 /* City7.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = City7.pdf; path = Engine/Backgrounds/City7.pdf; sourceTree = "<group>"; };
-		F49512731EC6740400735785 /* City8.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = City8.pdf; path = Engine/Backgrounds/City8.pdf; sourceTree = "<group>"; };
-		F49512741EC6740400735785 /* Desert0.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Desert0.pdf; path = Engine/Backgrounds/Desert0.pdf; sourceTree = "<group>"; };
-		F49512751EC6740400735785 /* Desert1.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Desert1.pdf; path = Engine/Backgrounds/Desert1.pdf; sourceTree = "<group>"; };
-		F49512761EC6740400735785 /* Desert2.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Desert2.pdf; path = Engine/Backgrounds/Desert2.pdf; sourceTree = "<group>"; };
-		F49512771EC6740400735785 /* Desert3.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Desert3.pdf; path = Engine/Backgrounds/Desert3.pdf; sourceTree = "<group>"; };
-		F49512781EC6740400735785 /* Desert4.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Desert4.pdf; path = Engine/Backgrounds/Desert4.pdf; sourceTree = "<group>"; };
-		F49512791EC6740400735785 /* Desert5.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Desert5.pdf; path = Engine/Backgrounds/Desert5.pdf; sourceTree = "<group>"; };
-		F495127A1EC6740400735785 /* Desert6.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Desert6.pdf; path = Engine/Backgrounds/Desert6.pdf; sourceTree = "<group>"; };
-		F495127B1EC6740400735785 /* Desert7.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Desert7.pdf; path = Engine/Backgrounds/Desert7.pdf; sourceTree = "<group>"; };
-		F495127C1EC6740400735785 /* Desert8.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Desert8.pdf; path = Engine/Backgrounds/Desert8.pdf; sourceTree = "<group>"; };
-		F495127D1EC6740400735785 /* Farm0.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Farm0.pdf; path = Engine/Backgrounds/Farm0.pdf; sourceTree = "<group>"; };
-		F495127E1EC6740400735785 /* Farm1.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Farm1.pdf; path = Engine/Backgrounds/Farm1.pdf; sourceTree = "<group>"; };
-		F495127F1EC6740400735785 /* Farm2.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Farm2.pdf; path = Engine/Backgrounds/Farm2.pdf; sourceTree = "<group>"; };
-		F49512801EC6740400735785 /* Farm3.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Farm3.pdf; path = Engine/Backgrounds/Farm3.pdf; sourceTree = "<group>"; };
-		F49512811EC6740400735785 /* Farm4.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Farm4.pdf; path = Engine/Backgrounds/Farm4.pdf; sourceTree = "<group>"; };
-		F49512821EC6740400735785 /* Farm5.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Farm5.pdf; path = Engine/Backgrounds/Farm5.pdf; sourceTree = "<group>"; };
-		F49512831EC6740400735785 /* Farm6.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Farm6.pdf; path = Engine/Backgrounds/Farm6.pdf; sourceTree = "<group>"; };
-		F49512841EC6740400735785 /* Farm7.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Farm7.pdf; path = Engine/Backgrounds/Farm7.pdf; sourceTree = "<group>"; };
-		F49512851EC6740400735785 /* Farm8.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Farm8.pdf; path = Engine/Backgrounds/Farm8.pdf; sourceTree = "<group>"; };
-		F49512861EC6740400735785 /* Forest0.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Forest0.pdf; path = Engine/Backgrounds/Forest0.pdf; sourceTree = "<group>"; };
-		F49512871EC6740400735785 /* Forest1.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Forest1.pdf; path = Engine/Backgrounds/Forest1.pdf; sourceTree = "<group>"; };
-		F49512881EC6740400735785 /* Forest2.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Forest2.pdf; path = Engine/Backgrounds/Forest2.pdf; sourceTree = "<group>"; };
-		F49512891EC6740400735785 /* Forest3.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Forest3.pdf; path = Engine/Backgrounds/Forest3.pdf; sourceTree = "<group>"; };
-		F495128A1EC6740400735785 /* Forest4.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Forest4.pdf; path = Engine/Backgrounds/Forest4.pdf; sourceTree = "<group>"; };
-		F495128B1EC6740400735785 /* Forest5.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Forest5.pdf; path = Engine/Backgrounds/Forest5.pdf; sourceTree = "<group>"; };
-		F495128C1EC6740400735785 /* Forest6.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Forest6.pdf; path = Engine/Backgrounds/Forest6.pdf; sourceTree = "<group>"; };
-		F495128D1EC6740400735785 /* Forest7.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Forest7.pdf; path = Engine/Backgrounds/Forest7.pdf; sourceTree = "<group>"; };
-		F495128E1EC6740400735785 /* Forest8.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Forest8.pdf; path = Engine/Backgrounds/Forest8.pdf; sourceTree = "<group>"; };
-		F495128F1EC6740400735785 /* Island0.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Island0.pdf; path = Engine/Backgrounds/Island0.pdf; sourceTree = "<group>"; };
-		F49512901EC6740400735785 /* Island1.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Island1.pdf; path = Engine/Backgrounds/Island1.pdf; sourceTree = "<group>"; };
-		F49512911EC6740400735785 /* Island2.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Island2.pdf; path = Engine/Backgrounds/Island2.pdf; sourceTree = "<group>"; };
-		F49512921EC6740400735785 /* Island3.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Island3.pdf; path = Engine/Backgrounds/Island3.pdf; sourceTree = "<group>"; };
-		F49512931EC6740400735785 /* Island4.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Island4.pdf; path = Engine/Backgrounds/Island4.pdf; sourceTree = "<group>"; };
-		F49512941EC6740400735785 /* Island5.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Island5.pdf; path = Engine/Backgrounds/Island5.pdf; sourceTree = "<group>"; };
-		F49512951EC6740400735785 /* Island6.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Island6.pdf; path = Engine/Backgrounds/Island6.pdf; sourceTree = "<group>"; };
-		F49512961EC6740400735785 /* Island7.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Island7.pdf; path = Engine/Backgrounds/Island7.pdf; sourceTree = "<group>"; };
-		F49512971EC6740400735785 /* Island8.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Island8.pdf; path = Engine/Backgrounds/Island8.pdf; sourceTree = "<group>"; };
-		F49512981EC6740400735785 /* Jungle0.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Jungle0.pdf; path = Engine/Backgrounds/Jungle0.pdf; sourceTree = "<group>"; };
-		F49512991EC6740400735785 /* Jungle1.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Jungle1.pdf; path = Engine/Backgrounds/Jungle1.pdf; sourceTree = "<group>"; };
-		F495129A1EC6740400735785 /* Jungle2.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Jungle2.pdf; path = Engine/Backgrounds/Jungle2.pdf; sourceTree = "<group>"; };
-		F495129B1EC6740400735785 /* Jungle3.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Jungle3.pdf; path = Engine/Backgrounds/Jungle3.pdf; sourceTree = "<group>"; };
-		F495129C1EC6740400735785 /* Jungle4.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Jungle4.pdf; path = Engine/Backgrounds/Jungle4.pdf; sourceTree = "<group>"; };
-		F495129D1EC6740400735785 /* Jungle5.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Jungle5.pdf; path = Engine/Backgrounds/Jungle5.pdf; sourceTree = "<group>"; };
-		F495129E1EC6740400735785 /* Jungle6.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Jungle6.pdf; path = Engine/Backgrounds/Jungle6.pdf; sourceTree = "<group>"; };
-		F495129F1EC6740400735785 /* Jungle7.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Jungle7.pdf; path = Engine/Backgrounds/Jungle7.pdf; sourceTree = "<group>"; };
-		F49512A01EC6740400735785 /* Jungle8.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Jungle8.pdf; path = Engine/Backgrounds/Jungle8.pdf; sourceTree = "<group>"; };
-		F49512A11EC6740400735785 /* Meadow0.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Meadow0.pdf; path = Engine/Backgrounds/Meadow0.pdf; sourceTree = "<group>"; };
-		F49512A21EC6740400735785 /* Meadow1.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Meadow1.pdf; path = Engine/Backgrounds/Meadow1.pdf; sourceTree = "<group>"; };
-		F49512A31EC6740400735785 /* Meadow2.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Meadow2.pdf; path = Engine/Backgrounds/Meadow2.pdf; sourceTree = "<group>"; };
-		F49512A41EC6740400735785 /* Meadow3.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Meadow3.pdf; path = Engine/Backgrounds/Meadow3.pdf; sourceTree = "<group>"; };
-		F49512A51EC6740400735785 /* Meadow4.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Meadow4.pdf; path = Engine/Backgrounds/Meadow4.pdf; sourceTree = "<group>"; };
-		F49512A61EC6740400735785 /* Meadow5.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Meadow5.pdf; path = Engine/Backgrounds/Meadow5.pdf; sourceTree = "<group>"; };
-		F49512A71EC6740400735785 /* Meadow6.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Meadow6.pdf; path = Engine/Backgrounds/Meadow6.pdf; sourceTree = "<group>"; };
-		F49512A81EC6740400735785 /* Meadow7.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Meadow7.pdf; path = Engine/Backgrounds/Meadow7.pdf; sourceTree = "<group>"; };
-		F49512A91EC6740400735785 /* Meadow8.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Meadow8.pdf; path = Engine/Backgrounds/Meadow8.pdf; sourceTree = "<group>"; };
-		F49512AA1EC6740400735785 /* Mountain0.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Mountain0.pdf; path = Engine/Backgrounds/Mountain0.pdf; sourceTree = "<group>"; };
-		F49512AB1EC6740400735785 /* Mountain1.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Mountain1.pdf; path = Engine/Backgrounds/Mountain1.pdf; sourceTree = "<group>"; };
-		F49512AC1EC6740400735785 /* Mountain2.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Mountain2.pdf; path = Engine/Backgrounds/Mountain2.pdf; sourceTree = "<group>"; };
-		F49512AD1EC6740400735785 /* Mountain3.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Mountain3.pdf; path = Engine/Backgrounds/Mountain3.pdf; sourceTree = "<group>"; };
-		F49512AE1EC6740400735785 /* Mountain4.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Mountain4.pdf; path = Engine/Backgrounds/Mountain4.pdf; sourceTree = "<group>"; };
-		F49512AF1EC6740400735785 /* Mountain5.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Mountain5.pdf; path = Engine/Backgrounds/Mountain5.pdf; sourceTree = "<group>"; };
-		F49512B01EC6740400735785 /* Mountain6.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Mountain6.pdf; path = Engine/Backgrounds/Mountain6.pdf; sourceTree = "<group>"; };
-		F49512B11EC6740400735785 /* Mountain7.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Mountain7.pdf; path = Engine/Backgrounds/Mountain7.pdf; sourceTree = "<group>"; };
-		F49512B21EC6740400735785 /* Mountain8.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Mountain8.pdf; path = Engine/Backgrounds/Mountain8.pdf; sourceTree = "<group>"; };
-		F49512B31EC6740400735785 /* Volcano0.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Volcano0.pdf; path = Engine/Backgrounds/Volcano0.pdf; sourceTree = "<group>"; };
-		F49512B41EC6740400735785 /* Volcano1.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Volcano1.pdf; path = Engine/Backgrounds/Volcano1.pdf; sourceTree = "<group>"; };
-		F49512B51EC6740400735785 /* Volcano2.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Volcano2.pdf; path = Engine/Backgrounds/Volcano2.pdf; sourceTree = "<group>"; };
-		F49512B61EC6740400735785 /* Volcano3.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Volcano3.pdf; path = Engine/Backgrounds/Volcano3.pdf; sourceTree = "<group>"; };
-		F49512B71EC6740400735785 /* Volcano4.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Volcano4.pdf; path = Engine/Backgrounds/Volcano4.pdf; sourceTree = "<group>"; };
-		F49512B81EC6740400735785 /* Volcano5.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Volcano5.pdf; path = Engine/Backgrounds/Volcano5.pdf; sourceTree = "<group>"; };
-		F49512B91EC6740400735785 /* Volcano6.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Volcano6.pdf; path = Engine/Backgrounds/Volcano6.pdf; sourceTree = "<group>"; };
-		F49512BA1EC6740400735785 /* Volcano7.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Volcano7.pdf; path = Engine/Backgrounds/Volcano7.pdf; sourceTree = "<group>"; };
-		F49512BB1EC6740400735785 /* Volcano8.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = Volcano8.pdf; path = Engine/Backgrounds/Volcano8.pdf; sourceTree = "<group>"; };
 		F495130D1EC6810800735785 /* ClustersScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClustersScreen.swift; sourceTree = "<group>"; };
 		F49C37851EC129AF003F5DED /* TeleportController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeleportController.swift; sourceTree = "<group>"; };
 		F49C37871EC1C79C003F5DED /* MPCGDAudioPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPCGDAudioPlayer.swift; sourceTree = "<group>"; };
@@ -2809,87 +2665,15 @@
 		F495126A1EC673FB00735785 /* Backgrounds */ = {
 			isa = PBXGroup;
 			children = (
-				F495126B1EC6740400735785 /* City0.pdf */,
-				F495126C1EC6740400735785 /* City1.pdf */,
-				F495126D1EC6740400735785 /* City2.pdf */,
-				F495126E1EC6740400735785 /* City3.pdf */,
-				F495126F1EC6740400735785 /* City4.pdf */,
-				F49512701EC6740400735785 /* City5.pdf */,
-				F49512711EC6740400735785 /* City6.pdf */,
-				F49512721EC6740400735785 /* City7.pdf */,
-				F49512731EC6740400735785 /* City8.pdf */,
-				F49512741EC6740400735785 /* Desert0.pdf */,
-				F49512751EC6740400735785 /* Desert1.pdf */,
-				F49512761EC6740400735785 /* Desert2.pdf */,
-				F49512771EC6740400735785 /* Desert3.pdf */,
-				F49512781EC6740400735785 /* Desert4.pdf */,
-				F49512791EC6740400735785 /* Desert5.pdf */,
-				F495127A1EC6740400735785 /* Desert6.pdf */,
-				F495127B1EC6740400735785 /* Desert7.pdf */,
-				F495127C1EC6740400735785 /* Desert8.pdf */,
-				F495127D1EC6740400735785 /* Farm0.pdf */,
-				F495127E1EC6740400735785 /* Farm1.pdf */,
-				F495127F1EC6740400735785 /* Farm2.pdf */,
-				F49512801EC6740400735785 /* Farm3.pdf */,
-				F49512811EC6740400735785 /* Farm4.pdf */,
-				F49512821EC6740400735785 /* Farm5.pdf */,
-				F49512831EC6740400735785 /* Farm6.pdf */,
-				F49512841EC6740400735785 /* Farm7.pdf */,
-				F49512851EC6740400735785 /* Farm8.pdf */,
-				F49512861EC6740400735785 /* Forest0.pdf */,
-				F49512871EC6740400735785 /* Forest1.pdf */,
-				F49512881EC6740400735785 /* Forest2.pdf */,
-				F49512891EC6740400735785 /* Forest3.pdf */,
-				F495128A1EC6740400735785 /* Forest4.pdf */,
-				F495128B1EC6740400735785 /* Forest5.pdf */,
-				F495128C1EC6740400735785 /* Forest6.pdf */,
-				F495128D1EC6740400735785 /* Forest7.pdf */,
-				F495128E1EC6740400735785 /* Forest8.pdf */,
-				F495128F1EC6740400735785 /* Island0.pdf */,
-				F49512901EC6740400735785 /* Island1.pdf */,
-				F49512911EC6740400735785 /* Island2.pdf */,
-				F49512921EC6740400735785 /* Island3.pdf */,
-				F49512931EC6740400735785 /* Island4.pdf */,
-				F49512941EC6740400735785 /* Island5.pdf */,
-				F49512951EC6740400735785 /* Island6.pdf */,
-				F49512961EC6740400735785 /* Island7.pdf */,
-				F49512971EC6740400735785 /* Island8.pdf */,
-				F49512981EC6740400735785 /* Jungle0.pdf */,
-				F49512991EC6740400735785 /* Jungle1.pdf */,
-				F495129A1EC6740400735785 /* Jungle2.pdf */,
-				F495129B1EC6740400735785 /* Jungle3.pdf */,
-				F495129C1EC6740400735785 /* Jungle4.pdf */,
-				F495129D1EC6740400735785 /* Jungle5.pdf */,
-				F495129E1EC6740400735785 /* Jungle6.pdf */,
-				F495129F1EC6740400735785 /* Jungle7.pdf */,
-				F49512A01EC6740400735785 /* Jungle8.pdf */,
-				F49512A11EC6740400735785 /* Meadow0.pdf */,
-				F49512A21EC6740400735785 /* Meadow1.pdf */,
-				F49512A31EC6740400735785 /* Meadow2.pdf */,
-				F49512A41EC6740400735785 /* Meadow3.pdf */,
-				F49512A51EC6740400735785 /* Meadow4.pdf */,
-				F49512A61EC6740400735785 /* Meadow5.pdf */,
-				F49512A71EC6740400735785 /* Meadow6.pdf */,
-				F49512A81EC6740400735785 /* Meadow7.pdf */,
-				F49512A91EC6740400735785 /* Meadow8.pdf */,
-				F49512AA1EC6740400735785 /* Mountain0.pdf */,
-				F49512AB1EC6740400735785 /* Mountain1.pdf */,
-				F49512AC1EC6740400735785 /* Mountain2.pdf */,
-				F49512AD1EC6740400735785 /* Mountain3.pdf */,
-				F49512AE1EC6740400735785 /* Mountain4.pdf */,
-				F49512AF1EC6740400735785 /* Mountain5.pdf */,
-				F49512B01EC6740400735785 /* Mountain6.pdf */,
-				F49512B11EC6740400735785 /* Mountain7.pdf */,
-				F49512B21EC6740400735785 /* Mountain8.pdf */,
-				F49512B31EC6740400735785 /* Volcano0.pdf */,
-				F49512B41EC6740400735785 /* Volcano1.pdf */,
-				F49512B51EC6740400735785 /* Volcano2.pdf */,
-				F49512B61EC6740400735785 /* Volcano3.pdf */,
-				F49512B71EC6740400735785 /* Volcano4.pdf */,
-				F49512B81EC6740400735785 /* Volcano5.pdf */,
-				F49512B91EC6740400735785 /* Volcano6.pdf */,
-				F49512BA1EC6740400735785 /* Volcano7.pdf */,
-				F49512BB1EC6740400735785 /* Volcano8.pdf */,
+				4694E0772D5B9FCA00AA1891 /* City0.pdf */,
+				4694E0702D5B9FC900AA1891 /* City1.pdf */,
+				4694E0722D5B9FC900AA1891 /* City2.pdf */,
+				4694E0732D5B9FC900AA1891 /* City3.pdf */,
+				4694E06F2D5B9FC900AA1891 /* City4.pdf */,
+				4694E0762D5B9FCA00AA1891 /* City5.pdf */,
+				4694E0742D5B9FCA00AA1891 /* City6.pdf */,
+				4694E0712D5B9FC900AA1891 /* City7.pdf */,
+				4694E0752D5B9FCA00AA1891 /* City8.pdf */,
 			);
 			name = Backgrounds;
 			sourceTree = "<group>";
@@ -3110,20 +2894,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				F42B45111EC4FEAC00622C88 /* Bees.m4a in Resources */,
-				F49512D01EC6740400735785 /* Farm2.pdf in Resources */,
 				C17305F01EC47E0A00729046 /* Music_6_2.m4a in Resources */,
 				F47026A21EB24AD0006D738E /* Leaf.pdf in Resources */,
 				F473F72D1ECB2A5800A64524 /* AudioWind.pdf in Resources */,
-				F49512F51EC6740400735785 /* Meadow3.pdf in Resources */,
 				F45307C01ECFBABE00633D6B /* track2.pdf in Resources */,
 				F470311E1EB8CDCC006D738E /* Sun-t100.csv in Resources */,
 				C17305CB1EC47DC000729046 /* Music_2_5.m4a in Resources */,
 				C17305D31EC47DD200729046 /* Music_3_3.m4a in Resources */,
 				F47030F01EB8CDCC006D738E /* Drone-t100.csv in Resources */,
 				F470307D1EB8CDB0006D738E /* Star-polys.csv in Resources */,
-				F49512FD1EC6740400735785 /* Mountain2.pdf in Resources */,
 				F42B45061EC4FE8700622C88 /* Monkeys.m4a in Resources */,
-				F49512F71EC6740400735785 /* Meadow5.pdf in Resources */,
 				F47026931EB24ABD006D738E /* Pineapple.pdf in Resources */,
 				F47030501EB8CDB0006D738E /* Chicken-polys.csv in Resources */,
 				F453092F1ED316FB00633D6B /* sport_lose_points.aiff in Resources */,
@@ -3161,7 +2941,6 @@
 				F47030461EB8CDB0006D738E /* Apple-polys.csv in Resources */,
 				F47030751EB8CDB0006D738E /* Raincloud-polys.csv in Resources */,
 				F45307C31ECFBABE00633D6B /* track5.pdf in Resources */,
-				F49512D81EC6740400735785 /* Forest1.pdf in Resources */,
 				F45308971ED3145900633D6B /* 8-bit_bounce.aiff in Resources */,
 				F47026DB1EB24B08006D738E /* Paper plane.pdf in Resources */,
 				F47031201EB8CDCC006D738E /* Tennis ball-t100.csv in Resources */,
@@ -3175,18 +2954,17 @@
 				F41D77A31BC7EDEF00956D26 /* GameScene.sks in Resources */,
 				F47026EC1EB24B1B006D738E /* Tornado.pdf in Resources */,
 				F4499E161EE07A5800B28459 /* SFXLoseLifeOutline.pdf in Resources */,
+				4694E07C2D5B9FCA00AA1891 /* City3.pdf in Resources */,
 				F470311A1EB8CDCC006D738E /* Soccer ball-t100.csv in Resources */,
 				F47026F81EB24BFC006D738E /* Bunny.pdf in Resources */,
 				F473F7181ECB2A5800A64524 /* AudioGuitar.pdf in Resources */,
 				F42B452D1EC4FED600622C88 /* UFO.m4a in Resources */,
 				F483ED261ED6E6340024A134 /* drums_lose_points.aiff in Resources */,
 				F47133CB1EDF087B00C615CA /* SFXCollectionMagic.pdf in Resources */,
-				F49512D91EC6740400735785 /* Forest2.pdf in Resources */,
 				F45307BD1ECFBABE00633D6B /* mixer.pdf in Resources */,
 				C17305BE1EC47DA700729046 /* Music_1_2.m4a in Resources */,
 				F4499E091EDFE10E00B28459 /* Stock Games.txt in Resources */,
 				F42B45281EC4FED600622C88 /* Copter.m4a in Resources */,
-				F49512FA1EC6740400735785 /* Meadow8.pdf in Resources */,
 				F47026A41EB24AD0006D738E /* Mushroom.pdf in Resources */,
 				F473F73C1ECB2A5800A64524 /* jungle@2x.png in Resources */,
 				F473F7381ECB2A5800A64524 /* flute@2x.png in Resources */,
@@ -3202,7 +2980,6 @@
 				F473F7471ECB2A5800A64524 /* saxophone@2x.png in Resources */,
 				F47026F91EB24BFC006D738E /* Cat.pdf in Resources */,
 				F470269F1EB24AD0006D738E /* Branch.pdf in Resources */,
-				F49513031EC6740400735785 /* Mountain8.pdf in Resources */,
 				F47030731EB8CDB0006D738E /* Pineapple-polys.csv in Resources */,
 				F45309171ED316C100633D6B /* space_lose_points.aiff in Resources */,
 				F473F74C1ECB2A5800A64524 /* traffic@2x.png in Resources */,
@@ -3213,9 +2990,9 @@
 				F470306A1EB8CDB0006D738E /* Mushroom-polys.csv in Resources */,
 				F47031231EB8CDCC006D738E /* Umbrella-t100.csv in Resources */,
 				F47026A51EB24AD0006D738E /* Pine cone.pdf in Resources */,
-				F49512D41EC6740400735785 /* Farm6.pdf in Resources */,
 				F45307D21ECFBD1B00633D6B /* SFXGainPoints.pdf in Resources */,
 				F473F7411ECB2A5800A64524 /* music3@2x.png in Resources */,
+				4694E07B2D5B9FCA00AA1891 /* City2.pdf in Resources */,
 				F47026571EB24A78006D738E /* Boar.pdf in Resources */,
 				F473F7501ECB2A5800A64524 /* wind@2x.png in Resources */,
 				F470305D1EB8CDB0006D738E /* Hamster-polys.csv in Resources */,
@@ -3237,18 +3014,15 @@
 				F473F7141ECB2A5800A64524 /* AudioDrums.pdf in Resources */,
 				F47030561EB8CDB0006D738E /* Drone-polys.csv in Resources */,
 				F42B45141EC4FEAC00622C88 /* Swarm.m4a in Resources */,
-				F49512E71EC6740400735785 /* Island7.pdf in Resources */,
 				F47030671EB8CDB0006D738E /* Maple leaf-polys.csv in Resources */,
 				F47031241EB8CDCC006D738E /* Volleyball-t100.csv in Resources */,
 				C17305BD1EC47DA700729046 /* Music_1_1.m4a in Resources */,
-				F49512C71EC6740400735785 /* Desert2.pdf in Resources */,
 				F473F7101ECB2A5800A64524 /* AudioCicadas.pdf in Resources */,
 				F47031261EB8CDCC006D738E /* Zeppelin-t100.csv in Resources */,
 				F47030701EB8CDB0006D738E /* Pear-polys.csv in Resources */,
 				F453089B1ED3145900633D6B /* 8-bit_win_game.aiff in Resources */,
 				F42B451F1EC4FEC400622C88 /* Guitar.m4a in Resources */,
 				F47030E21EB8CDCC006D738E /* Boar-t100.csv in Resources */,
-				F49512E21EC6740400735785 /* Island2.pdf in Resources */,
 				F4EB7FFB1E352E2E00CE71DA /* Dolce Vita Heavy Bold.ttf in Resources */,
 				C17305C71EC47DC000729046 /* Music_2_1.m4a in Resources */,
 				F470266E1EB24A81006D738E /* Ladybird.pdf in Resources */,
@@ -3256,13 +3030,9 @@
 				F483ED2A1ED6E7450024A134 /* drums_lose_life.aiff in Resources */,
 				F470311D1EB8CDCC006D738E /* Strawberry-t100.csv in Resources */,
 				F47030FA1EB8CDCC006D738E /* Helicopter-t100.csv in Resources */,
-				F49512CF1EC6740400735785 /* Farm1.pdf in Resources */,
 				F47030D81EB8CDCC006D738E /* Alien-t100.csv in Resources */,
-				F49512FF1EC6740400735785 /* Mountain4.pdf in Resources */,
-				F49512F61EC6740400735785 /* Meadow4.pdf in Resources */,
 				F46EF0251EB3B8A4004CAAB1 /* ControllerColours.csv in Resources */,
 				F483ED241ED6E6340024A134 /* drums_gain_points.aiff in Resources */,
-				F49512F31EC6740400735785 /* Meadow1.pdf in Resources */,
 				F47026A01EB24AD0006D738E /* Clover.pdf in Resources */,
 				F47031171EB8CDCC006D738E /* Shuttlecock-t100.csv in Resources */,
 				F47030FF1EB8CDCC006D738E /* Ladybird-t100.csv in Resources */,
@@ -3272,11 +3042,10 @@
 				F473F7271ECB2A5800A64524 /* AudioSwarm.pdf in Resources */,
 				F470265A1EB24A78006D738E /* Frog.pdf in Resources */,
 				F473F7421ECB2A5800A64524 /* music4@2x.png in Resources */,
-				F49512EC1EC6740400735785 /* Jungle3.pdf in Resources */,
 				F470304C1EB8CDB0006D738E /* Butterfly-polys.csv in Resources */,
 				F42B451D1EC4FEC400622C88 /* Drums.m4a in Resources */,
+				4694E07D2D5B9FCA00AA1891 /* City6.pdf in Resources */,
 				F45308E81ED315C400633D6B /* farm_explode.aiff in Resources */,
-				F49512FC1EC6740400735785 /* Mountain1.pdf in Resources */,
 				C17305F31EC47E0A00729046 /* Music_6_5.m4a in Resources */,
 				F470305A1EB8CDB0006D738E /* Football-polys.csv in Resources */,
 				F473F7401ECB2A5800A64524 /* music2@2x.png in Resources */,
@@ -3285,28 +3054,22 @@
 				F47133C61EDF087B00C615CA /* SFXCollectionArcade.pdf in Resources */,
 				E18E914B1E30CCC800C06B21 /* SSiPad_genome.json in Resources */,
 				F473F73B1ECB2A5800A64524 /* gull@2x.png in Resources */,
-				F49513081EC6740400735785 /* Volcano4.pdf in Resources */,
 				F47026E61EB24B1B006D738E /* Cloud.pdf in Resources */,
-				F49512D31EC6740400735785 /* Farm5.pdf in Resources */,
 				F47030681EB8CDB0006D738E /* Melon-polys.csv in Resources */,
 				F47030F81EB8CDCC006D738E /* Hamster-t100.csv in Resources */,
 				F47133B41EDDEE4C00C615CA /* magic_explode.aiff in Resources */,
 				F42B45041EC4FE8700622C88 /* Birds.m4a in Resources */,
-				F49512BE1EC6740400735785 /* City2.pdf in Resources */,
-				F49513091EC6740400735785 /* Volcano5.pdf in Resources */,
 				F473F7361ECB2A5800A64524 /* drums@2x.png in Resources */,
 				F470446A1E0F53B300E13FEB /* RRiPhone_genome.json in Resources */,
 				F45309141ED316C100633D6B /* space_lose_life.aiff in Resources */,
 				F470265C1EB24A78006D738E /* Monkey.pdf in Resources */,
 				F42B45091EC4FE8700622C88 /* Sheep.m4a in Resources */,
-				F49512F41EC6740400735785 /* Meadow2.pdf in Resources */,
 				F473F74B1ECB2A5800A64524 /* thunder@2x.png in Resources */,
 				F470304A1EB8CDB0006D738E /* Boar-polys.csv in Resources */,
 				F47026591EB24A78006D738E /* Fish.pdf in Resources */,
 				F47133E41EDF111A00C615CA /* SFXExplode.pdf in Resources */,
 				F42B45101EC4FEAC00622C88 /* Bats.m4a in Resources */,
 				F47133C91EDF087B00C615CA /* SFXCollectionFarm.pdf in Resources */,
-				F495130B1EC6740400735785 /* Volcano7.pdf in Resources */,
 				F47026FA1EB24BFC006D738E /* Chick.pdf in Resources */,
 				F47133CA1EDF087B00C615CA /* SFXCollectionGlass.pdf in Resources */,
 				F470310F1EB8CDCC006D738E /* Pine cone-t100.csv in Resources */,
@@ -3318,7 +3081,6 @@
 				F47030FB1EB8CDCC006D738E /* Horse-t100.csv in Resources */,
 				C17305EF1EC47E0A00729046 /* Music_6_1.m4a in Resources */,
 				F42B45361EC4FEE100622C88 /* Thunder.m4a in Resources */,
-				F49513061EC6740400735785 /* Volcano2.pdf in Resources */,
 				F470304D1EB8CDB0006D738E /* Cat-polys.csv in Resources */,
 				F47133B31EDDEE4C00C615CA /* magic_bounce.aiff in Resources */,
 				F47031211EB8CDCC006D738E /* Tornado-t100.csv in Resources */,
@@ -3331,29 +3093,22 @@
 				F483ED121ED6E1B40024A134 /* arcade_lose_life.aiff in Resources */,
 				F47133C71EDF087B00C615CA /* SFXCollectionCartoon.pdf in Resources */,
 				F47026FE1EB24BFC006D738E /* Hamster.pdf in Resources */,
-				F49512F91EC6740400735785 /* Meadow7.pdf in Resources */,
 				F47133DF1EDF106500C615CA /* SFXLoseGame.pdf in Resources */,
 				F47133B91EDDEE4C00C615CA /* magic_tap.aiff in Resources */,
 				F483ED131ED6E1B40024A134 /* arcade_lose_points.aiff in Resources */,
-				F49512E61EC6740400735785 /* Island6.pdf in Resources */,
 				F473F7321ECB2A5800A64524 /* bird@2x.png in Resources */,
 				F47133E01EDF106500C615CA /* SFXWinGame.pdf in Resources */,
 				F47044671E0F53B300E13FEB /* MISiPad_genome.json in Resources */,
-				F49512E31EC6740400735785 /* Island3.pdf in Resources */,
 				F453089D1ED3145900633D6B /* 8-bit_lose_life.aiff in Resources */,
 				F47026D61EB24B08006D738E /* Balloon.pdf in Resources */,
 				F42B45371EC4FEE100622C88 /* Water.m4a in Resources */,
 				F47026941EB24ABD006D738E /* Strawberry.pdf in Resources */,
-				F49512E81EC6740400735785 /* Island8.pdf in Resources */,
 				F47030F41EB8CDCC006D738E /* Fish-t100.csv in Resources */,
 				F47030541EB8CDB0006D738E /* Dog-polys.csv in Resources */,
 				F473F7201ECB2A5800A64524 /* AudioMusic5.pdf in Resources */,
-				F49512E51EC6740400735785 /* Island5.pdf in Resources */,
 				F45309131ED316C100633D6B /* space_explode.aiff in Resources */,
 				F470446C1E0F53B300E13FEB /* TIBiPhone_genome.json in Resources */,
-				F49512CD1EC6740400735785 /* Desert8.pdf in Resources */,
 				F45309161ED316C100633D6B /* space_win_game.aiff in Resources */,
-				F49512CC1EC6740400735785 /* Desert7.pdf in Resources */,
 				F47030F51EB8CDCC006D738E /* Football-t100.csv in Resources */,
 				F47044651E0F53B300E13FEB /* LISiPad_genome.json in Resources */,
 				F42B45381EC4FEE100622C88 /* Waves.m4a in Resources */,
@@ -3364,14 +3119,13 @@
 				F483ED171ED6E46E0024A134 /* arcade_lose_game.aiff in Resources */,
 				C17305E71EC47DF800729046 /* Music_5_3.m4a in Resources */,
 				F470307A1EB8CDB0006D738E /* Shuttlecock-polys.csv in Resources */,
-				F49512EA1EC6740400735785 /* Jungle1.pdf in Resources */,
+				4694E0792D5B9FCA00AA1891 /* City1.pdf in Resources */,
 				F45308EA1ED315C400633D6B /* farm_lose_points.aiff in Resources */,
 				F47026EA1EB24B1B006D738E /* Raindrop.pdf in Resources */,
 				F43B67881ED6F5AF0094A853 /* weather_tap.aiff in Resources */,
 				F43B678C1ED6F7690094A853 /* weather_gain_points.aiff in Resources */,
 				F47030451EB8CDB0006D738E /* Ant-polys.csv in Resources */,
 				F453093C1ED3172600633D6B /* weather_lose_game.aiff in Resources */,
-				F49512EE1EC6740400735785 /* Jungle5.pdf in Resources */,
 				C17305DE1EC47DE400729046 /* Music_4_4.m4a in Resources */,
 				F47044681E0F53B300E13FEB /* MISiPhone_genome.json in Resources */,
 				F47133E61EDF115300C615CA /* SFXTap.pdf in Resources */,
@@ -3382,33 +3136,27 @@
 				F473F7331ECB2A5800A64524 /* chimes@2x.png in Resources */,
 				F4EB7FFC1E352E2E00CE71DA /* Dolce Vita Light.ttf in Resources */,
 				F47030E11EB8CDCC006D738E /* Blossom-t100.csv in Resources */,
-				F49512DB1EC6740400735785 /* Forest4.pdf in Resources */,
 				F42B452A1EC4FED600622C88 /* Plane.m4a in Resources */,
 				F47026D71EB24B08006D738E /* Drone.pdf in Resources */,
-				F49512C61EC6740400735785 /* Desert1.pdf in Resources */,
 				F47031251EB8CDCC006D738E /* Wind-t100.csv in Resources */,
 				F42B45291EC4FED600622C88 /* Drone.m4a in Resources */,
 				F47030521EB8CDB0006D738E /* Clover-polys.csv in Resources */,
 				F47030FE1EB8CDCC006D738E /* Koala-t100.csv in Resources */,
 				F47030E71EB8CDCC006D738E /* Caterpillar-t100.csv in Resources */,
-				F49512BD1EC6740400735785 /* City1.pdf in Resources */,
 				C17305D51EC47DD200729046 /* Music_3_5.m4a in Resources */,
 				F470305C1EB8CDB0006D738E /* Grapes-polys.csv in Resources */,
 				F4499E181EE07A5800B28459 /* SFXLosePointsOutline.pdf in Resources */,
 				F47030DF1EB8CDCC006D738E /* Bee-t100.csv in Resources */,
 				F473F7301ECB2A5800A64524 /* bee@2x.png in Resources */,
 				F470311C1EB8CDCC006D738E /* Star-t100.csv in Resources */,
-				F49512D21EC6740400735785 /* Farm4.pdf in Resources */,
 				F470446B1E0F53B300E13FEB /* TIBiPad_genome.json in Resources */,
 				F42B45081EC4FE8700622C88 /* Seagulls.m4a in Resources */,
 				F483ED231ED6E6340024A134 /* drums_explode.aiff in Resources */,
 				C17305E81EC47DF800729046 /* Music_5_4.m4a in Resources */,
 				F47031011EB8CDCC006D738E /* Lemon-t100.csv in Resources */,
-				F49512E11EC6740400735785 /* Island1.pdf in Resources */,
 				F47031161EB8CDCC006D738E /* Satellite-t100.csv in Resources */,
 				F473F72F1ECB2A5800A64524 /* bat@2x.png in Resources */,
 				F43B67801ED6F09B0094A853 /* sport_lose_game.aiff in Resources */,
-				F49512C51EC6740400735785 /* Desert0.pdf in Resources */,
 				F473F71D1ECB2A5800A64524 /* AudioMusic2.pdf in Resources */,
 				F43B67861ED6F5070094A853 /* weather_bounce.aiff in Resources */,
 				F47026E81EB24B1B006D738E /* Lightning.pdf in Resources */,
@@ -3419,7 +3167,6 @@
 				F47030E01EB8CDCC006D738E /* Bird-t100.csv in Resources */,
 				F473F7131ECB2A5800A64524 /* AudioDrone.pdf in Resources */,
 				F4B3E8C11E1B71CE002EF89A /* JFiPhone_genome.json in Resources */,
-				F49512DC1EC6740400735785 /* Forest5.pdf in Resources */,
 				F47030F91EB8CDCC006D738E /* Hang glider-t100.csv in Resources */,
 				F47030431EB8CDB0006D738E /* Air rescue-polys.csv in Resources */,
 				C17305C11EC47DA700729046 /* Music_1_5.m4a in Resources */,
@@ -3431,26 +3178,22 @@
 				F45308B11ED3150300633D6B /* cartoon_explode.aiff in Resources */,
 				F473F7111ECB2A5800A64524 /* AudioCopter.pdf in Resources */,
 				F47133BA1EDDEE4C00C615CA /* magic_win_game.aiff in Resources */,
-				F49512FE1EC6740400735785 /* Mountain3.pdf in Resources */,
 				F47133B81EDDEE4C00C615CA /* magic_lose_points.aiff in Resources */,
 				C17305E51EC47DF800729046 /* Music_5_1.m4a in Resources */,
 				F470307B1EB8CDB0006D738E /* Snail-polys.csv in Resources */,
 				F470310B1EB8CDCC006D738E /* Paper plane-t100.csv in Resources */,
 				F473F74D1ECB2A5800A64524 /* ufo@2x.png in Resources */,
 				F470305E1EB8CDB0006D738E /* Hang glider-polys.csv in Resources */,
-				F49512D61EC6740400735785 /* Farm8.pdf in Resources */,
 				F473F71C1ECB2A5800A64524 /* AudioMusic1.pdf in Resources */,
 				F4499E171EE07A5800B28459 /* SFXLoseGameOutline.pdf in Resources */,
 				F470269E1EB24AD0006D738E /* Blossom.pdf in Resources */,
 				F47026581EB24A78006D738E /* Elephant.pdf in Resources */,
-				F49513021EC6740400735785 /* Mountain7.pdf in Resources */,
 				F47030551EB8CDB0006D738E /* Dragonfly-polys.csv in Resources */,
 				F47030621EB8CDB0006D738E /* Jet-polys.csv in Resources */,
 				F42B45051EC4FE8700622C88 /* Frogs.m4a in Resources */,
 				F473F7511ECB2A5800A64524 /* wings@2x.png in Resources */,
 				F470266D1EB24A81006D738E /* Housefly.pdf in Resources */,
 				C17305C81EC47DC000729046 /* Music_2_2.m4a in Resources */,
-				F49512C91EC6740400735785 /* Desert4.pdf in Resources */,
 				C17305D21EC47DD200729046 /* Music_3_2.m4a in Resources */,
 				F45308B31ED3150300633D6B /* cartoon_win_game.aiff in Resources */,
 				C17305F21EC47E0A00729046 /* Music_6_4.m4a in Resources */,
@@ -3459,11 +3202,11 @@
 				F453089F1ED3145900633D6B /* 8-bit_tap.aiff in Resources */,
 				C17305D41EC47DD200729046 /* Music_3_4.m4a in Resources */,
 				F47031221EB8CDCC006D738E /* UFO-t100.csv in Resources */,
-				F49512C81EC6740400735785 /* Desert3.pdf in Resources */,
 				F47031111EB8CDCC006D738E /* Planet-t100.csv in Resources */,
 				F47026E71EB24B1B006D738E /* Fireball.pdf in Resources */,
 				F47133E21EDF10C900C615CA /* SFXBounce.pdf in Resources */,
 				F41D77AF1BC7EDEF00956D26 /* LaunchScreen.storyboard in Resources */,
+				4694E07F2D5B9FCA00AA1891 /* City5.pdf in Resources */,
 				F4499E1A1EE07A5800B28459 /* SFXWinGameOutline.pdf in Resources */,
 				C17305E61EC47DF800729046 /* Music_5_2.m4a in Resources */,
 				F45307C11ECFBABE00633D6B /* track3.pdf in Resources */,
@@ -3472,13 +3215,13 @@
 				F473F7431ECB2A5800A64524 /* music5@2x.png in Resources */,
 				F47030EE1EB8CDCC006D738E /* Dog-t100.csv in Resources */,
 				F470310D1EB8CDCC006D738E /* Pear-t100.csv in Resources */,
+				4694E0802D5B9FCA00AA1891 /* City0.pdf in Resources */,
 				F47030EA1EB8CDCC006D738E /* Cloud-t100.csv in Resources */,
 				F47030591EB8CDB0006D738E /* Fish-polys.csv in Resources */,
 				F47030471EB8CDB0006D738E /* Balloon-polys.csv in Resources */,
 				F470306E1EB8CDB0006D738E /* Paper plane-polys.csv in Resources */,
 				F47133B61EDDEE4C00C615CA /* magic_lose_game.aiff in Resources */,
 				F453093B1ED3172600633D6B /* weather_explode.aiff in Resources */,
-				F49512BF1EC6740400735785 /* City3.pdf in Resources */,
 				F470266B1EB24A81006D738E /* Caterpillar.pdf in Resources */,
 				F47031071EB8CDCC006D738E /* Mushroom-t100.csv in Resources */,
 				F470265B1EB24A78006D738E /* Koala.pdf in Resources */,
@@ -3488,19 +3231,17 @@
 				F47030771EB8CDB0006D738E /* Rocket-polys.csv in Resources */,
 				F473F73D1ECB2A5800A64524 /* khim@2x.png in Resources */,
 				F470307C1EB8CDB0006D738E /* Spider-polys.csv in Resources */,
-				F49512D51EC6740400735785 /* Farm7.pdf in Resources */,
 				F47031001EB8CDCC006D738E /* Leaf-t100.csv in Resources */,
 				F47031061EB8CDCC006D738E /* Moon-t100.csv in Resources */,
+				4694E07E2D5B9FCA00AA1891 /* City8.pdf in Resources */,
 				F473F7311ECB2A5800A64524 /* beetle@2x.png in Resources */,
 				F47031191EB8CDCC006D738E /* Snowflake-t100.csv in Resources */,
 				F42B45121EC4FEAC00622C88 /* Cicadas.m4a in Resources */,
 				F47030F21EB8CDCC006D738E /* Elephant-t100.csv in Resources */,
 				F41D783E1BC81D0200956D26 /* NamedColours.csv in Resources */,
 				F42B452C1EC4FED600622C88 /* Traffic.m4a in Resources */,
-				F495130A1EC6740400735785 /* Volcano6.pdf in Resources */,
 				F45308A01ED3145900633D6B /* 8-bit_gain_points.aiff in Resources */,
 				F453089A1ED3145900633D6B /* 8-bit_lose_game.aiff in Resources */,
-				F49512DE1EC6740400735785 /* Forest7.pdf in Resources */,
 				F42B45131EC4FEAC00622C88 /* Jungle.m4a in Resources */,
 				F47031151EB8CDCC006D738E /* Rugby ball-t100.csv in Resources */,
 				F47026D41EB24B08006D738E /* Aeroplane.pdf in Resources */,
@@ -3515,7 +3256,6 @@
 				C17305DC1EC47DE400729046 /* Music_4_2.m4a in Resources */,
 				F47030F31EB8CDCC006D738E /* Fireball-t100.csv in Resources */,
 				F47026FD1EB24BFC006D738E /* Dog.pdf in Resources */,
-				F49512BC1EC6740400735785 /* City0.pdf in Resources */,
 				F47030E41EB8CDCC006D738E /* Bunny-t100.csv in Resources */,
 				F47026D51EB24B08006D738E /* Air rescue.pdf in Resources */,
 				F47026B31EB24ADB006D738E /* Planet.pdf in Resources */,
@@ -3524,28 +3264,21 @@
 				F47026FB1EB24BFC006D738E /* Chicken.pdf in Resources */,
 				F45308EE1ED315C400633D6B /* farm_gain_points.aiff in Resources */,
 				F470304B1EB8CDB0006D738E /* Bunny-polys.csv in Resources */,
-				F49512D71EC6740400735785 /* Forest0.pdf in Resources */,
 				F453092A1ED316FB00633D6B /* sport_bounce.aiff in Resources */,
 				F473F7261ECB2A5800A64524 /* AudioSiren.pdf in Resources */,
 				F47030761EB8CDB0006D738E /* Raindrop-polys.csv in Resources */,
 				F47026DA1EB24B08006D738E /* Jet.pdf in Resources */,
 				F47030D71EB8CDCC006D738E /* Air rescue-t100.csv in Resources */,
 				F47026A11EB24AD0006D738E /* Dandelion.pdf in Resources */,
-				F49513011EC6740400735785 /* Mountain6.pdf in Resources */,
-				F49512C31EC6740400735785 /* City7.pdf in Resources */,
-				F49512C41EC6740400735785 /* City8.pdf in Resources */,
 				F47026C81EB24AF1006D738E /* Soccer ball.pdf in Resources */,
 				F4DC7BFC1E05709A007AE2A5 /* AutoplaytesterPresets.json in Resources */,
 				F47030531EB8CDB0006D738E /* Cow-polys.csv in Resources */,
-				F49512DF1EC6740400735785 /* Forest8.pdf in Resources */,
 				F47026B41EB24ADB006D738E /* Rocket.pdf in Resources */,
 				F42B45151EC4FEAC00622C88 /* Wings.m4a in Resources */,
 				F47030801EB8CDB0006D738E /* UFO-polys.csv in Resources */,
 				F45309121ED316C100633D6B /* space_bounce.aiff in Resources */,
-				F49512D11EC6740400735785 /* Farm3.pdf in Resources */,
 				C17305F11EC47E0A00729046 /* Music_6_3.m4a in Resources */,
 				F453091A1ED316C100633D6B /* space_tap.aiff in Resources */,
-				F49512EF1EC6740400735785 /* Jungle6.pdf in Resources */,
 				F47030821EB8CDB0006D738E /* Wind-polys.csv in Resources */,
 				F45308E71ED315C400633D6B /* farm_bounce.aiff in Resources */,
 				F453092B1ED316FB00633D6B /* sport_explode.aiff in Resources */,
@@ -3558,7 +3291,6 @@
 				F47026B11EB24ADB006D738E /* Earth.pdf in Resources */,
 				F47026911EB24ABD006D738E /* Peach.pdf in Resources */,
 				31BC56251E955326008B4950 /* ControllerPolygons.json in Resources */,
-				F49512DD1EC6740400735785 /* Forest6.pdf in Resources */,
 				F47026A61EB24AD0006D738E /* Sunflower.pdf in Resources */,
 				F47030E51EB8CDCC006D738E /* Butterfly-t100.csv in Resources */,
 				F47031121EB8CDCC006D738E /* Raincloud-t100.csv in Resources */,
@@ -3570,14 +3302,10 @@
 				F473F71F1ECB2A5800A64524 /* AudioMusic4.pdf in Resources */,
 				F47026CA1EB24AF1006D738E /* Volleyball.pdf in Resources */,
 				F47030831EB8CDB0006D738E /* Zeppelin-polys.csv in Resources */,
-				F49512CB1EC6740400735785 /* Desert6.pdf in Resources */,
 				F4499E131EE07A5800B28459 /* SFXBounceOutline.pdf in Resources */,
-				F49513071EC6740400735785 /* Volcano3.pdf in Resources */,
 				F473F7481ECB2A5800A64524 /* sheep@2x.png in Resources */,
-				F49513041EC6740400735785 /* Volcano0.pdf in Resources */,
 				F47133B51EDDEE4C00C615CA /* magic_gain_points.aiff in Resources */,
 				F470306B1EB8CDB0006D738E /* Octopus-polys.csv in Resources */,
-				F49512C21EC6740400735785 /* City6.pdf in Resources */,
 				F47030FD1EB8CDCC006D738E /* Jet-t100.csv in Resources */,
 				F47030481EB8CDB0006D738E /* Bird-polys.csv in Resources */,
 				C17305BF1EC47DA700729046 /* Music_1_3.m4a in Resources */,
@@ -3586,17 +3314,11 @@
 				F47026901EB24ABD006D738E /* Orange.pdf in Resources */,
 				F47026FF1EB24BFC006D738E /* Horse.pdf in Resources */,
 				F47030E61EB8CDCC006D738E /* Cat-t100.csv in Resources */,
-				F49513001EC6740400735785 /* Mountain5.pdf in Resources */,
 				F473F74F1ECB2A5800A64524 /* waves@2x.png in Resources */,
-				F49512F21EC6740400735785 /* Meadow0.pdf in Resources */,
-				F49513051EC6740400735785 /* Volcano1.pdf in Resources */,
-				F49512CA1EC6740400735785 /* Desert5.pdf in Resources */,
 				F47026561EB24A78006D738E /* Bird.pdf in Resources */,
-				F49512E91EC6740400735785 /* Jungle0.pdf in Resources */,
 				85C60D0E1ECB101E007CC0CE /* Didge.m4a in Resources */,
 				F473F7161ECB2A5800A64524 /* AudioFlute.pdf in Resources */,
 				F47044661E0F53B300E13FEB /* LISiPhone_genome.json in Resources */,
-				F49512E01EC6740400735785 /* Island0.pdf in Resources */,
 				F47026EE1EB24B1B006D738E /* Wind.pdf in Resources */,
 				F47044691E0F53B300E13FEB /* RRiPad_genome.json in Resources */,
 				F47030421EB8CDB0006D738E /* Aeroplane-polys.csv in Resources */,
@@ -3605,7 +3327,6 @@
 				C17305DD1EC47DE400729046 /* Music_4_3.m4a in Resources */,
 				F473F72B1ECB2A5800A64524 /* AudioWater.pdf in Resources */,
 				F45307D01ECFBD1B00633D6B /* SFXLosePoints.pdf in Resources */,
-				F49512E41EC6740400735785 /* Island4.pdf in Resources */,
 				F47030ED1EB8CDCC006D738E /* Dandelion-t100.csv in Resources */,
 				F453092D1ED316FB00633D6B /* sport_lose_life.aiff in Resources */,
 				F47026EB1EB24B1B006D738E /* Snowflake.pdf in Resources */,
@@ -3618,10 +3339,8 @@
 				F483ED151ED6E1B40024A134 /* arcade_win_game.aiff in Resources */,
 				F47031091EB8CDCC006D738E /* Orange-t100.csv in Resources */,
 				F470305F1EB8CDB0006D738E /* Helicopter-polys.csv in Resources */,
-				F49512EB1EC6740400735785 /* Jungle2.pdf in Resources */,
 				F47133B71EDDEE4C00C615CA /* magic_lose_life.aiff in Resources */,
 				F47026ED1EB24B1B006D738E /* Umbrella.pdf in Resources */,
-				F49512DA1EC6740400735785 /* Forest3.pdf in Resources */,
 				F42B451E1EC4FEC400622C88 /* Flute.m4a in Resources */,
 				F42B45201EC4FEC400622C88 /* Khim.m4a in Resources */,
 				F47030781EB8CDB0006D738E /* Rugby ball-polys.csv in Resources */,
@@ -3635,10 +3354,10 @@
 				F47026C21EB24AF1006D738E /* Baseball.pdf in Resources */,
 				F45307BE1ECFBABE00633D6B /* tempo.pdf in Resources */,
 				F470310C1EB8CDCC006D738E /* Peach-t100.csv in Resources */,
+				4694E0782D5B9FCA00AA1891 /* City4.pdf in Resources */,
 				F47026C91EB24AF1006D738E /* Tennis ball.pdf in Resources */,
 				F472FF891EB9EBD300AB3A9A /* Skilful Games.txt in Resources */,
 				F45308ED1ED315C400633D6B /* farm_tap.aiff in Resources */,
-				F49512FB1EC6740400735785 /* Mountain0.pdf in Resources */,
 				F473F73F1ECB2A5800A64524 /* music1@2x.png in Resources */,
 				F47031281EB8CEBB006D738E /* Branch-polys.csv in Resources */,
 				F47030D61EB8CDCC006D738E /* Aeroplane-t100.csv in Resources */,
@@ -3649,10 +3368,10 @@
 				F45307BF1ECFBABE00633D6B /* track1.pdf in Resources */,
 				F483ED271ED6E6340024A134 /* drums_tap.aiff in Resources */,
 				F47030511EB8CDB0006D738E /* Cloud-polys.csv in Resources */,
+				4694E07A2D5B9FCA00AA1891 /* City7.pdf in Resources */,
 				F43B67771ED6ED9C0094A853 /* glass_lose_game.aiff in Resources */,
 				F473F73E1ECB2A5800A64524 /* monkey@2x.png in Resources */,
 				F47133DC1EDF0FED00C615CA /* SFXLoseLife.pdf in Resources */,
-				F49512F11EC6740400735785 /* Jungle8.pdf in Resources */,
 				F483ED251ED6E6340024A134 /* drums_lose_game.aiff in Resources */,
 				F47133CD1EDF087B00C615CA /* SFXCollectionSport.pdf in Resources */,
 				F470307F1EB8CDB0006D738E /* Tornado-polys.csv in Resources */,
@@ -3661,7 +3380,6 @@
 				F47030631EB8CDB0006D738E /* Koala-polys.csv in Resources */,
 				F43B677C1ED6EE500094A853 /* glass_lose_points.aiff in Resources */,
 				F47030811EB8CDB0006D738E /* Umbrella-polys.csv in Resources */,
-				F495130C1EC6740400735785 /* Volcano8.pdf in Resources */,
 				F47030441EB8CDB0006D738E /* Alien-polys.csv in Resources */,
 				F470266A1EB24A81006D738E /* Butterfly.pdf in Resources */,
 				F470311F1EB8CDCC006D738E /* Sunflower-t100.csv in Resources */,
@@ -3674,11 +3392,8 @@
 				F473F70F1ECB2A5800A64524 /* AudioChimes.pdf in Resources */,
 				F483ED0F1ED6E1B40024A134 /* arcade_bounce.aiff in Resources */,
 				F470266C1EB24A81006D738E /* Dragonfly.pdf in Resources */,
-				F49512F01EC6740400735785 /* Jungle7.pdf in Resources */,
-				F49512C01EC6740400735785 /* City4.pdf in Resources */,
 				F47133C51EDF087B00C615CA /* SFXCollection8-Bit.pdf in Resources */,
 				F470268E1EB24ABD006D738E /* Lemon.pdf in Resources */,
-				F49512CE1EC6740400735785 /* Farm0.pdf in Resources */,
 				F45308B01ED3150300633D6B /* cartoon_lose_life.aiff in Resources */,
 				F473F72C1ECB2A5800A64524 /* AudioWaves.pdf in Resources */,
 				F470307E1EB8CDB0006D738E /* Strawberry-polys.csv in Resources */,
@@ -3686,13 +3401,10 @@
 				F47026C61EB24AF1006D738E /* Rugby ball.pdf in Resources */,
 				F43B67791ED6ED9C0094A853 /* glass_tap.aiff in Resources */,
 				F47030D91EB8CDCC006D738E /* Ant-t100.csv in Resources */,
-				F49512F81EC6740400735785 /* Meadow6.pdf in Resources */,
-				F49512ED1EC6740400735785 /* Jungle4.pdf in Resources */,
 				F45308BA1ED3150300633D6B /* cartoon_gain_points.aiff in Resources */,
 				F4499E141EE07A5800B28459 /* SFXExplodeOutline.pdf in Resources */,
 				F47030691EB8CDB0006D738E /* Monkey-polys.csv in Resources */,
 				F45308B71ED3150300633D6B /* cartoon_tap.aiff in Resources */,
-				F49512C11EC6740400735785 /* City5.pdf in Resources */,
 				F47030F11EB8CDCC006D738E /* Earth-t100.csv in Resources */,
 				F47030601EB8CDB0006D738E /* Horse-polys.csv in Resources */,
 				F47030611EB8CDB0006D738E /* Housefly-polys.csv in Resources */,
@@ -3792,7 +3504,6 @@
 				464B9E9C2CE79BD800E13F2F /* RainRainTactic.swift in Sources */,
 				312D7FE11C9082C800560133 /* Edge.swift in Sources */,
 				312D7FDB1C9082C800560133 /* ThreadUtils.swift in Sources */,
-				312D7AD21C90829600560133 /* LAFSettings.swift in Sources */,
 				464B9E9B2CE79BD800E13F2F /* StopClusterFromForming.swift in Sources */,
 				313AF0FB1CDCC87600CFF93B /* JsonUtils.swift in Sources */,
 				464B9E892CE79BC100E13F2F /* HKComponentCardChooser.swift in Sources */,
