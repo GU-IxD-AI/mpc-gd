@@ -90,7 +90,7 @@ class GridGenerator{
             let characterImageName = CharacterIconHandler.getCharacterName(collectionNum: shape, characterNum: orientation)
             let characterWidth = (CGFloat(size)/62) * screenSize.width
             let characterSize = CGSize(width: characterWidth, height: characterWidth)
-            let charImage = PDFImage(named: characterImageName, size: characterSize)!
+            let charImage = PDFImage(named: characterImageName, size: characterSize)! //TODO: again using PDF image instead of asset one
             return ImageUtils.drawImageInImageCentre(image, topImage: charImage, opaque: false)
         }
     }

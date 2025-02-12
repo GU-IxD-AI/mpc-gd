@@ -2380,27 +2380,43 @@ class GeneratorScreen: HKComponent{
         tallButton.isHidden = false
         
         let iconImage1 = DeviceType.simulationIs == .iPad ? GeneratorScreen.backgroundIconsIPad[liveMPCGDGenome.backgroundChoice][0] : GeneratorScreen.backgroundIconsIPhone[liveMPCGDGenome.backgroundChoice][0]
+        
+        let iconImage2 = DeviceType.simulationIs == .iPad ? GeneratorScreen.backgroundIconsIPad[liveMPCGDGenome.backgroundChoice][8] : GeneratorScreen.backgroundIconsIPhone[liveMPCGDGenome.backgroundChoice][8]
+        
         let icon1 = SKSpriteNode(texture: SKTexture(image: iconImage1))
-        icon1.size = icon1.size * 0.4
+        if DeviceType.simulationIs == .iPhone { //TODO: custom reshaping to fit the screen
+            icon1.height = icon1.height * 1.33
+        }
+        icon1.size = icon1.size * 0.1
+        
         icon1.position.x = -23
         buttons[2].hkImage.imageNode.addChild(icon1)
         overlays.append(icon1)
         
-        let iconImage2 = DeviceType.simulationIs == .iPad ? GeneratorScreen.backgroundIconsIPad[liveMPCGDGenome.backgroundChoice][8] : GeneratorScreen.backgroundIconsIPhone[liveMPCGDGenome.backgroundChoice][8]
+        
         let icon2 = SKSpriteNode(texture: SKTexture(image: iconImage2))
-        icon2.size = icon2.size * 0.4
+        if DeviceType.simulationIs == .iPhone { //TODO: custom reshaping to fit the screen
+            icon2.height = icon2.height * 1.33
+        }
+        icon2.size = icon2.size * 0.1
         icon2.position.x = 26
         buttons[2].hkImage.imageNode.addChild(icon2)
         overlays.append(icon2)
         
         let icon3 = SKSpriteNode(texture: SKTexture(image: iconImage1))
-        icon3.size = icon3.size * 0.4
+        if DeviceType.simulationIs == .iPhone { //TODO: custom reshaping to fit the screen
+            icon3.height = icon3.height * 1.33
+        }
+        icon3.size = icon3.size * 0.1
         icon3.position.x = -23
         buttons[5].hkImage.imageNode.addChild(icon3)
         overlays.append(icon3)
         
         let icon4 = SKSpriteNode(texture: SKTexture(image: iconImage2))
-        icon4.size = icon4.size * 0.4
+        if DeviceType.simulationIs == .iPhone { //TODO: custom reshaping to fit the screen
+            icon4.height = icon4.height * 1.33
+        }
+        icon4.size = icon4.size * 0.1
         icon4.position.x = 26
         buttons[5].hkImage.imageNode.addChild(icon4)
         overlays.append(icon4)
@@ -2445,22 +2461,15 @@ class GeneratorScreen: HKComponent{
         let gridColour = MPCGDGenome.getGridShades(liveMPCGDGenome.gridColour)[liveMPCGDGenome.gridShade]
         
         var backgroundIcon: UIImage! = nil
+        backgroundIcon = liveMPCGDGenome.dayNightCycle == 0 ? GeneratorScreen.backgroundIconsIPad[liveMPCGDGenome.backgroundChoice][liveMPCGDGenome.backgroundShade] : GeneratorScreen.backgroundIconsIPad[liveMPCGDGenome.backgroundChoice][0]
         
-        if DeviceType.simulationIs == .iPad{
-            backgroundIcon = liveMPCGDGenome.dayNightCycle == 0 ? GeneratorScreen.backgroundIconsIPad[liveMPCGDGenome.backgroundChoice][liveMPCGDGenome.backgroundShade] : GeneratorScreen.backgroundIconsIPad[liveMPCGDGenome.backgroundChoice][0]
-            if DeviceType.simulationIs == .iPad{
-                backgroundIcon = liveMPCGDGenome.dayNightCycle == 0 ? GeneratorScreen.backgroundIconsIPad[liveMPCGDGenome.backgroundChoice][liveMPCGDGenome.backgroundShade] : GeneratorScreen.backgroundIconsIPad[liveMPCGDGenome.backgroundChoice][0]
-            }
-            else{
-                backgroundIcon = liveMPCGDGenome.dayNightCycle == 0 ? GeneratorScreen.backgroundIconsIPhone[liveMPCGDGenome.backgroundChoice][liveMPCGDGenome.backgroundShade] : GeneratorScreen.backgroundIconsIPhone[liveMPCGDGenome.backgroundChoice][0]
-            }
-        }
-        else{
-            backgroundIcon = liveMPCGDGenome.dayNightCycle == 0 ? GeneratorScreen.backgroundIconsIPhone[liveMPCGDGenome.backgroundChoice][liveMPCGDGenome.backgroundShade] : GeneratorScreen.backgroundIconsIPhone[liveMPCGDGenome.backgroundChoice][0]
-        }
+        
         
         let backgroundNode = SKSpriteNode(texture: SKTexture(image: backgroundIcon!))
-        
+        if DeviceType.simulationIs == .iPhone{
+            backgroundNode.height = backgroundNode.height * 1.33
+        }
+        backgroundNode.size = backgroundNode.size * 0.1
         tallButtonScreenSize = GridGenerator.getScreenSizeForButton(buttonSize * (DeviceType.isIPad ? 3.0 / 4.0 : 1.0))
 
         tallButton.hkImage.imageNode.addChild(backgroundNode)
@@ -2499,23 +2508,15 @@ class GeneratorScreen: HKComponent{
         let gridColour = MPCGDGenome.getGridShades(liveMPCGDGenome.gridColour)[liveMPCGDGenome.gridShade]
 
         var backgroundIcon: UIImage! = nil
+        backgroundIcon = liveMPCGDGenome.dayNightCycle == 0 ? GeneratorScreen.backgroundIconsIPad[liveMPCGDGenome.backgroundChoice][liveMPCGDGenome.backgroundShade] : GeneratorScreen.backgroundIconsIPad[liveMPCGDGenome.backgroundChoice][0]
         
-        if DeviceType.simulationIs == .iPad{
-            backgroundIcon = liveMPCGDGenome.dayNightCycle == 0 ? GeneratorScreen.backgroundIconsIPad[liveMPCGDGenome.backgroundChoice][liveMPCGDGenome.backgroundShade] : GeneratorScreen.backgroundIconsIPad[liveMPCGDGenome.backgroundChoice][0]
-            if DeviceType.simulationIs == .iPad{
-                backgroundIcon = liveMPCGDGenome.dayNightCycle == 0 ? GeneratorScreen.backgroundIconsIPad[liveMPCGDGenome.backgroundChoice][liveMPCGDGenome.backgroundShade] : GeneratorScreen.backgroundIconsIPad[liveMPCGDGenome.backgroundChoice][0]
-            }
-            else{
-                backgroundIcon = liveMPCGDGenome.dayNightCycle == 0 ? GeneratorScreen.backgroundIconsIPhone[liveMPCGDGenome.backgroundChoice][liveMPCGDGenome.backgroundShade] : GeneratorScreen.backgroundIconsIPhone[liveMPCGDGenome.backgroundChoice][0]
-            }
-            
-        }
-        else{
-            backgroundIcon = liveMPCGDGenome.dayNightCycle == 0 ? GeneratorScreen.backgroundIconsIPhone[liveMPCGDGenome.backgroundChoice][liveMPCGDGenome.backgroundShade] : GeneratorScreen.backgroundIconsIPhone[liveMPCGDGenome.backgroundChoice][0]
-        }
-
         let backgroundNode = SKSpriteNode(texture: SKTexture(image: backgroundIcon!))
+        if DeviceType.simulationIs == .iPhone{
+
+            backgroundNode.height = backgroundNode.height * 1.33
+        }
         
+        backgroundNode.size = backgroundNode.size * 0.1
         bigButton.hkImage.imageNode.addChild(backgroundNode)
         overlays.append(backgroundNode)
 
@@ -3140,7 +3141,7 @@ class GeneratorScreen: HKComponent{
         return sizeTextNode
     }
     
-    func loadBackgroundChoiceOptions(){
+    func loadBackgroundChoiceOptions(){//TODO: needs potential checking due to background image
         returnLinesToNormal()
         for pos in 0...8{
             buttons[pos].alpha = 1
@@ -3148,7 +3149,7 @@ class GeneratorScreen: HKComponent{
             buttons[pos].setImageAndText(nilImage, text: "")
             let backgroundIcon = (DeviceType.simulationIs == .iPad) ? GeneratorScreen.backgroundIconsIPad[pos][0] : GeneratorScreen.backgroundIconsIPhone[pos][0]
             let backgroundSprite = SKSpriteNode(texture: SKTexture(image: backgroundIcon))
-            backgroundSprite.size = (DeviceType.simulationIs == .iPad) ? backgroundIcon.size * 0.95 : backgroundIcon.size * 0.75
+            backgroundSprite.size = (DeviceType.simulationIs == .iPad) ? backgroundIcon.size * 0.095 : backgroundIcon.size * 0.075
             buttons[pos].hkImage.imageNode.addChild(backgroundSprite)
             overlays.append(backgroundSprite)
             buttons[pos].secondTextNode.text = ""
@@ -3163,7 +3164,7 @@ class GeneratorScreen: HKComponent{
             buttons[pos].setImageAndText(nilImage, text: "")
             let backgroundIcon = (DeviceType.simulationIs == .iPad) ? GeneratorScreen.backgroundIconsIPad[liveMPCGDGenome.backgroundChoice][pos] : GeneratorScreen.backgroundIconsIPhone[liveMPCGDGenome.backgroundChoice][pos]
             let backgroundSprite = SKSpriteNode(texture: SKTexture(image: backgroundIcon))
-            backgroundSprite.size = (DeviceType.simulationIs == .iPad) ? backgroundIcon.size * 0.95 : backgroundIcon.size * 0.75
+            backgroundSprite.size = (DeviceType.simulationIs == .iPad) ? backgroundIcon.size * 0.095 : backgroundIcon.size * 0.075
             buttons[pos].hkImage.imageNode.addChild(backgroundSprite)
             overlays.append(backgroundSprite)
             buttons[pos].secondTextNode.text = ""
@@ -4451,13 +4452,10 @@ class GeneratorScreen: HKComponent{
 
         
         let backingNode = SKSpriteNode(texture: SKTexture(image: backgroundIcon))
-        
-        if DeviceType.simulationIs == .iPad {
-            backingNode.size = backingNode.size * 0.15 * (DeviceType.simulationIs == .iPad ? (3.0 / 4.0) : 1.0)
-        }
-        else{
-            backingNode.size = backingNode.size * 0.15
-            backingNode.width = backingNode.width * 0.8
+        //TODO: custom reshaping to fit the screen
+        backingNode.size = backingNode.size * 0.1
+        if DeviceType.simulationIs == .iPhone {
+            backingNode.height = backingNode.height * 1.33
         }
         
         backingNode.position.x = 23
@@ -4504,15 +4502,23 @@ class GeneratorScreen: HKComponent{
         if liveMPCGDGenome.dayNightCycle > 0{
             
             let iconImage1 = DeviceType.simulationIs == .iPad ? GeneratorScreen.backgroundIconsIPad[liveMPCGDGenome.backgroundChoice][0] : GeneratorScreen.backgroundIconsIPhone[liveMPCGDGenome.backgroundChoice][0]
+            let iconImage2 = DeviceType.simulationIs == .iPad ? GeneratorScreen.backgroundIconsIPad[liveMPCGDGenome.backgroundChoice][8] : GeneratorScreen.backgroundIconsIPhone[liveMPCGDGenome.backgroundChoice][8]
+            
             let icon1 = SKSpriteNode(texture: SKTexture(image: iconImage1))
-            icon1.size = icon1.size * 0.2
+            if DeviceType.simulationIs == .iPhone {
+                icon1.height = icon1.height * 1.33
+            }
+            icon1.size = icon1.size * 0.04
             icon1.position = CGPoint(x: -40, y: -25)
             buttons[6].hkImage.imageNode.addChild(icon1)
             overlays.append(icon1)
             
-            let iconImage2 = DeviceType.simulationIs == .iPad ? GeneratorScreen.backgroundIconsIPad[liveMPCGDGenome.backgroundChoice][8] : GeneratorScreen.backgroundIconsIPhone[liveMPCGDGenome.backgroundChoice][8]
+
             let icon2 = SKSpriteNode(texture: SKTexture(image: iconImage2))
-            icon2.size = icon2.size * 0.2
+            if DeviceType.simulationIs == .iPhone {
+                icon2.height = icon2.height * 1.33
+            }
+            icon2.size = icon2.size * 0.04
             icon2.position = CGPoint(x: -10, y: -25)
             buttons[6].hkImage.imageNode.addChild(icon2)
             overlays.append(icon2)
