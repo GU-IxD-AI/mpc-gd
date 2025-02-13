@@ -1167,8 +1167,8 @@ class MainScene: BaseScene, UITextFieldDelegate{
     func createCreditScreen(){
         creditNode = SKNode()
         
-        var fontSize = CGFloat(15)
-        var spacing = CGFloat(1.9)
+        var fontSize = CGFloat(14)
+        var spacing = CGFloat(1.6)
         var alignment = SKLabelHorizontalAlignmentMode.center
         var xPos = CGFloat(0.67)
         var yPos = CGFloat(0.09)
@@ -1180,7 +1180,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
             yPos = 0.176
         }
         
-        let audioText = "~Audio\nMusic by Steven Johnson\nThis app uses many sounds from\nfreesound. For the full list see: \nmetamakers.com/MPCGD-credits"
+        let audioText = "~Audio\nMusic by Steven Johnson\nThis app uses many sounds from\nfreesound."
         
         let graphicsText = "~Graphics\nDolce Vita font by Muraknockout\nmuraknockout.com"
         
@@ -1189,32 +1189,29 @@ class MainScene: BaseScene, UITextFieldDelegate{
             textColour = getTextColourForMPCGDGenome(MPCGDGenome)
         }
 
-        let appText = "~Games ~& ~App\nDesigned by @ThoseMetaMakers"
         
         let graphicsDesc = SKMultilineLabel(text: graphicsText, size: CGSize(width: size.width * 0.87, height: size.height), pos: CGPoint(x: size.width/2, y: size.height * 0.69), fontName: "Helvetica Neue Thin" , fontSize: fontSize + 3, fontColor: textColour, alignment: alignment, shouldShowBorder : false, spacing: spacing)
         
         let audioDesc = SKMultilineLabel(text: audioText, size: CGSize(width: size.width * 0.87, height: size.height), pos: CGPoint(x: size.width/2,y: size.height * 0.51), fontName: "Helvetica Neue Thin", altFontName: "Helvetica Neue Bold", fontSize: fontSize + 3, fontColor: textColour, alignment: alignment, shouldShowBorder : false, spacing: spacing)
         
-        let appDesc = SKMultilineLabel(text: appText, size: CGSize(width: size.width * 0.87, height: size.height), pos: CGPoint(x: size.width/2,y: size.height * 0.35), fontName: "Helvetica Neue Thin", altFontName: "Helvetica Neue Bold", fontSize: fontSize + 3, fontColor: textColour, alignment: alignment, shouldShowBorder : false, spacing: spacing)
 
         creditNode.addChild(audioDesc)
         creditNode.addChild(graphicsDesc)
-        creditNode.addChild(appDesc)
+
 
         let image2 = UIImage(named: "EUFlag")
         if image2 != nil {
             let scale = size.width / image2!.size.width
-            let logo = SKSpriteNode(texture: SKTexture(image: image2!), size: image2!.size * scale * 0.15)
+            let logo = SKSpriteNode(texture: SKTexture(image: image2!), size: image2!.size * scale * 0.14)
             creditNode.addChild(logo)
-            logo.position = CGPoint(x: size.width * 0.25, y: size.height * 0.23)
+            logo.position = CGPoint(x: size.width * 0.26, y: size.height * 0.23)
         }
-        let eraLabel =  SKMultilineLabel(text: "Research funded until 2018 by the\n~ERA ~programme", size: CGSize(width: size.width * 0.8, height: size.height), pos: CGPoint(x: size.width * 0.625, y: size.height * 0.238), fontName: "Helvetica Neue Thin" , fontSize: 14, fontColor: textColour, alignment: .center, shouldShowBorder : false, spacing: 1.6)
+        let eraLabel =  SKMultilineLabel(text: "Research funded until 2018\n by the ~ERA ~programme under\nagreement ID: 621403", size: CGSize(width: size.width * 0.8, height: size.height), pos: CGPoint(x: size.width * 0.625, y: size.height * 0.238), fontName: "Helvetica Neue Thin" , fontSize: 13, fontColor: textColour, alignment: .center, shouldShowBorder : false, spacing: 1.6)
         creditNode.addChild(eraLabel)
         
-        var mmText = "~MetaMakers: Heidi Ball, Simon Colton,\nMichael Cook, Swen Gaudl, Kamran\nHarandy, Peter Ivey, Tanya Krzywinska,\nMark Nelson, Blanca Pérez Ferrer,\nEdward Powley and Rob Saunders."
+        let mmText = "~current ~development under: \nhttps://github.com/GU-IxD-AI/mpc-gd/"
         
         if DeviceType.isIPad{
-            mmText = "~MetaMakers: Heidi Ball, Simon Colton, Michael Cook,\nSwen Gaudl, Kamran Harandy, Peter Ivey,\nTanya Krzywinska, Mark Nelson, Blanca Pérez Ferrer,\nEdward Powley and Rob Saunders."
             xPos -= 0.05
             yPos -= 0.09
         }
@@ -3098,7 +3095,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
         }
         let infoScreen = getSocialImage()
         
-        let message = "Made with #MPCGD from @ThoseMetaMakers: \(game)"
+        let message = "Made with #MPCGD: \(game)"
         fascinatorNode.run(SKAction.run({
             let activityViewController = self.shareDialog([message as AnyObject, infoScreen])
             self.presentViewController(activityViewController, animated: true, completion: {})
@@ -3125,7 +3122,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
         
         let fontColour = isBackgroundDark(genScreen.liveMPCGDGenome) ? Colours.getColour(.antiqueWhite) : Colours.getColour(.black)
 
-        let textNode = SKLabelNode(text: "Made with #MPCGD from @ThoseMetaMakers")
+        let textNode = SKLabelNode(text: "Made with #MPCGD")
         textNode.fontName = "Helvetica Neue Thin"
         textNode.fontSize = 13
         textNode.position = CGPoint(x: 0, y: -225)

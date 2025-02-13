@@ -198,7 +198,6 @@
 		F41A3C261ED6EC5B00C1657B /* farm_lose_game.aiff in Resources */ = {isa = PBXBuildFile; fileRef = F41A3C251ED6EC5B00C1657B /* farm_lose_game.aiff */; };
 		F41A8F1A1E117F96005D7ABF /* RainRainTactic.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41A8F191E117F96005D7ABF /* RainRainTactic.swift */; };
 		F41A8F1C1E118084005D7ABF /* RainRainPlaytester.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41A8F1B1E118084005D7ABF /* RainRainPlaytester.swift */; };
-		F41A8F1E1E119388005D7ABF /* todo.txt in Resources */ = {isa = PBXBuildFile; fileRef = F41A8F1D1E119388005D7ABF /* todo.txt */; };
 		F41A8F201E119450005D7ABF /* HKComponentCycler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41A8F1F1E119450005D7ABF /* HKComponentCycler.swift */; };
 		F41D77A31BC7EDEF00956D26 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = F41D77A21BC7EDEF00956D26 /* GameScene.sks */; };
 		F41D77A71BC7EDEF00956D26 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D77A61BC7EDEF00956D26 /* GameViewController.swift */; };
@@ -888,7 +887,6 @@
 		F41A3C251ED6EC5B00C1657B /* farm_lose_game.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = farm_lose_game.aiff; sourceTree = "<group>"; };
 		F41A8F191E117F96005D7ABF /* RainRainTactic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RainRainTactic.swift; sourceTree = "<group>"; };
 		F41A8F1B1E118084005D7ABF /* RainRainPlaytester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RainRainPlaytester.swift; sourceTree = "<group>"; };
-		F41A8F1D1E119388005D7ABF /* todo.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = todo.txt; path = Engine/todo.txt; sourceTree = "<group>"; };
 		F41A8F1F1E119450005D7ABF /* HKComponentCycler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HKComponentCycler.swift; sourceTree = "<group>"; };
 		F41D779D1BC7EDEF00956D26 /* MPCGD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MPCGD.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F41D77A01BC7EDEF00956D26 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -1601,7 +1599,6 @@
 		F41D77941BC7EDEF00956D26 = {
 			isa = PBXGroup;
 			children = (
-				F41A8F1D1E119388005D7ABF /* todo.txt */,
 				859E00BB1E0BE9E3007601ED /* MPCGD.entitlements */,
 				852B02261DFAF11D00B7F420 /* ExceptionCatcher.h */,
 				852B02271DFAF11D00B7F420 /* MPCGD-Bridging-Header.h */,
@@ -2984,7 +2981,6 @@
 				F45309171ED316C100633D6B /* space_lose_points.aiff in Resources */,
 				F473F74C1ECB2A5800A64524 /* traffic@2x.png in Resources */,
 				F470306C1EB8CDB0006D738E /* Orange-polys.csv in Resources */,
-				F41A8F1E1E119388005D7ABF /* todo.txt in Resources */,
 				F4EB7FFD1E352E2E00CE71DA /* Dolce Vita.ttf in Resources */,
 				F47031041EB8CDCC006D738E /* Melon-t100.csv in Resources */,
 				F470306A1EB8CDB0006D738E /* Mushroom-polys.csv in Resources */,
