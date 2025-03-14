@@ -33,7 +33,6 @@
 		312D7A2D1C90825000560133 /* EnumGene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A08E271C64C05A00356B63 /* EnumGene.swift */; };
 		312D7A331C90825600560133 /* DrawingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42C52091BFFE3A0001DC85C /* DrawingHandler.swift */; };
 		312D7AB11C90827A00560133 /* BaseCampType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E130F41BD5923200D5DF76 /* BaseCampType.swift */; };
-		312D7ACE1C90829600560133 /* Backgrounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D783F1BC82A4D00956D26 /* Backgrounds.swift */; };
 		312D7ACF1C90829600560133 /* Colours.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D78021BC7F9B300956D26 /* Colours.swift */; };
 		312D7AD01C90829600560133 /* ColourNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D78031BC7F9B300956D26 /* ColourNames.swift */; };
 		312D7AD31C90829600560133 /* NamedColours.csv in Resources */ = {isa = PBXBuildFile; fileRef = F41D783D1BC81D0200956D26 /* NamedColours.csv */; };
@@ -236,7 +235,6 @@
 		F41D78231BC802C400956D26 /* TransformType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D78221BC802C400956D26 /* TransformType.swift */; };
 		F41D78251BC8036F00956D26 /* ShapeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D78241BC8036F00956D26 /* ShapeType.swift */; };
 		F41D783E1BC81D0200956D26 /* NamedColours.csv in Resources */ = {isa = PBXBuildFile; fileRef = F41D783D1BC81D0200956D26 /* NamedColours.csv */; };
-		F41D78401BC82A4D00956D26 /* Backgrounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D783F1BC82A4D00956D26 /* Backgrounds.swift */; };
 		F41D785C1BC9724600956D26 /* FascinatorContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D785B1BC9724600956D26 /* FascinatorContent.swift */; };
 		F41D786E1BC9D15600956D26 /* ChromosomeName.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D786D1BC9D15600956D26 /* ChromosomeName.swift */; };
 		F41D78741BCB2CD500956D26 /* SpriteUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D78731BCB2CD500956D26 /* SpriteUtils.swift */; };
@@ -734,8 +732,6 @@
 		F485D2351E1CF4C800E45D01 /* SSiPhone_genome.json in Resources */ = {isa = PBXBuildFile; fileRef = F485D2341E1CF4C800E45D01 /* SSiPhone_genome.json */; };
 		F48F07C01CF12D6A001777A8 /* ImageAndLightingChromosome.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F07BF1CF12D6A001777A8 /* ImageAndLightingChromosome.swift */; };
 		F48F07C11CF12D6A001777A8 /* ImageAndLightingChromosome.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F07BF1CF12D6A001777A8 /* ImageAndLightingChromosome.swift */; };
-		F48F07C31CF12FC4001777A8 /* Patterns.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F07C21CF12FC4001777A8 /* Patterns.swift */; };
-		F48F07C41CF12FC4001777A8 /* Patterns.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F07C21CF12FC4001777A8 /* Patterns.swift */; };
 		F49161381E93071500A5C76D /* GridSizeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49161371E93071500A5C76D /* GridSizeScreen.swift */; };
 		F495130E1EC6810800735785 /* ClustersScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F495130D1EC6810800735785 /* ClustersScreen.swift */; };
 		F49C37861EC129AF003F5DED /* TeleportController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49C37851EC129AF003F5DED /* TeleportController.swift */; };
@@ -932,7 +928,6 @@
 		F41D78221BC802C400956D26 /* TransformType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformType.swift; sourceTree = "<group>"; };
 		F41D78241BC8036F00956D26 /* ShapeType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShapeType.swift; sourceTree = "<group>"; };
 		F41D783D1BC81D0200956D26 /* NamedColours.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NamedColours.csv; sourceTree = "<group>"; };
-		F41D783F1BC82A4D00956D26 /* Backgrounds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Backgrounds.swift; sourceTree = "<group>"; };
 		F41D785B1BC9724600956D26 /* FascinatorContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FascinatorContent.swift; sourceTree = "<group>"; };
 		F41D786D1BC9D15600956D26 /* ChromosomeName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChromosomeName.swift; sourceTree = "<group>"; };
 		F41D78731BCB2CD500956D26 /* SpriteUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpriteUtils.swift; sourceTree = "<group>"; };
@@ -1429,7 +1424,6 @@
 		F485A8261E25A5AF00F8CB55 /* HKToolBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HKToolBar.swift; sourceTree = "<group>"; };
 		F485D2341E1CF4C800E45D01 /* SSiPhone_genome.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = SSiPhone_genome.json; path = Engine/Genomes/SSiPhone_genome.json; sourceTree = "<group>"; };
 		F48F07BF1CF12D6A001777A8 /* ImageAndLightingChromosome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageAndLightingChromosome.swift; sourceTree = "<group>"; };
-		F48F07C21CF12FC4001777A8 /* Patterns.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Patterns.swift; sourceTree = "<group>"; };
 		F49161371E93071500A5C76D /* GridSizeScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridSizeScreen.swift; sourceTree = "<group>"; };
 		F495130D1EC6810800735785 /* ClustersScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClustersScreen.swift; sourceTree = "<group>"; };
 		F49C37851EC129AF003F5DED /* TeleportController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeleportController.swift; sourceTree = "<group>"; };
@@ -1795,12 +1789,10 @@
 		F41D78011BC7F9A200956D26 /* LookAndFeel */ = {
 			isa = PBXGroup;
 			children = (
-				F41D783F1BC82A4D00956D26 /* Backgrounds.swift */,
 				F41D78021BC7F9B300956D26 /* Colours.swift */,
 				F41D78031BC7F9B300956D26 /* ColourNames.swift */,
 				464281902D823D2A00E7C843 /* Fonts.swift */,
 				F41D783D1BC81D0200956D26 /* NamedColours.csv */,
-				F48F07C21CF12FC4001777A8 /* Patterns.swift */,
 				85BBE5F41DF9C255007E5C9D /* MultiLineLabel.swift */,
 			);
 			name = LookAndFeel;
@@ -3446,7 +3438,6 @@
 				F4D273E01CAC06F7009A9ACF /* FascinatorDrawing.swift in Sources */,
 				312D7FD21C9082C800560133 /* ArrayExtension.swift in Sources */,
 				464B9E7E2CE79AE800E13F2F /* StrategySettings.swift in Sources */,
-				F48F07C41CF12FC4001777A8 /* Patterns.swift in Sources */,
 				312D7FC51C9082C400560133 /* ArrayUtils.swift in Sources */,
 				312D7FD51C9082C800560133 /* CGRectExtension.swift in Sources */,
 				312D7ADB1C90829A00560133 /* ZPositionConstants.swift in Sources */,
@@ -3517,7 +3508,6 @@
 				464B9E992CE79BD800E13F2F /* JiggleWhenQuiescent.swift in Sources */,
 				312D7A241C90825000560133 /* ChromosomeName.swift in Sources */,
 				464B9E762CE7948D00E13F2F /* MainScene.swift in Sources */,
-				312D7ACE1C90829600560133 /* Backgrounds.swift in Sources */,
 				312D7A1E1C90824C00560133 /* TransformType.swift in Sources */,
 				464B9E8F2CE79BC100E13F2F /* HKComponent.swift in Sources */,
 				312D7FD01C9082C400560133 /* SKRoundButtonNode.swift in Sources */,
@@ -3580,7 +3570,6 @@
 				F402C1C41E66213100BB5044 /* BallChoiceScreen.swift in Sources */,
 				F42C520E1C00C740001DC85C /* LightingType.swift in Sources */,
 				F41D78781BCB2DAF00956D26 /* DrawingText.swift in Sources */,
-				F41D78401BC82A4D00956D26 /* Backgrounds.swift in Sources */,
 				F49C37861EC129AF003F5DED /* TeleportController.swift in Sources */,
 				F4D3034B1E361CE5005E5844 /* GenButton.swift in Sources */,
 				F41D78741BCB2CD500956D26 /* SpriteUtils.swift in Sources */,
@@ -3666,7 +3655,6 @@
 				F4D565371E1DD0F80043CAE8 /* HKTextComponent.swift in Sources */,
 				858C2A7E1E2D217F00AAC61F /* UserHandler.swift in Sources */,
 				19C109AC1DF9A3FF00AEAD5B /* SoundType.swift in Sources */,
-				F48F07C31CF12FC4001777A8 /* Patterns.swift in Sources */,
 				5CD0885E1CB7A720003F2CAB /* AppDelegate.swift in Sources */,
 				F41D77DF1BC7F22D00956D26 /* ArrayExtension.swift in Sources */,
 				F4DC7C071E05B851007AE2A5 /* HKImage.swift in Sources */,

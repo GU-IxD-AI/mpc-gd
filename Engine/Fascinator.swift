@@ -985,50 +985,6 @@ class Fascinator: NSObject, SKPhysicsContactDelegate{
         firstTickAfterRestart = true
     }
     
-    func showPreviewImage(_ previewTexture: SKTexture, imageAndLightingChromosome: ImageAndLightingChromosome) {
-        restart()
-        artImageNode.texture = previewTexture
-        backingNode.texture = SKTexture(image: Backgrounds.backgrounds[imageAndLightingChromosome.backingImageNum.value])
-    }
-    
-    func recalculateFascinatorSKNode() {
-        autoreleasepool(invoking: {
-            calculateImageLayers()
-            addPhysicsToScene(scene)
-            resetBacking()
-        })
-
-        //        rescaleArtImage(force: true)
-        restart()
-    }
-    
-    func resetBacking(){        
-        let tint = imageAndLightingChromosome.tint.value
-        let tintPC = imageAndLightingChromosome.tintPC.value
-        if imageAndLightingChromosome.backingImageNum.intValue >= 0{
-            backing = ImageUtils.tintImage(Backgrounds.backgrounds[imageAndLightingChromosome.backingImageNum.intValue], tint: tint, tintPC: tintPC)
-        }
-        else{
-            backing = ImageUtils.tintImage(Patterns.getRandomPatternImage(sceneSize * 2), tint: tint, tintPC: tintPC)
-        }
-        backingNode.texture = SKTexture(image: backing)
-        calculateImageLayers()
-    }
-    
-    func updateContent(_ imageAndLightingChromosome: ImageAndLightingChromosome) {
-        if self.fascinatorContent == nil {
-            self.fascinatorContent = FascinatorContent()
-        }
-        updateContent(imageAndLightingChromosome, fascinatorContent: self.fascinatorContent)
-    }
-    
-    func updateContent(_ imageAndLightingChromosome: ImageAndLightingChromosome, fascinatorContent: FascinatorContent){
-        self.fascinatorContent = fascinatorContent
-        genome[ChromosomeName.ImageAndLighting] = imageAndLightingChromosome
-        recalculateFascinatorSKNode()
-        scene.view!.isPaused = false
-    }
-    
     func calculateImageLayers(){
         
         let layerType = imageAndLightingChromosome.layers.value
