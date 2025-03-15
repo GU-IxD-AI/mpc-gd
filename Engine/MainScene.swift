@@ -1862,14 +1862,6 @@ class MainScene: BaseScene, UITextFieldDelegate{
             let shade = MPCGDGenome.dayNightCycle > 0 ? 0 : MPCGDGenome.backgroundShade
             BackgroundTextureShadeCache.paused = true
 
-            /*
-            var debugBackgroundName: String
-            if MPCGDGenome.dayNightCycle > 0{
-                debugBackgroundName = "\(MainScene.backgroundIDs[MPCGDGenome.backgroundChoice])0"
-            } else {
-                debugBackgroundName = "\(MainScene.backgroundIDs[MPCGDGenome.backgroundChoice])\(MPCGDGenome.backgroundShade)"
-            }
- */
 
             BackgroundTextureCache.request(choice, shade, completion: { (texture: SKTexture?) in
                 DispatchQueue.main.async {
