@@ -775,6 +775,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
         
         let image = UIImage(named: "OpeningGraphics1")!
         startInfoNode = SKSpriteNode(texture: SKTexture(image: image))
+        startInfoNode.size = startInfoNode.size * ((scene!.size.width * 0.8)/startInfoNode.size.width);
         startInfoNode.position = CGPoint(x: scene!.size.width * 1.5, y: scene!.size.height * infoGraphicsY)
         startInfoNode.zPosition = 10
         addChild(startInfoNode)
@@ -2294,7 +2295,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
             fascinator.releaseFromPause()
             
             if numTimesTwoFingersShown < 3{
-                showAlertNode(imageName: "SwipeDown", waitForDuration: 1)
+                showAlertNode(imageName: "Pause", waitForDuration: 1, scale: 0.5)
                 numTimesTwoFingersShown += 1
             }
         }
@@ -3135,9 +3136,9 @@ class MainScene: BaseScene, UITextFieldDelegate{
         return socialImage
     }
     
-    func showAlertNode(imageName: String, waitForDuration: CGFloat = 0){
+    func showAlertNode(imageName: String, waitForDuration: CGFloat = 0, scale: CGFloat = 1.0){
         let infoNode = SKSpriteNode(imageNamed: imageName)
-        
+        infoNode.size = infoNode.size * scale;
         let w = Colours.getColour(.antiqueWhite).withAlphaComponent(0.95)
         let alertNode = SKSpriteNode(color: w, size: CGSize(width: size.width, height: infoNode.height))
 

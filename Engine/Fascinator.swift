@@ -1036,9 +1036,9 @@ class Fascinator: NSObject, SKPhysicsContactDelegate{
             let fascinatorName = (scene as! MainScene).currentGameName
             
             if fascinatorName == "LIS" || fascinatorName == "RR" || fascinatorName == "SS" || fascinatorName == "JF"{
-                pauseInfoGraphic = SKSpriteNode(texture: SKTexture(image: UIImage(named: "PauseSmallNoBacking")!))
+                pauseInfoGraphic = SKSpriteNode(texture: SKTexture(image: UIImage(named: "Pause")!))
                 let device = UIDevice.current.model
-                
+                pauseInfoGraphic.size.width = artImageNode.size.width;
                 if device.contains("iPad") {
                     pauseInfoGraphic.position = CGPoint(x: 0, y: -artImageNode.size.height/2 + pauseInfoGraphic.size.height/2)
                 } else {

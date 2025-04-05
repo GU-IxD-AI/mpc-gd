@@ -2,22 +2,20 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "OpeningGraphics1@1.png",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "image@1x.png"
     },
     {
       "idiom" : "universal",
-      "filename" : "OpeningGraphics1@2.png",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "image@2x.png"
     },
     {
       "idiom" : "universal",
-      "filename" : "OpeningGraphics1@3.png",
-      "scale" : "3x"
+      "scale" : "3x",
+      "filename" : "image@3x.png"
     }
   ],
-  "info" : {
-    "version" : 1,
-    "author" : "xcode"
-  }
+  "author" : "Iconizer",
+  "version" : "2020.11.0"
 }

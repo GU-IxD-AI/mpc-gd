@@ -318,9 +318,7 @@ class GeneratorHelpScreen : HKComponent{
             }
             
             let _ = liveMPCGDGenome.backgroundChoice == 4 ? "an" : "a"
-            /*
-            text2 += " The music chosen\nis the ~\(MPCGDGenome.trackNames[liveMPCGDGenome.musicTrack].lowercased()) track, and\nthe background is \(aOrAn) ~\(MainScene.backgroundIDs[liveMPCGDGenome.backgroundChoice].lowercased())."
- */
+  
         }
         
         if buttonNum == 7{

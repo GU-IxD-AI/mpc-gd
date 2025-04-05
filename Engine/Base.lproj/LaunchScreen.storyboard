@@ -19,7 +19,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" image="City0" translatesAutoresizingMaskIntoConstraints="NO" id="QXE-oW-mQ9">
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="QXE-oW-mQ9">
                                 <rect key="frame" x="0.0" y="-34" width="393" height="852"/>
                             </imageView>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" image="MPCGDLogo" translatesAutoresizingMaskIntoConstraints="NO" id="C0b-5f-buA">
@@ -45,7 +45,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="City0" width="341.33334350585938" height="455.33334350585938"/>
         <image name="MPCGDLogo" width="397" height="280.66665649414062"/>
     </resources>
 </document>
