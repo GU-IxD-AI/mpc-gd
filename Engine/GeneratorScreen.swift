@@ -2387,7 +2387,9 @@ class GeneratorScreen: HKComponent{
         if DeviceType.simulationIs == .iPhone { //TODO: custom reshaping to fit the screen
             icon1.height = icon1.height * 1.33
         }
-        icon1.size = icon1.size * 0.1
+        let scale = buttons[2].hkImage.imageNode.width / icon1.width
+        
+        icon1.size = icon1.size * scale * 0.4
         
         icon1.position.x = -23
         buttons[2].hkImage.imageNode.addChild(icon1)
@@ -2398,7 +2400,8 @@ class GeneratorScreen: HKComponent{
         if DeviceType.simulationIs == .iPhone { //TODO: custom reshaping to fit the screen
             icon2.height = icon2.height * 1.33
         }
-        icon2.size = icon2.size * 0.1
+        //icon2.size = icon2.size * 0.1
+        icon2.size = icon2.size * scale * 0.4
         icon2.position.x = 26
         buttons[2].hkImage.imageNode.addChild(icon2)
         overlays.append(icon2)
@@ -2407,7 +2410,8 @@ class GeneratorScreen: HKComponent{
         if DeviceType.simulationIs == .iPhone { //TODO: custom reshaping to fit the screen
             icon3.height = icon3.height * 1.33
         }
-        icon3.size = icon3.size * 0.1
+        //icon3.size = icon3.size * 0.1
+        icon3.size = icon3.size * scale * 0.4
         icon3.position.x = -23
         buttons[5].hkImage.imageNode.addChild(icon3)
         overlays.append(icon3)
@@ -2416,7 +2420,8 @@ class GeneratorScreen: HKComponent{
         if DeviceType.simulationIs == .iPhone { //TODO: custom reshaping to fit the screen
             icon4.height = icon4.height * 1.33
         }
-        icon4.size = icon4.size * 0.1
+        //icon4.size = icon4.size * 0.1
+        icon4.size = icon4.size * scale * 0.4
         icon4.position.x = 26
         buttons[5].hkImage.imageNode.addChild(icon4)
         overlays.append(icon4)
@@ -2469,7 +2474,8 @@ class GeneratorScreen: HKComponent{
         if DeviceType.simulationIs == .iPhone{
             backgroundNode.height = backgroundNode.height * 1.33
         }
-        backgroundNode.size = backgroundNode.size * 0.1
+        let scale  = tallButton.hkImage.imageNode.width / backgroundNode.width
+        backgroundNode.size = backgroundNode.size * scale * 0.5
         tallButtonScreenSize = GridGenerator.getScreenSizeForButton(buttonSize * (DeviceType.isIPad ? 3.0 / 4.0 : 1.0))
 
         tallButton.hkImage.imageNode.addChild(backgroundNode)
@@ -2516,7 +2522,7 @@ class GeneratorScreen: HKComponent{
             backgroundNode.height = backgroundNode.height * 1.33
         }
         
-        backgroundNode.size = backgroundNode.size * 0.1
+        backgroundNode.size = bigButton.hkImage.size * 0.4
         bigButton.hkImage.imageNode.addChild(backgroundNode)
         overlays.append(backgroundNode)
 
@@ -3149,7 +3155,7 @@ class GeneratorScreen: HKComponent{
             buttons[pos].setImageAndText(nilImage, text: "")
             let backgroundIcon = (DeviceType.simulationIs == .iPad) ? GeneratorScreen.backgroundIconsIPad[pos][0] : GeneratorScreen.backgroundIconsIPhone[pos][0]
             let backgroundSprite = SKSpriteNode(texture: SKTexture(image: backgroundIcon))
-            backgroundSprite.size = (DeviceType.simulationIs == .iPad) ? backgroundIcon.size * 0.095 : backgroundIcon.size * 0.075
+            backgroundSprite.size = backgroundIcon.size *  0.2
             buttons[pos].hkImage.imageNode.addChild(backgroundSprite)
             overlays.append(backgroundSprite)
             buttons[pos].secondTextNode.text = ""
@@ -3164,7 +3170,7 @@ class GeneratorScreen: HKComponent{
             buttons[pos].setImageAndText(nilImage, text: "")
             let backgroundIcon = (DeviceType.simulationIs == .iPad) ? GeneratorScreen.backgroundIconsIPad[liveMPCGDGenome.backgroundChoice][pos] : GeneratorScreen.backgroundIconsIPhone[liveMPCGDGenome.backgroundChoice][pos]
             let backgroundSprite = SKSpriteNode(texture: SKTexture(image: backgroundIcon))
-            backgroundSprite.size = (DeviceType.simulationIs == .iPad) ? backgroundIcon.size * 0.095 : backgroundIcon.size * 0.075
+            backgroundSprite.size = backgroundIcon.size * 0.2
             buttons[pos].hkImage.imageNode.addChild(backgroundSprite)
             overlays.append(backgroundSprite)
             buttons[pos].secondTextNode.text = ""
@@ -4453,7 +4459,8 @@ class GeneratorScreen: HKComponent{
         
         let backingNode = SKSpriteNode(texture: SKTexture(image: backgroundIcon))
         //TODO: custom reshaping to fit the screen
-        backingNode.size = backingNode.size * 0.1
+        let scale = buttons[6].hkImage.width / backingNode.width
+        backingNode.size = backingNode.size * scale * 0.5
         if DeviceType.simulationIs == .iPhone {
             backingNode.height = backingNode.height * 1.33
         }
