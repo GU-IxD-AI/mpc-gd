@@ -550,8 +550,11 @@ class MainScene: BaseScene, UITextFieldDelegate{
         if DeviceType.isIPad{
             logoImageCycler.pipsNode.position.y += 15
         }
-        
-        fascinator.playtester = AssistantPlaytester(fascinator: fascinator)
+
+        // TODO: mjn 5/2025
+        // Need a way of enabling/disabling the auto-playtester in the UI.
+        // For now, uncomment the line below to enable.
+        //fascinator.playtester = RandomDragsPlaytester(fascinator: fascinator)
         fascinator.pauseImmediately()
         fascinator.gameOverCode = gameOver
         
@@ -2124,7 +2127,10 @@ class MainScene: BaseScene, UITextFieldDelegate{
             let MPCGDGenome = loadedMPCGDGenomes[currentGameName]
             fascinator.chromosome = GameplayChromosome(stringRepresentation: LISGenomeString)
             MPCGDGenome?.applyModifications(fascinator, screenSize: size)
-            fascinator.playtester = nil
+            // Note mjn 5/2025:
+            // Line below used to clear the playtester on new game load.
+            // May want to add something here if we want to reinitialize the playtester on new games.
+            //fascinator.playtester = nil
         }
     }
     

@@ -140,7 +140,7 @@ class Fascinator: NSObject, SKPhysicsContactDelegate{
     
     var lastQuiescentTime: Date! = nil
     
-    var playtester: MacroTacticPlaytester! = nil
+    var playtester: AutomatedPlaytester! = nil
     
     var playtesterStrategyGlobalProbability = CGFloat(0)
     
@@ -2496,6 +2496,7 @@ class Fascinator: NSObject, SKPhysicsContactDelegate{
             if !gameIsOver && playtester != nil {
                 playtester!.tick()
             }
+
             
             timeElapsed += deltaTime
                 

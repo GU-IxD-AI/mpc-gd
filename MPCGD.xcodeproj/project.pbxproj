@@ -134,6 +134,8 @@
 		464B9E9A2CE79BD800E13F2F /* WhenQuiescent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DC7BF31E0564DE007AE2A5 /* WhenQuiescent.swift */; };
 		464B9E9B2CE79BD800E13F2F /* StopClusterFromForming.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DC7BF51E056C4F007AE2A5 /* StopClusterFromForming.swift */; };
 		464B9E9C2CE79BD800E13F2F /* RainRainTactic.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41A8F191E117F96005D7ABF /* RainRainTactic.swift */; };
+		464BB3132DDE0C2000780B2A /* RandomDragsPlaytester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464BB3122DDE0C2000780B2A /* RandomDragsPlaytester.swift */; };
+		464BB3142DDE0C2000780B2A /* RandomDragsPlaytester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464BB3122DDE0C2000780B2A /* RandomDragsPlaytester.swift */; };
 		4691BA3F1E3674CE00DAFC7A /* GameHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4691BA3E1E3674CE00DAFC7A /* GameHandler.swift */; };
 		4694E0782D5B9FCA00AA1891 /* City4.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 4694E06F2D5B9FC900AA1891 /* City4.pdf */; };
 		4694E0792D5B9FCA00AA1891 /* City1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 4694E0702D5B9FC900AA1891 /* City1.pdf */; };
@@ -821,6 +823,7 @@
 		31EC8F3E1C6A1B3D00C30F9C /* GridSwipeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridSwipeController.swift; sourceTree = "<group>"; };
 		31F94F421BD1316E005BC7B4 /* BitMask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BitMask.swift; sourceTree = "<group>"; };
 		464281902D823D2A00E7C843 /* Fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
+		464BB3122DDE0C2000780B2A /* RandomDragsPlaytester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomDragsPlaytester.swift; sourceTree = "<group>"; };
 		4691BA3E1E3674CE00DAFC7A /* GameHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameHandler.swift; sourceTree = "<group>"; };
 		4694E06F2D5B9FC900AA1891 /* City4.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = City4.pdf; path = Engine/Backgrounds/City4.pdf; sourceTree = "<group>"; };
 		4694E0702D5B9FC900AA1891 /* City1.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = City1.pdf; path = Engine/Backgrounds/City1.pdf; sourceTree = "<group>"; };
@@ -1964,6 +1967,7 @@
 				F42BABB21E09FFA800EFE1CA /* MakeItStopPlaytester.swift */,
 				F41A8F1B1E118084005D7ABF /* RainRainPlaytester.swift */,
 				F4D5653C1E1F24460043CAE8 /* SlushSloshPlaytester.swift */,
+				464BB3122DDE0C2000780B2A /* RandomDragsPlaytester.swift */,
 			);
 			name = Playtesters;
 			sourceTree = "<group>";
@@ -3503,6 +3507,7 @@
 				312D7FB51C9082BE00560133 /* ArtImageController.swift in Sources */,
 				314D1A3F1C908AEE000956F2 /* UIGraphics.swift in Sources */,
 				F4D273DF1CAC06F3009A9ACF /* DrawingPathTag.swift in Sources */,
+				464BB3142DDE0C2000780B2A /* RandomDragsPlaytester.swift in Sources */,
 				312D7FCB1C9082C400560133 /* ImageData.swift in Sources */,
 				312D7FCA1C9082C400560133 /* MathsUtils.swift in Sources */,
 				464B9E992CE79BD800E13F2F /* JiggleWhenQuiescent.swift in Sources */,
@@ -3659,6 +3664,7 @@
 				F41D77DF1BC7F22D00956D26 /* ArrayExtension.swift in Sources */,
 				F4DC7C071E05B851007AE2A5 /* HKImage.swift in Sources */,
 				F41D781D1BC7FB6D00956D26 /* ColourGene.swift in Sources */,
+				464BB3132DDE0C2000780B2A /* RandomDragsPlaytester.swift in Sources */,
 				F4D429CF1E2C50C000067FFC /* HKBarChart.swift in Sources */,
 				F41D77F01BC7F54E00956D26 /* DragType.swift in Sources */,
 				31A08E281C64C05A00356B63 /* EnumGene.swift in Sources */,
