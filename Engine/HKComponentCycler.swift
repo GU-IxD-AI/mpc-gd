@@ -8,30 +8,6 @@
 
 import Foundation
 import SpriteKit
-// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
-// Consider refactoring the code to use the non-optional operators.
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
-
-// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
-// Consider refactoring the code to use the non-optional operators.
-fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l > r
-  default:
-    return rhs < lhs
-  }
-}
-
 
 enum CycleOrientation{
     case horizontal, vertical
@@ -550,7 +526,7 @@ class HKComponentCycler : HKComponent{
                         if abs(movement) > 50{
                             if orientation == .horizontal{
                                 if movement < 0{
-                                    if allow360 || ids.index(of: selectedID) < ids.count - 1{
+                                    if allow360 || ids.index(of: selectedID)! < ids.count - 1{
                                         moveLeft()
                                         twinnedCycler?.moveLeft()
                                     }
@@ -560,7 +536,7 @@ class HKComponentCycler : HKComponent{
                                     }
                                 }
                                 else if movement > 0{
-                                    if allow360 || ids.index(of: selectedID) > 0{
+                                    if allow360 || ids.index(of: selectedID)! > 0{
                                         moveRight()
                                         twinnedCycler?.moveRight()
                                     }
