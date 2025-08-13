@@ -231,12 +231,24 @@ class BackgroundTextureCache {
 
 class MainScene: BaseScene, UITextFieldDelegate{
     
-    static let isTestFlight = true
+    required init?(coder: NSCoder){
+        super.init(coder: coder)
+            
+    }
+    override init(size: CGSize){
+        super.init(size: size)
+    }
+    override init(){
+        super.init()
+    }
     
+    static let isTestFlight = true
     var pauseNode: SKLabelNode! = nil
     
     var backgroundSize: CGSize! = nil
-
+    //TODO: suegy integrate remote connection to db
+    var db_client : DBConnection! = nil
+    
     static let backgroundIDs = ["City", "City", "City", "City", "City", "City", "City", "City", "City"] //FIXME: these should be different colored backgrounds which are linked in Assets
     
     var numTimesTwoFingersShown = 0
@@ -444,7 +456,6 @@ class MainScene: BaseScene, UITextFieldDelegate{
     var generateButton = HKButton(image: UIImage(named: "Random")!, dilateTapBy: CGSize(width: 2.5, height: 1.5))
     
     fileprivate let scaleAction = SKAction.sequence([HKEasing.scaleTo(1.15, duration: 0.1, easingFunction: BackEaseOut), HKEasing.scaleTo(1.0, duration: 0.1, easingFunction: BackEaseOut), SKAction.wait(forDuration: 0.1)])
-
     
     static var instance: MainScene! = nil
 
@@ -706,6 +717,11 @@ class MainScene: BaseScene, UITextFieldDelegate{
 //        self.playButton.isHidden = false
 //        return
 //
+
+        //FIXME: Needs to be secured
+        
+        //TODO: suegy fix db connection
+        self.db_client = DBConnection(endpoint: endpoint)
         
         let sfLogo = SKSpriteNode(imageNamed: "MPCGDLogo")
         sfLogo.setScale(0.5 * size.width / sfLogo.width)
@@ -721,6 +737,10 @@ class MainScene: BaseScene, UITextFieldDelegate{
         
         sfLogo.run(action1)
         sfLogo.run(action2)
+
+        
+        self.db_client.auth(user: user, pwd: pwd)
+        
         self.run(SKAction.wait(forDuration: 1), completion: {
             MPCGDAudio.playSound(path: MPCGDSounds.winGame)
         })

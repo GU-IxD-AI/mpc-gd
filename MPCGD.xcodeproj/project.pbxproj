@@ -147,6 +147,7 @@
 		4694E07F2D5B9FCA00AA1891 /* City5.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 4694E0762D5B9FCA00AA1891 /* City5.pdf */; };
 		4694E0802D5B9FCA00AA1891 /* City0.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 4694E0772D5B9FCA00AA1891 /* City0.pdf */; };
 		46A929F92CE2CC420081F96D /* MPCGD.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 46A929F72CE2CC410081F96D /* MPCGD.xcdatamodeld */; };
+		46CF978B2E463E35005FF91B /* DBConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46CF978A2E463E2D005FF91B /* DBConnection.swift */; };
 		5C04C66F1E2CD4590034F716 /* StatsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C04C66E1E2CD4590034F716 /* StatsScreen.swift */; };
 		5C65D40B1CA29E70002A2FAB /* AutoSizedLabelNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314F07261CA19B9B00090ED5 /* AutoSizedLabelNode.swift */; };
 		5CD0885E1CB7A720003F2CAB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D77A01BC7EDEF00956D26 /* AppDelegate.swift */; };
@@ -835,6 +836,7 @@
 		4694E0762D5B9FCA00AA1891 /* City5.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = City5.pdf; path = Engine/Backgrounds/City5.pdf; sourceTree = "<group>"; };
 		4694E0772D5B9FCA00AA1891 /* City0.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = City0.pdf; path = Engine/Backgrounds/City0.pdf; sourceTree = "<group>"; };
 		46A929F82CE2CC410081F96D /* MPCGD.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MPCGD.xcdatamodel; sourceTree = "<group>"; };
+		46CF978A2E463E2D005FF91B /* DBConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBConnection.swift; sourceTree = "<group>"; };
 		5C04C66E1E2CD4590034F716 /* StatsScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatsScreen.swift; sourceTree = "<group>"; };
 		852B02261DFAF11D00B7F420 /* ExceptionCatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExceptionCatcher.h; sourceTree = "<group>"; };
 		852B02271DFAF11D00B7F420 /* MPCGD-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MPCGD-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -1700,6 +1702,7 @@
 		F41D77EC1BC7F40200956D26 /* MainScene */ = {
 			isa = PBXGroup;
 			children = (
+				46CF978A2E463E2D005FF91B /* DBConnection.swift */,
 				F42A7E4F1E49FEBF004AE6AA /* MainScene.swift */,
 				F4EB7FF51E350CEC00CE71DA /* GeneratorScreen.swift */,
 				F42A7E4D1E494765004AE6AA /* GridGenerator.swift */,
@@ -3651,6 +3654,7 @@
 				F45309411ED443F200633D6B /* EndGameTextGenerator.swift in Sources */,
 				F4DC7BFA1E056D28007AE2A5 /* MPCGDPlaytester.swift in Sources */,
 				F4EB7FF61E350CEC00CE71DA /* GeneratorScreen.swift in Sources */,
+				46CF978B2E463E35005FF91B /* DBConnection.swift in Sources */,
 				F4DC7BD61E055C07007AE2A5 /* AutoplayerSettings.swift in Sources */,
 				F4F38B6E1E3E2A5A00FBB6F5 /* MPCGDGenomeGenerator.swift in Sources */,
 				F4DC7BF61E056C4F007AE2A5 /* StopClusterFromForming.swift in Sources */,
