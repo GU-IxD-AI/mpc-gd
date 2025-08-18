@@ -229,8 +229,17 @@ struct User {
     
     init(dict: Dictionary<String, AnyObject>){
         userID = dict["userID"] as! String
-        userName = dict["userName"] as! String
-        studyMode = dict["studyMode"] as! Int
+        if let val = dict["userName"] as? String{
+            userName = val
+        } else {
+            userName = ""
+        }
+        if let val = dict["studyMode"] as? Int{
+            studyMode = val
+        } else {
+            studyMode = -1
+        }
+        
     }
     
     func getJsonRepresentation() -> String{
