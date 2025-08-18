@@ -1,5 +1,4 @@
 {
-  "version" : "2020.11.0",
   "images" : [
     {
       "scale" : "1x",
@@ -17,5 +16,6 @@
       "filename" : "image@3x.png"
     }
   ],
-  "author" : "Iconizer"
+  "author" : "Iconizer",
+  "version" : "2020.11.0"
 }

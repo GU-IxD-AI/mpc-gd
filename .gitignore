@@ -1,9 +1,14 @@
 # Xcode
 #
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
+secrets
 
 ## User settings
 xcuserdata/
+
+.DS_Store
+*.DS_Store
+**/.DS_Store
 
 ## Obj-C/Swift specific
 *.hmap
@@ -60,3 +65,5 @@ fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots/**/*.png
 fastlane/test_output
+.gitsecret/keys/random_seed
+!*.secret

@@ -93,6 +93,8 @@
 		31E23C6C1C5129F400161C15 /* TowardsFingerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E23C6B1C5129F400161C15 /* TowardsFingerController.swift */; };
 		31EC8F3F1C6A1B3D00C30F9C /* GridSwipeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EC8F3E1C6A1B3D00C30F9C /* GridSwipeController.swift */; };
 		31F94F431BD1316E005BC7B4 /* BitMask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F94F421BD1316E005BC7B4 /* BitMask.swift */; };
+		4637D51E2E536A3200826CD2 /* HiddenParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4637D51D2E536A3200826CD2 /* HiddenParameters.swift */; };
+		4637D51F2E536A3200826CD2 /* HiddenParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4637D51D2E536A3200826CD2 /* HiddenParameters.swift */; };
 		464281912D823D2A00E7C843 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464281902D823D2A00E7C843 /* Fonts.swift */; };
 		464281922D823D2A00E7C843 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464281902D823D2A00E7C843 /* Fonts.swift */; };
 		464B9E762CE7948D00E13F2F /* MainScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42A7E4F1E49FEBF004AE6AA /* MainScene.swift */; };
@@ -823,6 +825,7 @@
 		31E23C6B1C5129F400161C15 /* TowardsFingerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TowardsFingerController.swift; sourceTree = "<group>"; };
 		31EC8F3E1C6A1B3D00C30F9C /* GridSwipeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridSwipeController.swift; sourceTree = "<group>"; };
 		31F94F421BD1316E005BC7B4 /* BitMask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BitMask.swift; sourceTree = "<group>"; };
+		4637D51D2E536A3200826CD2 /* HiddenParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HiddenParameters.swift; path = secrets/HiddenParameters.swift; sourceTree = "<group>"; };
 		464281902D823D2A00E7C843 /* Fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		464BB3122DDE0C2000780B2A /* RandomDragsPlaytester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomDragsPlaytester.swift; sourceTree = "<group>"; };
 		4691BA3E1E3674CE00DAFC7A /* GameHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameHandler.swift; sourceTree = "<group>"; };
@@ -1598,6 +1601,7 @@
 		F41D77941BC7EDEF00956D26 = {
 			isa = PBXGroup;
 			children = (
+				4637D51D2E536A3200826CD2 /* HiddenParameters.swift */,
 				859E00BB1E0BE9E3007601ED /* MPCGD.entitlements */,
 				852B02261DFAF11D00B7F420 /* ExceptionCatcher.h */,
 				852B02271DFAF11D00B7F420 /* MPCGD-Bridging-Header.h */,
@@ -3509,6 +3513,7 @@
 				312D7A2A1C90825000560133 /* GeneBase.swift in Sources */,
 				312D7FB51C9082BE00560133 /* ArtImageController.swift in Sources */,
 				314D1A3F1C908AEE000956F2 /* UIGraphics.swift in Sources */,
+				4637D51F2E536A3200826CD2 /* HiddenParameters.swift in Sources */,
 				F4D273DF1CAC06F3009A9ACF /* DrawingPathTag.swift in Sources */,
 				464BB3142DDE0C2000780B2A /* RandomDragsPlaytester.swift in Sources */,
 				312D7FCB1C9082C400560133 /* ImageData.swift in Sources */,
@@ -3571,6 +3576,7 @@
 				F41D78771BCB2DAF00956D26 /* DrawingShapes.swift in Sources */,
 				F4DC7BF41E0564DE007AE2A5 /* WhenQuiescent.swift in Sources */,
 				F4D273DC1CABE36C009A9ACF /* DrawingPathTag.swift in Sources */,
+				4637D51E2E536A3200826CD2 /* HiddenParameters.swift in Sources */,
 				F41D77E91BC7F37400956D26 /* CGSizeExtension.swift in Sources */,
 				85B469C91DF9826C0060E30B /* LAF.swift in Sources */,
 				F4E130F51BD5923200D5DF76 /* BaseCampType.swift in Sources */,

@@ -219,14 +219,18 @@ struct User {
     
     let userName: String
     
-    init (userID: String, userName: String) {
+    let studyMode : Int // -1 means to check, 0 means do not record, 1 means record
+    
+    init (userID: String, userName: String,mode: Int) {
         self.userID = userID
         self.userName = userName
+        self.studyMode = mode
     }
     
     init(dict: Dictionary<String, AnyObject>){
         userID = dict["userID"] as! String
         userName = dict["userName"] as! String
+        studyMode = dict["studyMode"] as! Int
     }
     
     func getJsonRepresentation() -> String{
@@ -237,6 +241,7 @@ struct User {
         let dict = NSMutableDictionary()
         dict.setValue(userID, forKey: "userID")
         dict.setValue(userName, forKey: "userName")
+        dict.setValue(userName, forKey: "studyMode")
         return dict
     }
     

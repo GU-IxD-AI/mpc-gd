@@ -248,6 +248,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
     var backgroundSize: CGSize! = nil
     //TODO: suegy integrate remote connection to db
     var db_client : DBConnection! = nil
+    var checkStudyMode : Bool = true
     
     static let backgroundIDs = ["City", "City", "City", "City", "City", "City", "City", "City", "City"] //FIXME: these should be different colored backgrounds which are linked in Assets
     
@@ -719,9 +720,12 @@ class MainScene: BaseScene, UITextFieldDelegate{
 //
 
         //FIXME: Needs to be secured
+        let endpoint = HiddenParameters.endpoint
+        let user = HiddenParameters.user
+        let pwd = HiddenParameters.pwd
         
         //TODO: suegy fix db connection
-        self.db_client = DBConnection(endpoint: endpoint)
+        self.db_client = DBConnection(endpoint: endpoint,uuid: GameViewController.user.userID)
         
         let sfLogo = SKSpriteNode(imageNamed: "MPCGDLogo")
         sfLogo.setScale(0.5 * size.width / sfLogo.width)
@@ -737,9 +741,6 @@ class MainScene: BaseScene, UITextFieldDelegate{
         
         sfLogo.run(action1)
         sfLogo.run(action2)
-
-        
-        self.db_client.auth(user: user, pwd: pwd)
         
         self.run(SKAction.wait(forDuration: 1), completion: {
             MPCGDAudio.playSound(path: MPCGDSounds.winGame)
@@ -763,58 +764,134 @@ class MainScene: BaseScene, UITextFieldDelegate{
         logoNode.run(action3, completion: {
             self.okButton.run(self.fadeIn)
         })
-        
-        self.infoGraphicsImageCycler.position.x = (self.infoGraphicsImageCycler?.position.x)! + size.width
-        self.logoImageCycler.position.x = self.logoImageCycler.position.x + size.width
-        self.playButton.alpha = 0
-        self.infoButton.alpha = 0
-        self.settingsButton.alpha = 0
-        self.settingsButton.isHidden = true
-        
-        let image = UIImage(named: "OpeningGraphics1")!
-        startInfoNode = SKSpriteNode(texture: SKTexture(image: image))
-        startInfoNode.size = startInfoNode.size * ((scene!.size.width * 0.8)/startInfoNode.size.width);
-        startInfoNode.position = CGPoint(x: scene!.size.width * 1.5, y: scene!.size.height * infoGraphicsY)
-        startInfoNode.zPosition = 10
-        addChild(startInfoNode)
-        
-        okButton = HKButton(image: UIImage(named: "OKButton")!)
-        okButton.position = CGPoint(x: scene!.size.width/2, y: scene!.size.height * buttonYPos)
-        okButton.zPosition = 10
-        okButton.alpha = 0
-        addChild(okButton)
-        okButton.onTapStartCode = {
+        if GameViewController.user.studyMode  == -1
             
-                    self.isAnimatingOpening = true
-                    logoNode.run(self.fadeOut, completion: {
-                        logoNode.removeFromParent()
-                    })
-                    self.okButton.run(self.fadeOut, completion: {
-//                        self.okButton.removeFromParent()
-                    })
-                    self.startInfoNode.run(self.fadeOut, completion: {
-                        self.startTheGame()
-                        self.state = .start
-                        self.startInfoNode.removeFromParent()
-                        self.isAnimatingOpening = false
-                        self.playButton.isHidden = false
-                        self.infoButton.isUserInteractionEnabled = false
-                        self.infoButton.run(SKAction.fadeIn(withDuration: 1.0), completion: {
-                            self.infoButton.isUserInteractionEnabled = true
-                        })
-                    })
-                    if !self.currentGamePack.gameIDs.isEmpty{
-                        let wG = self.currentGamePack.MPCGDGenomeShowingInBackground
-                        let colour = self.isBackgroundDark(wG!) ? Colours.getColour(.antiqueWhite) : Colours.getColour(.black)
-                        self.changeBackground(wG!)
-                        self.changeInfoColours(wG!)
-                        self.changeSettingsColours(wG!)
-                        self.changeLogoPipsColour(colour)
-                    }
+        { //initial check for participating in study
+            
+            self.infoGraphicsImageCycler.position.x = (self.infoGraphicsImageCycler?.position.x)! + size.width
+            self.logoImageCycler.position.x = self.logoImageCycler.position.x + size.width
+            self.playButton.alpha = 0
+            self.infoButton.alpha = 0
+            self.settingsButton.alpha = 0
+            self.settingsButton.isHidden = true
+            
+            let image = UIImage(named: "OpeningGraphics1")!
+            startInfoNode = SKSpriteNode(texture: SKTexture(image: image))
+            startInfoNode.size = startInfoNode.size * ((scene!.size.width * 0.75)/startInfoNode.size.width);
+            startInfoNode.position = CGPoint(x: scene!.size.width * 1.5, y: scene!.size.height * infoGraphicsY)
+            startInfoNode.zPosition = 10
+            addChild(startInfoNode)
+            
+            okButton = HKButton(image: UIImage(named: "OKButton")!)
+            okButton.position = CGPoint(x: scene!.size.width/2, y: scene!.size.height * buttonYPos)
+            okButton.zPosition = 10
+            okButton.alpha = 0
+            let buttonSize = okButton.hkImage.size
+            addChild(okButton)
+            
+            let joinButton = HKButton(image: UIImage(named: "JoinButton")!)
+            joinButton.position = CGPoint(x: scene!.size.width/3, y: scene!.size.height * buttonYPos)
+            joinButton.zPosition = 10
+            joinButton.hkImage.size = buttonSize
+            joinButton.alpha = 0
+            let skipButton = HKButton(image: UIImage(named: "SkipButton")!)
+            skipButton.position = CGPoint(x: scene!.size.width*2/3, y: scene!.size.height * buttonYPos)
+            skipButton.hkImage.size = buttonSize
+            skipButton.zPosition = 10
+            skipButton.alpha = 0
+            
+            skipButton.onTapStartCode = {
+                // removing PocketBase Server
+                self.db_client = nil
+                // enable study mode and not show choice again
+                //FIXME: StudyMode disabled should potentially be done more elgeantly
+                UserHandler.saveUser(User(userID:GameViewController.user.userID,userName: GameViewController.user.userName,mode: 0))
                 
+                self.startInfoNode.run(self.fadeOut, completion: {
+                    self.startInfoNode.removeFromParent()
+                    skipButton.removeFromParent()
+                    joinButton.removeFromParent()
+                })
+                logoNode.run(self.fadeOut, completion: {
+                    self.isAnimatingOpening = true
+                    logoNode.removeFromParent()
+                    self.initGame()
+                })
+            }
             
+            joinButton.onTapStartCode = {
+                
+                // initializing PocketBase Server
+                self.db_client.auth(user: user, pwd: pwd)
+                // enable study mode and not show choice again
+                //FIXME: StudyMode should potentially be done more elgeantly
+                UserHandler.saveUser(User(userID:GameViewController.user.userID,userName: GameViewController.user.userName,mode: 1))
+                
+                //self.run(SKAction.wait(forDuration: 4), completion: { self.db_client.sendDesignPath(dataDict: ["key":"testing","key2":"testing2",])})
+                
+                self.startInfoNode.run(self.fadeOut, completion: {
+                    self.startInfoNode.removeFromParent()
+                    skipButton.removeFromParent()
+                    joinButton.removeFromParent()
+                })
+                logoNode.run(self.fadeOut, completion: {
+                    self.isAnimatingOpening = true
+                    logoNode.removeFromParent()
+                    self.initGame()
+                })
+            }
+            
+            //FIXME: Add code for joining our study and a short description
+            okButton.onTapStartCode = {
+                //FIXME: need to check in which mode the game is regarding studymode and then either use OK to continue or show study question
+                
+                self.isAnimatingOpening = true
+                
+                self.okButton.run(self.fadeOut, completion: {
+                    //                        self.okButton.removeFromParent()
+                })
+                self.startInfoNode.run(self.fadeOut, completion: {
+                    self.startInfoNode.removeFromParent()
+                    let image = UIImage(named: "StudyGraphics")!
+                    self.startInfoNode = SKSpriteNode(texture: SKTexture(image: image))
+                    self.startInfoNode.size = self.startInfoNode.size * ((self.scene!.size.width * 0.75)/self.startInfoNode.size.width);
+                    self.startInfoNode.position = CGPoint(x: self.scene!.size.width * 1.5, y: self.scene!.size.height * self.infoGraphicsY)
+                    self.startInfoNode.zPosition = 10
+                    self.addChild(self.startInfoNode)
+                    self.startInfoNode.run(action4, completion: {
+                        joinButton.run(self.fadeIn)
+                        skipButton.run(self.fadeIn)
+                    })
+                    self.addChild(joinButton)
+                    self.addChild(skipButton)
+                    
+                })
+                
+                
+                
+            }
+            startInfoNode.run(action4)
         }
-        startInfoNode.run(action4)
+    }
+    func initGame(){
+        self.startTheGame()
+        self.state = .start
+        self.startInfoNode.removeFromParent()
+        self.isAnimatingOpening = false
+        self.playButton.isHidden = false
+        self.infoButton.isUserInteractionEnabled = false
+        self.infoButton.run(SKAction.fadeIn(withDuration: 1.0), completion: {
+            self.infoButton.isUserInteractionEnabled = true
+        })
+        
+        if !self.currentGamePack.gameIDs.isEmpty{
+            let wG = self.currentGamePack.MPCGDGenomeShowingInBackground
+            let colour = self.isBackgroundDark(wG!) ? Colours.getColour(.antiqueWhite) : Colours.getColour(.black)
+            self.changeBackground(wG!)
+            self.changeInfoColours(wG!)
+            self.changeSettingsColours(wG!)
+            self.changeLogoPipsColour(colour)
+        }
     }
     
     func startTheGame(){

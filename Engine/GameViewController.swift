@@ -11,7 +11,7 @@ import SpriteKit
 
 class GameViewController: UIViewController {
     
-    static var user : User = User(userID: "None", userName: "Human")
+    static var user : User = User(userID: "None", userName: "Human", mode: -1)
     
     var scene: MainScene! = nil
 
@@ -68,7 +68,7 @@ class GameViewController: UIViewController {
             GameViewController.user = tempUser
             UserHandler.retrieveTutorialStatus(tempUser.userID)
         } else {
-            let tempUser = User(userID: UUID().uuidString, userName: "H-\(self.generateNameSuffix())")
+            let tempUser = User(userID: UUID().uuidString, userName: "H-\(self.generateNameSuffix())",mode: -1)
             GameViewController.user = tempUser
             UserHandler.saveUser(tempUser)
                 

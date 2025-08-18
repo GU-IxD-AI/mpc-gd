@@ -1,10 +1,11 @@
 {
+  "author" : "Iconizer",
   "version" : "2020.11.0",
   "images" : [
     {
       "scale" : "1x",
-      "idiom" : "universal",
-      "filename" : "image@1x.png"
+      "filename" : "image@1x.png",
+      "idiom" : "universal"
     },
     {
       "scale" : "2x",
@@ -16,6 +17,5 @@
       "idiom" : "universal",
       "filename" : "image@3x.png"
     }
-  ],
-  "author" : "Iconizer"
+  ]
 }
