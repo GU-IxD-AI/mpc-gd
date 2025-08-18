@@ -764,31 +764,32 @@ class MainScene: BaseScene, UITextFieldDelegate{
         logoNode.run(action3, completion: {
             self.okButton.run(self.fadeIn)
         })
+        
+        self.infoGraphicsImageCycler.position.x = (self.infoGraphicsImageCycler?.position.x)! + size.width
+        self.logoImageCycler.position.x = self.logoImageCycler.position.x + size.width
+        self.playButton.alpha = 0
+        self.infoButton.alpha = 0
+        self.settingsButton.alpha = 0
+        self.settingsButton.isHidden = true
+        
+        let image = UIImage(named: "OpeningGraphics1")!
+        startInfoNode = SKSpriteNode(texture: SKTexture(image: image))
+        startInfoNode.size = startInfoNode.size * ((scene!.size.width * 0.75)/startInfoNode.size.width);
+        startInfoNode.position = CGPoint(x: scene!.size.width * 1.5, y: scene!.size.height * infoGraphicsY)
+        startInfoNode.zPosition = 10
+        addChild(startInfoNode)
+        
+        okButton = HKButton(image: UIImage(named: "OKButton")!)
+        okButton.position = CGPoint(x: scene!.size.width/2, y: scene!.size.height * buttonYPos)
+        okButton.zPosition = 10
+        okButton.alpha = 0
+        let buttonSize = okButton.hkImage.size
+        addChild(okButton)
+        
         if GameViewController.user.studyMode  == -1
             
         { //initial check for participating in study
-            
-            self.infoGraphicsImageCycler.position.x = (self.infoGraphicsImageCycler?.position.x)! + size.width
-            self.logoImageCycler.position.x = self.logoImageCycler.position.x + size.width
-            self.playButton.alpha = 0
-            self.infoButton.alpha = 0
-            self.settingsButton.alpha = 0
-            self.settingsButton.isHidden = true
-            
-            let image = UIImage(named: "OpeningGraphics1")!
-            startInfoNode = SKSpriteNode(texture: SKTexture(image: image))
-            startInfoNode.size = startInfoNode.size * ((scene!.size.width * 0.75)/startInfoNode.size.width);
-            startInfoNode.position = CGPoint(x: scene!.size.width * 1.5, y: scene!.size.height * infoGraphicsY)
-            startInfoNode.zPosition = 10
-            addChild(startInfoNode)
-            
-            okButton = HKButton(image: UIImage(named: "OKButton")!)
-            okButton.position = CGPoint(x: scene!.size.width/2, y: scene!.size.height * buttonYPos)
-            okButton.zPosition = 10
-            okButton.alpha = 0
-            let buttonSize = okButton.hkImage.size
-            addChild(okButton)
-            
+        
             let joinButton = HKButton(image: UIImage(named: "JoinButton")!)
             joinButton.position = CGPoint(x: scene!.size.width/3, y: scene!.size.height * buttonYPos)
             joinButton.zPosition = 10
@@ -858,16 +859,41 @@ class MainScene: BaseScene, UITextFieldDelegate{
                     self.startInfoNode.position = CGPoint(x: self.scene!.size.width * 1.5, y: self.scene!.size.height * self.infoGraphicsY)
                     self.startInfoNode.zPosition = 10
                     self.addChild(self.startInfoNode)
-                    self.startInfoNode.run(action4, completion: {
-                        joinButton.run(self.fadeIn)
-                        skipButton.run(self.fadeIn)
-                    })
-                    self.addChild(joinButton)
-                    self.addChild(skipButton)
+                    
+                    
+                        self.startInfoNode.run(action4, completion: {
+                            joinButton.run(self.fadeIn)
+                            skipButton.run(self.fadeIn)
+                        })
+                        self.addChild(joinButton)
+                        self.addChild(skipButton)
                     
                 })
                 
                 
+                
+            } else { //NO Study mode check
+                // initializing PocketBase Server
+                if GameViewController.user.studyMode == 1 {
+                    self.db_client.auth(user: user, pwd: pwd)
+                } else {
+                    self.db_client = nil
+                }
+                //self.run(SKAction.wait(forDuration: 4), completion: { self.db_client.sendDesignPath(dataDict: ["key":"testing","key2":"testing2",])})
+                okButton.onTapStartCode = {
+                    //FIXME: need to check in which mode the game is regarding studymode and then either use OK to continue or show study question
+                    self.okButton.run(self.fadeOut, completion: {})
+                    self.isAnimatingOpening = true
+                    self.startInfoNode.run(self.fadeOut, completion: {
+                        self.startInfoNode.removeFromParent()
+                        self.okButton.removeFromParent()
+                    })
+                    logoNode.run(self.fadeOut, completion: {
+                        self.isAnimatingOpening = true
+                        logoNode.removeFromParent()
+                        self.initGame()
+                    })
+                }
                 
             }
             startInfoNode.run(action4)
