@@ -787,7 +787,6 @@ class MainScene: BaseScene, UITextFieldDelegate{
         addChild(okButton)
         
         if GameViewController.user.studyMode  == -1
-            
         { //initial check for participating in study
         
             let joinButton = HKButton(image: UIImage(named: "JoinButton")!)
@@ -872,32 +871,31 @@ class MainScene: BaseScene, UITextFieldDelegate{
                 
                 
                 
-            } else { //NO Study mode check
-                // initializing PocketBase Server
-                if GameViewController.user.studyMode == 1 {
-                    self.db_client.auth(user: user, pwd: pwd)
-                } else {
-                    self.db_client = nil
-                }
-                //self.run(SKAction.wait(forDuration: 4), completion: { self.db_client.sendDesignPath(dataDict: ["key":"testing","key2":"testing2",])})
-                okButton.onTapStartCode = {
-                    //FIXME: need to check in which mode the game is regarding studymode and then either use OK to continue or show study question
-                    self.okButton.run(self.fadeOut, completion: {})
-                    self.isAnimatingOpening = true
-                    self.startInfoNode.run(self.fadeOut, completion: {
-                        self.startInfoNode.removeFromParent()
-                        self.okButton.removeFromParent()
-                    })
-                    logoNode.run(self.fadeOut, completion: {
-                        self.isAnimatingOpening = true
-                        logoNode.removeFromParent()
-                        self.initGame()
-                    })
-                }
-                
             }
-            startInfoNode.run(action4)
+        } else { //NO Study mode check
+            // initializing PocketBase Server
+            if GameViewController.user.studyMode == 1 {
+                self.db_client.auth(user: user, pwd: pwd)
+            } else {
+                self.db_client = nil
+            }
+            //self.run(SKAction.wait(forDuration: 4), completion: { self.db_client.sendDesignPath(dataDict: ["key":"testing","key2":"testing2",])})
+            okButton.onTapStartCode = {
+                //FIXME: need to check in which mode the game is regarding studymode and then either use OK to continue or show study question
+                self.okButton.run(self.fadeOut, completion: {})
+                self.isAnimatingOpening = true
+                self.startInfoNode.run(self.fadeOut, completion: {
+                    self.startInfoNode.removeFromParent()
+                    self.okButton.removeFromParent()
+                })
+                logoNode.run(self.fadeOut, completion: {
+                    self.isAnimatingOpening = true
+                    logoNode.removeFromParent()
+                    self.initGame()
+                })
+            }
         }
+        startInfoNode.run(action4)
     }
     func initGame(){
         self.startTheGame()
