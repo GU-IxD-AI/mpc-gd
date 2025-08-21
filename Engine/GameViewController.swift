@@ -11,16 +11,17 @@ import SpriteKit
 
 class GameViewController: UIViewController {
     
-    static var user : User = User(userID: "None", userName: "Human", mode: -1)
+    private var _user : User = User(userID: "None", userName: "Human", mode: -1)
     
     var scene: MainScene! = nil
+    
+    private let lock = NSLock()
 
     override func viewWillLayoutSubviews(){
         super.viewWillLayoutSubviews()
         let skView = self.view as! SKView
         if skView.scene == nil {
             DispatchQueue.main.async {
-                self.setUser()
                 self.scene = MainScene()
                 self.scene.viewController = self
                 self.scene.scaleMode = .aspectFill
@@ -58,6 +59,11 @@ class GameViewController: UIViewController {
     override var prefersStatusBarHidden : Bool {
         return true
     }
+
+    
+    func getUser () -> User {
+        return lock.withLock({_user})
+    }
     
     /**
      Either retrieves the user from the database or asks the user to enter a new username
@@ -65,15 +71,15 @@ class GameViewController: UIViewController {
     func setUser() {
         
         if let tempUser = UserHandler.retrieveUser() {
-            GameViewController.user = tempUser
+            lock.withLock({_user = tempUser})
             UserHandler.retrieveTutorialStatus(tempUser.userID)
         } else {
             let tempUser = User(userID: UUID().uuidString, userName: "H-\(self.generateNameSuffix())",mode: -1)
-            GameViewController.user = tempUser
+            lock.withLock({_user = tempUser})
             UserHandler.saveUser(tempUser)
                 
         }
-        UserHandler.retrievePresetStatus(GameViewController.user.userID)
+        UserHandler.retrievePresetStatus(lock.withLock{_user.userID})
     }
     
     static func getReferenceDate() -> Date {

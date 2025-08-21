@@ -246,7 +246,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
     var pauseNode: SKLabelNode! = nil
     
     var backgroundSize: CGSize! = nil
-    //TODO: suegy integrate remote connection to db
+    //NOTE: suegy integrate remote connection to db
     var db_client : DBConnection! = nil
     var checkStudyMode : Bool = true
     
@@ -310,7 +310,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
     
     var gamePacks: [GamePackScreen] = []
 
-    var allPackIDs = GameHandler.getPackNames()
+    var allPackIDs : [String] = []
     
     var canPressPlay = false
     
@@ -462,6 +462,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
 
     override func didMove(to view: SKView) {
         MainScene.instance = self
+        self.viewController.setUser()
         
         super.didMove(to: view)
         HKDisableUserInteractions = false
@@ -526,17 +527,15 @@ class MainScene: BaseScene, UITextFieldDelegate{
         FascinatorLoader.loadBaseCampFascinator("LISiPhone", baseCampType: .Base, scene: (self.scene as! MainScene))
         fascinatorNode.zPosition = 10
         
-        addPresetsToDatabase()
+        allPackIDs = ["StudyPack"]
+        addPresetsToDatabase(_allPackIDs: allPackIDs)
+        
         for _ in 0..<allPackIDs.count{
             shareTexts.append([])
         }
-        let startTime = CFAbsoluteTimeGetCurrent()
-        addLogo()
-        print("addLogo took \(CFAbsoluteTimeGetCurrent() - startTime) seconds")
+        addGamePacksLogo()
+        
 
-        if DeviceType.isIPad{
-            logoImageCycler.pipsNode.position.y += 15
-        }
 
         // TODO: mjn 5/2025
         // Need a way of enabling/disabling the auto-playtester in the UI.
@@ -544,7 +543,6 @@ class MainScene: BaseScene, UITextFieldDelegate{
         //fascinator.playtester = RandomDragsPlaytester(fascinator: fascinator)
         fascinator.pauseImmediately()
         fascinator.gameOverCode = gameOver
-        
         MPCGDSounds.precache(packName: "arcade")
         MPCGDAudio.initialize()
         //MPCGDAudio.playStream(index: 0, path: MPCGDMusic.tracks[0])
@@ -595,15 +593,18 @@ class MainScene: BaseScene, UITextFieldDelegate{
     
     var state : GameState = .opening
     
-    func addPresetsToDatabase(){
+    func addPresetsToDatabase(_allPackIDs: [String]){
         if !UserHandler.presetsLoaded{
-            UserHandler.setPresetsLoaded()
-            for gamePackID in allPackIDs{
+            UserHandler.setPresetsLoaded(existing: getUser())
+            for gamePackID in _allPackIDs{
                 addPresets(gamePackID)
             }
         }
     }
     
+    func getUser() -> User {
+        return viewController.getUser()
+    }
     func addPresets(_ gamePackID: String){
         let path:String = Bundle.main.path(forResource: gamePackID, ofType: "txt")!
         let text = try? String(contentsOfFile: path, encoding: String.Encoding.utf8)
@@ -615,7 +616,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
                     let gameName = line.components(separatedBy: ",")[1]
                     let timeString = String(Date().timeIntervalSince1970)
                     let gameID = gameName + "@" + timeString
-                    _ = GameHandler.saveGame(MPCGDGenome, gameID: gameID, packID: gamePackID, isLocked: false)
+                    _ = GameHandler.saveGame(MPCGDGenome, gameID: gameID, packID: gamePackID, isLocked: false, userID: getUser().userID)
                 }
                 else{
                     print("BAD: \(line)")
@@ -719,13 +720,13 @@ class MainScene: BaseScene, UITextFieldDelegate{
 //        return
 //
 
-        //FIXME: Needs to be secured
+
         let endpoint = HiddenParameters.endpoint
         let user = HiddenParameters.user
         let pwd = HiddenParameters.pwd
         
         //TODO: suegy fix db connection
-        self.db_client = DBConnection(endpoint: endpoint,uuid: GameViewController.user.userID)
+        self.db_client = DBConnection(endpoint: endpoint,uuid: getUser().userID)
         
         let sfLogo = SKSpriteNode(imageNamed: "MPCGDLogo")
         sfLogo.setScale(0.5 * size.width / sfLogo.width)
@@ -785,8 +786,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
         okButton.alpha = 0
         let buttonSize = okButton.hkImage.size
         addChild(okButton)
-        
-        if GameViewController.user.studyMode  == -1
+        if getUser().studyMode  < 2//FIXME: Before Release: for users this should be -1
         { //initial check for participating in study
         
             let joinButton = HKButton(image: UIImage(named: "JoinButton")!)
@@ -804,8 +804,9 @@ class MainScene: BaseScene, UITextFieldDelegate{
                 // removing PocketBase Server
                 self.db_client = nil
                 // enable study mode and not show choice again
-                //FIXME: StudyMode disabled should potentially be done more elgeantly
-                UserHandler.saveUser(User(userID:GameViewController.user.userID,userName: GameViewController.user.userName,mode: 0))
+                let _user = self.getUser()
+                UserHandler.saveUser(User(userID:_user.userID,userName: _user.userName,mode: 0))
+                
                 
                 self.startInfoNode.run(self.fadeOut, completion: {
                     self.startInfoNode.removeFromParent()
@@ -815,6 +816,10 @@ class MainScene: BaseScene, UITextFieldDelegate{
                 logoNode.run(self.fadeOut, completion: {
                     self.isAnimatingOpening = true
                     logoNode.removeFromParent()
+                    // FIXME: add remaining standard game packs
+                    self.db_client = nil
+                
+                    self.resetLoadedGamePacks(newPacks: GameHandler.getPackNames())
                     self.initGame()
                 })
             }
@@ -825,7 +830,8 @@ class MainScene: BaseScene, UITextFieldDelegate{
                 self.db_client.auth(user: user, pwd: pwd)
                 // enable study mode and not show choice again
                 //FIXME: StudyMode should potentially be done more elgeantly
-                UserHandler.saveUser(User(userID:GameViewController.user.userID,userName: GameViewController.user.userName,mode: 1))
+                let _user = self.getUser()
+                UserHandler.saveUser(User(userID:_user.userID,userName: _user.userName,mode: 1))
                 
                 //self.run(SKAction.wait(forDuration: 4), completion: { self.db_client.sendDesignPath(dataDict: ["key":"testing","key2":"testing2",])})
                 
@@ -837,13 +843,13 @@ class MainScene: BaseScene, UITextFieldDelegate{
                 logoNode.run(self.fadeOut, completion: {
                     self.isAnimatingOpening = true
                     logoNode.removeFromParent()
+                    self.resetLoadedGamePacks(newPacks: ["StudyPack"])
                     self.initGame()
                 })
             }
             
-            //FIXME: Add code for joining our study and a short description
+            //MARK: Add code for joining our study and a short description
             okButton.onTapStartCode = {
-                //FIXME: need to check in which mode the game is regarding studymode and then either use OK to continue or show study question
                 
                 self.isAnimatingOpening = true
                 
@@ -874,14 +880,27 @@ class MainScene: BaseScene, UITextFieldDelegate{
             }
         } else { //NO Study mode check
             // initializing PocketBase Server
-            if GameViewController.user.studyMode == 1 {
+            if getUser().studyMode == 1 {
                 self.db_client.auth(user: user, pwd: pwd)
             } else {
                 self.db_client = nil
+                // adding remaining standard games
+     /*           self.gamePacks = []
+                self.logoImageCycler.removeFromParent()
+                GamePackScreen.allGamePacks = []
+                self.shareTexts = []
+                self.infoGraphicsImageCycler.removeFromParent()
+                self.allPackIDs = GameHandler.getPackNames()
+                self.addPresetsToDataBase(allPackIDs)
+                for _ in 0..<allPackIDs.count{
+                    shareTexts.append([])
+                }
+                addGamePacksLogo()*/
             }
+            //TODO: This is the call for logging something which we need to connect to UI elements
             //self.run(SKAction.wait(forDuration: 4), completion: { self.db_client.sendDesignPath(dataDict: ["key":"testing","key2":"testing2",])})
+            
             okButton.onTapStartCode = {
-                //FIXME: need to check in which mode the game is regarding studymode and then either use OK to continue or show study question
                 self.okButton.run(self.fadeOut, completion: {})
                 self.isAnimatingOpening = true
                 self.startInfoNode.run(self.fadeOut, completion: {
@@ -896,6 +915,26 @@ class MainScene: BaseScene, UITextFieldDelegate{
             }
         }
         startInfoNode.run(action4)
+    }
+    
+    func resetLoadedGamePacks(newPacks: [String]){
+        GameHandler.clearAllGames()
+        //self.shareTexts = []
+        self.allPackIDs = newPacks
+        UserHandler.presetsLoaded = false
+        // clear gamePacks as well
+        for pack in self.gamePacks {
+            pack.removeAllActions()
+            pack.removeFromParent()
+        }
+        self.gamePacks = []
+        self.addPresetsToDatabase(_allPackIDs: self.allPackIDs)
+        
+        for _ in 0..<self.allPackIDs.count{
+            self.shareTexts.append([])
+        }
+        self.addGamePacksLogo()
+        let _ = self.infoGraphicsImageCycler.cycleToComponent(self.allPackIDs.first!)
     }
     func initGame(){
         self.startTheGame()
@@ -925,8 +964,8 @@ class MainScene: BaseScene, UITextFieldDelegate{
         let action4 = SKAction.sequence([SKAction.wait(forDuration: 0.2), flyInFromRight])
         let action5 = SKAction.fadeIn(withDuration: 0.5)
         
-        self.logoImageCycler.run(action3)
-        self.infoGraphicsImageCycler.run(action4)
+        //self.logoImageCycler.run(action3)
+        //self.infoGraphicsImageCycler.run(action4)
         self.playButton.run(SKAction.fadeAlpha(to: 0.2, duration: 0.5), completion: {
             HKDisableUserInteractions = false
             self.playButton.enabled = false
@@ -1505,7 +1544,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
         genScreen = infoCyclers[currentGameName]?.hkComponents[2] as! GeneratorScreen
         genScreen.gameID = newGameID
         
-        GameHandler.renameGame(gameID, newGameID: newGameID, genome: loadedMPCGDGenomes[currentGameName]!, packID: gamePackScreen.packID, isLocked: isLocked)
+        GameHandler.renameGame(gameID, newGameID: newGameID, genome: loadedMPCGDGenomes[currentGameName]!, packID: gamePackScreen.packID, isLocked: isLocked, userID: getUser().userID)
         SessionHandler.renameGame(oldGameID: gameID, newGameID: newGameID)
         let statsScreen = infoCyclers[currentGameName]!.hkComponents[0] as! StatsScreen
         statsScreen.reactToGameIDChange(newGameID: newGameID)
@@ -1525,7 +1564,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
         infoGraphicsImageCycler.selectedHKComponent.run(fadeOut, completion: {
             let ind = self.infoGraphicsImageCycler.ids.index(of: self.infoGraphicsImageCycler.selectedID)!
             _ = self.infoGraphicsImageCycler.removeHKComponentWithID(self.infoGraphicsImageCycler.selectedID)
-            self.infoGraphicsImageCycler.addHKComponentAtIndex(gamePackScreen, id: gamePackScreen.packID, index: ind)
+            //self.infoGraphicsImageCycler.addHKComponentAtIndex(gamePackScreen, id: gamePackScreen.packID, index: ind)
             _ = self.infoGraphicsImageCycler.cycleToComponent(gamePackScreen.packID)
             self.infoGraphicsImageCycler.selectedHKComponent.run(SKAction.fadeIn(withDuration: 0.2))
             _ = self.logoImageCycler.cycleToComponent(gamePackScreen.packID)
@@ -1544,30 +1583,30 @@ class MainScene: BaseScene, UITextFieldDelegate{
         })
     }
 
-    fileprivate func addLogo(){
-
+    fileprivate func addGamePacksLogo(){
+        
         var logoImages: [HKImage] = []
         var infoGraphicCyclers: [HKImage] = []
         
         //FIXME: inserted session data loading, for lots of sessions this might take some time
         SessionHandler.sessions = SessionHandler.retrieveSessions()
-
+        
         GamePackScreen.mainScene = self
         for pos in 0..<allPackIDs.count{
             let packID = allPackIDs[pos]
             let packAlias = PackAlias.fetch(packID)
             let packLogo = getDilatedLogoComponent(packAlias, colour: blackColour, heavyFirst: true)
             let packImage = HKImage(image: ImageUtils.getBlankImage(CGSize(width: 10, height: 10), colour: UIColor.clear))
-
+            
             let packButton = HKButton(image: ImageUtils.getBlankImage(CGSize(width: 1, height: 1), colour: UIColor.clear), dilateTapBy: CGSize(width: 300, height: 45))
             packButton.isUserInteractionEnabled = false
             packButton.setScaleActionInterval(1...1.05)
             packImage.addChild(packButton)
             packButton.addChild(packLogo)
-
+            
             let gamePack = getGamePackScreen(packID, onGameTapCode: handleGamesPackGameChoice)
             GamePackScreen.allGamePacks.append(gamePack)
-
+            
             gamePack.MPCGDGenomeShowingInBackground = MPCGDGenome()
             gamePack.backgroundIsDark = false
             gamePack.logoColour = Colours.getColour(.black)
@@ -1583,14 +1622,14 @@ class MainScene: BaseScene, UITextFieldDelegate{
             gamePack.id = packID
             gamePack.alias = packAlias
             gamePack.packButton = packButton
-
+            
             logoImages.append(packImage)
             infoGraphicCyclers.append(gamePack)
             if pos == 0{
                 currentGamePack = gamePack
             }
             gamePacks.append(gamePack)
-
+            
             packButton.onTapStartCode = { [unowned self, unowned gamePack] () -> () in
                 gamePack.packLogo.run(self.fadeOut)
                 self.gameNameTextBox.heavyFirst = true
@@ -1615,7 +1654,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
                 self.textField.becomeFirstResponder()
             }
         }
-
+        
         self.savedGamesStartSlot = loadedMPCGDGenomes.count
         
         var widerLogoSize = logoImages[0].size
@@ -1640,12 +1679,15 @@ class MainScene: BaseScene, UITextFieldDelegate{
                 self.playButton.enabled = true
             }
         }
-        logoImageCycler.movementStartedCode = { [unowned self] () -> () in
-            self.handleSwipeToGame()
-        }
+
+            logoImageCycler.movementStartedCode = { [unowned self] () -> () in
+                self.handleSwipeToGame()
+            }
+    
+        
         addChild(logoImageCycler)
         logoImageCycler.pipsNode.position.y += 51
-
+        
         for p in gamePacks {
             logoImageCycler.liveTapComponents.append((p.packButton, p.packButton.parent! as! HKComponent))
         }
@@ -1670,9 +1712,13 @@ class MainScene: BaseScene, UITextFieldDelegate{
         logoImageCycler.onDragCode = { [unowned self] () -> () in
             self.endGameInBackground()
         }
-        
+    
         logoImageCycler.zPosition = 100
         infoGraphicsImageCycler.zPosition = 100
+        
+        if DeviceType.isIPad{
+            logoImageCycler.pipsNode.position.y += 15
+        }
     }
     
     func getInfoCycler(_ id: String) -> (HKImage, HKComponentCycler, StatsScreen?){
@@ -2114,7 +2160,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
     func saveSession(_ quit: Bool, gameEndDetails: Fascinator.GameEndDetails) {
         let wasWon = (quit == true) ? false : gameEndDetails.gameIsWon
         
-        let session = Session(date: Date(), level: currentGameName, user: GameViewController.user.userID, elapsedTime: gameEndDetails.currentTimeElapsed, score: fascinator.score, quit: quit, wasWon: wasWon!)
+        let session = Session(date: Date(), level: currentGameName, user: getUser().userID, elapsedTime: gameEndDetails.currentTimeElapsed, score: fascinator.score, quit: quit, wasWon: wasWon!)
         
         SessionHandler.saveSession(session)
         SessionHandler.sessions.append(session)
@@ -2463,7 +2509,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
                 isAnimatingTutorial = true
                 if touchPoint.y > 160 && touchPoint.y < 200{
                     hideTutorialNode.text = "◉ Hide hints forever"
-                    UserHandler.hideTutorial(currentGameName)
+                    UserHandler.hideTutorial(currentGameName, userID: self.getUser().userID)
                 }
                 tutorialNode.run(fadeOut, completion: {
                     self.isAnimatingTutorial = false
@@ -2714,7 +2760,6 @@ class MainScene: BaseScene, UITextFieldDelegate{
         currentGameName = gameID
         infoGraphicsImageCycler.selectedHKComponent.run(SKAction.fadeOut(withDuration: 0.2))
         let ind = infoGraphicsImageCycler.ids.index(of: self.infoGraphicsImageCycler.selectedID)!
-        _ = infoGraphicsImageCycler.removeHKComponentWithID(self.infoGraphicsImageCycler.selectedID)
         
         let gameName = gameID.components(separatedBy: "@")[0]
         let MPCGDGenome = loadedMPCGDGenomes[gameID]!
@@ -2793,6 +2838,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
             gamePackScreen.packLogo.removeFromParent()
             gamePackScreen.packButton.addChild(gamePackScreen.packLogo)
             gamePackScreen.packLogo.run(SKAction.scale(to: 1.0, duration: 0.5))
+            //TODO: revisit if gamescreen loading breaks
             self.putGamePackBack(gamePackScreen, genScreen: nil)
             HKButton.lock = nil
 
@@ -2988,7 +3034,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
         
         logoImageCycler.movePip(logoImageCycler.hkComponents.index(of: logoImageCycler.selectedHKComponent)!, numComponents: logoImageCycler.hkComponents.count)
 
-        // CHANGE FOR TEST FLIGHT
+        //TODO: CHANGE FOR TEST FLIGHT
         
         let components = [statsScreen, buttonsScreen, designScreen]
         let ids = ["\(gameID) stats", "buttons", gameID]
@@ -3064,7 +3110,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
         isLockedHash[currentGameName] = isLocked
         loadRightGenome()
         let ind = infoGraphicsImageCycler.indexShowing()
-        GameHandler.overwriteGenome(currentGameName, alteredGenome: alteredGenome, packID: allPackIDs[ind], isLocked: isLocked)
+        GameHandler.overwriteGenome(currentGameName, userID: getUser().userID, alteredGenome: alteredGenome, packID: allPackIDs[ind], isLocked: isLocked)
         currentGamePack.handlePotentialBestChange(gameID: currentGameName)
         let statsScreen = infoCyclers[currentGameName]!.hkComponents[0] as! StatsScreen
         statsScreen.reactToGenomeChange(alteredMPCGDGenome: alteredGenome)
@@ -3452,7 +3498,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
         let MPCGDGenome = MPCGDGenomeGenerator.getInspiringGenome()
         let timeStamp = String(Date().timeIntervalSince1970)
         let gameID = "\(gameName)@\(timeStamp)"
-        _ = GameHandler.saveGame(MPCGDGenome, gameID: gameID, packID: currentGamePack.packID, isLocked: false)
+        _ = GameHandler.saveGame(MPCGDGenome, gameID: gameID, packID: currentGamePack.packID, isLocked: false, userID: getUser().userID)
         loadedMPCGDGenomes[gameID] = MPCGDGenome
         isLockedHash[gameID] = false
         loadUpGame(gameID, gamePackScreen: currentGamePack, immediate: false)
@@ -3473,7 +3519,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
         
         let timeStamp = String(Date().timeIntervalSince1970)
         let gameID = "\(name)@\(timeStamp)"
-        _ = GameHandler.saveGame(MPCGDGenome, gameID: gameID, packID: currentGamePack.packID, isLocked: false)
+        _ = GameHandler.saveGame(MPCGDGenome, gameID: gameID, packID: currentGamePack.packID, isLocked: false, userID: getUser().userID)
         loadedMPCGDGenomes[gameID] = MPCGDGenome
         isLockedHash[gameID] = false
         loadUpGame(gameID, gamePackScreen: currentGamePack, immediate: false)

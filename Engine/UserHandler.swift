@@ -17,7 +17,7 @@ class UserHandler {
     fileprivate static var tutorialStatus : [String : [String:Bool]] = [:]
     open static var presetsLoaded = false
     
-    static func setPresetsLoaded(){
+    static func setPresetsLoaded(existing: User){
         let appDel = (UIApplication.shared.delegate as! AppDelegate)
         let context = appDel.managedObjectContext
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: USERDBTOKEN)
@@ -27,7 +27,7 @@ class UserHandler {
             for userRow in savedUsers{
                 let jsonRepresentation = (userRow as AnyObject).value(forKey: "jsonRepresentation") as! String
                 let user = User(dict: JsonUtils.jsonStringToObject(jsonRepresentation) as! Dictionary<String, AnyObject>)
-                if user.userID == GameViewController.user.userID {
+                if user.userID == existing.userID {
                     //var preset = false
                     if (userRow as AnyObject).value(forKey: "presetsLoaded") != nil {
                         presetsLoaded = (userRow as AnyObject).value(forKey: "presetsLoaded") as! Bool
@@ -128,16 +128,16 @@ class UserHandler {
         }
     }
     
-    static func isTutorialHidden(_ gameName: String) -> Bool{
-        let status : [String: Bool] = UserHandler.getTutorialStatus(GameViewController.user.userID)
+    static func isTutorialHidden(_ gameName: String, userID :String) -> Bool{
+        let status : [String: Bool] = UserHandler.getTutorialStatus(userID)
         if status.keys.contains(gameName) {
             return status[gameName]!
         }
         return false
     }
     
-    static func hideTutorial(_ gameName: String, onOff: Bool = true) {
-        UserHandler.hideTutorial(GameViewController.user.userID, gameName: gameName, hide: onOff)
+    static func hideTutorial(_ gameName: String, onOff: Bool = true, userID : String) {
+        UserHandler.hideTutorial(userID, gameName: gameName, hide: onOff)
     }
     
     static func getTutorialStatus(_ userID : String) -> [String:Bool] {
@@ -250,7 +250,7 @@ struct User {
         let dict = NSMutableDictionary()
         dict.setValue(userID, forKey: "userID")
         dict.setValue(userName, forKey: "userName")
-        dict.setValue(userName, forKey: "studyMode")
+        dict.setValue(studyMode, forKey: "studyMode")
         return dict
     }
     

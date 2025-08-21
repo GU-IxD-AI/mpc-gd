@@ -525,24 +525,29 @@ class HKComponentCycler : HKComponent{
                         }
                         if abs(movement) > 50{
                             if orientation == .horizontal{
-                                if movement < 0{
-                                    if allow360 || ids.index(of: selectedID)! < ids.count - 1{
-                                        moveLeft()
-                                        twinnedCycler?.moveLeft()
+                                if ids.count < 2 {
+                                    returnToStartPosition()
+                                    twinnedCycler?.returnToStartPosition()
+                                } else {
+                                    if movement < 0  {
+                                        if allow360 || ids.index(of: selectedID)! < ids.count - 1{
+                                            moveLeft()
+                                            twinnedCycler?.moveLeft()
+                                        }
+                                        else{
+                                            returnToStartPosition()
+                                            twinnedCycler?.returnToStartPosition()
+                                        }
                                     }
-                                    else{
-                                        returnToStartPosition()
-                                        twinnedCycler?.returnToStartPosition()
-                                    }
-                                }
-                                else if movement > 0{
-                                    if allow360 || ids.index(of: selectedID)! > 0{
-                                        moveRight()
-                                        twinnedCycler?.moveRight()
-                                    }
-                                    else{
-                                        returnToStartPosition()
-                                        twinnedCycler?.returnToStartPosition()
+                                    else if movement > 0{
+                                        if allow360 || ids.index(of: selectedID)! > 0{
+                                            moveRight()
+                                            twinnedCycler?.moveRight()
+                                        }
+                                        else{
+                                            returnToStartPosition()
+                                            twinnedCycler?.returnToStartPosition()
+                                        }
                                     }
                                 }
                             }
@@ -616,8 +621,9 @@ class HKComponentCycler : HKComponent{
             if movementStartedCode != nil{
                 movementStartedCode()
             }
-            hkComponents[imagePosition].isHidden = false
-            hkComponents[imagePosition].position.x = size.width
+            self.hkComponents[self.imagePosition].isHidden = false
+            self.hkComponents[self.imagePosition].position.x = self.size.width
+            
             hkComponents[imagePosition].run(flyInFromRight, completion: {
                 self.run(SKAction.wait(forDuration: self.waitAtEnd), completion: {
                     self.selectedID = self.ids[self.imagePosition]
@@ -625,6 +631,7 @@ class HKComponentCycler : HKComponent{
                     if self.imageChosenCode != nil{
                         self.imageChosenCode()
                     }
+                    
                     self.isMoving = false
                 })
             })

@@ -117,15 +117,14 @@ class GameHandler {
         return convertParametersToGenome(game)
     }
     
-    static func saveGame(_ game: MPCGDGenome, gameID: String, packID: String, isLocked: Bool) -> String {
-        let gameParameters = convertGenomeToParameters(game, gameID: gameID)
+    static func saveGame(_ game: MPCGDGenome, gameID: String, packID: String, isLocked: Bool, userID: String) -> String {
+        let gameParameters = convertGenomeToParameters(game, gameID: gameID, userID: userID)
         return GameHandler.saveGame(gameParameters, packID: packID, isLocked: isLocked)
     }
     
-    static func convertGenomeToParameters(_ game : MPCGDGenome, gameID: String) -> GameParameters {
+    static func convertGenomeToParameters(_ game : MPCGDGenome, gameID: String, userID : String) -> GameParameters {
         let encoding = game.encodeAsParameterArray()
         let parameters: [Int] = encoding != nil ? encoding! : []
-        let userID = GameViewController.user.userID
         let gP = GameParameters(userID: userID, gameID: gameID, gameParameters: parameters)
         return gP
     }
@@ -161,14 +160,14 @@ class GameHandler {
         }
     }
     
-    static func renameGame(_ originalGameID: String, newGameID: String, genome: MPCGDGenome, packID: String, isLocked: Bool){
+    static func renameGame(_ originalGameID: String, newGameID: String, genome: MPCGDGenome, packID: String, isLocked: Bool, userID: String){
         deleteGame(originalGameID)
-        _ = saveGame(genome, gameID: newGameID, packID: packID, isLocked: isLocked)
+        _ = saveGame(genome, gameID: newGameID, packID: packID, isLocked: isLocked, userID: userID)
     }
     
-    static func overwriteGenome(_ gameID: String, alteredGenome: MPCGDGenome, packID: String, isLocked: Bool){
+    static func overwriteGenome(_ gameID: String, userID: String, alteredGenome: MPCGDGenome, packID: String, isLocked: Bool){
         deleteGame(gameID)
-        _ = saveGame(alteredGenome, gameID: gameID, packID: packID, isLocked: isLocked)
+        _ = saveGame(alteredGenome, gameID: gameID, packID: packID, isLocked: isLocked, userID: userID)
     }
     
     static func setLock(_ gameID: String, gamePackID: String, isLocked: Bool){

@@ -95,6 +95,7 @@
 		31F94F431BD1316E005BC7B4 /* BitMask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F94F421BD1316E005BC7B4 /* BitMask.swift */; };
 		4637D51E2E536A3200826CD2 /* HiddenParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4637D51D2E536A3200826CD2 /* HiddenParameters.swift */; };
 		4637D51F2E536A3200826CD2 /* HiddenParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4637D51D2E536A3200826CD2 /* HiddenParameters.swift */; };
+		4637D5212E5496F000826CD2 /* Simple Games.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4637D5202E5496F000826CD2 /* Simple Games.txt */; };
 		464281912D823D2A00E7C843 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464281902D823D2A00E7C843 /* Fonts.swift */; };
 		464281922D823D2A00E7C843 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464281902D823D2A00E7C843 /* Fonts.swift */; };
 		464B9E762CE7948D00E13F2F /* MainScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42A7E4F1E49FEBF004AE6AA /* MainScene.swift */; };
@@ -373,7 +374,7 @@
 		F453093D1ED3172600633D6B /* weather_win_game.aiff in Resources */ = {isa = PBXBuildFile; fileRef = F45309371ED3172600633D6B /* weather_win_game.aiff */; };
 		F45309411ED443F200633D6B /* EndGameTextGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45309401ED443F200633D6B /* EndGameTextGenerator.swift */; };
 		F45309431ED446FB00633D6B /* GameOverReason.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45309421ED446FB00633D6B /* GameOverReason.swift */; };
-		F4530B6C1EA6CD4000EAD3F8 /* Simple Games.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4530B6B1EA6CD4000EAD3F8 /* Simple Games.txt */; };
+		F4530B6C1EA6CD4000EAD3F8 /* StudyPack.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4530B6B1EA6CD4000EAD3F8 /* StudyPack.txt */; };
 		F4530B701EA6CD6900EAD3F8 /* Tricky Games.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4530B6D1EA6CD6900EAD3F8 /* Tricky Games.txt */; };
 		F4530B711EA6CD6900EAD3F8 /* Fast Games.txt in Resources */ = {isa = PBXBuildFile; fileRef = F4530B6E1EA6CD6900EAD3F8 /* Fast Games.txt */; };
 		F46990DC1CAD3B6A00946AB6 /* FascinatorLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46990DB1CAD3B6A00946AB6 /* FascinatorLoader.swift */; };
@@ -826,6 +827,7 @@
 		31EC8F3E1C6A1B3D00C30F9C /* GridSwipeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridSwipeController.swift; sourceTree = "<group>"; };
 		31F94F421BD1316E005BC7B4 /* BitMask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BitMask.swift; sourceTree = "<group>"; };
 		4637D51D2E536A3200826CD2 /* HiddenParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HiddenParameters.swift; path = secrets/HiddenParameters.swift; sourceTree = "<group>"; };
+		4637D5202E5496F000826CD2 /* Simple Games.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Simple Games.txt"; sourceTree = "<group>"; };
 		464281902D823D2A00E7C843 /* Fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		464BB3122DDE0C2000780B2A /* RandomDragsPlaytester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomDragsPlaytester.swift; sourceTree = "<group>"; };
 		4691BA3E1E3674CE00DAFC7A /* GameHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameHandler.swift; sourceTree = "<group>"; };
@@ -1069,7 +1071,7 @@
 		F45309371ED3172600633D6B /* weather_win_game.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = weather_win_game.aiff; sourceTree = "<group>"; };
 		F45309401ED443F200633D6B /* EndGameTextGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndGameTextGenerator.swift; sourceTree = "<group>"; };
 		F45309421ED446FB00633D6B /* GameOverReason.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverReason.swift; sourceTree = "<group>"; };
-		F4530B6B1EA6CD4000EAD3F8 /* Simple Games.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "Simple Games.txt"; path = "Engine/Presets/Simple Games.txt"; sourceTree = "<group>"; };
+		F4530B6B1EA6CD4000EAD3F8 /* StudyPack.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = StudyPack.txt; path = Engine/Presets/StudyPack.txt; sourceTree = "<group>"; };
 		F4530B6D1EA6CD6900EAD3F8 /* Tricky Games.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "Tricky Games.txt"; path = "Engine/Presets/Tricky Games.txt"; sourceTree = "<group>"; };
 		F4530B6E1EA6CD6900EAD3F8 /* Fast Games.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "Fast Games.txt"; path = "Engine/Presets/Fast Games.txt"; sourceTree = "<group>"; };
 		F46990DB1CAD3B6A00946AB6 /* FascinatorLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FascinatorLoader.swift; sourceTree = "<group>"; };
@@ -2273,7 +2275,8 @@
 		F4530B6A1EA6CCEE00EAD3F8 /* Presets */ = {
 			isa = PBXGroup;
 			children = (
-				F4530B6B1EA6CD4000EAD3F8 /* Simple Games.txt */,
+				F4530B6B1EA6CD4000EAD3F8 /* StudyPack.txt */,
+				4637D5202E5496F000826CD2 /* Simple Games.txt */,
 				F4530B6E1EA6CD6900EAD3F8 /* Fast Games.txt */,
 				F472FF881EB9EBD300AB3A9A /* Skilful Games.txt */,
 				F4530B6D1EA6CD6900EAD3F8 /* Tricky Games.txt */,
@@ -2907,7 +2910,7 @@
 				F47026931EB24ABD006D738E /* Pineapple.pdf in Resources */,
 				F47030501EB8CDB0006D738E /* Chicken-polys.csv in Resources */,
 				F453092F1ED316FB00633D6B /* sport_lose_points.aiff in Resources */,
-				F4530B6C1EA6CD4000EAD3F8 /* Simple Games.txt in Resources */,
+				F4530B6C1EA6CD4000EAD3F8 /* StudyPack.txt in Resources */,
 				F47026B01EB24ADB006D738E /* Alien.pdf in Resources */,
 				F47030F71EB8CDCC006D738E /* Grapes-t100.csv in Resources */,
 				F473F7191ECB2A5800A64524 /* AudioJungle.pdf in Resources */,
@@ -3270,6 +3273,7 @@
 				F47030D71EB8CDCC006D738E /* Air rescue-t100.csv in Resources */,
 				F47026A11EB24AD0006D738E /* Dandelion.pdf in Resources */,
 				F47026C81EB24AF1006D738E /* Soccer ball.pdf in Resources */,
+				4637D5212E5496F000826CD2 /* Simple Games.txt in Resources */,
 				F4DC7BFC1E05709A007AE2A5 /* AutoplaytesterPresets.json in Resources */,
 				F47030531EB8CDB0006D738E /* Cow-polys.csv in Resources */,
 				F47026B41EB24ADB006D738E /* Rocket.pdf in Resources */,

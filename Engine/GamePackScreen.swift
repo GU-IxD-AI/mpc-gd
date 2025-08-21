@@ -580,7 +580,7 @@ class GamePackScreen: HKImage{
         let newPackName = GameHandler.getPackNames()[packNum]
         let gameName = gameID.components(separatedBy: "@")[0]
         let newGameID = "\(gameName)@\(Date().timeIntervalSince1970)"
-        _ = GameHandler.saveGame(MPCGDGenome!, gameID: newGameID, packID: newPackName, isLocked: isLocked)
+        _ = GameHandler.saveGame(MPCGDGenome!, gameID: newGameID, packID: newPackName, isLocked: isLocked, userID: GamePackScreen.mainScene.viewController.getUser().userID)
         GamePackScreen.mainScene.loadedMPCGDGenomes[newGameID] = MPCGDGenome
         GamePackScreen.mainScene.isLockedHash[newGameID] = isLocked
         GamePackScreen.allGamePacks[packNum].addGameButton(newGameID)
@@ -601,7 +601,7 @@ class GamePackScreen: HKImage{
         SessionHandler.renameGame(oldGameID: gameID, newGameID: newGameID)
         deleteGame()
         gameButtonToMove?.removeFromParent()
-        _ = GameHandler.saveGame(MPCGDGenome!, gameID: newGameID, packID: newPackName, isLocked: isLocked)
+        _ = GameHandler.saveGame(MPCGDGenome!, gameID: newGameID, packID: newPackName, isLocked: isLocked, userID: GamePackScreen.mainScene.getUser().userID)
         GamePackScreen.mainScene.loadedMPCGDGenomes[newGameID] = MPCGDGenome
         GamePackScreen.mainScene.isLockedHash[newGameID] = isLocked
         GamePackScreen.allGamePacks[packNum].addGameButton(newGameID)
