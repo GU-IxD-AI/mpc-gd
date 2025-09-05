@@ -1566,13 +1566,6 @@
 			name = ArtImageController;
 			sourceTree = "<group>";
 		};
-		5C63AD961C986F9500F7A395 /* Projects */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Projects;
-			sourceTree = "<group>";
-		};
 		E99F52BE1BD6314100413199 /* Fascinator */ = {
 			isa = PBXGroup;
 			children = (
@@ -1608,7 +1601,6 @@
 				852B02261DFAF11D00B7F420 /* ExceptionCatcher.h */,
 				852B02271DFAF11D00B7F420 /* MPCGD-Bridging-Header.h */,
 				F45F33E41CAD2DDE009A9BCB /* Assets */,
-				5C63AD961C986F9500F7A395 /* Projects */,
 				F41D779F1BC7EDEF00956D26 /* Engine */,
 				F41D77B81BC7EDEF00956D26 /* EngineTests */,
 				F41D77C31BC7EDEF00956D26 /* EngineUITests */,
@@ -3891,10 +3883,11 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = W2LG27ZR35;
 				INFOPLIST_FILE = Engine/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Paravida;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = MPCGD;
+				PRODUCT_BUNDLE_IDENTIFIER = org.metamakers.Paravida;
 				PRODUCT_NAME = MPCGD;
 				PROVISIONING_PROFILE = "";
 				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "MPCGD-Bridging-Header.h";
@@ -3911,10 +3904,11 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = W2LG27ZR35;
 				INFOPLIST_FILE = Engine/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Paravida;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = MPCGD;
+				PRODUCT_BUNDLE_IDENTIFIER = org.metamakers.Paravida;
 				PRODUCT_NAME = MPCGD;
 				PROVISIONING_PROFILE = "";
 				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "MPCGD-Bridging-Header.h";

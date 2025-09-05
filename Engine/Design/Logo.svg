@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="1191"
+   height="842"
+   viewBox="0 0 297.75 210.5"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.2 (ebf0e940, 2025-05-08)"
+   sodipodi:docname="Logo.svg"
+   inkscape:export-filename="Logo.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="0.15328958"
+     inkscape:cx="626.26568"
+     inkscape:cy="658.88368"
+     inkscape:window-width="1168"
+     inkscape:window-height="581"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1">
+    <linearGradient
+       id="linearGradient22"
+       inkscape:collect="always">
+      <stop
+         style="stop-color:#cccccc;stop-opacity:1;"
+         offset="0"
+         id="stop22" />
+      <stop
+         style="stop-color:#cccccc;stop-opacity:0;"
+         offset="1"
+         id="stop23" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient22"
+       id="linearGradient23"
+       x1="74.985062"
+       y1="97.038567"
+       x2="396.34509"
+       y2="-77.467758"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-1.1678219,1.923845)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient22"
+       id="linearGradient24"
+       gradientUnits="userSpaceOnUse"
+       x1="74.985062"
+       y1="97.038567"
+       x2="396.34509"
+       y2="-77.467758"
+       gradientTransform="translate(-1.1678213,107.23528)" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g24"
+       transform="translate(0,12.344291)">
+      <rect
+         style="fill:url(#linearGradient23);stroke:#999999;stroke-width:3.33449;stroke-linejoin:round;stroke-dasharray:none"
+         id="rect1"
+         width="264.20584"
+         height="14.678102"
+         x="16.772079"
+         y="32.91095"
+         ry="7.3390508" />
+      <rect
+         style="fill:url(#linearGradient24);stroke:#999999;stroke-width:3.33449;stroke-linejoin:round;stroke-dasharray:none"
+         id="rect1-6"
+         width="264.20584"
+         height="14.678102"
+         x="16.772079"
+         y="138.22237"
+         ry="7.3390508" />
+      <text
+         xml:space="preserve"
+         style="font-size:60px;font-family:'Dolce Vita Heavy';-inkscape-font-specification:'Dolce Vita Heavy, ';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;opacity:0.827737;fill:#333333;fill-opacity:1;stroke:#b3b3b3;stroke-width:3.3345;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
+         x="140.25742"
+         y="113.86762"
+         id="text24"><tspan
+           sodipodi:role="line"
+           id="tspan24"
+           style="font-size:60px;fill:#333333;stroke:#b3b3b3;stroke-width:3.33449"
+           x="140.25742"
+           y="113.86762">ParaVIDA</tspan></text>
+    </g>
+  </g>
+</svg>

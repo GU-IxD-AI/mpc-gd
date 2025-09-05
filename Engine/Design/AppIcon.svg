@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="512"
+   height="512"
+   viewBox="0 0 512 512"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.2 (ebf0e940, 2025-05-08)"
+   sodipodi:docname="AppIcon.svg"
+   inkscape:export-filename="AppIcon.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     inkscape:zoom="0.38952024"
+     inkscape:cx="179.70825"
+     inkscape:cy="306.78765"
+     inkscape:window-width="1144"
+     inkscape:window-height="614"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1"
+     inkscape:export-bgcolor="#ffffffff" />
+  <defs
+     id="defs1">
+    <linearGradient
+       id="linearGradient578"
+       inkscape:collect="always">
+      <stop
+         style="stop-color:#333333;stop-opacity:1;"
+         offset="0"
+         id="stop579" />
+      <stop
+         style="stop-color:#333333;stop-opacity:0;"
+         offset="1"
+         id="stop580" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient572"
+       inkscape:collect="always">
+      <stop
+         style="stop-color:#333333;stop-opacity:1;"
+         offset="0"
+         id="stop573" />
+      <stop
+         style="stop-color:#282828;stop-opacity:0.48892674;"
+         offset="0.9904241"
+         id="stop574" />
+    </linearGradient>
+    <linearGradient
+       id="swatch571">
+      <stop
+         style="stop-color:#5f005f;stop-opacity:1;"
+         offset="0"
+         id="stop571" />
+      <stop
+         style="stop-color:#ff33ff;stop-opacity:1;"
+         offset="1"
+         id="stop572" />
+    </linearGradient>
+    <linearGradient
+       id="swatch432"
+       inkscape:swatch="solid">
+      <stop
+         style="stop-color:#800080;stop-opacity:1;"
+         offset="0"
+         id="stop432" />
+    </linearGradient>
+    <linearGradient
+       id="swatch10"
+       inkscape:swatch="solid">
+      <stop
+         style="stop-color:#000080;stop-opacity:1;"
+         offset="0"
+         id="stop10" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient572"
+       id="linearGradient574"
+       x1="114.30066"
+       y1="425.43921"
+       x2="436.20825"
+       y2="68.589966"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient578"
+       id="linearGradient580"
+       x1="106.59888"
+       y1="422.87195"
+       x2="415.67017"
+       y2="96.829834"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:url(#linearGradient574);stroke:#ffd5d5;fill-opacity:1;fill-rule:nonzero"
+       id="rect1"
+       width="508.31763"
+       height="508.31763"
+       x="1.8411865"
+       y="1.8411865"
+       ry="62.897892" />
+    <rect
+       style="fill:url(#linearGradient580);fill-rule:nonzero;stroke:#ffd5d5"
+       id="rect574"
+       width="508.31763"
+       height="508.31763"
+       x="1.8411865"
+       y="1.8411865"
+       ry="62.897892" />
+    <text
+       xml:space="preserve"
+       style="font-size:173.333px;font-family:'Dolce Vita Heavy';-inkscape-font-specification:'Dolce Vita Heavy, ';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#cccccc;fill-opacity:1;fill-rule:nonzero;stroke:#999999;stroke-width:2;stroke-dasharray:none;stroke-linejoin:round"
+       x="256.04233"
+       y="208.2234"
+       id="text580"><tspan
+         sodipodi:role="line"
+         id="tspan580"
+         x="256.04233"
+         y="208.2234"
+         style="font-size:173.333px;fill:#cccccc;stroke:#999999;stroke-width:2;stroke-dasharray:none;stroke-linejoin:round">Para</tspan><tspan
+         sodipodi:role="line"
+         x="256.04233"
+         y="424.88962"
+         id="tspan581"
+         style="font-size:173.333px;fill:#cccccc;stroke:#999999;stroke-width:2;stroke-dasharray:none;stroke-linejoin:round">VIDA</tspan></text>
+  </g>
+</svg>

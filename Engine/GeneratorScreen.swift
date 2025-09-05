@@ -198,7 +198,7 @@ class GeneratorScreen: HKComponent{
         
         super.init()
         let font = UIFontCache(name: "HelveticaNeue-Thin", size: 22)
-        helpTextNode = SKLabelNode(font, Colours.getColour(.antiqueWhite), text: "Game design")
+        helpTextNode = SKLabelNode(font, Colours.getColour(.antiqueWhite), text: "Adjust Your Game")
         helpTextNode.verticalAlignmentMode = SKLabelVerticalAlignmentMode.top
         helpTextNode.position.y = size.height/2 - 8
         if showGameDesignLabel{
