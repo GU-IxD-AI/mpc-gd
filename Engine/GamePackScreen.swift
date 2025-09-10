@@ -531,7 +531,9 @@ class GamePackScreen: HKImage{
             self.trayNode.isHidden = true
             self.trayNode.alpha = 1
         })
-        let packNames = GameHandler.getPackNames()
+        //let packNames = GameHandler.getPackNames()
+        //FIXME: this is wrong as it picks the static titles
+        let packNames =  GamePackScreen.mainScene.allPackIDs
         var yPos = CGFloat(95)
         packButtons.removeAll()
         packButtonsNode.removeAllChildren()

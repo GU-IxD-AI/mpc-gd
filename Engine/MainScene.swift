@@ -882,6 +882,8 @@ class MainScene: BaseScene, UITextFieldDelegate{
             self.startInfoNode.position = CGPoint(x: self.scene!.size.width * 1.5, y: self.scene!.size.height * self.infoGraphicsY)
             self.startInfoNode.zPosition = 10
             self.addChild(self.startInfoNode)
+            self.addChild(yesButton)
+            self.addChild(noButton)
             
             self.startInfoNode.run(actions[3], completion: {
                 yesButton.run(self.fadeIn)
@@ -899,8 +901,6 @@ class MainScene: BaseScene, UITextFieldDelegate{
                 yesButton.run(self.fadeOut,completion: {
                     self.joinStudyStage2(user: user, pwd: pwd, noButton: noButton, yesButton: yesButton, logoNode: logoNode,actions: actions)})
             }
-            self.addChild(yesButton)
-            self.addChild(noButton)
         })
     }
         
@@ -908,10 +908,10 @@ class MainScene: BaseScene, UITextFieldDelegate{
     
     func joinStudyStage2 (user :String, pwd:String, noButton:HKButton, yesButton:HKButton,logoNode:SKNode, actions : [SKAction]) {
         
-        // initializing PocketBase Server
+        //MARK: initializing PocketBase Server
         self.db_client.auth(user: user, pwd: pwd)
         // enable study mode and not show choice again
-        //FIXME: StudyMode should potentially be done more elgeantly
+        
         let _user = self.getUser()
         UserHandler.saveUser(User(userID:_user.userID,userName: _user.userName,mode: 1))
         
@@ -942,16 +942,57 @@ class MainScene: BaseScene, UITextFieldDelegate{
                     })
                 logoNode.run(self.fadeOut, completion: {
                     self.isAnimatingOpening = true
-                    logoNode.removeFromParent()
                 })
                 self.startInfoNode.run(self.fadeOut, completion: {
                     self.startInfoNode.removeFromParent()
-                    self.resetLoadedGamePacks(newPacks: ["StudyPack"])
-                    self.initGame()
+                    //MARK: next step or start game
+                    self.joinStudyStage3(user: user, logoNode: logoNode, actions: actions)
+                    //self.resetLoadedGamePacks(newPacks: ["StudyPack"])
+                    //self.initGame()
                 })
             }
             
         })
+    }
+    
+    func joinStudyStage3 (user :String, logoNode:SKNode, actions : [SKAction]) {
+        
+        let image = UIImage(named: "BlankGraphic")!
+        self.startInfoNode = SKSpriteNode(texture: SKTexture(image: image))
+        self.startInfoNode.size = self.startInfoNode.size * ((self.scene!.size.width * 0.75)/self.startInfoNode.size.width);
+        self.startInfoNode.position = CGPoint(x: self.scene!.size.width * 1.5, y: self.scene!.size.height * self.infoGraphicsY)
+        self.startInfoNode.zPosition = 10
+        self.addChild(self.startInfoNode)
+        
+        self.isAnimatingOpening = true
+        
+        self.startInfoNode.run(actions[3], completion: {
+            self.okButton.run(self.fadeIn)
+            logoNode.run(self.fadeIn)
+        })
+        //self.addChild(self.okButton)
+        
+        self.okButton.tapCode = {
+            self.okButton.run(self.fadeOut, completion: {
+                    //                        self.okButton.removeFromParent()
+                //FIXME: Submit demographics
+                //self.db_client.sendDesignPath(dataDict: ["key":"testing","key2":"testing2",])
+                })
+            logoNode.run(self.fadeOut, completion: {
+                self.isAnimatingOpening = true
+                logoNode.removeFromParent()
+            })
+            self.startInfoNode.run(self.fadeOut, completion: {
+                self.startInfoNode.removeFromParent()
+                self.resetLoadedGamePacks(newPacks: ["StudyPack"])
+                self.initGame()
+            })
+        
+        
+        }
+   
+            
+            
     }
     
     func resetLoadedGamePacks(newPacks: [String]){
