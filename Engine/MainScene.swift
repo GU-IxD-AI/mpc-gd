@@ -322,11 +322,11 @@ class MainScene: BaseScene, UITextFieldDelegate{
     
     var isShaking = false
     
-    var okButton: HKButton! = nil
+    //var okButton: HKButton! = nil
     
     var openingScreenNum = 0
     
-    var startInfoNode: SKSpriteNode! = nil
+    //var startInfoNode: SKSpriteNode! = nil
     
     var hideTutorialNode: SKLabelNode! = nil
     
@@ -707,6 +707,22 @@ class MainScene: BaseScene, UITextFieldDelegate{
         infoButton.isUserInteractionEnabled = false
         infoButton.run(SKAction.fadeIn(withDuration: 0.4), completion: { self.infoButton.isUserInteractionEnabled = true })
     }
+    func createStartNode(image: UIImage) -> SKSpriteNode {
+        let startInfoNode = SKSpriteNode(texture: SKTexture(image: image))
+        startInfoNode.size = startInfoNode.size * ((scene!.size.width * 0.75)/startInfoNode.size.width);
+        startInfoNode.position = CGPoint(x: scene!.size.width * 1.5, y: scene!.size.height * infoGraphicsY)
+        startInfoNode.zPosition = 10
+        return startInfoNode
+    }
+    
+    func createOKButton() -> HKButton {
+        let okButton = HKButton(image: UIImage(named: "OKButton")!)
+        okButton.position = CGPoint(x: scene!.size.width/2, y: scene!.size.height * buttonYPos)
+        okButton.zPosition = 10
+        okButton.alpha = 0
+        let buttonSize = okButton.hkImage.size
+        return okButton
+    }
 
     func startOpeningAnimation(){
 //        self.playButton.run(SKAction.fadeAlpha(to: 0.2, duration: 0.5), completion: {
@@ -762,10 +778,6 @@ class MainScene: BaseScene, UITextFieldDelegate{
         let action3 = SKAction.sequence([SKAction.wait(forDuration: 3.0), flyInFromRight])
         let action4 = SKAction.sequence([SKAction.wait(forDuration: 3.2), flyInFromRight2])
 
-        logoNode.run(action3, completion: {
-            self.okButton.run(self.fadeIn)
-        })
-        
         self.infoGraphicsImageCycler.position.x = (self.infoGraphicsImageCycler?.position.x)! + size.width
         self.logoImageCycler.position.x = self.logoImageCycler.position.x + size.width
         self.playButton.alpha = 0
@@ -774,34 +786,27 @@ class MainScene: BaseScene, UITextFieldDelegate{
         self.settingsButton.isHidden = true
         
         let image = UIImage(named: "OpeningGraphics1")!
-        startInfoNode = SKSpriteNode(texture: SKTexture(image: image))
-        startInfoNode.size = startInfoNode.size * ((scene!.size.width * 0.75)/startInfoNode.size.width);
-        startInfoNode.position = CGPoint(x: scene!.size.width * 1.5, y: scene!.size.height * infoGraphicsY)
-        startInfoNode.zPosition = 10
+        let startInfoNode = createStartNode(image: image)
         addChild(startInfoNode)
         
-        okButton = HKButton(image: UIImage(named: "OKButton")!)
-        okButton.position = CGPoint(x: scene!.size.width/2, y: scene!.size.height * buttonYPos)
-        okButton.zPosition = 10
-        okButton.alpha = 0
+        let okButton = createOKButton()
         let buttonSize = okButton.hkImage.size
         addChild(okButton)
+        logoNode.run(action3, completion: {
+            okButton.run(self.fadeIn)
+        })
         if getUser().studyMode  < 2//FIXME: Before Release: for users this should be -1
         { //initial check for participating in study
-        
-            let buttonJoin = HKButton(image: UIImage(named: "JoinButton")!)
-            buttonJoin.position = CGPoint(x: scene!.size.width/3, y: scene!.size.height * buttonYPos)
-            buttonJoin.zPosition = 10
-            buttonJoin.hkImage.size = buttonSize
-            buttonJoin.alpha = 0
-            let buttonSkip = HKButton(image: UIImage(named: "SkipButton")!)
-            buttonSkip.position = CGPoint(x: scene!.size.width*2/3, y: scene!.size.height * buttonYPos)
-            buttonSkip.hkImage.size = buttonSize
-            buttonSkip.zPosition = 10
-            buttonSkip.alpha = 0
               
             //MARK: Add code for joining our study and a short description
-            okButton.onTapStartCode = {self.joinStudyStage1(user: user, pwd: pwd, noButton: buttonSkip, yesButton: buttonJoin, logoNode: logoNode,actions: [action1,action2,action3,action4])}
+            okButton.onTapStartCode = {
+                okButton.run(self.fadeOut,completion: {okButton.removeFromParent()})
+                startInfoNode.run(self.fadeOut, completion: {
+                    startInfoNode.removeFromParent()
+                    startInfoNode.removeAllActions()
+                    self.joinStudyStage1(user: user, pwd: pwd, buttonSize: buttonSize, logoNode: logoNode,actions: [action1,action2,action3,action4])
+                })
+            }
         
             
         } else { //NO Study mode check
@@ -810,40 +815,31 @@ class MainScene: BaseScene, UITextFieldDelegate{
                 self.db_client.auth(user: user, pwd: pwd)
             } else {
                 self.db_client = nil
-                // adding remaining standard games
-     /*           self.gamePacks = []
-                self.logoImageCycler.removeFromParent()
-                GamePackScreen.allGamePacks = []
-                self.shareTexts = []
-                self.infoGraphicsImageCycler.removeFromParent()
-                self.allPackIDs = GameHandler.getPackNames()
-                self.addPresetsToDataBase(allPackIDs)
-                for _ in 0..<allPackIDs.count{
-                    shareTexts.append([])
-                }
-                addGamePacksLogo()*/
+
             }
             //TODO: This is the call for logging something which we need to connect to UI elements
             self.run(SKAction.wait(forDuration: 4), completion: { self.db_client.sendDesignPath(dataDict: ["key":"testing","key2":"testing2",])})
             
             okButton.onTapStartCode = {
-                self.okButton.run(self.fadeOut, completion: {})
+                okButton.run(self.fadeOut, completion: {})
                 self.isAnimatingOpening = true
-                self.startInfoNode.run(self.fadeOut, completion: {
-                    self.startInfoNode.removeFromParent()
-                    self.okButton.removeFromParent()
+                startInfoNode.run(self.fadeOut, completion: {
+                    startInfoNode.removeFromParent()
                 })
                 logoNode.run(self.fadeOut, completion: {
                     self.isAnimatingOpening = true
                     logoNode.removeFromParent()
                     self.initGame()
                 })
+                startInfoNode.run(self.fadeOut, completion: {
+                    startInfoNode.removeFromParent()
+                })
             }
         }
         startInfoNode.run(action4)
     }
     
-    func skipStudy (noButton:HKButton, yesButton:HKButton, logoNode:SKNode){
+    func skipStudy (logoNode:SKNode){
         // removing PocketBase Server
         self.db_client = nil
         // enable study mode and not show choice again
@@ -851,11 +847,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
         UserHandler.saveUser(User(userID:_user.userID,userName: _user.userName,mode: 0))
         
         
-        self.startInfoNode.run(self.fadeOut, completion: {
-            self.startInfoNode.removeFromParent()
-            noButton.removeFromParent()
-            yesButton.removeFromParent()
-        })
+        
         logoNode.run(self.fadeOut, completion: {
             self.isAnimatingOpening = true
             logoNode.removeFromParent()
@@ -867,46 +859,54 @@ class MainScene: BaseScene, UITextFieldDelegate{
         })
     }
     
-    func joinStudyStage1 (user :String, pwd:String, noButton:HKButton, yesButton:HKButton,logoNode:SKNode, actions : [SKAction]) {
+    func joinStudyStage1 (user :String, pwd:String,buttonSize : CGSize, logoNode: SKNode, actions : [SKAction]) {
         
         self.isAnimatingOpening = true
         
-        self.okButton.run(self.fadeOut, completion: {
-            //                        self.okButton.removeFromParent()
+        let image = UIImage(named: "StudyGraphics")!
+        let startInfoNode = createStartNode(image: image)
+        let buttonJoin = HKButton(image: UIImage(named: "JoinButton")!)
+        buttonJoin.position = CGPoint(x: scene!.size.width/3, y: scene!.size.height * buttonYPos)
+        buttonJoin.zPosition = 10
+        buttonJoin.hkImage.size = buttonSize
+        buttonJoin.alpha = 0
+        let buttonSkip = HKButton(image: UIImage(named: "SkipButton")!)
+        buttonSkip.position = CGPoint(x: scene!.size.width*2/3, y: scene!.size.height * buttonYPos)
+        buttonSkip.hkImage.size = buttonSize
+        buttonSkip.zPosition = 10
+        buttonSkip.alpha = 0
+        
+        self.addChild(startInfoNode)
+        self.addChild(buttonJoin)
+        self.addChild(buttonSkip)
+            
+        startInfoNode.run(actions[3], completion: {
+            buttonJoin.run(self.fadeIn)
+            buttonSkip.run(self.fadeIn)
         })
-        self.startInfoNode.run(self.fadeOut, completion: {
-            self.startInfoNode.removeFromParent()
-            let image = UIImage(named: "StudyGraphics")!
-            self.startInfoNode = SKSpriteNode(texture: SKTexture(image: image))
-            self.startInfoNode.size = self.startInfoNode.size * ((self.scene!.size.width * 0.75)/self.startInfoNode.size.width);
-            self.startInfoNode.position = CGPoint(x: self.scene!.size.width * 1.5, y: self.scene!.size.height * self.infoGraphicsY)
-            self.startInfoNode.zPosition = 10
-            self.addChild(self.startInfoNode)
-            self.addChild(yesButton)
-            self.addChild(noButton)
             
-            self.startInfoNode.run(actions[3], completion: {
-                yesButton.run(self.fadeIn)
-                noButton.run(self.fadeIn)
-                })
-            
-            noButton.onTapStartCode = {
-                yesButton.run(self.fadeOut)
-                noButton.run(self.fadeOut,completion: {
-                    self.skipStudy(noButton: noButton, yesButton: yesButton, logoNode: logoNode)})
+        buttonSkip.onTapStartCode = {
+            buttonJoin.run(self.fadeOut)
+            buttonSkip.run(self.fadeOut,completion: {
+                self.skipStudy(logoNode: logoNode)})
             }
                 
-            yesButton.onTapStartCode =  {
-                noButton.run(self.fadeOut)
-                yesButton.run(self.fadeOut,completion: {
-                    self.joinStudyStage2(user: user, pwd: pwd, noButton: noButton, yesButton: yesButton, logoNode: logoNode,actions: actions)})
-            }
-        })
+        buttonJoin.onTapStartCode =  {
+            buttonSkip.run(self.fadeOut,completion: {buttonSkip.removeFromParent()})
+            buttonJoin.run(self.fadeOut,completion: {
+                startInfoNode.run(self.fadeOut, completion: {
+                    startInfoNode.removeFromParent()
+                    buttonJoin.removeFromParent()
+                    self.joinStudyStage2(user: user, pwd: pwd, logoNode: logoNode,actions: actions)
+                })
+            })
+        }
+        
     }
         
     
     
-    func joinStudyStage2 (user :String, pwd:String, noButton:HKButton, yesButton:HKButton,logoNode:SKNode, actions : [SKAction]) {
+    func joinStudyStage2 (user :String, pwd:String,logoNode: SKNode, actions : [SKAction]) {
         
         //MARK: initializing PocketBase Server
         self.db_client.auth(user: user, pwd: pwd)
@@ -917,83 +917,70 @@ class MainScene: BaseScene, UITextFieldDelegate{
         
         //self.run(SKAction.wait(forDuration: 4), completion: { self.db_client.sendDesignPath(dataDict: ["key":"testing","key2":"testing2",])})
         
-        self.startInfoNode.run(self.fadeOut, completion: {
-            self.startInfoNode.removeFromParent()
-            noButton.removeFromParent()
-            yesButton.removeFromParent()
+        let image = UIImage(named: "StudyGraphics-Instructions")!
+        let startInfoNode = createStartNode(image: image)
+        let okButton = createOKButton()
+        self.addChild(startInfoNode)
+        self.addChild(okButton)
             
-            let image = UIImage(named: "StudyGraphics-Instructions")!
-            self.startInfoNode = SKSpriteNode(texture: SKTexture(image: image))
-            self.startInfoNode.size = self.startInfoNode.size * ((self.scene!.size.width * 0.75)/self.startInfoNode.size.width);
-            self.startInfoNode.position = CGPoint(x: self.scene!.size.width * 1.5, y: self.scene!.size.height * self.infoGraphicsY)
-            self.startInfoNode.zPosition = 10
-            self.addChild(self.startInfoNode)
-            
-            self.isAnimatingOpening = true
-            
-            self.startInfoNode.run(actions[3], completion: {
-                self.okButton.run(self.fadeIn)
-            })
-            //self.addChild(self.okButton)
-            
-            self.okButton.tapCode = {
-                self.okButton.run(self.fadeOut, completion: {
-                        //                        self.okButton.removeFromParent()
-                    })
-                logoNode.run(self.fadeOut, completion: {
-                    self.isAnimatingOpening = true
-                })
-                self.startInfoNode.run(self.fadeOut, completion: {
-                    self.startInfoNode.removeFromParent()
-                    //MARK: next step or start game
-                    self.joinStudyStage3(user: user, logoNode: logoNode, actions: actions)
-                    //self.resetLoadedGamePacks(newPacks: ["StudyPack"])
-                    //self.initGame()
-                })
-            }
-            
+        self.isAnimatingOpening = true
+        startInfoNode.run(actions[3], completion: {
+            okButton.run(self.fadeIn)
         })
+
+            
+        okButton.tapCode = {
+            okButton.run(self.fadeOut,completion: okButton.removeFromParent)
+            logoNode.run(self.fadeOut, completion: {logoNode.removeFromParent()})
+            
+            startInfoNode.run(self.fadeOut, completion: {
+                startInfoNode.removeFromParent()
+                //MARK: next step or start game
+                self.joinStudyStage3(user: user, actions: actions)
+                //self.resetLoadedGamePacks(newPacks: ["StudyPack"])
+                //self.initGame()
+            })
+        }
     }
     
-    func joinStudyStage3 (user :String, logoNode:SKNode, actions : [SKAction]) {
+    func joinStudyStage3 (user :String, actions : [SKAction]) {
         
         let image = UIImage(named: "BlankGraphic")!
-        self.startInfoNode = SKSpriteNode(texture: SKTexture(image: image))
-        self.startInfoNode.size = self.startInfoNode.size * ((self.scene!.size.width * 0.75)/self.startInfoNode.size.width);
-        self.startInfoNode.position = CGPoint(x: self.scene!.size.width * 1.5, y: self.scene!.size.height * self.infoGraphicsY)
-        self.startInfoNode.zPosition = 10
-        self.addChild(self.startInfoNode)
+        let startInfoNode = createStartNode(image: image)
+        let okButton = createOKButton()
+        self.addChild(startInfoNode)
+        self.addChild(okButton)
         
+        let (fluidicLogoNodes, _) = getWordLabels("Demo Graphic", fontSize: 35)
+        let logoNode = SKNode()
+        for node in fluidicLogoNodes{
+            logoNode.addChild(node)
+            node.position.y += scene!.size.height * logoYPos
+            node.position.x += scene!.size.width * 1.5
+            node.zPosition = 10
+        }
+        self.addChild(logoNode)
+
         self.isAnimatingOpening = true
         
-        self.startInfoNode.run(actions[3], completion: {
-            self.okButton.run(self.fadeIn)
-            logoNode.run(self.fadeIn)
+        startInfoNode.run(actions[3], completion: {
+            
+            logoNode.run(actions[2])
+            okButton.run(self.fadeIn,completion: {
+                okButton.tapCode = {
+                    okButton.run(self.fadeOut, completion: {okButton.removeFromParent()})
+                    logoNode.run(self.fadeOut, completion: {logoNode.removeFromParent()})
+                    startInfoNode.run(self.fadeOut, completion: {
+                        startInfoNode.removeFromParent()
+                        self.resetLoadedGamePacks(newPacks: ["StudyPack"])
+                        self.initGame()
+                    })
+                }
+                
+            })
+
         })
-        //self.addChild(self.okButton)
-        
-        self.okButton.tapCode = {
-            self.okButton.run(self.fadeOut, completion: {
-                    //                        self.okButton.removeFromParent()
-                //FIXME: Submit demographics
-                //self.db_client.sendDesignPath(dataDict: ["key":"testing","key2":"testing2",])
-                })
-            logoNode.run(self.fadeOut, completion: {
-                self.isAnimatingOpening = true
-                logoNode.removeFromParent()
-            })
-            self.startInfoNode.run(self.fadeOut, completion: {
-                self.startInfoNode.removeFromParent()
-                self.resetLoadedGamePacks(newPacks: ["StudyPack"])
-                self.initGame()
-            })
-        
-        
-        }
-   
-            
-            
-    }
+     }
     
     func resetLoadedGamePacks(newPacks: [String]){
         GameHandler.clearAllGames()
@@ -1017,7 +1004,6 @@ class MainScene: BaseScene, UITextFieldDelegate{
     func initGame(){
         self.startTheGame()
         self.state = .start
-        self.startInfoNode.removeFromParent()
         self.isAnimatingOpening = false
         self.playButton.isHidden = false
         self.infoButton.isUserInteractionEnabled = false
@@ -1469,17 +1455,22 @@ class MainScene: BaseScene, UITextFieldDelegate{
         logoImageCycler.run(fadeIn)
         logoImageCycler.enabled = false
  
+        let okButton = createOKButton()
         okButton.alpha = 0
-        okButton.run(fadeIn)
+        okButton.zPosition = 10000
+        okButton.run(fadeIn, completion: {
+            okButton.isUserInteractionEnabled = true
+            okButton.enabled = true
+            okButton.isHot = true
+        })
         okButton.onTapStartCode = {
             self.scoreNode.removeAllActions()
             self.scoreNode.run(self.fadeOut)
             self.fadeOutFascinator()
+            okButton.isHot = false
+            okButton.run(self.fadeOut)
         }
-        okButton.zPosition = 10000
-        okButton.isUserInteractionEnabled = true
-        okButton.enabled = true
-        okButton.isHot = true
+        
         
         // Wait for a second to avoid end-game tapping
         self.run(SKAction.wait(forDuration: 1), completion: {
@@ -1558,8 +1549,6 @@ class MainScene: BaseScene, UITextFieldDelegate{
         logoImageCycler.pipsNode.alpha = 0
         logoImageCycler.pipsNode.run(fadeIn)
         showInfoCycler()
-        okButton.isHot = false
-        okButton.run(fadeOut)
     }
     
     func createScoreScreen(_ textColour: UIColor, gameEndDetails: Fascinator.GameEndDetails, size: CGSize) -> HKComponent{
