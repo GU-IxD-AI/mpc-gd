@@ -720,8 +720,60 @@ class MainScene: BaseScene, UITextFieldDelegate{
         okButton.position = CGPoint(x: scene!.size.width/2, y: scene!.size.height * buttonYPos)
         okButton.zPosition = 10
         okButton.alpha = 0
-        let buttonSize = okButton.hkImage.size
         return okButton
+    }
+    
+    func createLogoNode(label : String,size : CGFloat) -> SKNode {
+        let (fluidicLogoNodes, _) = getWordLabels(label, fontSize: size)
+        let logoNode = SKNode()
+        for node in fluidicLogoNodes{
+            logoNode.addChild(node)
+            node.position.y += scene!.size.height * logoYPos
+            node.position.x += scene!.size.width * 1.5
+            node.zPosition = 10
+        }
+        return logoNode
+    }
+    
+    func createSliderNode(label: String, minValue: CGFloat?, maxValue: CGFloat?, posX: CGFloat, posY :CGFloat, values : [String]?) -> SKNode {
+        let node  = SKNode()
+        let font = UIFontCache(name: "HelveticaNeue-Thin", size: 20)
+        let slider = HKSlider(size: CGSize(width: size.width * 0.68, height: 50))
+        let valueNode = SKLabelNode(font, Colours.getColour(.antiqueWhite))
+        
+        if (minValue != nil && maxValue != nil){
+            slider.minimumValue = Float(minValue!)
+            slider.maximumValue = Float(maxValue!)
+            slider.onDragCode = {
+                valueNode.text = "\(Int(round(slider.value)))"
+            }
+        } else if (values == nil || values!.count < 1 ) { return node} else {
+            slider.minimumValue = 0
+            slider.maximumValue = Float(values!.count - 1)
+            slider.onDragCode = {
+                valueNode.text = "\(values![Int(round(slider.value))])"
+            }
+        }
+        valueNode.name = "sliderValue"
+        valueNode.text = "Select"
+        node.addChild(valueNode)
+        node.addChild(slider)
+        slider.position.x = posX
+        slider.position.y = posY
+        slider.zPosition = 10
+        
+        
+        let labelNode = SKLabelNode(font,  Colours.getColour(.antiqueWhite))
+        labelNode.text = label
+        labelNode.position.y = slider.y + 20
+        labelNode.position.x = slider.x - (size.width * 0.1)
+        labelNode.horizontalAlignmentMode = .right
+        valueNode.position.x = slider.x - (size.width * 0.02)
+        valueNode.position.y = slider.y + 20
+        valueNode.horizontalAlignmentMode = .left
+        node.addChild(labelNode)
+    
+        return node
     }
 
     func startOpeningAnimation(){
@@ -763,14 +815,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
             MPCGDAudio.playSound(path: MPCGDSounds.winGame)
         })
         
-        let (fluidicLogoNodes, _) = getWordLabels("Para Vida", fontSize: 35)
-        let logoNode = SKNode()
-        for node in fluidicLogoNodes{
-            logoNode.addChild(node)
-            node.position.y += scene!.size.height * logoYPos
-            node.position.x += scene!.size.width * 1.5
-            node.zPosition = 10
-        }
+        let logoNode = createLogoNode(label: "Para Vida",size: 35)
         addChild(logoNode)
         
         let flyInFromRight = HKEasing.moveXBy(-size.width, duration: TimeInterval(0.4), easingFunction: BackEaseOut)
@@ -803,8 +848,8 @@ class MainScene: BaseScene, UITextFieldDelegate{
                 okButton.run(self.fadeOut,completion: {okButton.removeFromParent()})
                 startInfoNode.run(self.fadeOut, completion: {
                     startInfoNode.removeFromParent()
-                    startInfoNode.removeAllActions()
-                    self.joinStudyStage1(user: user, pwd: pwd, buttonSize: buttonSize, logoNode: logoNode,actions: [action1,action2,action3,action4])
+                    logoNode.run(self.fadeOut,completion: {logoNode.removeFromParent()})
+                    self.joinStudyStage1(user: user, pwd: pwd, buttonSize: buttonSize,actions: [action1,action2,action3,action4])
                 })
             }
         
@@ -817,8 +862,6 @@ class MainScene: BaseScene, UITextFieldDelegate{
                 self.db_client = nil
 
             }
-            //TODO: This is the call for logging something which we need to connect to UI elements
-            self.run(SKAction.wait(forDuration: 4), completion: { self.db_client.sendDesignPath(dataDict: ["key":"testing","key2":"testing2",])})
             
             okButton.onTapStartCode = {
                 okButton.run(self.fadeOut, completion: {})
@@ -839,27 +882,20 @@ class MainScene: BaseScene, UITextFieldDelegate{
         startInfoNode.run(action4)
     }
     
-    func skipStudy (logoNode:SKNode){
+    func skipStudy (){
         // removing PocketBase Server
         self.db_client = nil
         // enable study mode and not show choice again
         let _user = self.getUser()
+        // FIXME: add remaining standard game packs
+        self.db_client = nil
         UserHandler.saveUser(User(userID:_user.userID,userName: _user.userName,mode: 0))
         
-        
-        
-        logoNode.run(self.fadeOut, completion: {
-            self.isAnimatingOpening = true
-            logoNode.removeFromParent()
-            // FIXME: add remaining standard game packs
-            self.db_client = nil
-        
-            self.resetLoadedGamePacks(newPacks: GameHandler.getPackNames())
-            self.initGame()
-        })
+        self.resetLoadedGamePacks(newPacks: GameHandler.getPackNames())
+        self.initGame()
     }
     
-    func joinStudyStage1 (user :String, pwd:String,buttonSize : CGSize, logoNode: SKNode, actions : [SKAction]) {
+    func joinStudyStage1 (user :String, pwd:String,buttonSize : CGSize, actions : [SKAction]) {
         
         self.isAnimatingOpening = true
         
@@ -875,12 +911,16 @@ class MainScene: BaseScene, UITextFieldDelegate{
         buttonSkip.hkImage.size = buttonSize
         buttonSkip.zPosition = 10
         buttonSkip.alpha = 0
+        let logoNode = createLogoNode(label: "Para Vida", size: 35)
+        
         
         self.addChild(startInfoNode)
         self.addChild(buttonJoin)
         self.addChild(buttonSkip)
+        self.addChild(logoNode)
             
-        startInfoNode.run(actions[3], completion: {
+        startInfoNode.run(actions[3])
+        logoNode.run(actions[2], completion: {
             buttonJoin.run(self.fadeIn)
             buttonSkip.run(self.fadeIn)
         })
@@ -888,25 +928,26 @@ class MainScene: BaseScene, UITextFieldDelegate{
         buttonSkip.onTapStartCode = {
             buttonJoin.run(self.fadeOut)
             buttonSkip.run(self.fadeOut,completion: {
-                self.skipStudy(logoNode: logoNode)})
+                logoNode.run(self.fadeOut, completion: {logoNode.removeFromParent()})
+                startInfoNode.run(self.fadeOut,completion: {startInfoNode.removeFromParent()})
+                self.skipStudy()})
             }
                 
         buttonJoin.onTapStartCode =  {
             buttonSkip.run(self.fadeOut,completion: {buttonSkip.removeFromParent()})
+            logoNode.run(self.fadeOut,completion: {logoNode.removeFromParent()})
             buttonJoin.run(self.fadeOut,completion: {
                 startInfoNode.run(self.fadeOut, completion: {
                     startInfoNode.removeFromParent()
                     buttonJoin.removeFromParent()
-                    self.joinStudyStage2(user: user, pwd: pwd, logoNode: logoNode,actions: actions)
+                    self.joinStudyStage2(user: user, pwd: pwd,actions: actions)
                 })
             })
         }
         
     }
         
-    
-    
-    func joinStudyStage2 (user :String, pwd:String,logoNode: SKNode, actions : [SKAction]) {
+    func joinStudyStage2 (user :String, pwd: String, actions : [SKAction]) {
         
         //MARK: initializing PocketBase Server
         self.db_client.auth(user: user, pwd: pwd)
@@ -916,34 +957,6 @@ class MainScene: BaseScene, UITextFieldDelegate{
         UserHandler.saveUser(User(userID:_user.userID,userName: _user.userName,mode: 1))
         
         //self.run(SKAction.wait(forDuration: 4), completion: { self.db_client.sendDesignPath(dataDict: ["key":"testing","key2":"testing2",])})
-        
-        let image = UIImage(named: "StudyGraphics-Instructions")!
-        let startInfoNode = createStartNode(image: image)
-        let okButton = createOKButton()
-        self.addChild(startInfoNode)
-        self.addChild(okButton)
-            
-        self.isAnimatingOpening = true
-        startInfoNode.run(actions[3], completion: {
-            okButton.run(self.fadeIn)
-        })
-
-            
-        okButton.tapCode = {
-            okButton.run(self.fadeOut,completion: okButton.removeFromParent)
-            logoNode.run(self.fadeOut, completion: {logoNode.removeFromParent()})
-            
-            startInfoNode.run(self.fadeOut, completion: {
-                startInfoNode.removeFromParent()
-                //MARK: next step or start game
-                self.joinStudyStage3(user: user, actions: actions)
-                //self.resetLoadedGamePacks(newPacks: ["StudyPack"])
-                //self.initGame()
-            })
-        }
-    }
-    
-    func joinStudyStage3 (user :String, actions : [SKAction]) {
         
         let image = UIImage(named: "BlankGraphic")!
         let startInfoNode = createStartNode(image: image)
@@ -955,32 +968,96 @@ class MainScene: BaseScene, UITextFieldDelegate{
         let logoNode = SKNode()
         for node in fluidicLogoNodes{
             logoNode.addChild(node)
-            node.position.y += scene!.size.height * logoYPos
-            node.position.x += scene!.size.width * 1.5
+            node.y += scene!.size.height * logoYPos
+            node.x += scene!.size.width * 1.5
             node.zPosition = 10
+            print(node.position)
         }
         self.addChild(logoNode)
-
+        let sliderNode = createSliderNode(label: "Your Age:", minValue: 18, maxValue: 100, posX: 0, posY: 0, values: nil)
+        let sliderNode2 = createSliderNode(label: "Gender:", minValue: nil, maxValue: nil, posX: 0, posY: 0, values: ["male","female","non-binary","no answer"])
+        let sliderNode3 = createSliderNode(label: "Location:", minValue: nil, maxValue: nil, posX: 0, posY: 0, values: ["North America","South America","Europe","Africa","Asia","Oceania"])
+        
         self.isAnimatingOpening = true
         
-        startInfoNode.run(actions[3], completion: {
-            
-            logoNode.run(actions[2])
-            okButton.run(self.fadeIn,completion: {
+        startInfoNode.run(actions[3],completion: {
+            sliderNode.x = startInfoNode.x
+            sliderNode.y = startInfoNode.y + ( self.scene!.size.height * 0.15 )
+            sliderNode.zPosition = 10
+            self.addChild(sliderNode)
+            sliderNode2.x = startInfoNode.x
+            sliderNode2.y = sliderNode.y - ( self.scene!.size.height * 0.10 )
+            sliderNode2.zPosition = 10
+            self.addChild(sliderNode2)
+            sliderNode3.x = startInfoNode.x
+            sliderNode3.y = sliderNode2.y - ( self.scene!.size.height * 0.10 )
+            sliderNode3.zPosition = 10
+            self.addChild(sliderNode3)
+        })
+
+        logoNode.run(actions[2],completion:{
+
+                okButton.run(self.fadeIn)
                 okButton.tapCode = {
-                    okButton.run(self.fadeOut, completion: {okButton.removeFromParent()})
-                    logoNode.run(self.fadeOut, completion: {logoNode.removeFromParent()})
+                    let age = (sliderNode.childNode(withName: "sliderValue") as! SKLabelNode?)?.text
+                    let gender = (sliderNode2.childNode(withName: "sliderValue") as! SKLabelNode?)?.text
+                    let region = (sliderNode3.childNode(withName: "sliderValue") as! SKLabelNode?)?.text
+                    if (age == nil || gender == nil || region == nil){
+                        return
+                    }
+                    if (age == "Select" || gender == "Select" || region == "Select"){
+                        return
+                    }
+                    //TODO: This is the call for logging something which we need to connect to UI elements
+                    self.run(SKAction.wait(forDuration: 1), completion: { self.db_client.sendDesignPath(
+                        dataDict: ["age": age ?? "none","gender": gender ?? "none","region": region ?? "none"]
+                    )})
+                    sliderNode.run(self.fadeOut, completion: sliderNode.removeFromParent)
+                    sliderNode2.run(self.fadeOut, completion: sliderNode2.removeFromParent)
+                    sliderNode3.run(self.fadeOut, completion: sliderNode3.removeFromParent)
+                    
+                    okButton.run(self.fadeOut,completion: okButton.removeFromParent)
+                    logoNode.run(self.fadeOut, completion: logoNode.removeFromParent)
+                    
                     startInfoNode.run(self.fadeOut, completion: {
                         startInfoNode.removeFromParent()
-                        self.resetLoadedGamePacks(newPacks: ["StudyPack"])
-                        self.initGame()
+                        //MARK: next step or start game
+                        self.joinStudyStage3(user: user, actions: actions)
+                        //self.resetLoadedGamePacks(newPacks: ["StudyPack"])
+                        //self.initGame()
                     })
                 }
-                
-            })
-
+            
         })
      }
+    
+    func joinStudyStage3 (user :String, actions : [SKAction]) {
+        
+        
+        
+        let image = UIImage(named: "StudyGraphics-Instructions")!
+        let startInfoNode = createStartNode(image: image)
+        let logoNode = createLogoNode(label: "Para vida", size: 35)
+        let okButton = createOKButton()
+        self.addChild(startInfoNode)
+        self.addChild(okButton)
+        self.addChild(logoNode)
+            
+        self.isAnimatingOpening = true
+        startInfoNode.run(actions[3])
+        logoNode.run(actions[2],completion: {okButton.run(self.fadeIn)})
+    
+            
+        okButton.tapCode = {
+            okButton.run(self.fadeOut, completion: {okButton.removeFromParent()})
+            logoNode.run(self.fadeOut, completion: {logoNode.removeFromParent()})
+            startInfoNode.run(self.fadeOut, completion: {
+                startInfoNode.removeFromParent()
+                self.resetLoadedGamePacks(newPacks: ["StudyPack"])
+                self.initGame()
+            })
+        }
+    }
     
     func resetLoadedGamePacks(newPacks: [String]){
         GameHandler.clearAllGames()
@@ -1457,7 +1534,8 @@ class MainScene: BaseScene, UITextFieldDelegate{
  
         let okButton = createOKButton()
         okButton.alpha = 0
-        okButton.zPosition = 10000
+        okButton.zPosition = 10
+        addChild(okButton)
         okButton.run(fadeIn, completion: {
             okButton.isUserInteractionEnabled = true
             okButton.enabled = true

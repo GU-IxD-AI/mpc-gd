@@ -966,7 +966,7 @@ class GeneratorScreen: HKComponent{
                 self.helpScreen.isHidden = true
                 HKDisableUserInteractions = false
             })
-            showHelpText("Game design")
+            showHelpText("Design a Game")
         }
     }
     
@@ -2109,7 +2109,7 @@ class GeneratorScreen: HKComponent{
     }
     
     func handleTopButtonTap(){
-        
+        //MARK: Top Menu Button interactions
         lockButton?.isHidden = true
         helpButton?.isHidden = true
         bestLabel?.isHidden = true
@@ -4840,7 +4840,7 @@ class GeneratorScreen: HKComponent{
         addGameEndButton()
 
         changeButtonSet(.top)
-        showHelpText("Game design")
+        showHelpText("Design a Game")
         menuPosition = 0
     }
     
