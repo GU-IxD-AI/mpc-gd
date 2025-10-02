@@ -3077,9 +3077,12 @@ class MainScene: BaseScene, UITextFieldDelegate{
         let buttonsScreen = HKImage(image: transGraphic)
         
         let labelSize = buttonsScreen.size
-        
+
+            
         let uploadButton = HKButton(image: ImageUtils.getBlankImage(CGSize(width: 1, height: 1), colour: UIColor.clear), dilateTapBy: CGSize(width: labelSize.width, height: 60))
+        let shareButton = HKButton(image: ImageUtils.getBlankImage(CGSize(width: 1, height: 1), colour: UIColor.clear), dilateTapBy: CGSize(width: labelSize.width, height: 60))
         
+        if (getUser().studyMode != 1 ){
         var shareTextArray: [SKNode] = []
         
         do { // UPLOAD
@@ -3090,12 +3093,12 @@ class MainScene: BaseScene, UITextFieldDelegate{
                 self.handleUpload()
             }
             buttonsScreen.addChild(uploadButton)
-
+            
             let uploadImage = HKButton(image: UIImage(named: "UploadButton")!)
             uploadImage.position.x = -88
             uploadImage.isUserInteractionEnabled = false
             uploadButton.addChild(uploadImage)
-
+            
             let uploadText = SKMultilineLabel(
                 text: "~Save this game\nto the clipboard",
                 size: labelSize,
@@ -3111,8 +3114,8 @@ class MainScene: BaseScene, UITextFieldDelegate{
             uploadText.isUserInteractionEnabled = false
             uploadImage.addChild(uploadText)
         }
+        
 
-        let shareButton = HKButton(image: ImageUtils.getBlankImage(CGSize(width: 1, height: 1), colour: UIColor.clear), dilateTapBy: CGSize(width: labelSize.width, height: 60))
         do { // SHARE
             shareButton.isUserInteractionEnabled = false
             shareButton.setScaleActionInterval(1.0...1.05)
@@ -3121,12 +3124,12 @@ class MainScene: BaseScene, UITextFieldDelegate{
                 self.shareToSocial()
             }
             buttonsScreen.addChild(shareButton)
-
+            
             let shareImage = HKButton(image: UIImage(named: "ShareButton")!)
             shareImage.position.x = -88
             shareImage.isUserInteractionEnabled = false
             shareButton.addChild(shareImage)
-
+            
             let shareText = SKMultilineLabel(
                 text: "~Share this game\nwith the world",
                 size: labelSize,
@@ -3160,10 +3163,10 @@ class MainScene: BaseScene, UITextFieldDelegate{
         helpTextNode.position.y = labelSize.height/2 - 8
         buttonsScreen.addChild(helpTextNode)
         shareTextArray.append(helpTextNode)
-
+        
         let ind = logoImageCycler.imagePosition
         shareTexts[ind] = shareTextArray
-
+        }
         let cropNode = SKCropNode()
         let base = HKImage(image: UIImage(named: "BlankGraphic")!)
         cropNode.maskNode = SKSpriteNode(imageNamed: "BlankGraphic")
@@ -3178,11 +3181,13 @@ class MainScene: BaseScene, UITextFieldDelegate{
         changeLogoPipsColour(pipsColour)
         
         logoImageCycler.movePip(logoImageCycler.hkComponents.index(of: logoImageCycler.selectedHKComponent)!, numComponents: logoImageCycler.hkComponents.count)
-
-        //TODO: CHANGE FOR TEST FLIGHT
         
-        let components = [statsScreen, buttonsScreen, designScreen]
-        let ids = ["\(gameID) stats", "buttons", gameID]
+        //TODO: CHANGE FOR TEST FLIGHT
+        // horrible fix for the below code with hoardcoded number of elements
+        let components = getUser().studyMode == 1 ? [statsScreen,designScreen]: [statsScreen, buttonsScreen, designScreen]
+
+        
+        let ids = getUser().studyMode == 1 ? ["\(gameID) stats", gameID] : ["\(gameID) stats", "buttons", gameID]
 
         let cycler = HKComponentCycler(hkComponents: components, ids: ids, size: base.size, tapToCycle: false, cropNode: cropNode, name: "\(gameID) cycler")
 
@@ -3192,8 +3197,10 @@ class MainScene: BaseScene, UITextFieldDelegate{
             self.handleBackgroundChange(designScreen, hasMoved: true)
         }
         cycler.generatorScreen = designScreen
-        cycler.liveTapComponents.append((uploadButton, buttonsScreen))
-        cycler.liveTapComponents.append((shareButton, buttonsScreen))
+        if (getUser().studyMode != 1){
+            cycler.liveTapComponents.append((uploadButton, buttonsScreen))
+            cycler.liveTapComponents.append((shareButton, buttonsScreen))
+        }
         cycler.liveSubComponents.append((designScreen.bigButton, designScreen))
         cycler.liveTapComponents.append((statsScreen.clearStatsButton, statsScreen))
 

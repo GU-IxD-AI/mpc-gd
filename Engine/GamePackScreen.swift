@@ -434,6 +434,9 @@ class GamePackScreen: HKImage{
     }
 
     func addOrgButtons(_ comp: HKButton, insertOrgButtonsAt: Int! = nil){
+        if (GamePackScreen.mainScene.getUser().studyMode == 1){ //MARK: do not add move,delete,copy game if in study mode
+            return
+        }
         let moveButton = getOrgButton("MoveGameButton", buttonText: "Move", tapCode: handleMoveTap)
         let copyButton = getOrgButton("AddGameButton", buttonText: "Copy", tapCode: handleCopyTap)
         let deleteButton = getOrgButton("DeleteButton", buttonText: "Delete", tapCode: {})
@@ -872,6 +875,9 @@ class GamePackScreen: HKImage{
         }
         for i in 0..<gameButtons.count {
             let hidden = gameButtons[i].position.x >= -0.001
+            if (orgButtons.count < 3) {// horrible fix for the below code with hoardcoded number of elements
+                continue
+            }
             if (orgButtons[i*3+0]?.isHidden)! && !(orgButtons[i*3+2]?.isHidden)! {
                 // Big Delete is showing
                 orgButtons[i*3+0]?.isHidden = true
@@ -926,6 +932,9 @@ class GamePackScreen: HKImage{
                     }
                     let bstate = getGameButtonState(b)
                     if bstate == .open {
+                        if (orgButtons.count < 3) {// horrible fix for the below code with hoardcoded number of elements
+                            break
+                        }
                         if (orgButtons[i*3+0]?.isHidden)! && !(orgButtons[i*3+2]?.isHidden)! {
                             // Big delete visible
                             if buttonHot(bigDeleteButton, touchDownPoint) {
@@ -1109,6 +1118,9 @@ class GamePackScreen: HKImage{
             }
 
             for i in 0..<gameButtons.count {
+                if (orgButtons.count < 3) {// horrible fix for the below code with hoardcoded number of elements
+                    continue
+                }
                 let hidden = gameButtons[i].position.x >= -0.001
                 if (orgButtons[i*3+0]?.isHidden)! && !(orgButtons[i*3+2]?.isHidden)! {
                     // Big Delete is showing
@@ -1200,6 +1212,9 @@ class GamePackScreen: HKImage{
                                 resetActiveGameButton = false
                                 break
                             }
+                            if (orgButtons.count < 3) {// horrible fix for the below code with hoardcoded number of elements
+                                break
+                            }
                             if (orgButtons[i*3+0]?.isHidden)! && !(orgButtons[i*3+2]?.isHidden)! {
                                 // Big delete visible
                                 if bigDeleteButton.isHot && buttonHit(bigDeleteButton, touchLocation) {
@@ -1244,7 +1259,9 @@ class GamePackScreen: HKImage{
         if activeDir == .leftAndRight {
             if activeDx > 0.0 && nodeShowing.x > 30 {
                 swipedLeftOrRight = true
-                handleSwipeRight()
+                if (GamePackScreen.mainScene.getUser().studyMode != 1){//MARK: disabling adding a new game when in study mode
+                    handleSwipeRight()
+                }
             } else if activeDx < 0.0 && nodeShowing.x < -30 {
                 swipedLeftOrRight = true
                 handleSwipeLeft()

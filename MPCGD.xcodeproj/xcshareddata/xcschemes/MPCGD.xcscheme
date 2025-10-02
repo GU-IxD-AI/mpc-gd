@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "F41D779C1BC7EDEF00956D26"
                BuildableName = "MPCGD.app"
-               BlueprintName = "MPCGD"
+               BlueprintName = "Paravida"
                ReferencedContainer = "container:MPCGD.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -47,7 +47,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F41D779C1BC7EDEF00956D26"
             BuildableName = "MPCGD.app"
-            BlueprintName = "MPCGD"
+            BlueprintName = "Paravida"
             ReferencedContainer = "container:MPCGD.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -64,7 +64,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F41D779C1BC7EDEF00956D26"
             BuildableName = "MPCGD.app"
-            BlueprintName = "MPCGD"
+            BlueprintName = "Paravida"
             ReferencedContainer = "container:MPCGD.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

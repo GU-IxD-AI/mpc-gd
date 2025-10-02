@@ -2808,9 +2808,9 @@
 			productReference = 312D79F61C9080B800560133 /* MPCGD.app */;
 			productType = "com.apple.product-type.application";
 		};
-		F41D779C1BC7EDEF00956D26 /* MPCGD */ = {
+		F41D779C1BC7EDEF00956D26 /* Paravida */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F41D77C91BC7EDEF00956D26 /* Build configuration list for PBXNativeTarget "MPCGD" */;
+			buildConfigurationList = F41D77C91BC7EDEF00956D26 /* Build configuration list for PBXNativeTarget "Paravida" */;
 			buildPhases = (
 				F41D77991BC7EDEF00956D26 /* Sources */,
 				F41D779A1BC7EDEF00956D26 /* Frameworks */,
@@ -2820,7 +2820,7 @@
 			);
 			dependencies = (
 			);
-			name = MPCGD;
+			name = Paravida;
 			productName = Engine;
 			productReference = F41D779D1BC7EDEF00956D26 /* MPCGD.app */;
 			productType = "com.apple.product-type.application";
@@ -2866,7 +2866,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F41D779C1BC7EDEF00956D26 /* MPCGD */,
+				F41D779C1BC7EDEF00956D26 /* Paravida */,
 				312D79F51C9080B800560133 /* MPCGDOSX */,
 			);
 		};
@@ -3887,6 +3887,7 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = org.metamakers.Paravida;
 				PRODUCT_NAME = MPCGD;
 				PROVISIONING_PROFILE = "";
@@ -3908,6 +3909,7 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = org.metamakers.Paravida;
 				PRODUCT_NAME = MPCGD;
 				PROVISIONING_PROFILE = "";
@@ -3939,7 +3941,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F41D77C91BC7EDEF00956D26 /* Build configuration list for PBXNativeTarget "MPCGD" */ = {
+		F41D77C91BC7EDEF00956D26 /* Build configuration list for PBXNativeTarget "Paravida" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F41D77CA1BC7EDEF00956D26 /* Debug */,
