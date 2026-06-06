@@ -943,10 +943,8 @@ class MainScene: BaseScene, UITextFieldDelegate{
             for child in studyChoiceNode.children {
                 child.removeAllActions()
             }
-            studyChoiceNode.run(self.fadeOut, completion: {
-                studyChoiceNode.removeFromParent()
-                completion()
-            })
+            studyChoiceNode.removeFromParent()
+            completion()
         }
               
         buttonSkip.onTapStartCode = {
