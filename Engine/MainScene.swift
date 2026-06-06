@@ -187,6 +187,11 @@ class BackgroundTextureCache {
 
     static func request(_ choice: Int, _ shade: Int, completion block: @escaping (SKTexture?) -> Swift.Void) {
 
+        guard MainScene.backgroundIDs.indices.contains(choice), (0..<9).contains(shade) else {
+            block(nil)
+            return
+        }
+
         var slot = 0
         while slot < maxEntries {
             if entries[slot].choice == choice && entries[slot].shade == shade {
@@ -216,8 +221,13 @@ class BackgroundTextureCache {
         DispatchQueue.global(qos: .userInteractive).async(flags: .barrier) {
             autoreleasepool {
                 let name = "\(MainScene.backgroundIDs[choice])\(shade)" //TODO: setting scene background needs fixing as this place is hard to find
-                let image = PDFImage(named: name, size: dimension)
-                let texture = SKTexture(image: image!)
+                guard let image = PDFImage(named: name, size: dimension) else {
+                    block(nil)
+                    lock.signal()
+                    semaphore.signal()
+                    return
+                }
+                let texture = SKTexture(image: image)
                 block(texture)
                 queue.async(flags: .barrier) {
                     entries[slot] = Entry(choice, shade, texture, name)
@@ -610,14 +620,22 @@ class MainScene: BaseScene, UITextFieldDelegate{
         return viewController.getUser()
     }
     func addPresets(_ gamePackID: String){
-        let path:String = Bundle.main.path(forResource: gamePackID, ofType: "txt")!
-        let text = try? String(contentsOfFile: path, encoding: String.Encoding.utf8)
-        let lines = text?.components(separatedBy: "\n")
+        guard let path = Bundle.main.path(forResource: gamePackID, ofType: "txt"),
+              let text = try? String(contentsOfFile: path, encoding: String.Encoding.utf8) else {
+            print("Missing preset pack: \(gamePackID)")
+            return
+        }
+        let lines = text.components(separatedBy: "\n")
         let MPCGDGenome = MPCGDGenome()
-        for line in lines!{
+        for line in lines{
             if line != ""{
-                if MPCGDGenome.decodeFromBase64(line.components(separatedBy: ",")[0]) {
-                    let gameName = line.components(separatedBy: ",")[1]
+                let components = line.components(separatedBy: ",")
+                guard components.count >= 2 else {
+                    print("Bad preset line in \(gamePackID): \(line)")
+                    continue
+                }
+                if MPCGDGenome.decodeFromBase64(components[0]) {
+                    let gameName = components[1]
                     let timeString = String(Date().timeIntervalSince1970)
                     let gameID = gameName + "@" + timeString
                     _ = GameHandler.saveGame(MPCGDGenome, gameID: gameID, packID: gamePackID, isLocked: false, userID: getUser().userID)
@@ -1094,9 +1112,10 @@ class MainScene: BaseScene, UITextFieldDelegate{
             self.shareTexts.append([])
         }
         self.addGamePacksLogo()
+        guard self.infoGraphicsImageCycler != nil && self.logoImageCycler != nil, let firstPackID = self.allPackIDs.first else { return }
         self.infoGraphicsImageCycler.position.x += size.width
         self.logoImageCycler.position.x += size.width
-        let _ = self.infoGraphicsImageCycler.cycleToComponent(self.allPackIDs.first!)
+        let _ = self.infoGraphicsImageCycler.cycleToComponent(firstPackID)
     }
     func initGame(){
         self.startTheGame()
@@ -1756,6 +1775,11 @@ class MainScene: BaseScene, UITextFieldDelegate{
     }
 
     fileprivate func addGamePacksLogo(){
+
+        guard !allPackIDs.isEmpty else {
+            print("No game packs configured")
+            return
+        }
         
         var logoImages: [HKImage] = []
         var infoGraphicCyclers: [HKImage] = []
@@ -1829,7 +1853,12 @@ class MainScene: BaseScene, UITextFieldDelegate{
         
         self.savedGamesStartSlot = loadedMPCGDGenomes.count
         
-        var widerLogoSize = logoImages[0].size
+        guard let firstLogoImage = logoImages.first, let firstInfoGraphicCycler = infoGraphicCyclers.first else {
+            print("No game pack UI components created")
+            return
+        }
+
+        var widerLogoSize = firstLogoImage.size
         widerLogoSize.width = size.width
         widerLogoSize.height *= 16
         logoImageCycler = HKComponentCycler(hkComponents: logoImages, ids: allPackIDs, size: widerLogoSize, tapToCycle: false, waitAtEnd: TimeInterval(0.1))
@@ -1864,7 +1893,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
             logoImageCycler.liveTapComponents.append((p.packButton, p.packButton.parent! as! HKComponent))
         }
 
-        var widerInfoGraphicsSize = infoGraphicCyclers[0].size
+        var widerInfoGraphicsSize = firstInfoGraphicCycler.size
         widerInfoGraphicsSize.width = size.width
         infoGraphicsImageCycler = HKComponentCycler(hkComponents: infoGraphicCyclers, ids: allPackIDs, size: widerInfoGraphicsSize, tapToCycle: false, waitAtEnd: TimeInterval(0.1))
         infoGraphicsImageCycler.setZPositionTo(ZPositionConstants.logoNode)
@@ -2090,6 +2119,10 @@ class MainScene: BaseScene, UITextFieldDelegate{
             changeBackground(MPCGDGenome, forceIt: true)
         }
         if MPCGDGenome.dayNightCycle == 0{
+            return
+        }
+
+        guard MainScene.backgroundIDs.indices.contains(MPCGDGenome.backgroundChoice) else {
             return
         }
 
