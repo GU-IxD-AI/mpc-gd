@@ -232,7 +232,7 @@ struct User {
         if let val = dict["userName"] as? String{
             userName = val
         } else {
-            userName = ""
+            userName = "tester"
         }
         if let val = dict["studyMode"] as? Int{
             studyMode = val

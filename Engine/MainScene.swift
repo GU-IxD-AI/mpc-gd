@@ -527,7 +527,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
         FascinatorLoader.loadBaseCampFascinator("LISiPhone", baseCampType: .Base, scene: (self.scene as! MainScene))
         fascinatorNode.zPosition = 10
         
-        allPackIDs = ["StudyPack"]
+        allPackIDs = getUser().studyMode == 1 ? ["StudyPack"] : GameHandler.getPackNames()
         addPresetsToDatabase(_allPackIDs: allPackIDs)
         
         for _ in 0..<allPackIDs.count{
@@ -597,6 +597,10 @@ class MainScene: BaseScene, UITextFieldDelegate{
         if !UserHandler.presetsLoaded{
             UserHandler.setPresetsLoaded(existing: getUser())
             for gamePackID in _allPackIDs{
+                addPresets(gamePackID)
+            }
+        } else {
+            for gamePackID in _allPackIDs where GameHandler.retrieveGamePack(gamePackID).isEmpty {
                 addPresets(gamePackID)
             }
         }
@@ -840,7 +844,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
         logoNode.run(action3, completion: {
             okButton.run(self.fadeIn)
         })
-        if getUser().studyMode  < 2//FIXME: Before Release: for users this should be -1
+        if getUser().studyMode  == -1//FIXME: Before Release: for release this should be -1; set to 2 for testing
         { //initial check for participating in study
               
             //MARK: Add code for joining our study and a short description
@@ -912,37 +916,49 @@ class MainScene: BaseScene, UITextFieldDelegate{
         buttonSkip.zPosition = 10
         buttonSkip.alpha = 0
         let logoNode = createLogoNode(label: "Para Vida", size: 35)
+        let studyChoiceNode = SKNode()
         
         
-        self.addChild(startInfoNode)
-        self.addChild(buttonJoin)
-        self.addChild(buttonSkip)
-        self.addChild(logoNode)
+        studyChoiceNode.addChild(startInfoNode)
+        studyChoiceNode.addChild(buttonJoin)
+        studyChoiceNode.addChild(buttonSkip)
+        studyChoiceNode.addChild(logoNode)
+        self.addChild(studyChoiceNode)
             
         startInfoNode.run(actions[3])
         logoNode.run(actions[2], completion: {
             buttonJoin.run(self.fadeIn)
             buttonSkip.run(self.fadeIn)
         })
-            
-        buttonSkip.onTapStartCode = {
-            buttonJoin.run(self.fadeOut)
-            buttonSkip.run(self.fadeOut,completion: {
-                logoNode.run(self.fadeOut, completion: {logoNode.removeFromParent()})
-                startInfoNode.run(self.fadeOut,completion: {startInfoNode.removeFromParent()})
-                self.skipStudy()})
+
+        let dismissStudyChoice = { (completion: @escaping () -> ()) in
+            buttonJoin.enabled = false
+            buttonSkip.enabled = false
+            buttonJoin.isHot = false
+            buttonSkip.isHot = false
+            if HKButton.lock === buttonJoin || HKButton.lock === buttonSkip {
+                HKButton.lock = nil
             }
-                
-        buttonJoin.onTapStartCode =  {
-            buttonSkip.run(self.fadeOut,completion: {buttonSkip.removeFromParent()})
-            logoNode.run(self.fadeOut,completion: {logoNode.removeFromParent()})
-            buttonJoin.run(self.fadeOut,completion: {
-                startInfoNode.run(self.fadeOut, completion: {
-                    startInfoNode.removeFromParent()
-                    buttonJoin.removeFromParent()
-                    self.joinStudyStage2(user: user, pwd: pwd,actions: actions)
-                })
+            studyChoiceNode.removeAllActions()
+            for child in studyChoiceNode.children {
+                child.removeAllActions()
+            }
+            studyChoiceNode.run(self.fadeOut, completion: {
+                studyChoiceNode.removeFromParent()
+                completion()
             })
+        }
+              
+        buttonSkip.onTapStartCode = {
+            dismissStudyChoice {
+                self.skipStudy()
+            }
+        }
+                  
+        buttonJoin.onTapStartCode =  {
+            dismissStudyChoice {
+                self.joinStudyStage2(user: user, pwd: pwd,actions: actions)
+            }
         }
         
     }
@@ -1061,7 +1077,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
     
     func resetLoadedGamePacks(newPacks: [String]){
         GameHandler.clearAllGames()
-        //self.shareTexts = []
+        self.shareTexts = []
         self.allPackIDs = newPacks
         UserHandler.presetsLoaded = false
         // clear gamePacks as well
@@ -1069,6 +1085,10 @@ class MainScene: BaseScene, UITextFieldDelegate{
             pack.removeAllActions()
             pack.removeFromParent()
         }
+        self.logoImageCycler?.removeAllActions()
+        self.logoImageCycler?.removeFromParent()
+        self.infoGraphicsImageCycler?.removeAllActions()
+        self.infoGraphicsImageCycler?.removeFromParent()
         self.gamePacks = []
         self.addPresetsToDatabase(_allPackIDs: self.allPackIDs)
         
@@ -1076,6 +1096,8 @@ class MainScene: BaseScene, UITextFieldDelegate{
             self.shareTexts.append([])
         }
         self.addGamePacksLogo()
+        self.infoGraphicsImageCycler.position.x += size.width
+        self.logoImageCycler.position.x += size.width
         let _ = self.infoGraphicsImageCycler.cycleToComponent(self.allPackIDs.first!)
     }
     func initGame(){
@@ -1105,8 +1127,8 @@ class MainScene: BaseScene, UITextFieldDelegate{
         let action4 = SKAction.sequence([SKAction.wait(forDuration: 0.2), flyInFromRight])
         let action5 = SKAction.fadeIn(withDuration: 0.5)
         
-        //self.logoImageCycler.run(action3)
-        //self.infoGraphicsImageCycler.run(action4)
+        self.logoImageCycler.run(action3)
+        self.infoGraphicsImageCycler.run(action4)
         self.playButton.run(SKAction.fadeAlpha(to: 0.2, duration: 0.5), completion: {
             HKDisableUserInteractions = false
             self.playButton.enabled = false
@@ -1202,6 +1224,12 @@ class MainScene: BaseScene, UITextFieldDelegate{
 
             _ = infoCyclers[currentGameName]?.cycleToComponentIndex(2)
             infoCyclers[currentGameName]?.handleGeneratorScreenMenuMove()
+        }
+    }
+
+    func setMenuButtonsUserInteractionEnabled(_ enabled: Bool) {
+        for button in [keepGoingButton, startOverButton, quitThisButton, playButton, infoButton, settingsButton] {
+            button?.isUserInteractionEnabled = enabled
         }
     }
     
@@ -1690,6 +1718,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
         genScreen.gameID = newGameID
         
         GameHandler.renameGame(gameID, newGameID: newGameID, genome: loadedMPCGDGenomes[currentGameName]!, packID: gamePackScreen.packID, isLocked: isLocked, userID: getUser().userID)
+        //FIXME: Add tracking
         SessionHandler.renameGame(oldGameID: gameID, newGameID: newGameID)
         let statsScreen = infoCyclers[currentGameName]!.hkComponents[0] as! StatsScreen
         statsScreen.reactToGameIDChange(newGameID: newGameID)
@@ -2320,6 +2349,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
     
     func handleSettingsTap(){
         self.view!.isPaused = false
+        setMenuButtonsUserInteractionEnabled(false)
         //self.infoGraphicsImageCycler.hidden = true
         settingsNode.run(fadeIn)
         self.infoGraphicsImageCycler.run(fadeOut, completion: {
@@ -2339,6 +2369,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
     
     func handleInfoTap(){
         self.view!.isPaused = false
+        setMenuButtonsUserInteractionEnabled(false)
         infoNode.alpha = 0
         aboutNode!.alpha = 0
         creditNode!.alpha = 0
@@ -2675,6 +2706,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
             infoNode.run(fadeOut)
             settingsNode?.run(fadeOut)
             menuNode!.run(fadeIn)
+            setMenuButtonsUserInteractionEnabled(true)
             logoImageCycler.run(fadeIn)
             logoImageCycler.enabled = true
             infoGraphicsImageCycler.isHidden = false
