@@ -106,7 +106,7 @@ class GameHandler {
     */
     
     static func getPackNames() -> [String] {
-        return ["Simple Games", "Fast Games", "Skilful Games", "Tricky Games"]
+        return ["Stock Games", "Fast Games", "Skilful Games", "Tricky Games"]
     }
     
     static func getMPCGDGenome(_ game: GameParameters) -> MPCGDGenome {
@@ -233,7 +233,11 @@ class GameHandler {
                 let isLocked = (game as AnyObject).value(forKey: "isLocked") as! Bool
                 if (id == gameID && packID == pack) {
                     let jsonRepresentation = (game as AnyObject).value(forKey: "gameParameters") as! String
-                    let game = GameParameters(dict: JsonUtils.jsonStringToObject(jsonRepresentation) as! Dictionary<String, AnyObject>)
+                    guard let dict = JsonUtils.jsonStringToObject(jsonRepresentation) as? Dictionary<String, AnyObject> else {
+                        print("Could not parse saved game parameters for \(gameID)")
+                        return (nil, false)
+                    }
+                    let game = GameParameters(dict: dict)
                     return (getMPCGDGenome(game), isLocked)
                 }
             }
@@ -309,9 +313,9 @@ struct GameParameters {
     }
     
     init(dict: Dictionary<String, AnyObject>){
-        self.userID = dict["userID"] as! String
-        self.gameID = dict["gameID"] as! String
-        self.gameParameters = dict["gameParameters"] as! [Int]
+        self.userID = dict["userID"] as? String ?? ""
+        self.gameID = dict["gameID"] as? String ?? ""
+        self.gameParameters = dict["gameParameters"] as? [Int] ?? []
     }
     
     func getJsonRepresentation() -> String{

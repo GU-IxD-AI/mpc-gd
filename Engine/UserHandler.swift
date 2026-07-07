@@ -26,7 +26,8 @@ class UserHandler {
             let savedUsers = try context.fetch(request)
             for userRow in savedUsers{
                 let jsonRepresentation = (userRow as AnyObject).value(forKey: "jsonRepresentation") as! String
-                let user = User(dict: JsonUtils.jsonStringToObject(jsonRepresentation) as! Dictionary<String, AnyObject>)
+                guard let userDict = JsonUtils.jsonStringToObject(jsonRepresentation) as? Dictionary<String, AnyObject> else { continue }
+                let user = User(dict: userDict)
                 if user.userID == existing.userID {
                     //var preset = false
                     if (userRow as AnyObject).value(forKey: "presetsLoaded") != nil {
@@ -76,7 +77,8 @@ class UserHandler {
             let savedUsers = try context.fetch(request)
             for user in savedUsers{
                 let jsonRepresentation = (user as AnyObject).value(forKey: "jsonRepresentation") as! String
-                users.append(User(dict: JsonUtils.jsonStringToObject(jsonRepresentation) as! Dictionary<String, AnyObject>))
+                guard let userDict = JsonUtils.jsonStringToObject(jsonRepresentation) as? Dictionary<String, AnyObject> else { continue }
+                users.append(User(dict: userDict))
             }
             if users.count > 0 {
                 return users.last
@@ -100,14 +102,15 @@ class UserHandler {
             let savedUsers = try context.fetch(request)
             for userRow in savedUsers{
                 let jsonRepresentation = (userRow as AnyObject).value(forKey: "jsonRepresentation") as! String
-                let user = User(dict: JsonUtils.jsonStringToObject(jsonRepresentation) as! Dictionary<String, AnyObject>)
+                guard let userDict = JsonUtils.jsonStringToObject(jsonRepresentation) as? Dictionary<String, AnyObject> else { continue }
+                let user = User(dict: userDict)
                 if user.userID == userID {
                     var tutorialStatus : [String:Bool] = [:]
                     var tutorialString = ""
                     if (userRow as AnyObject).value(forKey: "tutorials") != nil {
                         tutorialString = (userRow as AnyObject).value(forKey: "tutorials") as! String
                         if !tutorialString.isEmpty {
-                            tutorialStatus =  JsonUtils.jsonStringToObject(tutorialString) as! Dictionary<String,Bool>
+                            tutorialStatus =  JsonUtils.jsonStringToObject(tutorialString) as? Dictionary<String,Bool> ?? [:]
                         }
                     }
                     
@@ -158,7 +161,8 @@ class UserHandler {
             let savedUsers = try context.fetch(request)
             for userRow in savedUsers{
                 let jsonRepresentation = (userRow as AnyObject).value(forKey: "jsonRepresentation") as! String
-                let user = User(dict: JsonUtils.jsonStringToObject(jsonRepresentation) as! Dictionary<String, AnyObject>)
+                guard let userDict = JsonUtils.jsonStringToObject(jsonRepresentation) as? Dictionary<String, AnyObject> else { continue }
+                let user = User(dict: userDict)
                 if user.userID == userID {
                     if (userRow as AnyObject).value(forKey: "presetsLoaded") != nil {
                         let presetStatus = (userRow as AnyObject).value(forKey: "presetsLoaded") as! Bool
@@ -189,12 +193,13 @@ class UserHandler {
             let savedUsers = try context.fetch(request)
             for userRow in savedUsers{
                 let jsonRepresentation = (userRow as AnyObject).value(forKey: "jsonRepresentation") as! String
-                let user = User(dict: JsonUtils.jsonStringToObject(jsonRepresentation) as! Dictionary<String, AnyObject>)
+                guard let userDict = JsonUtils.jsonStringToObject(jsonRepresentation) as? Dictionary<String, AnyObject> else { continue }
+                let user = User(dict: userDict)
                 if user.userID == userID {
                     if (userRow as AnyObject).value(forKey: "tutorials") != nil {
                         let tutorialString = (userRow as AnyObject).value(forKey: "tutorials") as! String
                         if !tutorialString.isEmpty {
-                            tutorialStatus =  JsonUtils.jsonStringToObject(tutorialString) as! Dictionary<String,Bool>
+                            tutorialStatus =  JsonUtils.jsonStringToObject(tutorialString) as? Dictionary<String,Bool> ?? [:]
                         }
                     }
                     break
@@ -228,7 +233,7 @@ struct User {
     }
     
     init(dict: Dictionary<String, AnyObject>){
-        userID = dict["userID"] as! String
+        userID = dict["userID"] as? String ?? ""
         if let val = dict["userName"] as? String{
             userName = val
         } else {
@@ -258,4 +263,3 @@ struct User {
         return User(dict: getDict() as! Dictionary<String, AnyObject>)
     }
 }
-

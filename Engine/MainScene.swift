@@ -816,7 +816,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
         let pwd = HiddenParameters.pwd
         
         //TODO: suegy fix db connection
-        self.db_client = DBConnection(endpoint: endpoint,uuid: getUser().userID)
+        self.db_client = DBConnection(endpoint: endpoint,uuid: getUser().userID, isStudyMode: getUser().studyMode == 1)
         
         let sfLogo = SKSpriteNode(imageNamed: "MPCGDLogo")
         sfLogo.setScale(0.5 * size.width / sfLogo.width)
@@ -982,6 +982,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
     func joinStudyStage2 (user :String, pwd: String, actions : [SKAction]) {
         
         //MARK: initializing PocketBase Server
+        self.db_client.isStudyMode = true
         self.db_client.auth(user: user, pwd: pwd)
         // enable study mode and not show choice again
         
@@ -1923,14 +1924,14 @@ class MainScene: BaseScene, UITextFieldDelegate{
     }
     
     func getInfoCycler(_ id: String) -> (HKImage, HKComponentCycler, StatsScreen?){
-        let infoGraphic = HKImage(image: UIImage(named: "\(id)InfoGraphic")!)
+        let infoGraphic = HKImage(image: UIImage(named: "\(id)InfoGraphic") ?? UIImage(named: "BlankGraphic")!)
         infoGraphic.setScale(0.95)
         infoGraphic.position.y += 10
         let cropNode = SKCropNode()
         cropNode.maskNode = SKSpriteNode(imageNamed: "BlankGraphic")
         let ids = ["stats", "helptext", "infographic"]
         
-        let helpText = HKImage(image: UIImage(named: "\(id)Strategy")!)
+        let helpText = HKImage(image: UIImage(named: "\(id)Strategy") ?? UIImage(named: "BlankGraphic")!)
         infoGraphic.name = "infographic"
         helpText.name = "helptext"
         let statsScreen = StatsScreen(gameID: id, wG: loadedMPCGDGenomes[currentGameName]!, size: infoGraphic.size)
@@ -2518,7 +2519,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
         state = .tutorial
         let yPositions = [100, 3, -80]
         showingTutorial = tutorialNum
-        let tutorialInfoNode = HKImage(image: UIImage(named: "\(currentGameName)Strategy")!)
+        let tutorialInfoNode = HKImage(image: UIImage(named: "\(currentGameName)Strategy") ?? UIImage(named: "BlankGraphic")!)
         let cropNode = SKCropNode()
         let tutSize = CGSize(width: tutorialInfoNode.imageNode.size.width, height: tutorialInfoNode.imageNode.size.height * 0.3)
         cropNode.maskNode = SKSpriteNode(texture: SKTexture(cgImage: ImageUtils.getBlankImage(tutSize, colour: UIColor.red).cgImage!))
@@ -3629,8 +3630,11 @@ class MainScene: BaseScene, UITextFieldDelegate{
     }
 
     func changeGenome(_ fascinator: Fascinator, genomeName: String, gameID: String, isIPad: Bool){
-        let genomeJsonString = FileUtils.readFile("\(genomeName)_genome", fileType: "json")
-        let dict = JsonUtils.jsonStringToObject(genomeJsonString!) as! NSDictionary
+        guard let genomeJsonString = FileUtils.readFile("\(genomeName)_genome", fileType: "json"),
+              let dict = JsonUtils.jsonStringToObject(genomeJsonString) as? NSDictionary else {
+            print("Could not load genome JSON for \(genomeName)")
+            return
+        }
         let genome = FascinatorLoader.convertDictToGenome(fascinator, dict: dict)
         fascinator.genome = genome
         

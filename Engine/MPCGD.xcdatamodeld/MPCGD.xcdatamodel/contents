@@ -12,6 +12,10 @@
         <attribute name="gameParameters" optional="YES" attributeType="String"/>
         <attribute name="isLocked" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
     </entity>
+    <entity name="OutgoingBacklog" representedClassName="OutgoingBacklog" syncable="YES" codeGenerationType="class">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="payload" optional="YES" attributeType="Binary"/>
+    </entity>
     <entity name="Packalias" representedClassName="Packalias" syncable="YES" codeGenerationType="class">
         <attribute name="alias" optional="YES" attributeType="String"/>
         <attribute name="pack" optional="YES" attributeType="String"/>

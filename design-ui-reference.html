@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MPCGD Design UI Re-engineering Reference</title>
+  <style>
+    :root { color-scheme: dark; --bg:#11151c; --panel:#18202b; --panel2:#202b38; --text:#f2ead7; --muted:#b7ad99; --line:#3d4c5e; --accent:#85d7ff; --warn:#ffd27d; }
+    * { box-sizing: border-box; }
+    body { margin:0; font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:var(--bg); color:var(--text); }
+    header { padding:32px 24px 18px; border-bottom:1px solid var(--line); background:linear-gradient(135deg,#121821,#1d2938); }
+    main { padding:22px 24px 44px; max-width:1240px; margin:0 auto; }
+    h1 { margin:0 0 8px; font-size:30px; }
+    h2 { margin:34px 0 12px; font-size:23px; border-bottom:1px solid var(--line); padding-bottom:6px; }
+    h3 { margin:24px 0 8px; font-size:18px; color:var(--accent); }
+    p { margin:8px 0; }
+    code { background:#0c1016; color:#d6f0ff; padding:1px 5px; border-radius:4px; }
+    table { width:100%; border-collapse:collapse; margin:12px 0 20px; table-layout:fixed; }
+    th, td { border:1px solid var(--line); padding:8px 9px; vertical-align:top; }
+    th { background:var(--panel2); text-align:left; }
+    td { background:var(--panel); }
+    .grid { display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:10px; margin:14px 0 24px; }
+    .cell { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:12px; min-height:150px; }
+    .idx { color:var(--warn); font-weight:700; }
+    .muted { color:var(--muted); }
+    .note { background:#1d2633; border-left:4px solid var(--accent); padding:10px 12px; margin:14px 0; }
+    .small { font-size:13px; }
+    .visual-grid { display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:18px; margin:16px 0 26px; }
+    .visual-card { background:linear-gradient(180deg,#17202b,#111820); border:1px solid var(--line); border-radius:14px; padding:14px; box-shadow:0 14px 34px rgba(0,0,0,.22); }
+    .visual-card h3 { margin-top:0; }
+    .walkthrough-caption { margin:0 0 14px; color:var(--muted); font-size:13px; }
+    .phone { width:min(100%, 300px); aspect-ratio:9/16; margin:10px auto; border:1px solid #8fb6d4; border-radius:8px; background:linear-gradient(180deg,#c8e4f8,#9cc7e6); padding:12px 10px; position:relative; overflow:hidden; box-shadow:0 12px 30px rgba(0,0,0,.28); }
+    .app-pack { text-align:center; color:rgba(40,82,112,.65); font-size:9px; letter-spacing:.04em; line-height:1; }
+    .phone-title { text-align:center; color:#315c78; font:300 24px/1.05 -apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif; margin:2px 0 4px; letter-spacing:-.04em; }
+    .phone-title strong { color:#0f1d27; font-weight:700; }
+    .page-dot { width:6px; height:6px; border-radius:50%; background:#1d2c36; margin:5px auto 7px; }
+    .design-tray { position:absolute; left:28px; right:28px; top:86px; bottom:76px; display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(3,1fr); border-radius:10px; overflow:hidden; background:#6fa8d2; border:1px solid rgba(255,255,255,.4); }
+    .mock-btn { position:relative; border-right:1px solid rgba(255,255,255,.32); border-bottom:1px solid rgba(255,255,255,.32); display:flex; align-items:center; justify-content:center; padding:5px; color:#f6fbff; text-align:center; font-size:10px; }
+    .mock-btn:nth-child(3n) { border-right:0; }
+    .mock-btn:nth-child(n+7) { border-bottom:0; }
+    .mock-btn .num { position:absolute; left:5px; top:4px; color:#e9f6ff; font-weight:700; font-size:10px; opacity:.75; }
+    .mock-btn .icon { display:block; font-size:20px; line-height:1; margin-bottom:3px; }
+    .mock-btn.disabled { opacity:.35; background:repeating-linear-gradient(135deg,rgba(255,255,255,.04),rgba(255,255,255,.04) 6px,transparent 6px,transparent 12px); }
+    .mock-footer { position:absolute; left:16px; right:16px; bottom:20px; display:flex; align-items:center; justify-content:space-between; color:#e9f6ff; font-size:12px; }
+    .mini-button { border:1px solid rgba(255,255,255,.52); border-radius:999px; padding:5px 10px; background:#6fa8d2; color:#fff; font-weight:700; }
+    .mock-screen { width:min(100%, 320px); min-height:300px; margin:10px auto; border:1px solid rgba(255,255,255,.45); border-radius:11px; background:#6fa8d2; padding:12px; position:relative; overflow:hidden; }
+    .mock-screen .topline { min-height:22px; display:flex; align-items:center; justify-content:space-between; color:#dcefff; font-size:11px; border-bottom:1px solid rgba(255,255,255,.22); margin:-2px 0 10px; }
+    .portrait-sketch { width:min(100%, 220px); aspect-ratio:9/16; margin:10px auto; border:1px solid #8fb6d4; border-radius:6px; background:linear-gradient(180deg,#c8e4f8,#9cc7e6); position:relative; padding:8px; color:#eaf6ff; overflow:hidden; }
+    .sketch-pair { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; align-items:start; }
+    .sketch-pair .portrait-sketch { width:100%; }
+    .sketch-card { position:absolute; left:22px; right:22px; top:82px; min-height:185px; border-radius:10px; background:#6fa8d2; border:1px solid rgba(255,255,255,.45); padding:9px; font-size:9px; box-shadow:0 2px 7px rgba(43,91,125,.2); }
+    .sketch-card.tall { bottom:58px; }
+    .card-title { text-align:center; color:#dcefff; font-size:10px; margin:-3px 0 7px; }
+    .ok-label { position:absolute; right:11px; bottom:11px; color:#eaf6ff; font-size:13px; }
+    .dots { position:absolute; left:0; right:0; bottom:6px; text-align:center; letter-spacing:3px; color:rgba(255,255,255,.55); font-size:10px; }
+    .sketch-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:5px; }
+    .icon-tile { min-height:34px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; color:#eaf6ff; font-size:8px; text-align:center; }
+    .mini-icon { width:21px; height:21px; border-radius:50%; background:#f2ead7; border:1px solid rgba(255,255,255,.7); display:inline-block; }
+    .mini-icon.blue { background:#477fb7; }
+    .mini-icon.orange { background:#df8a33; }
+    .mini-icon.square { border-radius:3px; }
+    .mini-icon.outline { background:transparent; border:2px solid rgba(255,255,255,.75); }
+    .sketch-slider { display:grid; grid-template-columns:44px 1fr 20px; gap:6px; align-items:center; margin:8px 0; color:#eaf6ff; font-size:9px; }
+    .sketch-slider .line { height:2px; background:rgba(255,255,255,.85); position:relative; }
+    .sketch-slider .line::after { content:""; position:absolute; left:58%; top:50%; transform:translate(-50%,-50%); width:12px; height:12px; border-radius:50%; background:#eaf6ff; border:1px solid rgba(43,91,125,.6); }
+    .bottom-actions { position:absolute; left:10px; right:36px; bottom:10px; display:flex; gap:8px; align-items:end; color:#eaf6ff; font-size:8px; }
+    .cluster-preview { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:30px 8px 18px; align-items:center; }
+    .cluster-stack { display:flex; flex-direction:column; align-items:center; gap:4px; }
+    .cluster-stack span { width:9px; height:9px; border-radius:50%; background:#f2ead7; border:1px solid rgba(255,255,255,.7); }
+    .cluster-stack.blue span { background:#477fb7; }
+    .collision-icons { position:absolute; right:12px; top:50px; display:flex; flex-direction:column; gap:5px; }
+    .collision-icons span { width:8px; height:8px; border-radius:50%; background:#f2ead7; }
+    .collision-icons span:nth-child(even) { background:#477fb7; }
+    .shape-variants { display:grid; grid-template-columns:repeat(4,1fr); gap:5px; margin-top:6px; }
+    .shape-variants span { height:18px; border-radius:2px; border:1px solid rgba(255,255,255,.35); background:repeating-linear-gradient(90deg,rgba(255,255,255,.28),rgba(255,255,255,.28) 3px,rgba(55,105,140,.35) 3px,rgba(55,105,140,.35) 7px); }
+    .score-zone-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:7px; margin:10px 4px 8px; }
+    .zone-tile { display:block; aspect-ratio:1; border:2px solid rgba(255,255,255,.75); background:rgba(206,186,118,.35); position:relative; }
+    .zone-tile.active::after { content:""; position:absolute; inset:32%; border:2px solid rgba(255,255,255,.9); }
+    .zone-label, .spawn-label { display:block; margin-top:2px; color:rgba(234,246,255,.8); font-size:7px; text-align:center; }
+    .spawn-choice-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:7px; margin:8px 1px 12px; }
+    .spawn-choice { height:38px; border:1px solid rgba(255,255,255,.55); border-radius:2px; display:grid; grid-template-columns:1fr 1fr; overflow:hidden; background:rgba(255,255,255,.06); }
+    .spawn-half { position:relative; border-right:1px solid rgba(255,255,255,.28); }
+    .spawn-half:last-child { border-right:0; }
+    .spawn-half.active::after { content:""; position:absolute; inset:7px 4px; border:2px solid rgba(255,255,255,.95); border-radius:2px; }
+    .ball { width:26px; height:26px; border-radius:50%; display:inline-block; border:2px solid rgba(255,255,255,.65); box-shadow:0 3px 10px rgba(0,0,0,.35); }
+    .white-ball { background:#f2ead7; }
+    .blue-ball { background:#477fb7; }
+    .score { color:var(--warn); font-weight:700; font-size:20px; }
+    .slider-row { margin:18px 4px; display:grid; grid-template-columns:82px 1fr 34px; gap:8px; align-items:center; color:#e9f6ff; font-size:12px; }
+    .slider-track { height:3px; border-radius:99px; background:rgba(255,255,255,.8); position:relative; }
+    .slider-track::after { content:""; position:absolute; left:62%; top:50%; width:17px; height:17px; transform:translate(-50%,-50%); background:#e9f6ff; border:1px solid rgba(40,82,112,.55); border-radius:50%; box-shadow:0 1px 4px rgba(0,0,0,.25); }
+    .controller-shape { width:92px; height:64px; background:linear-gradient(135deg,#ffd27d,#ff9f5c); clip-path:polygon(12% 0,100% 24%,84% 100%,0 70%); box-shadow:0 8px 18px rgba(0,0,0,.35); }
+    .legend { display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 0; font-size:12px; color:var(--muted); }
+    .legend span { border:1px solid rgba(242,234,215,.18); border-radius:999px; padding:3px 8px; background:rgba(255,255,255,.04); }
+    @media (max-width: 900px) { .visual-grid { grid-template-columns:1fr; } }
+    @media (max-width: 760px) { main, header { padding-left:14px; padding-right:14px; } .grid { grid-template-columns:1fr; } table { font-size:13px; } .sketch-pair { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+<header>
+  <h1>MPCGD Design UI Re-engineering Reference</h1>
+  <p class="muted">Standalone reference for reconstructing the SpriteKit design-game interface. Source of truth: <code>Engine/GeneratorScreen.swift</code>, <code>MPCGDGenome.swift</code>, and the child screen classes listed below.</p>
+</header>
+<main>
+  <section>
+    <h2>Core Model</h2>
+    <p>The design UI is a SpriteKit 3x3 button tray. Button indices are row-major: <code>0</code> top-left, <code>1</code> top-middle, <code>2</code> top-right, <code>3</code> middle-left, <code>4</code> center, <code>5</code> middle-right, <code>6</code> bottom-left, <code>7</code> bottom-middle, <code>8</code> bottom-right.</p>
+    <p>The top menu is composed by <code>GeneratorScreen.alterButtonsForLiveMPCGDGenome()</code>. Taps enter submenus through <code>handleTopButtonTap()</code>. Mutations are mostly in <code>handleButtonTap()</code>, <code>changeMenu()</code>, and slider <code>touchEndCode</code> closures created during screen initialisation.</p>
+    <div class="note">Numeric ranges below are genome ranges, not always semantic values. Slider labels often map an index onto arrays such as <code>MPCGDGenome.spawnRates</code>, <code>winningScores</code>, <code>gameDurations</code>, and score arrays.</div>
+  </section>
+
+  <section>
+    <h2>Visual Interface Reference</h2>
+    <p>The project walkthrough image <code>MPCG-Interface.png</code> was used as the visual source, but the large image is not embedded here. The interface to reproduce is a portrait-mode design UI, not a landscape control surface. Every shown screen sits inside the same portrait app frame: pale blue background, pack label, game title, page dot, rounded blue control card, bottom-left info button, and bottom-right <code>PLAY</code> button.</p>
+    <p class="walkthrough-caption">Actual visual style: pale blue sky/page background, game pack label above the title, narrow uppercase title text with a heavier second word, rounded medium-blue interface cards, thin white/grey Helvetica-style labels, white slider tracks with circular knobs, small page dots, fixed bottom controls, and category cards that often end with an <code>OK</code> confirmation in the lower-right.</p>
+
+    <h3>Walkthrough Row Interpretation</h3>
+    <table>
+      <thead><tr><th>Image Row</th><th>Interface Layer Shown</th><th>Meaning For Reimplementation</th></tr></thead>
+      <tbody>
+        <tr><td>0</td><td>Main interface for <strong>Keepy Uppy</strong></td><td>The top-layer 3x3 design grid is shown inside a rounded blue <code>Design a Game</code> card. The app frame includes <code>STUDYPACK</code>, the title <code>KEEPY UPPY</code>, a page dot below the title, an info button bottom-left, and a large rounded <code>PLAY</code> button bottom-right.</td></tr>
+        <tr><td>1</td><td>Top button 0, Characters</td><td>The first screen is the character overview with two size/max sliders labelled <code>x1</code> and <code>x2</code>, plus size controls and <code>OK</code>. Deeper screens show a character collection grid (<code>First characters</code>) and then a pack/type grid (<code>Sport</code>). Friend/foe character selection uses the same layout; only one representative path is shown.</td></tr>
+        <tr><td>2</td><td>Top button 1, Tap</td><td>The deeper tap screen is shown as <code>Beachball tap</code>. It is a 3x3 action grid with icons/labels such as Explode, Reverse, Spring, Change, Bounce, and Ping, plus a <code>Tap score</code> slider and an off/OK state. The same interface applies to the other ball type.</td></tr>
+        <tr><td>3</td><td>Top button 2, Movement</td><td>The movement screen combines three horizontal sliders (<code>speed</code>, <code>randomness</code>, <code>bounce</code>) with bottom toggles for <code>Rotate</code> and <code>Rigid</code>, then <code>OK</code>. Friend/foe movement uses the same layout.</td></tr>
+        <tr><td>4</td><td>Top button 3, Controller Collisions</td><td>The controller collision row shows per-type collision score screens: one for <code>Beachball score</code> and one for <code>Basketball score</code>. Each has a score slider and a vertical stack of small type/controller icons indicating which collision channel is being edited.</td></tr>
+        <tr><td>5</td><td>Top button 4, Clusters</td><td>The top cluster screen previews cluster categories. Deeper examples show <code>Beachball clusters</code> and <code>Basketball clusters</code>, with <code>Cluster size</code> and <code>Cluster score</code> sliders plus on/off and OK controls. Other cluster/type variants reuse this layout.</td></tr>
+        <tr><td>6</td><td>Top button 6, Controller & Scene</td><td>This row has the richest hierarchy: <code>Controller & scene</code> top layer, <code>Controller shape</code> pack choice, a shape category grid (Rectangle, Circular, Bars, Platform, Blocks, Zigzag, Maze, Dividers, Containers), and a <code>Controller style</code> variant grid. It demonstrates the big/tall preview pattern for controller/background editing.</td></tr>
+        <tr><td>7</td><td>Top button 5, Audio</td><td>The audio row shows master sliders for <code>Soundtrack</code> and <code>Sound effects</code>, with bottom choices for soundtrack/SFX submenus and OK. Deeper equaliser/SFX grids use the same rounded-card layout but are not all shown in the walkthrough.</td></tr>
+        <tr><td>8</td><td>Top button 8, Winning and losing</td><td>The endings row shows three horizontal sliders: <code>Points for win</code>, <code>Game ends at</code>, and <code>Lives</code>, plus OK. This maps to points-to-win, duration, and lives.</td></tr>
+        <tr><td>9</td><td>Top button 7, Score zones and Spawn</td><td>The final row shows two deeper examples: <code>Beachball score zones</code>, with five zone toggles plus a score slider, and <code>Beachball spawn</code>, with six split buttons representing twelve spawn bands plus a rate slider. The same layouts apply to the other ball type.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="note">Visual ordering nuance: the walkthrough image is organised by top-layer button concepts rather than strict button index order. Audio (top cell 5), Controller & Scene (top cell 6), Spawn/Zones (top cell 7), and Endings (top cell 8) appear in a presentation order that groups related screenshots clearly. The app UI itself remains portrait throughout.</div>
+
+    <h3>Nine Top-Level Visual Screens</h3>
+    <p>Each top grid button opens a visually distinct design screen family while preserving the same portrait frame and rounded blue card. The following descriptions are abstract visual framings: they describe what the player sees and how to reproduce the interface shape, before the later tables describe exact genome fields.</p>
+    <table>
+      <thead><tr><th>Top Cell</th><th>Visual Screen Family</th><th>Abstract Layout To Reproduce</th></tr></thead>
+      <tbody>
+        <tr><td>0 Characters</td><td>Character identity, size, and count</td><td>A rounded blue card headed by <code>Characters</code>. The first layer is slider-led: two character rows, each with a small ball/icon on the left, a horizontal slider through the middle, and labels such as <code>x1</code>/<code>x2</code> for max-on-screen or size/count state. Lower controls show size selectors and an <code>OK</code> confirmation. Deeper layers become 3x3 icon pickers: first a character collection grid, then a specific character/type grid such as <code>Sport</code>. Friend/foe versions share the same layout with different selected icons/colours.</td></tr>
+        <tr><td>1 Tap</td><td>Tap action and tap score</td><td>A per-character action card titled with the selected type, for example <code>Beachball tap</code>. The upper/middle area is a 3x3 icon action grid with labels like Explode, Reverse, Spring, Change, Bounce, and Ping. A horizontal <code>Tap score</code> slider sits near the lower part of the card. The bottom-right contains an off/OK state. The second character type uses the same screen shape.</td></tr>
+        <tr><td>2 Movement</td><td>Motion tuning</td><td>A compact parameter card titled with the selected type and movement, for example <code>Beachball movement</code>. It is mostly vertical slider rows: <code>speed</code>, <code>randomness</code>, and <code>bounce</code>, each with a small representative ball/action icon on the left, a thin white slider line, and a circular knob. The bottom row contains mode toggles such as <code>Rotate</code> and <code>Rigid</code>, plus <code>OK</code>. Friend/foe movement screens are visually identical except for icon/type.</td></tr>
+        <tr><td>3 Controller Collisions</td><td>Controller contact outcomes</td><td>A collision-score card headed <code>Controller collisions</code>. The main content is one or two horizontal score sliders labelled by character type, with a vertical stack of small type/controller icons at the right edge to show which collision channel is being configured. The card uses sparse controls compared with other screens and ends with <code>OK</code>. Separate shown examples for beachball and basketball represent the repeated per-type layout.</td></tr>
+        <tr><td>4 Clusters</td><td>Cluster detection and explosion scoring</td><td>The top layer is a cluster overview card: small groups of repeated character icons are arranged in columns to preview white, blue, or mixed clusters. Deeper per-type cards are titled like <code>Beachball clusters</code> and contain two slider rows, <code>Cluster size</code> and <code>Cluster score</code>. A small cluster icon preview appears near the slider labels, with off/on and <code>OK</code> controls in the lower area.</td></tr>
+        <tr><td>5 Audio</td><td>Soundtrack and sound effects</td><td>An audio card with two prominent horizontal sliders: <code>Soundtrack</code> and <code>Sound effects</code>. Speaker icons sit at the left of the rows, numeric values appear near the right, and the lower row offers branch buttons for soundtrack/SFX details plus <code>OK</code>. Deeper audio screens reuse the same rounded-card language for equaliser channels, ambience choices, SFX pack, and enabled event icons.</td></tr>
+        <tr><td>6 Controller & Scene</td><td>Controller shape, style, placement, background, and control mode</td><td>The richest visual family. The top card is titled <code>Controller &amp; scene</code> and mixes preview tiles with branch buttons for controller, scene/background, size/position, colour, and control. Deeper layers include a two-choice <code>Controller shape</code> card, a 3x3 controller category grid with labels such as Rectangle, Circular, Bars, Platform, Blocks, Zigzag, Maze, Dividers, and Containers, and a dense <code>Controller style</code> variant grid. Some layers use an enlarged preview region that spans multiple normal button cells, because controller/background editing is visual and spatial.</td></tr>
+        <tr><td>7 Spawn &amp; Score Zones</td><td>Where objects enter and where exits score</td><td>This family uses map-like cards. Score-zone screens use five toggle buttons in the upper/middle grid: top, right, bottom, left, and corners, plus an OK/off button and a <code>Score</code> slider below. Spawn screens use six visible toggle buttons in a 2x3 area; each button is split into left and right halves, producing 12 selectable spawn bands. The six split buttons are edge top/bottom, edge left/right, mid top/bottom, mid left/right, central top/bottom, and central left/right. A <code>Rate</code> slider sits below. The walkthrough shows beachball examples, but the basketball/other-type equivalents use the same visual structure.</td></tr>
+        <tr><td>8 Endings</td><td>Winning and losing rules</td><td>A simple stacked slider card titled <code>Winning and losing</code>. It has three main rows: <code>Points for win</code>, <code>Game ends at</code>, and <code>Lives</code>. Each row uses the standard thin white slider with circular knob and a displayed value. The lower-right <code>OK</code> confirms the ending settings. Visually this is the cleanest rules screen: no icon grid, just three outcome sliders.</td></tr>
+      </tbody>
+    </table>
+
+    <p>The diagrams below are compact reconstruction mockups, not screenshots. They are intentionally minimal but screen-specific: one main tray plus one portrait sketch for each top-level submenu family.</p>
+    <div class="visual-grid">
+      <div class="visual-card">
+        <h3>Main Design Tray</h3>
+        <div class="phone">
+          <div class="app-pack">STUDYPACK</div><div class="phone-title">KEEPY <strong>UPPY</strong></div><div class="page-dot"></div>
+          <div class="design-tray">
+            <div class="mock-btn"><span class="num">0</span><span><span class="icon">◯ ●</span>Characters</span></div><div class="mock-btn"><span class="num">1</span><span><span class="icon">✹</span>Tap</span></div><div class="mock-btn"><span class="num">2</span><span><span class="icon">↝</span>Movement</span></div>
+            <div class="mock-btn"><span class="num">3</span><span><span class="icon">⬢</span>Controller<br>Collisions</span></div><div class="mock-btn"><span class="num">4</span><span><span class="icon">✺✺</span>Clusters</span></div><div class="mock-btn"><span class="num">5</span><span><span class="icon">♫</span>Audio</span></div>
+            <div class="mock-btn"><span class="num">6</span><span><span class="icon">▧</span>Controller<br>&amp; Scene</span></div><div class="mock-btn"><span class="num">7</span><span><span class="icon">▥</span>Spawn<br>&amp; Zones</span></div><div class="mock-btn"><span class="num">8</span><span><span class="icon">🏁</span>Endings</span></div>
+          </div>
+          <div class="mock-footer"><span class="mini-button">i</span><span class="mini-button">PLAY</span></div>
+        </div>
+        <p class="small muted">This is the only top-tray sketch. Every submenu below keeps the same portrait app frame and replaces the center card.</p>
+      </div>
+
+      <div class="visual-card">
+        <h3>0 Characters</h3>
+        <div class="portrait-sketch"><div class="app-pack">STUDYPACK</div><div class="phone-title">KEEPY <strong>UPPY</strong></div><div class="page-dot"></div><div class="sketch-card"><div class="card-title">Characters</div><div class="sketch-slider"><span><span class="mini-icon orange"></span></span><span class="line"></span><b>x1</b></div><div class="sketch-slider"><span><span class="mini-icon orange"></span></span><span class="line"></span><b>x2</b></div><div class="bottom-actions"><span>Size</span><span>Size 4</span></div><span class="ok-label">OK</span><div class="dots">•••</div></div><div class="mock-footer"><span class="mini-button">i</span><span class="mini-button">PLAY</span></div></div>
+        <p class="small muted">Primary card is slider-led. Deeper cards become 3x3 icon collections such as First characters and Sport. Friend/foe uses the same layout.</p>
+      </div>
+
+      <div class="visual-card">
+        <h3>1 Tap</h3>
+        <div class="portrait-sketch"><div class="app-pack">STUDYPACK</div><div class="phone-title">KEEPY <strong>UPPY</strong></div><div class="page-dot"></div><div class="sketch-card"><div class="card-title">Beachball tap</div><div class="sketch-grid"><div class="icon-tile"><span class="mini-icon"></span>Explode</div><div class="icon-tile">↩<br>Reverse</div><div class="icon-tile">⌁<br>Spring</div><div class="icon-tile">⇄<br>Change</div><div class="icon-tile">⬤<br>Bounce</div><div class="icon-tile">☝<br>Ping</div></div><div class="sketch-slider"><span>Tap score</span><span class="line"></span><b>0</b></div><span class="ok-label">OK</span><div class="dots">•••</div></div><div class="mock-footer"><span class="mini-button">i</span><span class="mini-button">PLAY</span></div></div>
+        <p class="small muted">Action grid above, score slider below. Same screen is reused for the other object type.</p>
+      </div>
+
+      <div class="visual-card">
+        <h3>2 Movement</h3>
+        <div class="portrait-sketch"><div class="app-pack">STUDYPACK</div><div class="phone-title">KEEPY <strong>UPPY</strong></div><div class="page-dot"></div><div class="sketch-card"><div class="card-title">Beachball movement</div><div class="sketch-slider"><span>speed</span><span class="line"></span><b>4</b></div><div class="sketch-slider"><span>random</span><span class="line"></span><b>3</b></div><div class="sketch-slider"><span>bounce</span><span class="line"></span><b>8</b></div><div class="bottom-actions"><span>Rotate</span><span>Rigid</span></div><span class="ok-label">OK</span><div class="dots">•••</div></div><div class="mock-footer"><span class="mini-button">i</span><span class="mini-button">PLAY</span></div></div>
+        <p class="small muted">Three stacked sliders plus rotate/rigid toggles. Friend/foe movement is the same card with different icon/type.</p>
+      </div>
+
+      <div class="visual-card">
+        <h3>3 Controller Collisions</h3>
+        <div class="portrait-sketch"><div class="app-pack">STUDYPACK</div><div class="phone-title">KEEPY <strong>UPPY</strong></div><div class="page-dot"></div><div class="sketch-card"><div class="card-title">Controller collisions</div><div class="sketch-slider"><span>Beachball score</span><span class="line"></span><b></b></div><div class="sketch-slider"><span>Basketball score</span><span class="line"></span><b></b></div><div class="collision-icons"><span></span><span></span><span></span><span></span><span></span></div><span class="ok-label">OK</span><div class="dots">•••</div></div><div class="mock-footer"><span class="mini-button">i</span><span class="mini-button">PLAY</span></div></div>
+        <p class="small muted">Sparse score sliders with a right-side vertical icon legend. Per-type examples in the PNG are the same template.</p>
+      </div>
+
+      <div class="visual-card">
+        <h3>4 Clusters</h3>
+        <div class="portrait-sketch"><div class="app-pack">STUDYPACK</div><div class="phone-title">KEEPY <strong>UPPY</strong></div><div class="page-dot"></div><div class="sketch-card"><div class="card-title">Clusters</div><div class="cluster-preview"><div class="cluster-stack"><span></span><span></span><span></span></div><div class="cluster-stack blue"><span></span><span></span><span></span></div><div class="cluster-stack"><span></span><span></span><span></span></div></div><div class="sketch-slider"><span>Cluster size</span><span class="line"></span><b>2</b></div><div class="sketch-slider"><span>Cluster score</span><span class="line"></span><b>0</b></div><span class="ok-label">OK</span><div class="dots">•••</div></div><div class="mock-footer"><span class="mini-button">i</span><span class="mini-button">PLAY</span></div></div>
+        <p class="small muted">Top card previews cluster groups. Deeper type cards retain the same two-slider form for size and score.</p>
+      </div>
+
+      <div class="visual-card">
+        <h3>5 Audio</h3>
+        <div class="portrait-sketch"><div class="app-pack">STUDYPACK</div><div class="phone-title">KEEPY <strong>UPPY</strong></div><div class="page-dot"></div><div class="sketch-card"><div class="card-title">Audio</div><div class="sketch-slider"><span>Soundtrack</span><span class="line"></span><b>15</b></div><div class="sketch-slider"><span>Sound effects</span><span class="line"></span><b>15</b></div><div class="bottom-actions"><span>Sound-track</span><span>Sound effects</span></div><span class="ok-label">OK</span><div class="dots">•••</div></div><div class="mock-footer"><span class="mini-button">i</span><span class="mini-button">PLAY</span></div></div>
+        <p class="small muted">Two master sliders dominate the card; bottom buttons branch to soundtrack/equaliser and SFX details.</p>
+      </div>
+
+      <div class="visual-card">
+        <h3>6 Controller &amp; Scene</h3>
+        <div class="portrait-sketch"><div class="app-pack">STUDYPACK</div><div class="phone-title">KEEPY <strong>UPPY</strong></div><div class="page-dot"></div><div class="sketch-card"><div class="card-title">Controller &amp; scene</div><div class="sketch-grid"><div class="icon-tile"><span class="mini-icon square"></span>Controller</div><div class="icon-tile"><span class="mini-icon outline"></span>Shape</div><div class="icon-tile"><span class="mini-icon square"></span>Style</div><div class="icon-tile"><span class="mini-icon blue"></span>Scene</div><div class="icon-tile">✣<br>Control</div><div class="icon-tile">OK</div></div><div class="shape-variants"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div><div class="dots">•••</div></div><div class="mock-footer"><span class="mini-button">i</span><span class="mini-button">PLAY</span></div></div>
+        <p class="small muted">This family mixes preview tiles, shape/category grids, and dense style grids. It is the visual/spatial branch of the designer.</p>
+      </div>
+
+      <div class="visual-card">
+        <h3>7 Spawn &amp; Score Zones</h3>
+        <div class="sketch-pair">
+          <div class="portrait-sketch"><div class="app-pack">STUDYPACK</div><div class="phone-title">KEEPY <strong>UPPY</strong></div><div class="page-dot"></div><div class="sketch-card tall"><div class="card-title">Beachball score zones</div><div class="score-zone-grid"><span><span class="zone-tile active"></span><span class="zone-label">top</span></span><span><span class="zone-tile"></span><span class="zone-label">right</span></span><span><span class="zone-tile"></span><span class="zone-label">bottom</span></span><span><span class="zone-tile"></span><span class="zone-label">left</span></span><span><span class="zone-tile active"></span><span class="zone-label">corners</span></span><span><span class="zone-tile"></span><span class="zone-label">OK</span></span></div><div class="sketch-slider"><span>Score</span><span class="line"></span><b></b></div><span class="ok-label">OK</span><div class="dots">•••</div></div><div class="mock-footer"><span class="mini-button">i</span><span class="mini-button">PLAY</span></div></div>
+          <div class="portrait-sketch"><div class="app-pack">STUDYPACK</div><div class="phone-title">KEEPY <strong>UPPY</strong></div><div class="page-dot"></div><div class="sketch-card tall"><div class="card-title">Beachball spawn</div><div class="spawn-choice-grid"><span><span class="spawn-choice"><span class="spawn-half active"></span><span class="spawn-half"></span></span><span class="spawn-label">edge T/B</span></span><span><span class="spawn-choice"><span class="spawn-half"></span><span class="spawn-half active"></span></span><span class="spawn-label">mid T/B</span></span><span><span class="spawn-choice"><span class="spawn-half"></span><span class="spawn-half"></span></span><span class="spawn-label">central T/B</span></span><span><span class="spawn-choice"><span class="spawn-half"></span><span class="spawn-half"></span></span><span class="spawn-label">edge L/R</span></span><span><span class="spawn-choice"><span class="spawn-half active"></span><span class="spawn-half"></span></span><span class="spawn-label">mid L/R</span></span><span><span class="spawn-choice"><span class="spawn-half"></span><span class="spawn-half active"></span></span><span class="spawn-label">central L/R</span></span></div><div class="sketch-slider"><span>Rate</span><span class="line"></span><b>3.0</b></div><span class="ok-label">OK</span><div class="dots">•••</div></div><div class="mock-footer"><span class="mini-button">i</span><span class="mini-button">PLAY</span></div></div>
+        </div>
+        <p class="small muted">Spawn is not dot-based and not 12 separate visible buttons. It is six visible split buttons: top/bottom pairs across the top row and left/right pairs across the second row. Score zones are five toggles: top, right, bottom, left, and corners, with the sixth visible cell acting as OK/off.</p>
+      </div>
+
+      <div class="visual-card">
+        <h3>8 Endings</h3>
+        <div class="portrait-sketch"><div class="app-pack">STUDYPACK</div><div class="phone-title">KEEPY <strong>UPPY</strong></div><div class="page-dot"></div><div class="sketch-card"><div class="card-title">Winning and losing</div><div class="sketch-slider"><span>Points for win</span><span class="line"></span><b>50</b></div><div class="sketch-slider"><span>Game ends at</span><span class="line"></span><b>60s</b></div><div class="sketch-slider"><span>Lives</span><span class="line"></span><b>3</b></div><span class="ok-label">OK</span><div class="dots">•••</div></div><div class="mock-footer"><span class="mini-button">i</span><span class="mini-button">PLAY</span></div></div>
+        <p class="small muted">The cleanest submenu: three stacked ending-condition sliders and an OK confirmation.</p>
+      </div>
+    </div>
+    <div class="note">Visual reimplementation rules: use the pale blue portrait frame, rounded medium-blue cards, thin white separators, small page dots, bottom info/play controls, and white slider lines with circular knobs. Preserve the row-major top indices, but let each submenu family have its own visual grammar: icon grid, slider stack, preview card, rectangular spawn/zone map, or dense controller style grid.</div>
+  </section>
+
+  <section>
+    <h2>Top 3x3 Grid</h2>
+    <div class="grid">
+      <div class="cell"><p><span class="idx">0</span> Characters</p><p>Shows white/blue character sizes and max-on-screen counts.</p><p><code>addCharactersButton()</code> -> <code>loadCharacterOptions()</code></p></div>
+      <div class="cell"><p><span class="idx">1</span> Tap</p><p>Shows white and blue tap action icons and tap scores.</p><p><code>addBallTapButton()</code> -> white tap screen, then blue tap screen.</p></div>
+      <div class="cell"><p><span class="idx">2</span> Movement</p><p>Shows speed, randomness/noise, bounce, and rotation/rigid state for both characters.</p><p><code>addBehavioursButton()</code> -> white movement, then blue movement.</p></div>
+      <div class="cell"><p><span class="idx">3</span> Controller Collisions</p><p>Enabled only when <code>controllerPack != 0</code>. Shows controller/character collision icons and scores.</p><p><code>addControllerCollisionButton()</code> -> <code>loadControllerCollisions()</code></p></div>
+      <div class="cell"><p><span class="idx">4</span> Clusters</p><p>Shows white, blue, and mixed critical cluster previews and explosion scores.</p><p><code>addClustersButton()</code> -> <code>loadClusterTop()</code></p></div>
+      <div class="cell"><p><span class="idx">5</span> Audio</p><p>Shows soundtrack/equaliser state, master volumes, selected SFX pack and enabled event icons.</p><p><code>addAudioButton()</code> -> <code>loadAudioTop()</code></p></div>
+      <div class="cell"><p><span class="idx">6</span> Controller & Scene</p><p>Shows background, controller shape/emoji, colour, placement, control mode, and day/night icons.</p><p><code>addControllerButton()</code> -> <code>loadGridTop()</code></p></div>
+      <div class="cell"><p><span class="idx">7</span> Spawn & Score Zones</p><p>Shows white/blue spawn regions, rates, active score zones, and zone scores.</p><p><code>addSpawnButton()</code> -> white spawn, blue spawn, white zones, blue zones.</p></div>
+      <div class="cell"><p><span class="idx">8</span> Endings</p><p>Shows win score, timed ending, lives, or “Game never ends”.</p><p><code>addGameEndButton()</code> -> <code>loadGameEndChoices()</code></p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Top Cell Details</h2>
+    <table>
+      <thead><tr><th>Cell</th><th>Button Set / Screens</th><th>Genome Fields</th><th>Values and Effects</th><th>Code References</th></tr></thead>
+      <tbody>
+        <tr><td>0 Characters</td><td><code>.characters</code>, <code>.whiteBallCollectionChoice</code>, <code>.whiteBallChoice</code>, <code>.blueBallCollectionChoice</code>, <code>.blueBallChoice</code>, <code>.whiteSize</code>, <code>.blueSize</code>, <code>BallChoiceScreen</code></td><td><code>whiteMaxOnScreen</code>, <code>blueMaxOnScreen</code>, <code>whiteSizes</code>, <code>blueSizes</code>, <code>whiteBallCollection</code>, <code>whiteBallChoice</code>, <code>blueBallCollection</code>, <code>blueBallChoice</code></td><td>Max on screen: 0...30. Sizes are an 8-bit mask over size labels 1...8 and actual base sizes <code>[3,7,11,15,19,23,27,31]</code>; size-choice buttons draw at <code>sizeNums[pos] * 2</code> points, so visible options are 6, 14, 22, 30, 38, 46, 54, 62 points. Character collection/choice are 0...8 each. White and blue cannot select the same collection+choice.</td><td><code>GeneratorScreen.swift:2828</code>, <code>3001</code>, <code>3073</code>, <code>4244</code>; <code>BallChoiceScreen.swift</code>; <code>MPCGDGenome.swift:255</code></td></tr>
+        <tr><td>1 Tap</td><td><code>.whiteTapAction</code>, <code>.blueTapAction</code>, <code>BallTapScreen</code></td><td><code>whiteTapAction</code>, <code>blueTapAction</code>, <code>whiteTapScore</code>, <code>blueTapScore</code></td><td>Actions: 0 off, 1 Explode, 2 Reverse, 3 Spring, 4 Change, 5 Bounce, 6 Ping, 7 Down, 8 Left, 9 Right in <code>tapActions</code>, but the visible picker exposes buttons 0...5 for actions 1...6. Tap score uses <code>tapScores</code>: -90, -80...-20, -19...21, 25...90. -90 displays as death.</td><td><code>GeneratorScreen.swift:4067</code>, <code>4181</code>; <code>BallTapScreen.swift</code>; <code>MPCGDGenome.swift:369</code></td></tr>
+        <tr><td>2 Movement</td><td><code>.whiteBehaviours</code>, <code>.blueBehaviours</code>, <code>BallBehavioursScreen</code></td><td><code>whiteSpeed</code>, <code>blueSpeed</code>, <code>whiteNoise</code>, <code>blueNoise</code>, <code>whiteBounce</code>, <code>blueBounce</code>, <code>whiteRotation</code>, <code>blueRotation</code></td><td>Speed 1...9. Noise/randomness 0...8. Bounce 0...8. Rotation: 0 none/default, 1 rotating, 2 rigid/no-rotate. Buttons 6 and 7 toggle rotating/rigid, and button 8 advances from white to blue then back top.</td><td><code>GeneratorScreen.swift:2878</code>, <code>2928</code>, <code>4315</code>; <code>BallBehavioursScreen.swift</code>; <code>MPCGDGenome.swift:267</code></td></tr>
+        <tr><td>3 Controller Collisions</td><td><code>.controllerCollisions</code>, <code>ControllerCollisionsScreen</code></td><td><code>whiteControllerCollisionScore</code>, <code>blueControllerCollisionScore</code>, <code>ballControllerExplosions</code></td><td>Available only if controller is not off. Score sliders use <code>collisionScores</code>, same score table as tap/zone/cluster. Buttons 2 and 5 toggle whether white/blue collisions explode or bounce. <code>ballControllerExplosions</code>: 0 none, 1 white only, 2 blue only, 3 both.</td><td><code>GeneratorScreen.swift:1258</code>, <code>3600</code>, <code>4887</code>; <code>ControllerCollisionsScreen.swift</code></td></tr>
+        <tr><td>4 Clusters</td><td><code>.clusterTop</code>, <code>.whiteClusters</code>, <code>.blueClusters</code>, <code>.mixedClusters</code>, <code>ClustersScreen</code></td><td><code>whiteCriticalClusterSize</code>, <code>blueCriticalClusterSize</code>, <code>mixedCriticalClusterSize</code>, <code>whiteExplodeScore</code>, <code>blueExplodeScore</code>, <code>mixedExplodeScore</code></td><td>Cluster size values are <code>[0,2,3,4,5,6,7,8,9]</code> in encoding. Slider edits live cluster sizes 2...9; button 7 turns clusters off/on with size 0 or default size 2. Cluster scores use <code>clusterExplodeScores</code>; -90 is death.</td><td><code>GeneratorScreen.swift:3623</code>, <code>3873</code>, <code>4847</code>; <code>ClustersScreen.swift</code>; <code>MPCGDGenome.swift:344</code></td></tr>
+        <tr><td>5 Audio</td><td><code>.audioTop</code>, <code>.audio</code>, <code>.audioChoice</code>, <code>.ambiance</code>, <code>.sfxPack</code>, <code>.sfxBooleans</code>, <code>VolumesScreen</code>, <code>AudioEqualiserScreen</code></td><td><code>soundtrackPack</code>, <code>musicChoice</code>, <code>ambiance1...5</code>, <code>channelVolume1...5</code>, <code>channelTempo1...5</code>, <code>sfxPack</code>, <code>sfxBooleans</code>, <code>soundtrackMasterVolume</code>, <code>sfxVolume</code></td><td>Master volumes and channel volumes/tempos are 0...30. <code>soundtrackPack</code>: 0 off, 1 music, 2 ambience. Music choice 0...5. Ambience track indices 0...30 per channel. SFX pack 0...8. SFX booleans are an 8-bit mask for Bounce, Gain pts, Lose pts, Tap, Win game, Lose game, Explode, Lose life.</td><td><code>GeneratorScreen.swift:3662</code>, <code>3783</code>, <code>4356</code>; <code>VolumesScreen.swift</code>; <code>AudioEqualiserScreen.swift</code></td></tr>
+        <tr><td>6 Controller & Scene</td><td><code>.gridTop</code>, <code>.gridShapeTop</code>, <code>.gridShape</code>, <code>.gridOrientation</code>, <code>.gridGrain</code>, <code>.gridSize</code>, <code>.gridColour</code>, <code>.gridShade</code>, <code>.gridControl</code>, <code>.backgroundChoice</code>, <code>.backgroundShade</code>, <code>GridSizeScreen</code></td><td><code>controllerPack</code>, <code>gridShape</code>, <code>gridOrientation</code>, <code>gridGrain</code>, <code>gridSize</code>, <code>gridColour</code>, <code>gridShade</code>, <code>gridControl</code>, <code>gridStartX</code>, <code>gridStartY</code>, <code>gridReflection</code>, <code>backgroundChoice</code>, <code>backgroundShade</code>, <code>dayNightCycle</code></td><td>Controller pack: 0 off, 1 shape grid, 2 emoji. Shape/orientation/grain/colour/shade/control are each 0...8. Grid size is encoded 1...62 but slider maximum is 61; it is clamped by bounding-box checks. Start X/Y are 0...60 positions across the preview screen. Reflection 0...3. Background choice/shade are 0...8. Day/night cycle: 0 off/static, 1 left-right cycle, 2 looping cycle; disabled if game duration is off.</td><td><code>GeneratorScreen.swift:1173</code>, <code>2324</code>, <code>2582</code>, <code>2697</code>, <code>4451</code>; <code>GridSizeScreen.swift</code>; <code>GridGenerator.swift</code></td></tr>
+        <tr><td>7 Spawn & Score Zones</td><td><code>.whiteSpawn</code>, <code>.blueSpawn</code>, <code>.whiteScoreZone</code>, <code>.blueScoreZone</code>, <code>SpawnScreen</code>, <code>ZoneScoreScreen</code></td><td><code>whiteEdgeSpawnPositions</code>, <code>whiteMidSpawnPositions</code>, <code>whiteCentralSpawnPositions</code>, <code>blueEdgeSpawnPositions</code>, <code>blueMidSpawnPositions</code>, <code>blueCentralSpawnPositions</code>, <code>whiteSpawnRate</code>, <code>blueSpawnRate</code>, <code>whiteScoreZones</code>, <code>blueScoreZones</code>, <code>whiteZoneScore</code>, <code>blueZoneScore</code></td><td>Each spawn-position field is a 4-bit mask 0...15. There are three fields per character: edge, mid, central. Within each field, bits are top, bottom, left, right. The UI shows these 12 toggles as six visible buttons split into left/right halves: edge top/bottom, edge left/right, mid top/bottom, mid left/right, central top/bottom, central left/right. Spawn rate index 0...31 maps to seconds/rate values <code>[0.1,0.2,...,9.0]</code>. Score zones are a 5-bit mask: top, right, bottom, left, corners. Zone score uses the shared score table; -90 is death.</td><td><code>GeneratorScreen.swift:2180</code>, <code>2264</code>, <code>4541</code>; <code>SpawnScreen.swift</code>; <code>ZoneScoreScreen.swift</code></td></tr>
+        <tr><td>8 Endings</td><td><code>.gameEndChoice</code>, <code>GameEndingsScreen</code></td><td><code>pointsToWin</code>, <code>gameDuration</code>, <code>numLives</code>, <code>dayNightCycle</code></td><td>Points-to-win uses <code>winningScores</code>; 0 means off. Duration uses <code>gameDurations</code>; 0 means off. Lives 0...9; 0 means off. If duration is set to 0, <code>dayNightCycle</code> is forced to 0 and background cycling is disabled.</td><td><code>GeneratorScreen.swift:4127</code>, <code>4706</code>; <code>GameEndingsScreen.swift</code>; <code>MPCGDGenome.swift:350</code></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Option Arrays and Mappings</h2>
+    <table>
+      <thead><tr><th>Name</th><th>Values</th><th>Used By</th></tr></thead>
+      <tbody>
+        <tr><td><code>sizeNums</code></td><td>Base sizes <code>[3,7,11,15,19,23,27,31]</code>; size-picker display sizes are doubled to <code>[6,14,22,30,38,46,54,62]</code>.</td><td>White/blue character size masks.</td></tr>
+        <tr><td><code>spawnRates</code></td><td><code>[0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0,1.2,1.4,1.6,1.8,2.0,2.2,2.4,2.6,2.8,3.0,3.5,4.0,4.5,5.0,5.5,6.0,6.5,7.0,7.5,8.0,8.5,9.0]</code></td><td>White/blue spawn-rate sliders.</td></tr>
+        <tr><td>Shared score table</td><td><code>-90,-80,-70,-60,-50,-45,-40,-35,-30,-25,-20,-19...21,25,30,35,40,45,50,60,70,80,90</code>. <code>-90</code> displays as the death symbol.</td><td>Tap, zone, controller collision, and cluster scores.</td></tr>
+        <tr><td><code>tapActions</code></td><td><code>Off, Explode, Reverse, Spring, Change, Bounce, Ping, Down, Left, Right</code>. Current picker shows actions 1...6.</td><td>White/blue tap actions.</td></tr>
+        <tr><td><code>winningScores</code></td><td>0...30 in steps, then 35...100 by 5, then 125,150,175,200,250...900. 0 means off.</td><td>Points-to-win ending.</td></tr>
+        <tr><td><code>gameDurations</code></td><td>0, 5...30, 35...100 by 5, 125,150,175,200,250...1000,1020,3600. 0 means off.</td><td>Timed ending and day/night availability.</td></tr>
+        <tr><td><code>gridControl</code></td><td>Labels: None, Move, Float, Teleport, Rotate, Up/Down, Left/Right, Chase, Grid.</td><td>Controller behaviour.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Chromosome Encoding</h2>
+    <p>A game chromosome is the ordered encoding of <code>MPCGDGenome</code>. The UI edits fields on the live genome, then the genome is encoded by <code>MPCGDGenome.encode(_ g: GenomeEncoder)</code>. The same field order is used for <code>encodeAsParameterArray()</code>, <code>encodeAsBase62()</code>, and <code>encodeAsBase64()</code>.</p>
+    <p>There are two encoding styles. Direct integer fields store the visible value or bitmask within a fixed range, such as <code>gridControl 0...8</code>. Array-backed fields store the index of a semantic value in an option array, such as <code>pointsToWin</code> encoded as its index in <code>winningScores</code>.</p>
+    <table>
+      <thead><tr><th>Chromosome Segment</th><th>Order</th><th>UI Source</th><th>Encoding Detail</th></tr></thead>
+      <tbody>
+        <tr><td>Version</td><td>1</td><td>Internal only</td><td><code>CONSUMER_GENOME_VERSION</code>, encoded in range <code>1...9</code>. Not editable from the design grid.</td></tr>
+        <tr><td>White character rules</td><td>2...21</td><td>Top cells 0, 1, 2, 3, 4, 7</td><td>Cluster size is encoded as index in <code>explodeNums</code>. Cluster score, tap score, zone score, and controller collision score are encoded as indices in shared score arrays. Tap action is direct <code>0...8</code>. Sizes are a bitmask <code>0...255</code>. Character collection/choice/icon pack are direct <code>0...8</code>. Spawn-position masks are direct <code>0...15</code>. Spawn rate is direct index <code>0...31</code>. Max-on-screen is direct <code>0...30</code>. Speed is <code>1...9</code>; noise, bounce, and rotation are direct small integers.</td></tr>
+        <tr><td>Blue character rules</td><td>22...41</td><td>Top cells 0, 1, 2, 3, 4, 7</td><td>Same structure as white: cluster size/score, tap action/score, size mask, character identity, spawn masks/rate, score-zone mask/score, max-on-screen, controller collision score, bounce, noise, speed, and rotation.</td></tr>
+        <tr><td>Mixed cluster rules</td><td>42...43</td><td>Top cell 4</td><td><code>mixedCriticalClusterSize</code> is encoded as an index in <code>explodeNums</code>. <code>mixedExplodeScore</code> is encoded as an index in <code>clusterExplodeScores</code>.</td></tr>
+        <tr><td>Controller/grid rules</td><td>44...54</td><td>Top cell 6</td><td><code>controllerPack</code>, <code>gridShape</code>, <code>gridOrientation</code>, <code>gridGrain</code>, <code>gridColour</code>, <code>gridShade</code>, and <code>gridControl</code> are direct <code>0...8</code>. <code>gridSize</code> encodes direct <code>1...62</code>. <code>gridStartX</code> and <code>gridStartY</code> encode direct <code>0...60</code>. <code>gridReflection</code> encodes direct <code>0...3</code>.</td></tr>
+        <tr><td>Audio rules</td><td>55...72</td><td>Top cell 5</td><td><code>soundtrackPack</code> and <code>sfxPack</code> are direct <code>0...8</code>. <code>musicChoice</code> is direct <code>0...5</code>. Five ambience choices encode direct <code>0...30</code>. Five channel volumes and five channel tempos encode direct <code>0...30</code>. <code>sfxBooleans</code> is an 8-bit mask <code>0...255</code>. Master soundtrack and SFX volumes encode direct <code>0...30</code>.</td></tr>
+        <tr><td>Scene/misc rules</td><td>73...76</td><td>Top cells 3 and 6</td><td><code>backgroundPack</code> encodes direct <code>0...17</code>; the current UI mainly uses <code>backgroundChoice</code> and <code>backgroundShade</code>, each direct <code>0...8</code>. <code>ballControllerExplosions</code> encodes direct <code>0...3</code>.</td></tr>
+        <tr><td>Ending rules</td><td>77...80</td><td>Top cells 6 and 8</td><td><code>pointsToWin</code> is encoded as an index in <code>winningScores</code>. <code>gameDuration</code> is encoded as an index in <code>gameDurations</code>. <code>numLives</code> is direct <code>0...9</code>. <code>dayNightCycle</code> is direct <code>0...2</code>.</td></tr>
+      </tbody>
+    </table>
+    <p>Because the chromosome is order-dependent, adding, removing, or reordering encoded fields changes saved game compatibility. UI-only labels, icons, highlights, and preview nodes do not affect the chromosome unless they write one of these genome fields.</p>
+  </section>
+
+  <section>
+    <h2>Chromosome Field Order</h2>
+    <table>
+      <thead><tr><th>#</th><th>Field</th><th>Top UI Cell</th><th>Encoding</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td><code>CONSUMER_GENOME_VERSION</code></td><td>Internal</td><td>Direct <code>1...9</code></td></tr>
+        <tr><td>2</td><td><code>whiteCriticalClusterSize</code></td><td>4 Clusters</td><td>Index in <code>explodeNums</code></td></tr>
+        <tr><td>3</td><td><code>whiteExplodeScore</code></td><td>4 Clusters</td><td>Index in <code>clusterExplodeScores</code></td></tr>
+        <tr><td>4</td><td><code>whiteTapAction</code></td><td>1 Tap</td><td>Direct <code>0...8</code></td></tr>
+        <tr><td>5</td><td><code>whiteTapScore</code></td><td>1 Tap</td><td>Index in <code>tapScores</code></td></tr>
+        <tr><td>6</td><td><code>whiteSizes</code></td><td>0 Characters</td><td>Bitmask <code>0...255</code></td></tr>
+        <tr><td>7...9</td><td><code>whiteBallIconPack</code>, <code>whiteBallCollection</code>, <code>whiteBallChoice</code></td><td>0 Characters</td><td>Direct <code>0...8</code> each</td></tr>
+        <tr><td>10...12</td><td><code>whiteEdgeSpawnPositions</code>, <code>whiteMidSpawnPositions</code>, <code>whiteCentralSpawnPositions</code></td><td>7 Spawn</td><td>Bitmask <code>0...15</code> each</td></tr>
+        <tr><td>13</td><td><code>whiteSpawnRate</code></td><td>7 Spawn</td><td>Direct index <code>0...31</code> into <code>spawnRates</code></td></tr>
+        <tr><td>14</td><td><code>whiteScoreZones</code></td><td>7 Spawn</td><td>Bitmask <code>0...31</code></td></tr>
+        <tr><td>15</td><td><code>whiteZoneScore</code></td><td>7 Spawn</td><td>Index in <code>zoneScores</code></td></tr>
+        <tr><td>16</td><td><code>whiteMaxOnScreen</code></td><td>0 Characters</td><td>Direct <code>0...30</code></td></tr>
+        <tr><td>17</td><td><code>whiteControllerCollisionScore</code></td><td>3 Controller Collisions</td><td>Index in <code>collisionScores</code></td></tr>
+        <tr><td>18...21</td><td><code>whiteBounce</code>, <code>whiteNoise</code>, <code>whiteSpeed</code>, <code>whiteRotation</code></td><td>2 Movement</td><td>Direct <code>0...8</code>, <code>0...8</code>, <code>1...9</code>, <code>0...2</code></td></tr>
+        <tr><td>22...41</td><td>Blue equivalents of fields 2...21</td><td>0, 1, 2, 3, 4, 7</td><td>Same encoding as white equivalents</td></tr>
+        <tr><td>42...43</td><td><code>mixedCriticalClusterSize</code>, <code>mixedExplodeScore</code></td><td>4 Clusters</td><td>Index in <code>explodeNums</code>; index in <code>clusterExplodeScores</code></td></tr>
+        <tr><td>44...54</td><td><code>controllerPack</code>, <code>gridShape</code>, <code>gridOrientation</code>, <code>gridGrain</code>, <code>gridSize</code>, <code>gridColour</code>, <code>gridShade</code>, <code>gridControl</code>, <code>gridStartX</code>, <code>gridStartY</code>, <code>gridReflection</code></td><td>6 Controller & Scene</td><td>Direct ranges: <code>0...8</code>, <code>0...8</code>, <code>0...8</code>, <code>0...8</code>, <code>1...62</code>, <code>0...8</code>, <code>0...8</code>, <code>0...8</code>, <code>0...60</code>, <code>0...60</code>, <code>0...3</code></td></tr>
+        <tr><td>55...72</td><td>Audio fields from <code>soundtrackPack</code> through <code>sfxVolume</code></td><td>5 Audio</td><td>Mostly direct <code>0...30</code> values; <code>soundtrackPack</code>/<code>sfxPack</code> <code>0...8</code>, <code>musicChoice</code> <code>0...5</code>, <code>sfxBooleans</code> bitmask <code>0...255</code></td></tr>
+        <tr><td>73...76</td><td><code>backgroundPack</code>, <code>backgroundChoice</code>, <code>backgroundShade</code>, <code>ballControllerExplosions</code></td><td>6 Controller & Scene, 3 Controller Collisions</td><td>Direct <code>0...17</code>, <code>0...8</code>, <code>0...8</code>, <code>0...3</code></td></tr>
+        <tr><td>77...80</td><td><code>pointsToWin</code>, <code>gameDuration</code>, <code>numLives</code>, <code>dayNightCycle</code></td><td>8 Endings, 6 Controller & Scene</td><td>Index in <code>winningScores</code>; index in <code>gameDurations</code>; direct <code>0...9</code>; direct <code>0...2</code></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Runtime Physics Model</h2>
+    <p>The playable game is driven by <code>Fascinator</code>, <code>Ball</code>, and the <code>ArtImageController</code> implementations. SpriteKit is the current physics engine, but the model can be replicated in another engine as a small 2D rigid-body simulation with two dynamic ball classes, one optional dynamic controller body, sensor-style scoring zones, and scripted per-frame rules.</p>
+    <table>
+      <thead><tr><th>Runtime Object</th><th>Role</th><th>Physics Requirements</th><th>Source</th></tr></thead>
+      <tbody>
+        <tr><td>White character balls</td><td>Runtime <code>foe</code> balls. These are the white UI character type.</td><td>Dynamic bodies with character-shaped or circular collision bodies, mass <code>0.5</code>, restitution from <code>whiteBounce / 10</code>, optional rotation, optional constant angular velocity, optional noise field, and a velocity/attraction model derived from <code>whiteSpeed</code>.</td><td><code>MPCGDGenome.applyModifications()</code>, <code>Ball.updatePhysicsBodyOnChange()</code></td></tr>
+        <tr><td>Blue character balls</td><td>Runtime <code>friend</code> balls. These are the blue UI character type.</td><td>Same body model as white, but mapped from blue genome fields: <code>blueBounce</code>, <code>blueNoise</code>, <code>blueSpeed</code>, <code>blueRotation</code>, <code>blueSizes</code>, and blue spawn/score fields.</td><td><code>MPCGDGenome.applyModifications()</code>, <code>Ball.swift</code></td></tr>
+        <tr><td>Controller</td><td>The player-controlled grid shape or emoji body. Absent when <code>controllerPack == 0</code>.</td><td>Dynamic body, mass <code>10</code>, linear damping <code>1</code>, restitution currently mapped to <code>0</code>. Can be free, pinned, slider-constrained, rotatable, grid-snapped, or teleported depending on <code>gridControl</code>.</td><td><code>Fascinator.addPhysicsToScene()</code>, <code>MPCGDGenome.applyModifications()</code></td></tr>
+        <tr><td>Walls</td><td>Oversized offscreen boundary rectangles.</td><td>Static bodies. Used when controller/image wall collision is enabled. Ball wall collision is controlled per ball by wall bitmasks; controller wall collision is controlled by <code>imageWallCollision</code>.</td><td><code>Fascinator.addWalls()</code></td></tr>
+        <tr><td>Fields</td><td>Force fields for attraction/noise/finger attraction.</td><td>Can be implemented as per-frame forces instead of engine-native fields. The current code uses radial gravity, linear gravity, and noise fields with category masks.</td><td><code>Fascinator.setupAttractField()</code>, <code>addPhysicsToScene()</code></td></tr>
+      </tbody>
+    </table>
+    <p>Global gravity is zero. The physics clock is scaled by <code>gameSpeed</code>; the base design games normally use a gameplay chromosome with <code>physicsSpeed</code> applied to <code>scene.physicsWorld.speed</code>. All coordinates are screen-space 2D positions.</p>
+  </section>
+
+  <section>
+    <h2>Design To Physics Mapping</h2>
+    <table>
+      <thead><tr><th>Design UI Parameter</th><th>Runtime Physics Meaning</th><th>Reimplementation Rule</th></tr></thead>
+      <tbody>
+        <tr><td><code>whiteSizes</code>, <code>blueSizes</code></td><td>Allowed spawn radii for each ball type. Design base sizes are <code>[3,7,11,15,19,23,27,31]</code>; SpriteKit icons use diameter <code>size * 2</code>.</td><td>On spawn, randomly choose one selected size as the ball radius. Render and collide at diameter <code>2 * radius</code>. Preserve selected size masks so games with multiple sizes spawn varied balls.</td></tr>
+        <tr><td><code>whiteMaxOnScreen</code>, <code>blueMaxOnScreen</code></td><td>Per-type active ball limits. White maps to runtime foe; blue maps to runtime friend.</td><td>Before spawning a ball, count active non-removed balls of that type. If count is at the limit, do not spawn. The runtime also checks a total max-ball limit inherited from <code>GameplayChromosome</code>.</td></tr>
+        <tr><td><code>whiteSpawnRate</code>, <code>blueSpawnRate</code></td><td>Spawn rate index into <code>MPCGDGenome.spawnRates</code>.</td><td>Maintain <code>nextSpawnTime</code> per type. After a successful spawn, set <code>nextSpawnTime = elapsedTime + 1 / spawnRate</code>. If rate is zero, no future spawn occurs because the interval is infinite.</td></tr>
+        <tr><td>Spawn-position masks</td><td>Discrete offscreen spawn-point pools. Each type has edge, mid, and central masks. The code expands masks into arrays of points just outside the screen.</td><td>Build 12 optional spawn bands in this order: edge top, edge bottom, edge left, edge right; mid top, mid bottom, mid left, mid right; central top, central bottom, central left, central right. Runtime spawn points are offscreen by about <code>30</code> points. Edge spans nearly the whole side, mid spans the middle third, and central spans roughly 45%-55% of the side. Choose randomly from enabled points.</td></tr>
+        <tr><td><code>whiteSpeed</code>, <code>blueSpeed</code></td><td>Mapped to attraction strength, not direct velocity. The design value 1...9 is transformed with <code>-1.9 + 2.9 * ((speed - 1) / 9)</code>; negative values are halved; then encoded around a centre value.</td><td>Use speed as a force/attraction tuning value. Low values repel or weakly attract; high values attract more strongly according to the formula above. Apply toward the runtime target configured by the base gameplay chromosome, usually centre or side-based movement.</td></tr>
+        <tr><td><code>whiteNoise</code>, <code>blueNoise</code></td><td>Random movement perturbation. Runtime noise strength is <code>noise / 10</code>. Noise waviness is <code>0.1</code>, except values above 7 use <code>0.5</code>.</td><td>Add a continuous random/noise force to each affected ball. If the target engine has no noise field, approximate with smoothly varying random acceleration per ball.</td></tr>
+        <tr><td><code>whiteBounce</code>, <code>blueBounce</code></td><td>Ball restitution/bounciness. Runtime value is <code>bounce / 10</code>.</td><td>Set each ball body's coefficient of restitution to this value. Use wall restitution around <code>0.5</code> and controller restitution around <code>0</code> to match current mapping.</td></tr>
+        <tr><td><code>whiteRotation</code>, <code>blueRotation</code></td><td>Rotation mode: 0 free/default, 1 constant spinning, 2 rigid/no rotation.</td><td>For 0, allow rotation and no forced angular velocity. For 1, allow rotation and set angular velocity to about <code>7</code> while on screen. For 2, disable body rotation and angular velocity.</td></tr>
+        <tr><td><code>whiteTapAction</code>, <code>blueTapAction</code></td><td>Action applied when a touch hits a ball. Scores are applied independently through <code>whiteTapScore</code>/<code>blueTapScore</code>.</td><td>Map design indices through <code>[nothing, destroy, reverse, stickInPlace, changeColour, bounce, ping, impulseUp, impulseDown, impulseLeft, impulseRight]</code>. The UI currently exposes the first six non-off actions.</td></tr>
+        <tr><td>Cluster sizes and scores</td><td>When collision action is <code>stick</code>, touching balls become connected by spring joints. If a connected component reaches its critical size, all balls in the component explode and score.</td><td>Maintain graph edges between stuck balls. On each stick event, flood-fill same-type or mixed clusters. If size >= threshold, remove all balls in that cluster and add the configured score.</td></tr>
+        <tr><td><code>ballControllerExplosions</code></td><td>Controls whether ball-controller collisions bounce or destroy. 0 bounce both, 1 destroy white/foe, 2 destroy blue/friend, 3 destroy both.</td><td>On controller contact, either destroy the ball immediately or allow ordinary collision response. Still apply controller collision score when score cooldown permits.</td></tr>
+        <tr><td><code>whiteScoreZones</code>, <code>blueScoreZones</code></td><td>Offscreen scoring masks. White zone scores foe/white balls leaving selected sides; blue zone scores friend/blue balls leaving selected sides.</td><td>When a ball has been on screen and then leaves, test top/right/bottom/left/corner masks. If the corresponding mask is active, add zone score and remove the ball.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Interaction Loop</h2>
+    <p>To replicate gameplay in another engine, implement this per-frame loop and event model:</p>
+    <table>
+      <thead><tr><th>Step</th><th>Engine-independent Behavior</th><th>Source</th></tr></thead>
+      <tbody>
+        <tr><td>1. Initialise</td><td>Create a zero-gravity world. Create controller if enabled. Create static walls if needed. Convert spawn masks to point pools. Create per-type fields or force rules. Spawn initial balls from the base runtime chromosome if configured.</td><td><code>Fascinator.restart()</code>, <code>addPhysicsToScene()</code>, <code>MPCGDGenome.applyModifications()</code></td></tr>
+        <tr><td>2. Spawn timing</td><td>Track elapsed game time. If <code>elapsed >= nextSpawnTime[type]</code> and the type is below max-on-screen limits, choose radius, choose an allowed spawn point, verify it does not overlap existing balls/controller too closely, then create the ball.</td><td><code>tryToSpawnBall()</code>, <code>spawnBall()</code>, <code>tick()</code></td></tr>
+        <tr><td>3. Ball creation</td><td>Create a dynamic body at the spawn point. Pick initial direction from runtime mode: random, toward/away from centre, toward/away from controller, toward side/opposite side, or controller aim direction. Set velocity to direction times initial speed.</td><td><code>spawnBall()</code></td></tr>
+        <tr><td>4. User touch begin</td><td>Record finger position. Forward the touch to the controller mode. Find balls within tap radius. In tap mode, affect nearest ball only; in drag mode, affect every ball under the radius. If no ball consumed the touch, optionally perform background/controller tap action.</td><td><code>Fascinator.touchesBegan()</code></td></tr>
+        <tr><td>5. User drag</td><td>After drag threshold is exceeded, forward the drag to the active controller and optionally apply ball touch actions continuously to balls inside drag radius. Finger attraction fields are enabled and moved to the touch point.</td><td><code>Fascinator.touchesDragged()</code></td></tr>
+        <tr><td>6. User touch end</td><td>End controller input. Disable finger attraction fields. Restore rotation permissions if a spring-attached controller temporarily locked rotation.</td><td><code>Fascinator.touchesEnded()</code></td></tr>
+        <tr><td>7. Physics contacts</td><td>On ball-ball contact, apply colour-change rule, then collision action: bounce/pass-through/stick/destroy. On ball-controller contact, destroy or bounce based on controller collision mode, score with cooldown, and optionally start stick-to-controller timing.</td><td><code>didBegin()</code>, <code>handleBallCollision()</code>, <code>handleBallControllerCollision()</code></td></tr>
+        <tr><td>8. Per-ball update</td><td>Track on-screen state, enforce speed limits if configured, apply constant angular velocity, animate type/size changes, update stuck-to-controller timers, and mark impossible offscreen balls for removal.</td><td><code>Ball.update()</code></td></tr>
+        <tr><td>9. Removal and scoring</td><td>Remove balls marked for explosion/removal. If a ball leaves the screen after being visible, test scoring/dead-zone masks, add configured scores, play effects, then remove it.</td><td><code>Fascinator.tick()</code></td></tr>
+        <tr><td>10. Game ending</td><td>End when lives are exhausted, score reaches threshold, or duration expires. Score threshold maps from <code>pointsToWin</code>; duration maps from <code>gameDuration</code>; lives map from <code>numLives</code>.</td><td><code>Fascinator.tick()</code>, <code>getGameEndDetails()</code></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Controller Modes</h2>
+    <table>
+      <thead><tr><th><code>gridControl</code></th><th>Label</th><th>Runtime Control</th><th>Reimplementation Formula</th></tr></thead>
+      <tbody>
+        <tr><td>0</td><td>None</td><td>No active input control. Controller is pinned and cannot be dragged.</td><td>Set controller control mode to none. Use a pin/fixed anchor at its start position.</td></tr>
+        <tr><td>1</td><td>Move</td><td>Default drag-move controller.</td><td>On drag, compute offset between finger target and the touched local anchor point; set controller velocity to <code>offset * 20</code>, with boundary clamping.</td></tr>
+        <tr><td>2</td><td>Float</td><td>Drag-move with rotation allowed.</td><td>Same as Move, but allow controller body rotation.</td></tr>
+        <tr><td>3</td><td>Teleport</td><td>Touch end teleports controller to touch point.</td><td>Store target on touch end. On next tick, set controller position directly and flag <code>controllerHasJustTeleported</code>; collisions during that tick destroy contacted balls.</td></tr>
+        <tr><td>4</td><td>Rotate</td><td>Drag around a central attachment point to rotate the controller.</td><td>On touch begin, store angular offset between finger vector and current body angle. On drag, compute target angle and set angular velocity to shortest-angle-difference * <code>20</code>.</td></tr>
+        <tr><td>5</td><td>Up/Down</td><td>Drag-move constrained by a vertical slider joint.</td><td>Use drag velocity but zero horizontal velocity, or implement a prismatic joint with vertical axis.</td></tr>
+        <tr><td>6</td><td>Left/Right</td><td>Drag-move constrained by a horizontal slider joint.</td><td>Use drag velocity but zero vertical velocity, or implement a prismatic joint with horizontal axis.</td></tr>
+        <tr><td>7</td><td>Chase</td><td>Controller accelerates toward finger and aims at finger.</td><td>While touching, if distance > 5, apply force <code>normalise(finger - position) * 10000</code>. Also set angular velocity to shortest aiming-angle error * <code>10</code>.</td></tr>
+        <tr><td>8</td><td>Grid</td><td>Swipe moves the controller one grid cell, then snap force pulls it to the target.</td><td>Use a 10x10 grid. On swipe end, choose dominant axis and move target by one grid step. Each frame apply force based on target velocity: <code>force = clamp((target - position) * 30 - currentVelocity, 0...500) * 300</code>.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Collision And Tap Actions</h2>
+    <table>
+      <thead><tr><th>Action</th><th>Behavior To Replicate</th></tr></thead>
+      <tbody>
+        <tr><td>Tap destroy / Explode</td><td>Apply tap score, play tap/explosion effects, mark ball for removal, and remove it on the next tick.</td></tr>
+        <tr><td>Tap reverse</td><td>Flip the ball's logical spawned side to the opposite side, update its attraction/field mask, zero its velocity, and update orientation if the character artwork needs it.</td></tr>
+        <tr><td>Tap spring / stick in place</td><td>Toggle a joint between the ball and the static scene body. The current implementation uses the ball's configured attachment model.</td></tr>
+        <tr><td>Tap change</td><td>Switch white to blue or blue to white. Recompute character, radius, collision body, and genome subchromosome. Animate radius change while preserving velocity.</td></tr>
+        <tr><td>Tap bounce</td><td>Temporarily replace the physics body with a non-colliding lightweight body while scaling the sprite up/down, then restore the original body and velocity. This creates a hop/flying effect.</td></tr>
+        <tr><td>Tap ping</td><td>Apply an impulse in the current direction of travel. The dominant axis is scaled to about <code>250</code>; the minor axis is proportional. Directional impulses use fixed values: up/down <code>50</code>, left/right <code>30</code>.</td></tr>
+        <tr><td>Ball-ball bounce</td><td>Let the physics engine's normal collision response occur with configured restitution/friction.</td></tr>
+        <tr><td>Ball-ball pass-through</td><td>Remove collision between those categories, but contacts can still be tested if needed.</td></tr>
+        <tr><td>Ball-ball stick</td><td>Create a spring joint between the two bodies with frequency <code>1</code> and damping <code>1</code>. Disable rotation on both. Add graph edges so clusters can be detected.</td></tr>
+        <tr><td>Ball-controller bounce</td><td>Let collision response occur, add controller collision score if at least <code>0.2s</code> since that ball's previous controller score, and play bounce/score sounds if enabled.</td></tr>
+        <tr><td>Ball-controller destroy</td><td>Remove the ball with explosion effect. Still run score/effects logic where applicable.</td></tr>
+        <tr><td>Stick to controller</td><td>If configured stick time is non-negative, accumulate contact time while touching controller. When accumulated time reaches threshold, attach the ball to the controller with a pin joint.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Implementation Notes</h2>
+    <p>The UI generally edits the live genome immediately and calls <code>onGameAlterationCode?(liveMPCGDGenome, isLocked)</code> after selection or slider release. Slider <code>onDragCode</code> usually updates labels/previews only; <code>touchEndCode</code> persists the genome mutation.</p>
+    <p>Top cell 7 is a four-step wizard: white spawn, blue spawn, white score zones, blue score zones. Top cell 1 and cell 2 are two-step wizards: white first, blue second. Cell 6 has deeper branches for controller type, shape/emoji, background, colour, placement, reflection, and control.</p>
+    <p>Screen aspect references: <code>GridGenerator.getScreenSizeForButton</code> and spawn rendering use iPad-style 4:3 and iPhone-style 16:9 ratios. Controller previews use extra scaling in <code>setUpTallButton()</code>, <code>setUpBigButton()</code>, and <code>addControllerButton()</code>.</p>
+  </section>
+
+  <section>
+    <h2>Source Index</h2>
+    <table>
+      <thead><tr><th>File</th><th>Role</th></tr></thead>
+      <tbody>
+        <tr><td><code>Engine/GeneratorScreen.swift</code></td><td>Main 3x3 tray, top composition, routing, button mutation handlers, overlay previews.</td></tr>
+        <tr><td><code>Engine/MPCGDGenome.swift</code></td><td>Genome fields, defaults, encoding bounds, option arrays.</td></tr>
+        <tr><td><code>Engine/ButtonSetEnum.swift</code></td><td>Button-set state machine enum.</td></tr>
+        <tr><td><code>Engine/DesignScreenName.swift</code></td><td>Display name enum used elsewhere for design concepts.</td></tr>
+        <tr><td><code>Engine/BallChoiceScreen.swift</code>, <code>BallBehavioursScreen.swift</code>, <code>BallTapScreen.swift</code></td><td>Character count, movement, and tap score slider components.</td></tr>
+        <tr><td><code>Engine/SpawnScreen.swift</code>, <code>ZoneScoreScreen.swift</code>, <code>GameEndingsScreen.swift</code></td><td>Spawn rate, score zone, and ending sliders.</td></tr>
+        <tr><td><code>Engine/ControllerCollisionsScreen.swift</code>, <code>ClustersScreen.swift</code></td><td>Collision and cluster score/size sliders.</td></tr>
+        <tr><td><code>Engine/VolumesScreen.swift</code>, <code>AudioEqualiserScreen.swift</code></td><td>Audio master volume, SFX, channel volume, and tempo controls.</td></tr>
+        <tr><td><code>Engine/GridGenerator.swift</code></td><td>Controller/grid drawing, bounding boxes, and screen-size calculations.</td></tr>
+        <tr><td><code>Engine/MPCGDGenome.swift</code> <code>applyModifications()</code></td><td>Projection from design genome fields into the runtime <code>GameplayChromosome</code>, scoring object, spawn locations, controller setup, and runtime art/controller data.</td></tr>
+        <tr><td><code>Engine/Fascinator.swift</code></td><td>Playable runtime: physics-world setup, spawning loop, touch dispatch, collision/contact handling, scoring zones, game-over checks.</td></tr>
+        <tr><td><code>Engine/Ball.swift</code></td><td>Dynamic ball body setup, body parameters, stuck joints, type changes, per-ball update rules, speed limits, on/off-screen state.</td></tr>
+        <tr><td><code>Engine/DragMoveController.swift</code>, <code>DragRotateController.swift</code>, <code>TowardsFingerController.swift</code>, <code>GridSwipeController.swift</code>, <code>TeleportController.swift</code></td><td>Runtime user-control modes behind the <code>gridControl</code> options.</td></tr>
+        <tr><td><code>Engine/GameplayChromosome.swift</code></td><td>Runtime physics/control/scoring gene model that the simpler design genome is mapped onto.</td></tr>
+      </tbody>
+    </table>
+  </section>
+</main>
+</body>
+</html>

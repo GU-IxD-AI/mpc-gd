@@ -169,7 +169,8 @@ class SessionHandler {
             let savedSessions = try context.fetch(request)
             for session in savedSessions{
                 let jsonRepresentation = (session as AnyObject).value(forKey: "jsonRepresentation") as! String
-                sessions.append(Session(dict: JsonUtils.jsonStringToObject(jsonRepresentation) as! Dictionary<String, AnyObject>))
+                guard let sessionDict = JsonUtils.jsonStringToObject(jsonRepresentation) as? Dictionary<String, AnyObject> else { continue }
+                sessions.append(Session(dict: sessionDict))
             }
             if sessions.count > 0 {
                 return sessions
@@ -186,7 +187,7 @@ class SessionHandler {
     
     static func getTempGame() -> MPCGDGenome {
         let gameString = retrieveCachedData(CacheType.game)
-        let gameParameters = JsonUtils.jsonStringToObject(gameString) as! Dictionary<String, AnyObject>
+        let gameParameters = JsonUtils.jsonStringToObject(gameString) as? Dictionary<String, AnyObject> ?? [:]
 
         var game = MPCGDGenome()
         if gameParameters.count > 0 {
@@ -282,14 +283,14 @@ struct Session {
     init(dict: Dictionary<String, AnyObject>){
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-        let sn = dict["date"] as! String
-        self.date = formatter.date(from: sn)!
-        self.levelName = dict["level"] as! String
-        self.userID = dict["user"] as! String
-        self.time = dict["time"] as! Int
-        self.score = dict["score"] as! Int
-        self.quit = dict["quit"] as! Bool
-        self.wasWon = dict["won"] as! Bool
+        let sn = dict["date"] as? String ?? ""
+        self.date = formatter.date(from: sn) ?? Date()
+        self.levelName = dict["level"] as? String ?? ""
+        self.userID = dict["user"] as? String ?? ""
+        self.time = dict["time"] as? Int ?? 0
+        self.score = dict["score"] as? Int ?? 0
+        self.quit = dict["quit"] as? Bool ?? false
+        self.wasWon = dict["won"] as? Bool ?? false
     }
     
     func getJsonRepresentation() -> String{
@@ -315,4 +316,3 @@ struct Session {
         return Session(dict: getDict() as! Dictionary<String, AnyObject>)
     }
 }
-

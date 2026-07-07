@@ -71,6 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if MPCGDAudio.engine.isRunning {
                 _ = MPCGDAudio.start()
             }
+            mainScene.db_client?.flushPendingBacklog()
         }
     }
     
@@ -146,4 +147,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 }
-

@@ -13,7 +13,7 @@ class FascinatorLoader{
     
     static func loadFascinator(_ fascinatorName: String, genomeJsonString: String, controller: UIImage?, baseCampType: BaseCampType, scene: MainScene){
         
-        let dict = JsonUtils.jsonStringToObject(genomeJsonString) as! NSDictionary
+        let dict = JsonUtils.jsonStringToObject(genomeJsonString) as? NSDictionary ?? NSDictionary()
         
         scene.isPaused = true
         
@@ -42,8 +42,8 @@ class FascinatorLoader{
         scene.fascinator.drawingPaths = drawing.paths
         newFascinator.calculateImageLayers()
         
-        let textsDict = dict["Texts"] as! NSDictionary
-        newFascinator.customHelpText = textsDict["Help"] as! String
+        let textsDict = dict["Texts"] as? NSDictionary
+        newFascinator.customHelpText = textsDict?["Help"] as? String ?? ""
         
         newFascinator.addPhysicsToScene(scene)
         
@@ -59,8 +59,11 @@ class FascinatorLoader{
     }
     
     static func loadBaseCampFascinator(_ fascinatorName: String, baseCampType: BaseCampType, scene: MainScene){
-        let genomeJsonString = FileUtils.readFile("\(fascinatorName)_genome", fileType: "json")
-        loadBaseCampFascinator(fascinatorName, genomeJsonString: genomeJsonString!, baseCampType: baseCampType, scene: scene)
+        guard let genomeJsonString = FileUtils.readFile("\(fascinatorName)_genome", fileType: "json") else {
+            print("Could not load base camp genome JSON for \(fascinatorName)")
+            return
+        }
+        loadBaseCampFascinator(fascinatorName, genomeJsonString: genomeJsonString, baseCampType: baseCampType, scene: scene)
     }
     
     static func loadBaseCampFascinator(_ fascinatorName: String, genomeJsonString: String, baseCampType: BaseCampType, scene: MainScene){
@@ -72,14 +75,14 @@ class FascinatorLoader{
         var result = Dictionary<ChromosomeName, Chromosome>()
         
         // For compatibility with old games, if the JSON dictionary doesn't contain a "Gameplay" entry, use the "Movement & Collisions" entry instead
-        let gameplayDict = dict[ChromosomeName.Gameplay.rawValue] ?? dict["Movement & Collisions"]
+        let gameplayDict = dict[ChromosomeName.Gameplay.rawValue] ?? dict["Movement & Collisions"] ?? NSDictionary()
         let gameplayChromosome = GameplayChromosome(stringRepresentation: "")
-        gameplayChromosome.initFromJsonObject(gameplayDict as! [String : AnyObject])
+        gameplayChromosome.initFromJsonObject(gameplayDict as? [String : AnyObject] ?? [:])
         result[.Gameplay] = gameplayChromosome
         
-        let imageAndLightingDict = dict[ChromosomeName.ImageAndLighting.rawValue]
+        let imageAndLightingDict = dict[ChromosomeName.ImageAndLighting.rawValue] ?? NSDictionary()
         let imageAndLightingChromosome = ImageAndLightingChromosome(stringRepresentation: "")
-        imageAndLightingChromosome.initFromJsonObject(imageAndLightingDict as! [String : AnyObject])
+        imageAndLightingChromosome.initFromJsonObject(imageAndLightingDict as? [String : AnyObject] ?? [:])
         result[.ImageAndLighting] = imageAndLightingChromosome
         
         return result
@@ -87,12 +90,12 @@ class FascinatorLoader{
 
     static func convertJsonStringToDrawing(_ jsonString: String, dict: NSDictionary) -> FascinatorDrawing{
         let drawing = FascinatorDrawing()
-        let drawingsDict = dict["Drawings"] as! NSDictionary
+        let drawingsDict = dict["Drawings"] as? NSDictionary ?? NSDictionary()
         for (_, d) in drawingsDict{
-            let drawingDict = d as! NSDictionary
+            guard let drawingDict = d as? NSDictionary else { continue }
             let size = drawingDict.count
             for pos in 0..<size{
-                let pathDetails = drawingDict["path \(pos)"] as! NSDictionary
+                guard let pathDetails = drawingDict["path \(pos)"] as? NSDictionary else { continue }
                 drawing.paths.append(getPath(pathDetails))
             }
         }
@@ -101,18 +104,19 @@ class FascinatorLoader{
     
     static func getPath(_ pathDetails: NSDictionary) -> DrawingPath{
         let path = DrawingPath()
-        path.closed = pathDetails.value(forKey: "closed") as! Bool
-        let c = (pathDetails.value(forKey: "colour") as! String).components(separatedBy: ",")
-        path.hue = getCGFloat(c[0])
-        path.saturation = getCGFloat(c[1])
-        path.brightness = getCGFloat(c[2])
-        path.filled = pathDetails.value(forKey: "filled") as! Bool
-        path.pathPoints = getPathPoints(pathDetails.value(forKey: "points") as! String)
-        path.strokeWidth = pathDetails.value(forKey: "strokeWidth") as! CGFloat
-        path.tag = DrawingPathTag(rawValue: pathDetails.value(forKey: "tag") as! String)!
-        path.tagNumber = pathDetails.value(forKey: "tagNumber") as! Int
-        path.visible = pathDetails.value(forKey: "visible") as! Bool
-        path.isEraser = pathDetails.value(forKey: "isEraser") as! Bool
+        path.closed = pathDetails.value(forKey: "closed") as? Bool ?? false
+        let c = (pathDetails.value(forKey: "colour") as? String ?? "0,0,0").components(separatedBy: ",")
+        path.hue = c.indices.contains(0) ? getCGFloat(c[0]) : 0
+        path.saturation = c.indices.contains(1) ? getCGFloat(c[1]) : 0
+        path.brightness = c.indices.contains(2) ? getCGFloat(c[2]) : 0
+        path.filled = pathDetails.value(forKey: "filled") as? Bool ?? false
+        path.pathPoints = getPathPoints(pathDetails.value(forKey: "points") as? String ?? "")
+        path.strokeWidth = pathDetails.value(forKey: "strokeWidth") as? CGFloat ?? 0
+        let tagString = pathDetails.value(forKey: "tag") as? String ?? "Controller"
+        path.tag = DrawingPathTag(rawValue: tagString) ?? .Controller
+        path.tagNumber = pathDetails.value(forKey: "tagNumber") as? Int ?? 0
+        path.visible = pathDetails.value(forKey: "visible") as? Bool ?? true
+        path.isEraser = pathDetails.value(forKey: "isEraser") as? Bool ?? false
         return path
     }
     
@@ -122,8 +126,10 @@ class FascinatorLoader{
         for p in parts{
             if p != ""{
                 let ps = p.components(separatedBy: ",")
-                let point = CGPoint(x: getCGFloat(ps[0]), y: getCGFloat(ps[1]))
-                points.append(point)
+                if ps.count >= 2 {
+                    let point = CGPoint(x: getCGFloat(ps[0]), y: getCGFloat(ps[1]))
+                    points.append(point)
+                }
             }
         }
         return points
