@@ -11,6 +11,6 @@ import Foundation
 
 enum ButtonSetEnum{
     
-    case top, clusterTop, whiteClusters, blueClusters, mixedClusters, controllerCollisions, blueCriticalClusterSize, whiteTapAction, blueTapAction, ballChoice, characters, audioTop, sfxPack, sfxBooleans, audio, audioChoice, ambiance, backgroundChoice, backgroundShade, whiteSize, blueSize, gridTop, gridShapeTop, gridShape, gridOrientation, gridGrain, gridSize, gridColour, gridShade, gridControl, whiteBehaviours, blueBehaviours, whiteSpawn, blueSpawn, whiteScoreZone, blueScoreZone, whiteBallChoice, blueBallChoice, whiteBallCollectionChoice, blueBallCollectionChoice, gameEndChoice, gridCharacterCollections, gridCharacterChoice
+    case top, clusterTop, whiteClusters, blueClusters, mixedClusters, controllerCollisions, blueCriticalClusterSize, whiteTapAction, blueTapAction, ballChoice, characters, audioTop, sfxPack, sfxBooleans, audio, audioChoice, ambiance, backgroundChoice, backgroundShade, whiteSize, blueSize, gridTop, gridShapeTop, controllerCollection, controllerChoice, gridGrain, gridSize, gridColour, gridShade, gridControl, whiteBehaviours, blueBehaviours, whiteSpawn, blueSpawn, whiteScoreZone, blueScoreZone, whiteBallChoice, blueBallChoice, whiteBallCollectionChoice, blueBallCollectionChoice, gameEndChoice, gridCharacterCollections, gridCharacterChoice
     
 }

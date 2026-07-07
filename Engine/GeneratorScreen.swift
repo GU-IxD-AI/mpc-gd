@@ -264,8 +264,8 @@ class GeneratorScreen: HKComponent{
         case .backgroundChoice: screenCode = loadBackgroundChoiceOptions
         case .backgroundShade: screenCode = loadBackgroundShadeOptions
         case .gridTop: screenCode = loadGridTop
-        case .gridShape: screenCode = loadGridShapes
-        case .gridOrientation: screenCode = loadGridOrientations
+        case .controllerCollection: screenCode = loadGridShapes
+        case .controllerChoice: screenCode = loadGridOrientations
         case .gridGrain: screenCode = loadGridGrains
         case .gridSize: screenCode = loadGridSizes
         case .gridColour: screenCode = loadGridColours
@@ -836,7 +836,7 @@ class GeneratorScreen: HKComponent{
         let sizeSlider = gridSizeScreen.sizeSlider
 
         let newSize = Int(round(sizeSlider.value))
-        let bb = gg.getBoundingBox(bigButtonScreenSize, controllerPack: liveMPCGDGenome.controllerPack, shape: liveMPCGDGenome.gridShape, orientation: liveMPCGDGenome.gridOrientation, grain: liveMPCGDGenome.gridGrain, size: newSize, reflectionID: liveMPCGDGenome.gridReflection, useIconSize: true)
+        let bb = gg.getBoundingBox(bigButtonScreenSize, controllerPack: liveMPCGDGenome.controllerPack, shape: liveMPCGDGenome.controllerCollection, orientation: liveMPCGDGenome.controllerChoice, grain: liveMPCGDGenome.gridGrain, size: newSize, reflectionID: liveMPCGDGenome.gridReflection, useIconSize: true)
         
         let xOffset = bigButtonGridNode.position.x
         let yOffset = bigButtonGridNode.position.y
@@ -849,12 +849,12 @@ class GeneratorScreen: HKComponent{
             
             let gridColour = MPCGDGenome.getGridShades(liveMPCGDGenome.gridColour)[liveMPCGDGenome.gridShade]
             
-            let gridImage = gg.getGridIcon(iconSize: buttonSize * (DeviceType.isIPad ? 2.0 * 3.0 / 4.0 : 2.05), controllerPack: liveMPCGDGenome.controllerPack, shape: liveMPCGDGenome.gridShape, orientation: liveMPCGDGenome.gridOrientation, grain: liveMPCGDGenome.gridGrain, size: newSize, colour: gridColour, includeBorder: false)
+            let gridImage = gg.getGridIcon(iconSize: buttonSize * (DeviceType.isIPad ? 2.0 * 3.0 / 4.0 : 2.05), controllerPack: liveMPCGDGenome.controllerPack, shape: liveMPCGDGenome.controllerCollection, orientation: liveMPCGDGenome.controllerChoice, grain: liveMPCGDGenome.gridGrain, size: newSize, colour: gridColour, includeBorder: false)
             
             bigButtonGridNode.texture = SKTexture(image: gridImage)
             oldControllerSize = CGFloat(sizeSlider.value)
             liveMPCGDGenome.gridSize = newSize
-            bigButtonGridBounds = gg.getBoundingBox(bigButtonScreenSize, controllerPack: liveMPCGDGenome.controllerPack, shape: liveMPCGDGenome.gridShape, orientation: liveMPCGDGenome.gridOrientation, grain: liveMPCGDGenome.gridGrain, size: liveMPCGDGenome.gridSize, reflectionID: liveMPCGDGenome.gridReflection, useIconSize: true)
+            bigButtonGridBounds = gg.getBoundingBox(bigButtonScreenSize, controllerPack: liveMPCGDGenome.controllerPack, shape: liveMPCGDGenome.controllerCollection, orientation: liveMPCGDGenome.controllerChoice, grain: liveMPCGDGenome.gridGrain, size: liveMPCGDGenome.gridSize, reflectionID: liveMPCGDGenome.gridReflection, useIconSize: true)
             tinyControllerCircleNode.isHidden = liveMPCGDGenome.gridSize > 5
             bigButtonGridNode.size = buttonSize * (2.15 * (DeviceType.isIPad ? 3.0 / 4.0 : 1.0))
         }
@@ -1080,7 +1080,7 @@ class GeneratorScreen: HKComponent{
                 blueBehavioursScreen.alpha = 0
                 loadWhiteBehaviours()
             }
-            else if currentButtonSet == .gridShape{
+            else if currentButtonSet == .controllerCollection{
                 showHelpText("Controller shape")
                 loadGridShapesTop()
             }
@@ -1097,7 +1097,7 @@ class GeneratorScreen: HKComponent{
                 showHelpText("Controller character")
                 loadGridCharacterCollections()
             }
-            else if currentButtonSet == .gridOrientation{
+            else if currentButtonSet == .controllerChoice{
                 showHelpText("Controller shape")
                 loadGridShapes()
             }
@@ -1492,7 +1492,7 @@ class GeneratorScreen: HKComponent{
                 tappedButtonNumbers.removeAll()
                 tappedButtonNumbers.append(buttonNumTapped)
                 buttons[buttonNumTapped].showHighlight()
-                CharacterIconHandler.alterNodeOrientation(isGrid: liveMPCGDGenome.controllerPack == 1, collectionNum: liveMPCGDGenome.gridShape, characterNum: liveMPCGDGenome.gridOrientation, reflectionID: liveMPCGDGenome.gridReflection, node: bigButtonGridNode)
+                CharacterIconHandler.alterNodeOrientation(isGrid: liveMPCGDGenome.controllerPack == 1, collectionNum: liveMPCGDGenome.controllerCollection, characterNum: liveMPCGDGenome.controllerChoice, reflectionID: liveMPCGDGenome.gridReflection, node: bigButtonGridNode)
                 handleControllerReflectionChange(previousReflectionID: pRID)
                 onGameAlterationCode?(self.liveMPCGDGenome, self.isLocked)
             }
@@ -1644,9 +1644,9 @@ class GeneratorScreen: HKComponent{
         
         let gridColour = MPCGDGenome.getGridShades(liveMPCGDGenome.gridColour)[liveMPCGDGenome.gridShade]
         
-        let gridImage = gg.getGridIcon(iconSize: buttonSize * 2.05, controllerPack: liveMPCGDGenome.controllerPack, shape: liveMPCGDGenome.gridShape, orientation: liveMPCGDGenome.gridOrientation, grain: liveMPCGDGenome.gridGrain, size: liveMPCGDGenome.gridSize, colour: gridColour, includeBorder: false)
+        let gridImage = gg.getGridIcon(iconSize: buttonSize * 2.05, controllerPack: liveMPCGDGenome.controllerPack, shape: liveMPCGDGenome.controllerCollection, orientation: liveMPCGDGenome.controllerChoice, grain: liveMPCGDGenome.gridGrain, size: liveMPCGDGenome.gridSize, colour: gridColour, includeBorder: false)
         
-        bigButtonGridBounds = gg.getBoundingBox(bigButtonScreenSize, controllerPack: liveMPCGDGenome.controllerPack, shape: liveMPCGDGenome.gridShape, orientation: liveMPCGDGenome.gridOrientation, grain: liveMPCGDGenome.gridGrain, size: liveMPCGDGenome.gridSize, reflectionID: liveMPCGDGenome.gridReflection, useIconSize: true)
+        bigButtonGridBounds = gg.getBoundingBox(bigButtonScreenSize, controllerPack: liveMPCGDGenome.controllerPack, shape: liveMPCGDGenome.controllerCollection, orientation: liveMPCGDGenome.controllerChoice, grain: liveMPCGDGenome.gridGrain, size: liveMPCGDGenome.gridSize, reflectionID: liveMPCGDGenome.gridReflection, useIconSize: true)
         tinyControllerCircleNode.isHidden = liveMPCGDGenome.gridSize > 5
         
         bigButtonGridNode.texture = SKTexture(image: gridImage)
@@ -1944,8 +1944,8 @@ class GeneratorScreen: HKComponent{
                 loadGridCharacterCollections()
             }
         }
-        else if buttonSetTapped == .gridShape{
-            liveMPCGDGenome.gridShape = buttonNumTapped
+        else if buttonSetTapped == .controllerCollection{
+            liveMPCGDGenome.controllerCollection = buttonNumTapped
             checkAndAlterGridSize()
             requiresSave = true
             loadGridOrientations()
@@ -1953,24 +1953,24 @@ class GeneratorScreen: HKComponent{
             menuPosition = 3
         }
         else if buttonSetTapped == .gridCharacterCollections{
-            liveMPCGDGenome.gridShape = buttonNumTapped
+            liveMPCGDGenome.controllerCollection = buttonNumTapped
             checkAndAlterGridSize()
             requiresSave = true
             loadGridCharacterOptions()
-            showHelpText(CharacterIconHandler.collectionNames[liveMPCGDGenome.gridShape])
+            showHelpText(CharacterIconHandler.collectionNames[liveMPCGDGenome.controllerCollection])
             menuPosition = 4
         }
         else if buttonSetTapped == .gridCharacterChoice{
-            liveMPCGDGenome.gridOrientation = buttonNumTapped
+            liveMPCGDGenome.controllerChoice = buttonNumTapped
             checkAndAlterGridSize()
             requiresSave = true
             showHelpText("Controller & scene")
             loadGridTop()
             menuPosition = 1
         }
-        else if buttonSetTapped == .gridOrientation{
+        else if buttonSetTapped == .controllerChoice{
             requiresSave = true
-            liveMPCGDGenome.gridOrientation = buttonNumTapped
+            liveMPCGDGenome.controllerChoice = buttonNumTapped
             checkAndAlterGridSize()
             if liveMPCGDGenome.controllerPack == 2{
                 showHelpText("Controller & scene")
@@ -2085,25 +2085,25 @@ class GeneratorScreen: HKComponent{
     
     func checkAndAlterGridSize(){
         print("Changing from: \(liveMPCGDGenome.gridSize)")
-        var bb = gg.getBoundingBox(size, controllerPack: liveMPCGDGenome.controllerPack, shape: liveMPCGDGenome.gridShape, orientation: liveMPCGDGenome.gridOrientation, grain: liveMPCGDGenome.gridGrain, size: liveMPCGDGenome.gridSize, reflectionID: liveMPCGDGenome.gridReflection)
+        var bb = gg.getBoundingBox(size, controllerPack: liveMPCGDGenome.controllerPack, shape: liveMPCGDGenome.controllerCollection, orientation: liveMPCGDGenome.controllerChoice, grain: liveMPCGDGenome.gridGrain, size: liveMPCGDGenome.gridSize, reflectionID: liveMPCGDGenome.gridReflection)
         let xPos = CGFloat(liveMPCGDGenome.gridStartX)/60 * size.width
         let yPos = CGFloat(liveMPCGDGenome.gridStartY)/60 * size.height
         
         while xPos + bb.width/2 > size.width - 15 && liveMPCGDGenome.gridSize > 1{
             liveMPCGDGenome.gridSize -= 1
-            bb = gg.getBoundingBox(size, controllerPack: liveMPCGDGenome.controllerPack, shape: liveMPCGDGenome.gridShape, orientation: liveMPCGDGenome.gridOrientation, grain: liveMPCGDGenome.gridGrain, size: liveMPCGDGenome.gridSize, reflectionID: liveMPCGDGenome.gridReflection)
+            bb = gg.getBoundingBox(size, controllerPack: liveMPCGDGenome.controllerPack, shape: liveMPCGDGenome.controllerCollection, orientation: liveMPCGDGenome.controllerChoice, grain: liveMPCGDGenome.gridGrain, size: liveMPCGDGenome.gridSize, reflectionID: liveMPCGDGenome.gridReflection)
         }
         while xPos - bb.width/2 < 15 && liveMPCGDGenome.gridSize > 1{
             liveMPCGDGenome.gridSize -= 1
-            bb = gg.getBoundingBox(size, controllerPack: liveMPCGDGenome.controllerPack, shape: liveMPCGDGenome.gridShape, orientation: liveMPCGDGenome.gridOrientation, grain: liveMPCGDGenome.gridGrain, size: liveMPCGDGenome.gridSize, reflectionID: liveMPCGDGenome.gridReflection)
+            bb = gg.getBoundingBox(size, controllerPack: liveMPCGDGenome.controllerPack, shape: liveMPCGDGenome.controllerCollection, orientation: liveMPCGDGenome.controllerChoice, grain: liveMPCGDGenome.gridGrain, size: liveMPCGDGenome.gridSize, reflectionID: liveMPCGDGenome.gridReflection)
         }
         while yPos + bb.height/2 > size.height - 15 && liveMPCGDGenome.gridSize > 1{
             liveMPCGDGenome.gridSize -= 1
-            bb = gg.getBoundingBox(size, controllerPack: liveMPCGDGenome.controllerPack, shape: liveMPCGDGenome.gridShape, orientation: liveMPCGDGenome.gridOrientation, grain: liveMPCGDGenome.gridGrain, size: liveMPCGDGenome.gridSize, reflectionID: liveMPCGDGenome.gridReflection)
+            bb = gg.getBoundingBox(size, controllerPack: liveMPCGDGenome.controllerPack, shape: liveMPCGDGenome.controllerCollection, orientation: liveMPCGDGenome.controllerChoice, grain: liveMPCGDGenome.gridGrain, size: liveMPCGDGenome.gridSize, reflectionID: liveMPCGDGenome.gridReflection)
         }
         while yPos - bb.height/2 < 15 && liveMPCGDGenome.gridSize > 1{
             liveMPCGDGenome.gridSize -= 1
-            bb = gg.getBoundingBox(size, controllerPack: liveMPCGDGenome.controllerPack, shape: liveMPCGDGenome.gridShape, orientation: liveMPCGDGenome.gridOrientation, grain: liveMPCGDGenome.gridGrain, size: liveMPCGDGenome.gridSize, reflectionID: liveMPCGDGenome.gridReflection)
+            bb = gg.getBoundingBox(size, controllerPack: liveMPCGDGenome.controllerPack, shape: liveMPCGDGenome.controllerCollection, orientation: liveMPCGDGenome.controllerChoice, grain: liveMPCGDGenome.gridGrain, size: liveMPCGDGenome.gridSize, reflectionID: liveMPCGDGenome.gridReflection)
         }
         print("To: \(liveMPCGDGenome.gridSize)")
     }
@@ -2338,7 +2338,7 @@ class GeneratorScreen: HKComponent{
         
         let gridColour = MPCGDGenome.getGridShades(liveMPCGDGenome.gridColour)[liveMPCGDGenome.gridShade]
         
-        let gridSizeImage = gg.getGridIcon(iconSize: buttonSize, controllerPack: liveMPCGDGenome.controllerPack, shape: liveMPCGDGenome.gridShape, orientation: liveMPCGDGenome.gridOrientation, grain: liveMPCGDGenome.gridGrain, size: liveMPCGDGenome.gridSize, colour: MPCGDGenome.gridColours[0], includeBorder: true)
+        let gridSizeImage = gg.getGridIcon(iconSize: buttonSize, controllerPack: liveMPCGDGenome.controllerPack, shape: liveMPCGDGenome.controllerCollection, orientation: liveMPCGDGenome.controllerChoice, grain: liveMPCGDGenome.gridGrain, size: liveMPCGDGenome.gridSize, colour: MPCGDGenome.gridColours[0], includeBorder: true)
         _ = addGridLabelAndImage(buttons[3], text: "Size/Place", image: gridSizeImage)
         
         addLowerLabel(buttons[7], text: "Control")
@@ -2361,11 +2361,11 @@ class GeneratorScreen: HKComponent{
             overlays.append(label)
         }
         else{
-            let gridShapeImage = gg.getGridIcon(iconSize: buttonSize, controllerPack: liveMPCGDGenome.controllerPack, shape: liveMPCGDGenome.gridShape, orientation: liveMPCGDGenome.gridOrientation, grain: liveMPCGDGenome.gridGrain, size: 58, colour: MPCGDGenome.gridColours[0], includeBorder: false)
+            let gridShapeImage = gg.getGridIcon(iconSize: buttonSize, controllerPack: liveMPCGDGenome.controllerPack, shape: liveMPCGDGenome.controllerCollection, orientation: liveMPCGDGenome.controllerChoice, grain: liveMPCGDGenome.gridGrain, size: 58, colour: MPCGDGenome.gridColours[0], includeBorder: false)
             _ = addGridLabelAndImage(buttons[0], text: "Controller", image: gridShapeImage)
         }
 
-        let gridColourImage = gg.getGridIcon(iconSize: buttonSize, controllerPack: liveMPCGDGenome.controllerPack,    shape: liveMPCGDGenome.gridShape, orientation: liveMPCGDGenome.gridOrientation, grain: liveMPCGDGenome.gridGrain, size: 58, colour: gridColour, includeBorder: false)
+        let gridColourImage = gg.getGridIcon(iconSize: buttonSize, controllerPack: liveMPCGDGenome.controllerPack,    shape: liveMPCGDGenome.controllerCollection, orientation: liveMPCGDGenome.controllerChoice, grain: liveMPCGDGenome.gridGrain, size: 58, colour: gridColour, includeBorder: false)
         let node = addGridLabelAndImage(buttons[6], text: "Colour", image: gridColourImage)
         if liveMPCGDGenome.controllerPack == 2{
             if liveMPCGDGenome.gridColour < 8{
@@ -2481,7 +2481,7 @@ class GeneratorScreen: HKComponent{
         tallButton.hkImage.imageNode.addChild(backgroundNode)
         overlays.append(backgroundNode)
         
-        let gridImage = gg.getGridIcon(iconSize: buttonSize * 2, controllerPack: liveMPCGDGenome.controllerPack, shape: liveMPCGDGenome.gridShape, orientation: liveMPCGDGenome.gridOrientation, grain: liveMPCGDGenome.gridGrain, size: liveMPCGDGenome.gridSize, colour: gridColour, includeBorder: false           )
+        let gridImage = gg.getGridIcon(iconSize: buttonSize * 2, controllerPack: liveMPCGDGenome.controllerPack, shape: liveMPCGDGenome.controllerCollection, orientation: liveMPCGDGenome.controllerChoice, grain: liveMPCGDGenome.gridGrain, size: liveMPCGDGenome.gridSize, colour: gridColour, includeBorder: false           )
         
         let gridNode = SKSpriteNode(texture: SKTexture(image: gridImage))
 
@@ -2497,7 +2497,7 @@ class GeneratorScreen: HKComponent{
         gridNode.size = buttonSize * 2.15 * (DeviceType.simulationIs == .iPad ? (3.0 / 4.0) : 1.0)
         gridNode.isUserInteractionEnabled = false
         gridNode.position.y = 0
-        CharacterIconHandler.alterNodeOrientation(isGrid: liveMPCGDGenome.controllerPack == 1, collectionNum: liveMPCGDGenome.gridShape, characterNum: liveMPCGDGenome.gridOrientation, reflectionID: liveMPCGDGenome.gridReflection, node:gridNode)
+        CharacterIconHandler.alterNodeOrientation(isGrid: liveMPCGDGenome.controllerPack == 1, collectionNum: liveMPCGDGenome.controllerCollection, characterNum: liveMPCGDGenome.controllerChoice, reflectionID: liveMPCGDGenome.gridReflection, node:gridNode)
         backgroundNode.position.y = 0
         
         gridNode.position.x = (CGFloat(liveMPCGDGenome.gridStartX)/60 - 0.5) * tallButtonScreenSize.width
@@ -2528,9 +2528,9 @@ class GeneratorScreen: HKComponent{
 
         bigButtonScreenSize = GridGenerator.getScreenSizeForButton(buttonSize * 1.025 * (DeviceType.isIPad ? 3.0 / 4.0 : 1.0))
         
-        let gridImage = gg.getGridIcon(iconSize: buttonSize * 2.05, controllerPack: liveMPCGDGenome.controllerPack, shape: liveMPCGDGenome.gridShape, orientation: liveMPCGDGenome.gridOrientation, grain: liveMPCGDGenome.gridGrain, size: liveMPCGDGenome.gridSize, colour: gridColour, includeBorder: false)
+        let gridImage = gg.getGridIcon(iconSize: buttonSize * 2.05, controllerPack: liveMPCGDGenome.controllerPack, shape: liveMPCGDGenome.controllerCollection, orientation: liveMPCGDGenome.controllerChoice, grain: liveMPCGDGenome.gridGrain, size: liveMPCGDGenome.gridSize, colour: gridColour, includeBorder: false)
         
-        bigButtonGridBounds = gg.getBoundingBox(bigButtonScreenSize, controllerPack: liveMPCGDGenome.controllerPack, shape: liveMPCGDGenome.gridShape, orientation: liveMPCGDGenome.gridOrientation, grain: liveMPCGDGenome.gridGrain, size: liveMPCGDGenome.gridSize, reflectionID: liveMPCGDGenome.gridReflection, useIconSize: true)
+        bigButtonGridBounds = gg.getBoundingBox(bigButtonScreenSize, controllerPack: liveMPCGDGenome.controllerPack, shape: liveMPCGDGenome.controllerCollection, orientation: liveMPCGDGenome.controllerChoice, grain: liveMPCGDGenome.gridGrain, size: liveMPCGDGenome.gridSize, reflectionID: liveMPCGDGenome.gridReflection, useIconSize: true)
         
         let gridNode = SKSpriteNode(texture: SKTexture(image: gridImage))
         if liveMPCGDGenome.controllerPack == 2 && liveMPCGDGenome.gridColour < 8{
@@ -2546,7 +2546,7 @@ class GeneratorScreen: HKComponent{
         gridNode.size = buttonSize * (DeviceType.simulationIs == .iPad ? 2.15 * (3.0 / 4.0) : 2.15)
         gridNode.isUserInteractionEnabled = false
         gridNode.position.y = 0
-        CharacterIconHandler.alterNodeOrientation(isGrid: liveMPCGDGenome.controllerPack == 1, collectionNum: liveMPCGDGenome.gridShape, characterNum: liveMPCGDGenome.gridOrientation, reflectionID: liveMPCGDGenome.gridReflection, node: bigButtonGridNode)
+        CharacterIconHandler.alterNodeOrientation(isGrid: liveMPCGDGenome.controllerPack == 1, collectionNum: liveMPCGDGenome.controllerCollection, characterNum: liveMPCGDGenome.controllerChoice, reflectionID: liveMPCGDGenome.gridReflection, node: bigButtonGridNode)
         backgroundNode.position.y = 0
         
         gridNode.position.x = (CGFloat(liveMPCGDGenome.gridStartX)/60 - 0.5) * bigButtonScreenSize.width
@@ -2594,15 +2594,15 @@ class GeneratorScreen: HKComponent{
         buttons[4].enabled = true
         buttons[5].enabled = true
 
-        let charImage = gg.getGridIcon(iconSize: buttonSize, controllerPack: 2, shape: liveMPCGDGenome.gridShape, orientation: liveMPCGDGenome.gridOrientation, grain: liveMPCGDGenome.gridGrain, size: 58, colour: MPCGDGenome.gridColours[0], includeBorder: false)
+        let charImage = gg.getGridIcon(iconSize: buttonSize, controllerPack: 2, shape: liveMPCGDGenome.controllerCollection, orientation: liveMPCGDGenome.controllerChoice, grain: liveMPCGDGenome.gridGrain, size: 58, colour: MPCGDGenome.gridColours[0], includeBorder: false)
         let charNode = SKSpriteNode(texture: SKTexture(image: charImage))
         charNode.size = charNode.size * 0.5
         overlays.append(charNode)
         buttons[4].hkImage.imageNode.addChild(charNode)
         charNode.position.y = 10
 
-        let shapeNum = (liveMPCGDGenome.controllerPack == 1) ? liveMPCGDGenome.gridShape : 1
-        let orientationNum2 = (liveMPCGDGenome.controllerPack == 1) ? liveMPCGDGenome.gridOrientation : 0
+        let shapeNum = (liveMPCGDGenome.controllerPack == 1) ? liveMPCGDGenome.controllerCollection : 1
+        let orientationNum2 = (liveMPCGDGenome.controllerPack == 1) ? liveMPCGDGenome.controllerChoice : 0
         let grainNum = (liveMPCGDGenome.controllerPack == 1) ? liveMPCGDGenome.gridGrain : 5
         let gridImage = gg.getGridIcon(iconSize: buttonSize, controllerPack: 1, shape: shapeNum, orientation: orientationNum2, grain: grainNum, size: 58, colour: MPCGDGenome.gridColours[0], includeBorder: false)
         let gridNode = SKSpriteNode(texture: SKTexture(image: gridImage))
@@ -2630,9 +2630,9 @@ class GeneratorScreen: HKComponent{
     func loadGridShapes(){
         returnLinesToNormal()
         for pos in 0...8{
-//            let orientation = (pos == liveMPCGDGenome.gridShape) ? liveMPCGDGenome.gridOrientation : orientations[pos]
+//            let orientation = (pos == liveMPCGDGenome.controllerCollection) ? liveMPCGDGenome.controllerChoice : orientations[pos]
             buttons[pos].setImageAndText(nilImage, text: "")
-            buttons[pos].buttonSet = .gridShape
+            buttons[pos].buttonSet = .controllerCollection
             buttons[pos].secondTextNode.text = ""
             buttons[pos].alpha = 1
             let fourNode = getFourGridNode(shape: pos)
@@ -2642,7 +2642,7 @@ class GeneratorScreen: HKComponent{
             addLowerLabel(buttons[pos], text: GridGenerator.controllerShapePackNames[pos])
         }
         if liveMPCGDGenome.controllerPack == 1{
-            buttons[liveMPCGDGenome.gridShape].showHighlight()
+            buttons[liveMPCGDGenome.controllerCollection].showHighlight()
         }
     }
     
@@ -2669,19 +2669,19 @@ class GeneratorScreen: HKComponent{
     func loadGridOrientations(){
         for pos in 0...8{
             buttons[pos].setImageAndText(nilImage, text: "")
-            buttons[pos].buttonSet = .gridOrientation
+            buttons[pos].buttonSet = .controllerChoice
             buttons[pos].secondTextNode.text = ""
-            let fourNode = getFourGridNode(shape: liveMPCGDGenome.gridShape, orientation: pos)
+            let fourNode = getFourGridNode(shape: liveMPCGDGenome.controllerCollection, orientation: pos)
             buttons[pos].addChild(fourNode)
             overlays.append(fourNode)
             buttons[pos].alpha = 1
         }
-        buttons[liveMPCGDGenome.gridOrientation].showHighlight()
+        buttons[liveMPCGDGenome.controllerChoice].showHighlight()
     }
     
     func loadGridGrains(){
         for pos in 0...8{
-            let image = gg.getGridIcon(iconSize: buttonSize, controllerPack: liveMPCGDGenome.controllerPack, shape: liveMPCGDGenome.gridShape, orientation: liveMPCGDGenome.gridOrientation, grain: pos, size: 80, colour: MPCGDGenome.gridColours[0], includeBorder: false)
+            let image = gg.getGridIcon(iconSize: buttonSize, controllerPack: liveMPCGDGenome.controllerPack, shape: liveMPCGDGenome.controllerCollection, orientation: liveMPCGDGenome.controllerChoice, grain: pos, size: 80, colour: MPCGDGenome.gridColours[0], includeBorder: false)
             buttons[pos].setImageAndText(nilImage, text: "")
             buttons[pos].buttonSet = .gridGrain
             buttons[pos].secondTextNode.text = ""
@@ -2731,7 +2731,7 @@ class GeneratorScreen: HKComponent{
             backgroundNode.addChild(crossHairsNode)
         }
         
-        let image = gg.getGridIcon(iconSize: buttonSize * 2, controllerPack: liveMPCGDGenome.controllerPack, shape: liveMPCGDGenome.gridShape, orientation: liveMPCGDGenome.gridOrientation, grain: liveMPCGDGenome.gridGrain, size: 61, colour: MPCGDGenome.gridColours[0], includeBorder: false)
+        let image = gg.getGridIcon(iconSize: buttonSize * 2, controllerPack: liveMPCGDGenome.controllerPack, shape: liveMPCGDGenome.controllerCollection, orientation: liveMPCGDGenome.controllerChoice, grain: liveMPCGDGenome.gridGrain, size: 61, colour: MPCGDGenome.gridColours[0], includeBorder: false)
 
         var pos = 0
         for buttonPos in [0, 3, 6, 7]{
@@ -2739,7 +2739,7 @@ class GeneratorScreen: HKComponent{
             rotNode.size = buttonSize * 1.6
             buttons[buttonPos].hkImage.imageNode.addChild(rotNode)
             overlays.append(rotNode)
-            CharacterIconHandler.alterNodeOrientation(isGrid: liveMPCGDGenome.controllerPack == 1, collectionNum: liveMPCGDGenome.gridShape, characterNum: liveMPCGDGenome.gridOrientation, reflectionID: pos, node: rotNode)
+            CharacterIconHandler.alterNodeOrientation(isGrid: liveMPCGDGenome.controllerPack == 1, collectionNum: liveMPCGDGenome.controllerCollection, characterNum: liveMPCGDGenome.controllerChoice, reflectionID: pos, node: rotNode)
             buttons[buttonPos].enabled = true
             if pos == liveMPCGDGenome.gridReflection{
                 buttons[buttonPos].showHighlight()
@@ -2756,7 +2756,7 @@ class GeneratorScreen: HKComponent{
         returnLinesToNormal()
         for pos in 0...8{
             if liveMPCGDGenome.controllerPack == 2{
-                let image = gg.getGridIcon(iconSize: buttonSize, controllerPack: liveMPCGDGenome.controllerPack, shape: liveMPCGDGenome.gridShape, orientation: liveMPCGDGenome.gridOrientation, grain: liveMPCGDGenome.gridGrain, size: 100, colour: MPCGDGenome.gridColours[pos], includeBorder: false)
+                let image = gg.getGridIcon(iconSize: buttonSize, controllerPack: liveMPCGDGenome.controllerPack, shape: liveMPCGDGenome.controllerCollection, orientation: liveMPCGDGenome.controllerChoice, grain: liveMPCGDGenome.gridGrain, size: 100, colour: MPCGDGenome.gridColours[pos], includeBorder: false)
                 let node = SKSpriteNode(texture: SKTexture(image: image))
                 overlays.append(node)
                 buttons[pos].hkImage.imageNode.addChild(node)
@@ -2771,7 +2771,7 @@ class GeneratorScreen: HKComponent{
                 buttons[pos].setImageAndText(nilImage, text: "")
             }
             else{
-                let image = gg.getGridIcon(iconSize: buttonSize, controllerPack: liveMPCGDGenome.controllerPack, shape: liveMPCGDGenome.gridShape, orientation: liveMPCGDGenome.gridOrientation, grain: liveMPCGDGenome.gridGrain, size: 58, colour: MPCGDGenome.gridColours[pos], includeBorder: false)
+                let image = gg.getGridIcon(iconSize: buttonSize, controllerPack: liveMPCGDGenome.controllerPack, shape: liveMPCGDGenome.controllerCollection, orientation: liveMPCGDGenome.controllerChoice, grain: liveMPCGDGenome.gridGrain, size: 58, colour: MPCGDGenome.gridColours[pos], includeBorder: false)
                 buttons[pos].setImageAndText(image, text: "")
             }
             buttons[pos].buttonSet = .gridColour
@@ -2787,7 +2787,7 @@ class GeneratorScreen: HKComponent{
         let shades = MPCGDGenome.getGridShades(liveMPCGDGenome.gridColour)
         for pos in 0...8{
             if liveMPCGDGenome.controllerPack == 2{
-                let image = gg.getGridIcon(iconSize: buttonSize, controllerPack: liveMPCGDGenome.controllerPack, shape: liveMPCGDGenome.gridShape, orientation: liveMPCGDGenome.gridOrientation, grain: liveMPCGDGenome.gridGrain, size: 100, colour: shades[pos], includeBorder: false)
+                let image = gg.getGridIcon(iconSize: buttonSize, controllerPack: liveMPCGDGenome.controllerPack, shape: liveMPCGDGenome.controllerCollection, orientation: liveMPCGDGenome.controllerChoice, grain: liveMPCGDGenome.gridGrain, size: 100, colour: shades[pos], includeBorder: false)
                 let node = SKSpriteNode(texture: SKTexture(image: image))
                 overlays.append(node)
                 buttons[pos].hkImage.imageNode.addChild(node)
@@ -2797,7 +2797,7 @@ class GeneratorScreen: HKComponent{
                 buttons[pos].setImageAndText(nilImage, text: "")
             }
             else{
-                let image = gg.getGridIcon(iconSize: buttonSize, controllerPack: liveMPCGDGenome.controllerPack, shape: liveMPCGDGenome.gridShape, orientation: liveMPCGDGenome.gridOrientation, grain: liveMPCGDGenome.gridGrain, size: 58, colour: shades[pos], includeBorder: false)
+                let image = gg.getGridIcon(iconSize: buttonSize, controllerPack: liveMPCGDGenome.controllerPack, shape: liveMPCGDGenome.controllerCollection, orientation: liveMPCGDGenome.controllerChoice, grain: liveMPCGDGenome.gridGrain, size: 58, colour: shades[pos], includeBorder: false)
                 buttons[pos].setImageAndText(image, text: "")
             }
 
@@ -2983,19 +2983,19 @@ class GeneratorScreen: HKComponent{
             button.secondTextNode.text = ""
             buttonNum += 1
         }
-        buttons[liveMPCGDGenome.gridShape].showHighlight()
+        buttons[liveMPCGDGenome.controllerCollection].showHighlight()
     }
     
     func loadGridCharacterOptions(){
         for buttonPos in 0...8{
             buttons[buttonPos].setImageAndText(nilImage, text: "")
-            let charNode = CharacterIconHandler.getCharacterNode(nodeSize: buttonSize, collectionNum: liveMPCGDGenome.gridShape, characterNum: buttonPos)
+            let charNode = CharacterIconHandler.getCharacterNode(nodeSize: buttonSize, collectionNum: liveMPCGDGenome.controllerCollection, characterNum: buttonPos)
             overlays.append(charNode)
             buttons[buttonPos].hkImage.imageNode.addChild(charNode)
             buttons[buttonPos].buttonSet = .gridCharacterChoice
             buttons[buttonPos].enabled = true
         }
-        buttons[liveMPCGDGenome.gridOrientation].showHighlight()
+        buttons[liveMPCGDGenome.controllerChoice].showHighlight()
     }
     
     func loadWhiteCharacterCollectionOptions(){
@@ -3928,10 +3928,10 @@ class GeneratorScreen: HKComponent{
     
     func addControllerCollisionIcon(_ stem: String, buttonNum: Int, xOffset: CGFloat = 0){
     
-        let gridImage = gg.getGridIcon(iconSize: buttonSize, controllerPack: liveMPCGDGenome.controllerPack, shape: liveMPCGDGenome.gridShape, orientation: liveMPCGDGenome.gridOrientation, grain: liveMPCGDGenome.gridGrain, size: 61, colour: MPCGDGenome.getGridShades(liveMPCGDGenome.gridColour)[liveMPCGDGenome.gridShade], includeBorder: false)
+        let gridImage = gg.getGridIcon(iconSize: buttonSize, controllerPack: liveMPCGDGenome.controllerPack, shape: liveMPCGDGenome.controllerCollection, orientation: liveMPCGDGenome.controllerChoice, grain: liveMPCGDGenome.gridGrain, size: 61, colour: MPCGDGenome.getGridShades(liveMPCGDGenome.gridColour)[liveMPCGDGenome.gridShade], includeBorder: false)
         
         let gridNode = SKSpriteNode(texture: SKTexture(image: gridImage))
-        CharacterIconHandler.alterNodeOrientation(isGrid: liveMPCGDGenome.controllerPack == 1, collectionNum: liveMPCGDGenome.gridShape, characterNum: liveMPCGDGenome.gridOrientation, reflectionID: liveMPCGDGenome.gridReflection, node: gridNode)
+        CharacterIconHandler.alterNodeOrientation(isGrid: liveMPCGDGenome.controllerPack == 1, collectionNum: liveMPCGDGenome.controllerCollection, characterNum: liveMPCGDGenome.controllerChoice, reflectionID: liveMPCGDGenome.gridReflection, node: gridNode)
         buttons[buttonNum].hkImage.imageNode.addChild(gridNode)
         
         if liveMPCGDGenome.controllerPack == 2 && liveMPCGDGenome.gridColour < 8{
@@ -4450,7 +4450,7 @@ class GeneratorScreen: HKComponent{
     
     func addControllerButton(){
         let gridImageSize = buttonSize * (DeviceType.isIPad ? 1.425 * (3.0 / 4.0) : 1.47)
-        let gridImage = gg.getGridIcon(iconSize: gridImageSize, controllerPack: liveMPCGDGenome.controllerPack, shape: liveMPCGDGenome.gridShape, orientation: liveMPCGDGenome.gridOrientation, grain: liveMPCGDGenome.gridGrain, size: liveMPCGDGenome.gridSize, colour: MPCGDGenome.getGridShades(liveMPCGDGenome.gridColour)[liveMPCGDGenome.gridShade], includeBorder: false)
+        let gridImage = gg.getGridIcon(iconSize: gridImageSize, controllerPack: liveMPCGDGenome.controllerPack, shape: liveMPCGDGenome.controllerCollection, orientation: liveMPCGDGenome.controllerChoice, grain: liveMPCGDGenome.gridGrain, size: liveMPCGDGenome.gridSize, colour: MPCGDGenome.getGridShades(liveMPCGDGenome.gridColour)[liveMPCGDGenome.gridShade], includeBorder: false)
         
         var backgroundIcon: UIImage! = nil
 
@@ -4472,7 +4472,7 @@ class GeneratorScreen: HKComponent{
         buttons[6].hkImage.imageNode.addChild(gridNode)
         gridNode.position.x = 23
         gridNode.size = gridNode.size * 0.505
-        CharacterIconHandler.alterNodeOrientation(isGrid: liveMPCGDGenome.controllerPack == 1, collectionNum: liveMPCGDGenome.gridShape, characterNum: liveMPCGDGenome.gridOrientation, reflectionID: liveMPCGDGenome.gridReflection, node: gridNode)
+        CharacterIconHandler.alterNodeOrientation(isGrid: liveMPCGDGenome.controllerPack == 1, collectionNum: liveMPCGDGenome.controllerCollection, characterNum: liveMPCGDGenome.controllerChoice, reflectionID: liveMPCGDGenome.gridReflection, node: gridNode)
         
         gridNode.position.x += (CGFloat(liveMPCGDGenome.gridStartX)/60 - 0.5) * backingNode.size.width
         gridNode.position.y += (CGFloat(liveMPCGDGenome.gridStartY)/60 - 0.5) * backingNode.size.height

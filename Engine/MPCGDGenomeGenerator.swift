@@ -197,8 +197,8 @@ class MPCGDGenomeGenerator{
         
         if type == .controllerNature{
             base.controllerPack = changeTo.controllerPack
-            base.gridShape = changeTo.gridShape
-            base.gridOrientation = changeTo.gridOrientation
+            base.controllerCollection = changeTo.controllerCollection
+            base.controllerChoice = changeTo.controllerChoice
             base.gridGrain = changeTo.gridGrain
             base.gridColour = changeTo.gridColour
             base.gridShade = changeTo.gridShade

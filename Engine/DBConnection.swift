@@ -57,6 +57,11 @@ class DBConnection {
     }
 
     private func sendBacklogItem(dataDict : Dictionary<String,Any>, completion: @escaping (Bool) -> ()){
+        guard isStudyMode else {
+            print("not sending anything! (not in study mode)")
+            completion(false)
+            return
+        }
         if self.user.isEmpty || self.authToken.isEmpty{
             print("not sending anything! (no confirmed server connection)")
             completion(false)

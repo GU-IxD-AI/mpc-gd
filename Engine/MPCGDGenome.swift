@@ -294,8 +294,8 @@ class MPCGDGenome{
     var mixedExplodeScore = 0
     // Grid
     var controllerPack = 0
-    var gridShape = 5
-    var gridOrientation = 1
+    var controllerCollection = 5
+    var controllerChoice = 1
     var gridGrain = 7
     var gridSize = 6
     var gridColour = 0
@@ -373,7 +373,7 @@ class MPCGDGenome{
     static let gridColours = [Colours.getColour(.black), Colours.getColour(.antiqueWhite), Colours.getColour(.red), Colours.getColour(.orange), Colours.getColour(.yellow), Colours.getColour(.green), Colours.getColour(.blue), Colours.getColour(.indigo), Colours.getColour(.gray)]
     
     static let shadeColours = [Colours.getColour(.black), Colours.getColour(.black), Colours.getColour(.black), Colours.getColour(.black), Colours.getColour(.black), Colours.getColour(.black), Colours.getColour(.black), Colours.getColour(.black), Colours.getColour(.black)]
-    
+
     func encode(_ g: GenomeEncoder) -> Bool {
         do {
             try g.encode(CONSUMER_GENOME_VERSION, 1...9)
@@ -424,8 +424,8 @@ class MPCGDGenome{
             try g.encode(mixedExplodeScore, asIndexOf: MPCGDGenome.clusterExplodeScores)
             // Grid
             try g.encode(controllerPack, 0...8)
-            try g.encode(gridShape, 0...8)
-            try g.encode(gridOrientation, 0...8)
+            try g.encode(controllerCollection, 0...8)
+            try g.encode(controllerChoice, 0...8)
             try g.encode(gridGrain, 0...8)
             try g.encode(gridSize, 1...62)
             try g.encode(gridColour, 0...8)
@@ -525,8 +525,8 @@ class MPCGDGenome{
             mixedExplodeScore = try g.decode(MPCGDGenome.clusterExplodeScores)
             // Grid
             controllerPack = try g.decode(0...8)
-            gridShape = try g.decode(0...8)
-            gridOrientation = try g.decode(0...8)
+            controllerCollection = try g.decode(0...8)
+            controllerChoice = try g.decode(0...8)
             gridGrain = try g.decode(0...8)
             gridSize = try g.decode(1...62)
             gridColour = try g.decode(0...8)
@@ -650,6 +650,23 @@ class MPCGDGenome{
     func encodeAsParameterArray() -> [Int]? {
         let encoder = ParameterArrayEncoder()
         return encode(encoder) ? encoder.values : nil
+    }
+
+    func asJSONDictionary() -> [String: Int]? {
+        var dict: [String: Int] = ["version": CONSUMER_GENOME_VERSION]
+        for child in Mirror(reflecting: self).children {
+            guard let label = child.label else { continue }
+            guard let value = child.value as? Int else {
+                print("Could not encode genome property as JSON: \(label)")
+                return nil
+            }
+            dict[label] = value
+        }
+        guard JSONSerialization.isValidJSONObject(dict) else {
+            print("Genome dictionary is not valid JSON")
+            return nil
+        }
+        return dict
     }
     
     func decodeFromParameterArray(_ encoding: [Int]) -> Bool {
@@ -1215,7 +1232,7 @@ class MPCGDGenome{
         }
         
         if controllerPack == 2{
-            fascinator.artImageColour = CharacterIconHandler.getCharacterColour(collectionNum: gridShape, characterNum: gridOrientation)
+            fascinator.artImageColour = CharacterIconHandler.getCharacterColour(collectionNum: controllerCollection, characterNum: controllerChoice)
         }
         else if controllerPack == 1{
             fascinator.artImageColour = MPCGDGenome.getGridShades(gridColour)[gridShade]
@@ -1259,7 +1276,7 @@ class MPCGDGenome{
             fascinator.controllerCollectionNum = nil
             fascinator.controllerCharacterNum = nil
             let gg = GridGenerator()
-            bb = gg.getBoundingBox(fascinator.sceneSize * 0.5, controllerPack: controllerPack, shape: gridShape, orientation: gridOrientation, grain: gridGrain, size: gridSize, reflectionID: gridReflection, useIconSize: true)
+            bb = gg.getBoundingBox(fascinator.sceneSize * 0.5, controllerPack: controllerPack, shape: controllerCollection, orientation: controllerChoice, grain: gridGrain, size: gridSize, reflectionID: gridReflection, useIconSize: true)
             LAF.wallOffScreenNess = (bb.width * 2, bb.height * 2)
             if gridControl == 5 || gridControl == 6{
                 LAF.wallOffScreenNess = (5, 5)
@@ -1268,10 +1285,10 @@ class MPCGDGenome{
         else if controllerPack == 2{
             let width = 2 * fascinator.sceneSize.width * CGFloat(gridSize)/62
             fascinator.drawingPaths = []
-            fascinator.controllerOverlayImage = CharacterIconHandler.getCharacterImage(collectionNum: gridShape, characterNum: gridOrientation, size: CGSize(width: width, height: width))
+            fascinator.controllerOverlayImage = CharacterIconHandler.getCharacterImage(collectionNum: controllerCollection, characterNum: controllerChoice, size: CGSize(width: width, height: width))
             fascinator.controllerSize = CGFloat(gridSize)/62
-            fascinator.controllerCollectionNum = gridShape
-            fascinator.controllerCharacterNum = gridOrientation
+            fascinator.controllerCollectionNum = controllerCollection
+            fascinator.controllerCharacterNum = controllerChoice
             if gridColour < 8{
                 let shades = MPCGDGenome.getGridShades(gridColour)
                 fascinator.controllerColour = shades[gridShade]
@@ -1280,7 +1297,7 @@ class MPCGDGenome{
                 fascinator.controllerColour = nil
             }
             let radius = fascinator.sceneSize.width * fascinator.controllerSize * 0.5
-            bb = CharacterIconHandler.getCharacterBoundingBox(radius: radius, collectionNum: gridShape, characterNum: gridOrientation, centreOffset: CGPoint(x: 0, y: 0))
+            bb = CharacterIconHandler.getCharacterBoundingBox(radius: radius, collectionNum: controllerCollection, characterNum: controllerChoice, centreOffset: CGPoint(x: 0, y: 0))
             LAF.wallOffScreenNess = (bb.width * 2, bb.height * 2)
             if gridControl == 5 || gridControl == 6{
                 LAF.wallOffScreenNess = (bb.width, bb.height)
@@ -1405,7 +1422,7 @@ class MPCGDGenome{
         var polys: [[CGPoint]] = []
         while isBad{
             isBad = false
-            lines = gg.getLines(controllerPack: controllerPack, shape: gridShape, orientation: gridOrientation, grain: gridGrain, size: gS)
+            lines = gg.getLines(controllerPack: controllerPack, shape: controllerCollection, orientation: controllerChoice, grain: gridGrain, size: gS)
             for (p1, p2) in lines{
                 let x1 = (p1.x * screenSize.width) + 2
                 let y1 = (p1.y * screenSize.height)
@@ -1421,7 +1438,7 @@ class MPCGDGenome{
                 gS += 1
             }
         }
-        polys = gg.getPolys(controllerPack: controllerPack, shape: gridShape, orientation: gridOrientation, grain: gridGrain, size: gS)
+        polys = gg.getPolys(controllerPack: controllerPack, shape: controllerCollection, orientation: controllerChoice, grain: gridGrain, size: gS)
         
         let drawing = FascinatorDrawing()
         

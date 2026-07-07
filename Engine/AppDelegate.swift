@@ -29,11 +29,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
         
         if let mainScene = getMainScene() {
-            mainScene.view!.isPaused = true
-            if mainScene.fascinator.isPaused == false{
-                mainScene.fascinator.needsUnpausingAfterFocusLost = true
+            mainScene.view?.isPaused = true
+            guard let fascinator = mainScene.fascinator else { return }
+            if fascinator.isPaused == false{
+                fascinator.needsUnpausingAfterFocusLost = true
             }
-            mainScene.fascinator.pauseImmediately()
+            fascinator.pauseImmediately()
             //mainScene.cacheGeneratorGenome()
         }
     }
@@ -43,18 +44,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
         
         if let mainScene = getMainScene() {
-            mainScene.view!.isPaused = true
-            if mainScene.fascinator.isPaused == false{
-                mainScene.fascinator.needsUnpausingAfterFocusLost = true
+            mainScene.view?.isPaused = true
+            guard let fascinator = mainScene.fascinator else { return }
+            if fascinator.isPaused == false{
+                fascinator.needsUnpausingAfterFocusLost = true
             }
-            mainScene.fascinator.pauseImmediately()
+            fascinator.pauseImmediately()
         }
 
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-        if MPCGDAudio.engine.isRunning {
+        if let engine = MPCGDAudio.engine, engine.isRunning {
             _ = MPCGDAudio.start()
         }
     }
@@ -63,12 +65,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         
         if let mainScene = getMainScene() {
-            mainScene.view!.isPaused = false
-            if mainScene.fascinator.needsUnpausingAfterFocusLost{
-                mainScene.fascinator.needsUnpausingAfterFocusLost = false
-                mainScene.fascinator.releaseFromPause()
+            mainScene.view?.isPaused = false
+            if let fascinator = mainScene.fascinator, fascinator.needsUnpausingAfterFocusLost{
+                fascinator.needsUnpausingAfterFocusLost = false
+                fascinator.releaseFromPause()
             }
-            if MPCGDAudio.engine.isRunning {
+            if let engine = MPCGDAudio.engine, engine.isRunning {
                 _ = MPCGDAudio.start()
             }
             mainScene.db_client?.flushPendingBacklog()
@@ -92,8 +94,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     lazy var managedObjectModel: NSManagedObjectModel = {
         // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
-        let modelURL = Bundle.main.url(forResource: "MPCGD", withExtension: "momd")!
-        return NSManagedObjectModel(contentsOf: modelURL)!
+        if let modelURL = Bundle.main.url(forResource: "MPCGD", withExtension: "momd"), let model = NSManagedObjectModel(contentsOf: modelURL) {
+            return model
+        }
+        guard let model = NSManagedObjectModel.mergedModel(from: [Bundle.main]) else {
+            fatalError("Unable to load MPCGD Core Data model")
+        }
+        return model
         }()
     
     lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {

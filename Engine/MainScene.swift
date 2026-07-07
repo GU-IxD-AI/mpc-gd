@@ -132,12 +132,14 @@ class BackgroundTextureCache {
         let shade: Int
         let texture: SKTexture?
         let name: String?
+        let isDark: Bool?
         
-        init(_ choice: Int, _ shade: Int, _ texture: SKTexture?, _ name: String?) {
+        init(_ choice: Int, _ shade: Int, _ texture: SKTexture?, _ name: String?, _ isDark: Bool? = nil) {
             self.choice = choice
             self.shade = shade
             self.texture = texture
             self.name = name
+            self.isDark = isDark
         }
     }
     static let maxEntries = 12
@@ -185,6 +187,43 @@ class BackgroundTextureCache {
         slots[i] = slot
     }
 
+    static func isBackgroundDark(choice: Int, shade: Int) -> Bool? {
+        guard MainScene.backgroundIDs.indices.contains(choice), (0..<9).contains(shade) else { return nil }
+        var dark: Bool? = nil
+        queue.sync {
+            dark = entries.first(where: { $0.choice == choice && $0.shade == shade })?.isDark
+        }
+        return dark
+    }
+
+    static func isImageDark(_ image: UIImage) -> Bool? {
+        guard let cgImage = image.cgImage else { return nil }
+        let sampleSize = 12
+        var pixels = [UInt8](repeating: 0, count: sampleSize * sampleSize * 4)
+        guard let context = CGContext(data: &pixels,
+                                      width: sampleSize,
+                                      height: sampleSize,
+                                      bitsPerComponent: 8,
+                                      bytesPerRow: sampleSize * 4,
+                                      space: CGColorSpaceCreateDeviceRGB(),
+                                      bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue) else { return nil }
+        context.interpolationQuality = .low
+        context.draw(cgImage, in: CGRect(x: 0, y: 0, width: sampleSize, height: sampleSize))
+        var totalLuminance: CGFloat = 0
+        var samples: CGFloat = 0
+        for index in stride(from: 0, to: pixels.count, by: 4) {
+            let alpha = CGFloat(pixels[index + 3]) / 255
+            guard alpha > 0.05 else { continue }
+            let red = CGFloat(pixels[index]) / 255
+            let green = CGFloat(pixels[index + 1]) / 255
+            let blue = CGFloat(pixels[index + 2]) / 255
+            totalLuminance += ((0.2126 * red) + (0.7152 * green) + (0.0722 * blue)) * alpha
+            samples += alpha
+        }
+        guard samples > 0 else { return nil }
+        return (totalLuminance / samples) < 0.58
+    }
+
     static func request(_ choice: Int, _ shade: Int, completion block: @escaping (SKTexture?) -> Swift.Void) {
 
         guard MainScene.backgroundIDs.indices.contains(choice), (0..<9).contains(shade) else {
@@ -228,9 +267,12 @@ class BackgroundTextureCache {
                     return
                 }
                 let texture = SKTexture(image: image)
+                let isDark = isImageDark(image)
+                queue.sync(flags: .barrier) {
+                    entries[slot] = Entry(choice, shade, texture, name, isDark)
+                }
                 block(texture)
                 queue.async(flags: .barrier) {
-                    entries[slot] = Entry(choice, shade, texture, name)
                     lock.signal()
                     semaphore.signal()
                 }
@@ -258,6 +300,10 @@ class MainScene: BaseScene, UITextFieldDelegate{
     var backgroundSize: CGSize! = nil
     //NOTE: suegy integrate remote connection to db
     var db_client : DBConnection! = nil
+    var pendingStudyGameRatingPayload: Dictionary<String, Any>? = nil
+    var lastGenomeSnapshotByGame: [String: [String: Int]] = [:]
+    var pendingDesignModificationStartTimeByGame: [String: TimeInterval] = [:]
+    var pendingDesignModificationChangesByGame: [String: [String: (oldValue: Int, newValue: Int)]] = [:]
     var checkStudyMode : Bool = true
     
     static let backgroundIDs = ["City", "City", "City", "City", "City", "City", "City", "City", "City"] //FIXME: these should be different colored backgrounds which are linked in Assets
@@ -619,6 +665,11 @@ class MainScene: BaseScene, UITextFieldDelegate{
     func getUser() -> User {
         return viewController.getUser()
     }
+
+    func isStudyModeActive() -> Bool {
+        return getUser().studyMode == 1 || db_client?.isStudyMode == true
+    }
+
     func addPresets(_ gamePackID: String){
         guard let path = Bundle.main.path(forResource: gamePackID, ofType: "txt"),
               let text = try? String(contentsOfFile: path, encoding: String.Encoding.utf8) else {
@@ -704,6 +755,11 @@ class MainScene: BaseScene, UITextFieldDelegate{
                 let backingNode = SKSpriteNode(texture: SKTexture(image: gameImage))
                 backingNode.size = CGSize(width: self.gameNameSize.width, height: self.gameNameSize.height)
                 comp.addChild(backingNode)
+                let textColour = self.getTextColourForImage(gameImage, fallbackGenome: MPCGDGenome!)
+                self.setLabelColour(logoComp, textColour: textColour)
+                if let bestLabel = comp.bestLabel {
+                    bestLabel.fontColor = textColour
+                }
                 comp.addChild(logoComp)
                 logoComp.zPosition = comp.zPosition + 1
                 block?(comp)
@@ -796,6 +852,112 @@ class MainScene: BaseScene, UITextFieldDelegate{
         node.addChild(labelNode)
     
         return node
+    }
+
+    func createStudyGameRatingPanel(textColour: UIColor, submitCode: @escaping (Dictionary<String, Int>) -> ()) -> SKNode {
+        let panelNode = SKNode()
+        panelNode.position = CGPoint.zero
+        panelNode.zPosition = 20
+
+        let panelSize = CGSize(width: scene!.size.width * 0.82, height: scene!.size.height * 0.70)
+        let panel = SKSpriteNode(color: UIColor(red: 111/255, green: 168/255, blue: 210/255, alpha: 0.0), size: panelSize)
+        panelNode.addChild(panel)
+
+        let title = SKLabelNode(text: "Rank the game?")
+        title.fontName = "HelveticaNeue-Thin"
+        title.fontSize = 26
+        title.fontColor = textColour
+        title.position = CGPoint(x: 0, y: panelSize.height/2 - 56)
+        panelNode.addChild(title)
+
+        var ratingValues: Dictionary<String, Int> = [:]
+        let rows = [
+            ("Difficulty", 7, 4),
+            ("Creativity", 7, 4),
+            ("Fun", 7, 4),
+            ("Winnable", 3, 2)
+        ]
+        let rowYStart = panelSize.height/2 - 118
+        for (pos, row) in rows.enumerated() {
+            ratingValues[row.0] = row.2
+            let rowNode = createStudyGameRatingSliderRow(label: row.0, maximumValue: row.1, initialValue: row.2, textColour: textColour) { value in
+                ratingValues[row.0] = value
+            }
+            rowNode.position = CGPoint(x: 0, y: rowYStart - CGFloat(pos) * 68)
+            panelNode.addChild(rowNode)
+        }
+
+        let okButton = createOKButton()
+        okButton.position = CGPoint(x: 0, y: scene!.size.height * (buttonYPos - 0.5))
+        okButton.zPosition = panelNode.zPosition + 1
+        okButton.alpha = 1
+        okButton.enabled = true
+        okButton.isHot = true
+        okButton.isUserInteractionEnabled = true
+        okButton.onTapStartCode = {
+            okButton.enabled = false
+            okButton.isHot = false
+            okButton.isUserInteractionEnabled = false
+            submitCode(ratingValues)
+        }
+        panelNode.addChild(okButton)
+
+        return panelNode
+    }
+
+    func createStudyGameRatingSliderRow(label: String, maximumValue: Int, initialValue: Int, textColour: UIColor, onChange: @escaping (Int) -> ()) -> SKNode {
+        let rowNode = SKNode()
+        let sliderWidth = scene!.size.width * 0.54
+        let slider = HKSlider(size: CGSize(width: sliderWidth, height: 44))
+        slider.minimumValue = 1
+        slider.maximumValue = Float(maximumValue)
+        slider.value = Float(initialValue)
+        slider.position = CGPoint(x: 0, y: -8)
+        slider.isUserInteractionEnabled = true
+
+        let nameLabel = SKLabelNode(text: label)
+        nameLabel.fontName = "HelveticaNeue-Thin"
+        nameLabel.fontSize = 17
+        nameLabel.fontColor = textColour
+        nameLabel.horizontalAlignmentMode = .center
+        nameLabel.verticalAlignmentMode = .center
+        nameLabel.position = CGPoint(x: slider.position.x, y: 22)
+        rowNode.addChild(nameLabel)
+
+        let lowLabel = SKLabelNode(text: "1 = very low")
+        lowLabel.fontName = "HelveticaNeue-Thin"
+        lowLabel.fontSize = 11
+        lowLabel.fontColor = textColour
+        lowLabel.horizontalAlignmentMode = .left
+        lowLabel.position = CGPoint(x: slider.position.x - sliderWidth/2, y: 5)
+        rowNode.addChild(lowLabel)
+
+        let highLabel = SKLabelNode(text: "\(maximumValue) = very high")
+        highLabel.fontName = "HelveticaNeue-Thin"
+        highLabel.fontSize = 11
+        highLabel.fontColor = textColour
+        highLabel.horizontalAlignmentMode = .right
+        highLabel.position = CGPoint(x: slider.position.x + sliderWidth/2, y: 5)
+        rowNode.addChild(highLabel)
+
+        let valueLabel = SKLabelNode(text: "\(initialValue)")
+        valueLabel.fontName = "HelveticaNeue-Thin"
+        valueLabel.fontSize = 18
+        valueLabel.fontColor = textColour
+        valueLabel.horizontalAlignmentMode = .left
+        valueLabel.verticalAlignmentMode = .center
+        valueLabel.position = CGPoint(x: slider.position.x + sliderWidth/2 + 18, y: -8)
+        rowNode.addChild(valueLabel)
+
+        slider.onDragCode = {
+            let value = Int(round(slider.value))
+            valueLabel.text = "\(value)"
+            onChange(value)
+        }
+        rowNode.addChild(slider)
+        onChange(initialValue)
+
+        return rowNode
     }
 
     func startOpeningAnimation(){
@@ -1031,7 +1193,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
         logoNode.run(actions[2],completion:{
 
                 okButton.run(self.fadeIn)
-                okButton.tapCode = {
+                okButton.onTapStartCode = {
                     let age = (sliderNode.childNode(withName: "sliderValue") as! SKLabelNode?)?.text
                     let gender = (sliderNode2.childNode(withName: "sliderValue") as! SKLabelNode?)?.text
                     let region = (sliderNode3.childNode(withName: "sliderValue") as! SKLabelNode?)?.text
@@ -1041,6 +1203,9 @@ class MainScene: BaseScene, UITextFieldDelegate{
                     if (age == "Select" || gender == "Select" || region == "Select"){
                         return
                     }
+                    okButton.enabled = false
+                    okButton.isHot = false
+                    okButton.isUserInteractionEnabled = false
                     //TODO: This is the call for logging something which we need to connect to UI elements
                     self.run(SKAction.wait(forDuration: 1), completion: { self.db_client.sendDesignPath(
                         dataDict: ["age": age ?? "none","gender": gender ?? "none","region": region ?? "none"]
@@ -1081,7 +1246,10 @@ class MainScene: BaseScene, UITextFieldDelegate{
         logoNode.run(actions[2],completion: {okButton.run(self.fadeIn)})
     
             
-        okButton.tapCode = {
+        okButton.onTapStartCode = {
+            okButton.enabled = false
+            okButton.isHot = false
+            okButton.isUserInteractionEnabled = false
             okButton.run(self.fadeOut, completion: {okButton.removeFromParent()})
             logoNode.run(self.fadeOut, completion: {logoNode.removeFromParent()})
             startInfoNode.run(self.fadeOut, completion: {
@@ -1113,10 +1281,10 @@ class MainScene: BaseScene, UITextFieldDelegate{
             self.shareTexts.append([])
         }
         self.addGamePacksLogo()
-        guard self.infoGraphicsImageCycler != nil && self.logoImageCycler != nil, let firstPackID = self.allPackIDs.first else { return }
-        self.infoGraphicsImageCycler.position.x += size.width
-        self.logoImageCycler.position.x += size.width
-        let _ = self.infoGraphicsImageCycler.cycleToComponent(firstPackID)
+        guard let infoGraphicsImageCycler = self.infoGraphicsImageCycler, let logoImageCycler = self.logoImageCycler, let firstPackID = self.allPackIDs.first else { return }
+        infoGraphicsImageCycler.position.x += size.width
+        logoImageCycler.position.x += size.width
+        let _ = infoGraphicsImageCycler.cycleToComponent(firstPackID)
     }
     func initGame(){
         self.startTheGame()
@@ -1130,7 +1298,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
         
         if !self.currentGamePack.gameIDs.isEmpty{
             let wG = self.currentGamePack.MPCGDGenomeShowingInBackground
-            let colour = self.isBackgroundDark(wG!) ? Colours.getColour(.antiqueWhite) : Colours.getColour(.black)
+            let colour = self.getTextColourForMPCGDGenome(wG!)
             self.changeBackground(wG!)
             self.changeInfoColours(wG!)
             self.changeSettingsColours(wG!)
@@ -1231,16 +1399,25 @@ class MainScene: BaseScene, UITextFieldDelegate{
         infoGraphicsImageCycler.selectedHKComponent?.run(fadeOut)
     }
 
+    func getGeneratorScreen(_ gameID: String) -> (GeneratorScreen, Int)? {
+        guard let cycler = infoCyclers[gameID] else { return nil }
+        for (index, component) in cycler.hkComponents.enumerated() {
+            if let generatorScreen = component as? GeneratorScreen {
+                return (generatorScreen, index)
+            }
+        }
+        return nil
+    }
+
     func showInfoCycler(_ cycleToComp: Bool = true){
         infoGraphicsImageCycler.isHidden = false
         infoGraphicsImageCycler.selectedHKComponent?.run(fadeIn)
         infoGraphicsImageCycler.run(fadeIn, completion: { HKDisableUserInteractions = false })
         if cycleToComp{
-            
-            let genScreen = infoCyclers[currentGameName]?.hkComponents[2] as! GeneratorScreen
+            guard let (genScreen, genScreenIndex) = getGeneratorScreen(currentGameName) else { return }
             genScreen.alterButtonsForLiveMPCGDGenome()
 
-            _ = infoCyclers[currentGameName]?.cycleToComponentIndex(2)
+            _ = infoCyclers[currentGameName]?.cycleToComponentIndex(genScreenIndex)
             infoCyclers[currentGameName]?.handleGeneratorScreenMenuMove()
         }
     }
@@ -1334,7 +1511,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
     
     func updateGeneratorScreenIcons(){
         if currentGamePack.gameIDOnShow != nil{
-            let genScreen = infoCyclers[currentGameName]?.hkComponents[2] as! GeneratorScreen
+            guard let (genScreen, _) = getGeneratorScreen(currentGameName) else { return }
             genScreen.alterForDeviceSimulation()
         }
     }
@@ -1426,10 +1603,8 @@ class MainScene: BaseScene, UITextFieldDelegate{
         infoNode?.removeFromParent()
         
         var textColour = Colours.getColour(.black)
-        if self.currentGamePack != nil{
-            if let wG = self.currentGamePack.MPCGDGenomeShowingInBackground{
-                textColour = getTextColourForMPCGDGenome(wG)
-            }
+        if let wG = self.currentGamePack?.MPCGDGenomeShowingInBackground{
+            textColour = getTextColourForMPCGDGenome(wG)
         }
         
         infoNode = SKNode()
@@ -1478,10 +1653,8 @@ class MainScene: BaseScene, UITextFieldDelegate{
         
         infoNode.zPosition = 10
         
-        if self.currentGamePack != nil{
-            if let wG = self.currentGamePack.MPCGDGenomeShowingInBackground{
-                changeInfoColours(wG)
-            }
+        if let wG = self.currentGamePack?.MPCGDGenomeShowingInBackground{
+            changeInfoColours(wG)
         }
         
         addChild(self.aboutNode)
@@ -1570,7 +1743,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
 
         var logoColour = currentGamePack.logoColour
         if loadedMPCGDGenomes[currentGameName]!.dayNightCycle > 0{
-            logoColour = cycleBackgroundShade > 4 ? Colours.getColour(.antiqueWhite) : Colours.getColour(.black)
+            logoColour = getTextColourForMPCGDGenome(loadedMPCGDGenomes[currentGameName]!)
         }
         
         changeLabelColour(logoImageCycler.selectedHKComponent, textColour: logoColour!)
@@ -1580,13 +1753,10 @@ class MainScene: BaseScene, UITextFieldDelegate{
  
         let okButton = createOKButton()
         okButton.alpha = 0
-        okButton.zPosition = 10
+        okButton.zPosition = 1100
+        okButton.enabled = false
+        okButton.isUserInteractionEnabled = false
         addChild(okButton)
-        okButton.run(fadeIn, completion: {
-            okButton.isUserInteractionEnabled = true
-            okButton.enabled = true
-            okButton.isHot = true
-        })
         okButton.onTapStartCode = {
             self.scoreNode.removeAllActions()
             self.scoreNode.run(self.fadeOut)
@@ -1614,15 +1784,23 @@ class MainScene: BaseScene, UITextFieldDelegate{
         })
         
         let gameEndDetails = fascinator.getGameEndDetails()
-        
-        scoreNode = createScoreScreen(logoColour!, gameEndDetails: gameEndDetails, size: scene!.size * 0.9)
+        saveSession(false, gameEndDetails: gameEndDetails)
+        prepareStudyGameRatingPayload(gameEndDetails: gameEndDetails)
+
+        scoreNode = createScoreScreen(logoColour!, gameEndDetails: gameEndDetails, size: scene!.size * 0.9, continueButton: okButton)
+        if pendingStudyGameRatingPayload == nil || !isStudyModeActive() {
+            okButton.run(fadeIn, completion: {
+                okButton.isUserInteractionEnabled = true
+                okButton.enabled = true
+                okButton.isHot = false
+            })
+        }
         
         infoGraphicsImageCycler.isHidden = true
         scoreNode.alpha = 0
         scoreNode.run(fadeIn)
         self.addChild(scoreNode)
 
-        saveSession(false, gameEndDetails: gameEndDetails)
         currentInfoCycler?.enabled = true
         
         state = .start
@@ -1665,7 +1843,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
             self.logoImageCycler.enabled = true
         })
         
-        let logoColour = MPCGDGenome.backgroundShade > 4 && MPCGDGenome.dayNightCycle == 0 ? Colours.getColour(.antiqueWhite) : Colours.getColour(.black)
+        let logoColour = getTextColourForMPCGDGenome(MPCGDGenome)
         changeLabelColour(logoImageCycler.selectedHKComponent, textColour: logoColour)
         
         //changeLogoPipsColour(logoColour)
@@ -1675,10 +1853,11 @@ class MainScene: BaseScene, UITextFieldDelegate{
         showInfoCycler()
     }
     
-    func createScoreScreen(_ textColour: UIColor, gameEndDetails: Fascinator.GameEndDetails, size: CGSize) -> HKComponent{
+    func createScoreScreen(_ textColour: UIColor, gameEndDetails: Fascinator.GameEndDetails, size: CGSize, continueButton: HKButton? = nil) -> HKComponent{
         
         let scoreNode = HKComponent()
         let spacing = CGFloat(3)
+        let endContentNode = SKNode()
         
         let wG = loadedMPCGDGenomes[currentGameName]!
         
@@ -1691,11 +1870,11 @@ class MainScene: BaseScene, UITextFieldDelegate{
             let wIconNode = SKSpriteNode(imageNamed: "WIconDark")
             wIconNode.size = CGSize(width: 90, height: 90)
             wIconNode.position.y = 110
-            scoreNode.addChild(wIconNode)
+            endContentNode.addChild(wIconNode)
             let action = SKAction.rotate(byAngle: -CGFloat.pi * 18, duration: 7)
             wIconNode.run(action)
         }
-        scoreNode.addChild(finishedNode)
+        endContentNode.addChild(finishedNode)
         scoreNode.position = CGPoint(x: scene!.size.width/2, y: scene!.size.height/2)
         scoreNode.zPosition = 1000
         
@@ -1719,7 +1898,32 @@ class MainScene: BaseScene, UITextFieldDelegate{
                 })
                 self.saveSession(false, gameEndDetails: gameEndDetails)
             }
-            scoreNode.addChild(resetButton)
+            endContentNode.addChild(resetButton)
+        }
+
+        let shouldShowRating = pendingStudyGameRatingPayload != nil && isStudyModeActive()
+        endContentNode.alpha = shouldShowRating ? 0 : 1
+        scoreNode.addChild(endContentNode)
+
+        if shouldShowRating {
+            var ratingPanel: SKNode! = nil
+            ratingPanel = createStudyGameRatingPanel(textColour: textColour) { ratings in
+                self.submitStudyGameRating(ratings: ratings)
+                endContentNode.alpha = 0
+                continueButton?.enabled = false
+                continueButton?.isUserInteractionEnabled = false
+                continueButton?.alpha = 0
+                ratingPanel.run(self.fadeOut, completion: {
+                    ratingPanel.removeFromParent()
+                    endContentNode.run(self.fadeIn)
+                    continueButton?.run(self.fadeIn, completion: {
+                        continueButton?.isUserInteractionEnabled = true
+                        continueButton?.enabled = true
+                        continueButton?.isHot = false
+                    })
+                })
+            }
+            scoreNode.addChild(ratingPanel)
         }
         
         return scoreNode
@@ -1731,8 +1935,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
         let isLocked = isLockedHash[gameID]!
         
         
-        let genScreen: GeneratorScreen
-        genScreen = infoCyclers[currentGameName]?.hkComponents[2] as! GeneratorScreen
+        guard let (genScreen, _) = getGeneratorScreen(currentGameName) else { return }
         genScreen.gameID = newGameID
         
         GameHandler.renameGame(gameID, newGameID: newGameID, genome: loadedMPCGDGenomes[currentGameName]!, packID: gamePackScreen.packID, isLocked: isLocked, userID: getUser().userID)
@@ -1804,18 +2007,22 @@ class MainScene: BaseScene, UITextFieldDelegate{
             let gamePack = getGamePackScreen(packID, onGameTapCode: handleGamesPackGameChoice)
             GamePackScreen.allGamePacks.append(gamePack)
             
+            gamePack.packLogo = packLogo
             gamePack.MPCGDGenomeShowingInBackground = MPCGDGenome()
             gamePack.backgroundIsDark = false
             gamePack.logoColour = Colours.getColour(.black)
             if !gamePack.gameIDs.isEmpty{
                 gamePack.MPCGDGenomeShowingInBackground = loadedMPCGDGenomes[gamePack.gameIDs[0]]!
-                gamePack.backgroundIsDark = isBackgroundDark(gamePack.MPCGDGenomeShowingInBackground)
-                if gamePack.backgroundIsDark{
-                    gamePack.logoColour = Colours.getColour(.antiqueWhite)
-                    changeLabelColour(packLogo, textColour: Colours.getColour(.antiqueWhite))
-                }
+                updateGamePackTitleColour(gamePack, genome: gamePack.MPCGDGenomeShowingInBackground)
+                let choice = gamePack.MPCGDGenomeShowingInBackground.backgroundChoice
+                let shade = gamePack.MPCGDGenomeShowingInBackground.dayNightCycle > 0 ? 0 : gamePack.MPCGDGenomeShowingInBackground.backgroundShade
+                BackgroundTextureCache.request(choice, shade, completion: { [unowned self, unowned gamePack] texture in
+                    DispatchQueue.main.async {
+                        let textColour = texture.map { self.getTextColourForTexture($0, fallbackGenome: gamePack.MPCGDGenomeShowingInBackground) } ?? self.getTextColourForMPCGDGenome(gamePack.MPCGDGenomeShowingInBackground)
+                        self.updateGamePackTitleColour(gamePack, genome: gamePack.MPCGDGenomeShowingInBackground, textColour: textColour)
+                    }
+                })
             }
-            gamePack.packLogo = packLogo
             gamePack.id = packID
             gamePack.alias = packAlias
             gamePack.packButton = packButton
@@ -1977,10 +2184,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
             wG.backgroundShade = mpcgdGenome.backgroundShade
             changeBackground(mpcgdGenome)
             currentGamePack.MPCGDGenomeShowingInBackground = mpcgdGenome
-            currentGamePack.backgroundIsDark = isBackgroundDark(mpcgdGenome)
-            currentGamePack.logoColour = getTextColourForMPCGDGenome(mpcgdGenome)
-            changeLogoColour(currentGamePack.logoColour, logo: currentGamePack.gameLogo)
-            changeLogoColour(currentGamePack.logoColour, logo: currentGamePack.packLogo)
+            updateGamePackTitleColour(currentGamePack, genome: mpcgdGenome)
             changeLogoPipsColour(currentGamePack.logoColour)
             changeSettingsColours(mpcgdGenome)
             changeInfoColours(mpcgdGenome)
@@ -1990,12 +2194,11 @@ class MainScene: BaseScene, UITextFieldDelegate{
     }
     
     func isBackgroundDark(_ MPCGDGenome: MPCGDGenome) -> Bool{
-        if MPCGDGenome.dayNightCycle == 0{
-            return (MPCGDGenome.backgroundShade > 4)
+        let shade = MPCGDGenome.dayNightCycle > 0 ? cycleBackgroundShade : MPCGDGenome.backgroundShade
+        if MainScene.backgroundIDs.indices.contains(MPCGDGenome.backgroundChoice), (0..<9).contains(shade), let isDark = BackgroundTextureCache.isBackgroundDark(choice: MPCGDGenome.backgroundChoice, shade: shade) {
+            return isDark
         }
-        else{
-            return false
-        }
+        return MPCGDGenome.dayNightCycle == 0 && MPCGDGenome.backgroundShade > 4
     }
     
     func setupBackgroundAndMaskNode(){
@@ -2010,7 +2213,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
     }
     
     func getTextColourForMPCGDGenome(_ MPCGDGenome: MPCGDGenome) -> UIColor{
-        return isBackgroundDark(MPCGDGenome) && MPCGDGenome.dayNightCycle == 0 ? Colours.getColour(.antiqueWhite) : Colours.getColour(.black)
+        return isBackgroundDark(MPCGDGenome) ? Colours.getColour(.antiqueWhite) : Colours.getColour(.black)
     }
     
     func changeInfoColours(_ MPCGDGenome: MPCGDGenome){
@@ -2163,7 +2366,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
                         self.cycleBackgroundShadePos = nextShadePos
                     })
                     
-                    self.fascinator.scoreColour = backgrounds[nextShadePos] > 4 ? Colours.getColour(.antiqueWhite) : Colours.getColour(.black)
+                    self.fascinator.scoreColour = self.getTextColourForMPCGDGenome(wG)
                     
                     self.changeLabelColour(self.fascinator.timeDisplay, textColour: self.fascinator.scoreColour)
                     self.changeLabelColour(self.fascinator.scoreDisplay, textColour: self.fascinator.scoreColour)
@@ -2176,6 +2379,13 @@ class MainScene: BaseScene, UITextFieldDelegate{
                     if let t = BackgroundTextureShadeCache.entries[nextBackgroundIndex].texture {
                         self.backgroundNode.texture = t
                     }
+                    self.cycleBackgroundShade = backgrounds[nextShadePos]
+                    self.cycleBackgroundShadePos = nextShadePos
+                    self.fascinator.scoreColour = self.getTextColourForMPCGDGenome(wG)
+                    self.changeLabelColour(self.fascinator.timeDisplay, textColour: self.fascinator.scoreColour)
+                    self.changeLabelColour(self.fascinator.scoreDisplay, textColour: self.fascinator.scoreColour)
+                    self.changeLabelColour(self.fascinator.scoreDisplay.children[0] as! SKLabelNode, textColour: self.fascinator.scoreColour)
+                    self.changeLabelColour(self.fascinator.livesDisplay, textColour: self.fascinator.scoreColour)
                     self.cycleBackground(backgrounds, imageStem: imageStem, nextShadePos: nextShadePos + 1, preFadeTime: preFadeTime, fadeDuration: fadeDuration)
                 })
             }
@@ -2219,6 +2429,22 @@ class MainScene: BaseScene, UITextFieldDelegate{
                 DispatchQueue.main.async {
                     //print(">>> SWITCHED TO BACKGROUND: choice=\(choice), shade=\(shade), \(debugBackgroundName)")
                     self.backgroundNode.texture = texture
+                    if let currentGamePack = self.currentGamePack, self.oldBackgroundChoice == choice && (self.oldDayNightChoice > 0 || self.oldBackgroundShade == shade) {
+                        let textColour = self.getTextColourForMPCGDGenome(MPCGDGenome)
+                        currentGamePack.logoColour = textColour
+                        if let gameLogo = currentGamePack.gameLogo {
+                            self.changeLogoColour(textColour, logo: gameLogo)
+                        }
+                        if let packLogo = currentGamePack.packLogo {
+                            self.changeLogoColour(textColour, logo: packLogo)
+                        }
+                        if let logoImageCycler = self.logoImageCycler {
+                            self.changeLogoPipsColour(textColour)
+                            if let selectedHKComponent = logoImageCycler.selectedHKComponent {
+                                self.changeLabelColour(selectedHKComponent, textColour: textColour)
+                            }
+                        }
+                    }
                     let f = SKAction.fadeOut(withDuration: 0.5)
                     self.backgroundMaskNode.run(f)
                     BackgroundTextureShadeCache.paused = false
@@ -2229,6 +2455,38 @@ class MainScene: BaseScene, UITextFieldDelegate{
     
     func changeLogoColour(_ newColour: UIColor, logo: HKComponent){
         changeLabelColour(logo, textColour: newColour)
+    }
+
+    func updateGamePackTitleColour(_ gamePack: GamePackScreen, genome: MPCGDGenome, textColour: UIColor? = nil) {
+        let textColour = textColour ?? getTextColourForMPCGDGenome(genome)
+        gamePack.backgroundIsDark = isBackgroundDark(genome)
+        gamePack.logoColour = textColour
+        if let packLogo = gamePack.packLogo {
+            setLabelColour(packLogo, textColour: textColour)
+        }
+        if let gameLogo = gamePack.gameLogo {
+            setLabelColour(gameLogo, textColour: textColour)
+        }
+    }
+
+    func getTextColourForTexture(_ texture: SKTexture, fallbackGenome: MPCGDGenome) -> UIColor {
+        return getTextColourForImage(UIImage(cgImage: texture.cgImage()), fallbackGenome: fallbackGenome)
+    }
+
+    func getTextColourForImage(_ image: UIImage, fallbackGenome: MPCGDGenome) -> UIColor {
+        if let isDark = BackgroundTextureCache.isImageDark(image) {
+            return isDark ? Colours.getColour(.antiqueWhite) : Colours.getColour(.black)
+        }
+        return getTextColourForMPCGDGenome(fallbackGenome)
+    }
+
+    func setLabelColour(_ node: SKNode, textColour: UIColor) {
+        if let labelNode = node as? SKLabelNode {
+            labelNode.fontColor = textColour
+        }
+        for child in node.children {
+            setLabelColour(child, textColour: textColour)
+        }
     }
     
     func changeLogoPipsColour(_ newColour: UIColor){
@@ -2292,21 +2550,21 @@ class MainScene: BaseScene, UITextFieldDelegate{
     }
     
     override func touchesBegan(_ touchPoint: CGPoint) {
-        if fascinator != nil && fascinator.wantsTouchesFromUser() {
+        if let fascinator = fascinator, fascinator.wantsTouchesFromUser() {
             // Pass the touch to the fascinator
             fascinator.touchesBegan(touchPoint)
         }
     }
     
     override func touchesDragged(_ touchPoint: CGPoint, clampedDragVector: CGVector, dragVector: CGVector) {
-        if fascinator != nil && fascinator.wantsTouchesFromUser() {
+        if let fascinator = fascinator, fascinator.wantsTouchesFromUser() {
             // Pass the touch to the fascinator
             fascinator.touchesDragged(touchPoint, clampedDragVector: clampedDragVector, dragVector: dragVector)
         }
     }
     
     override func touchesEnded(_ touchPoint: CGPoint) {
-        if fascinator != nil && fascinator.wantsTouchesFromUser() {
+        if let fascinator = fascinator, fascinator.wantsTouchesFromUser() {
             fascinator.touchesEnded(touchPoint)
         }
     }
@@ -2320,9 +2578,84 @@ class MainScene: BaseScene, UITextFieldDelegate{
         MPCGDAudio.masterSoundVolume = clamp(value: sfxSlider.value, lower: 0.0, upper: 1.0)
         MPCGDAudio.playSound(path: MPCGDSounds.bounce)
     }
+
+    func formatServerDateTime(_ timestamp: TimeInterval) -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = "ddMMyy HH:mm:ss"
+        return formatter.string(from: Date(timeIntervalSince1970: timestamp))
+    }
+
+    func rememberGenomeSnapshot(gameID: String, genome: MPCGDGenome) {
+        if let chromosome = genome.asJSONDictionary() {
+            lastGenomeSnapshotByGame[gameID] = chromosome
+        }
+    }
+
+    func recordDesignGenomeModification(gameID: String, alteredGenome: MPCGDGenome) {
+        guard isStudyModeActive(), let newChromosome = alteredGenome.asJSONDictionary() else { return }
+        guard let oldChromosome = lastGenomeSnapshotByGame[gameID] else {
+            lastGenomeSnapshotByGame[gameID] = newChromosome
+            return
+        }
+
+        for gene in Array(Set(oldChromosome.keys).union(newChromosome.keys)).sorted() {
+            guard let oldValue = oldChromosome[gene], let newValue = newChromosome[gene], oldValue != newValue else { continue }
+            if pendingDesignModificationStartTimeByGame[gameID] == nil {
+                pendingDesignModificationStartTimeByGame[gameID] = Date().timeIntervalSince1970
+            }
+            var changes = pendingDesignModificationChangesByGame[gameID] ?? [:]
+            let firstOldValue = changes[gene]?.oldValue ?? oldValue
+            if firstOldValue == newValue {
+                changes.removeValue(forKey: gene)
+            } else {
+                changes[gene] = (oldValue: firstOldValue, newValue: newValue)
+            }
+            if changes.count > 0 {
+                pendingDesignModificationChangesByGame[gameID] = changes
+            } else {
+                pendingDesignModificationChangesByGame.removeValue(forKey: gameID)
+                pendingDesignModificationStartTimeByGame.removeValue(forKey: gameID)
+            }
+        }
+
+        lastGenomeSnapshotByGame[gameID] = newChromosome
+    }
+
+    func sendPendingDesignModificationsForPlay() {
+        let gameID = currentGameName
+        if let (genScreen, _) = getGeneratorScreen(gameID) {
+            recordDesignGenomeModification(gameID: gameID, alteredGenome: genScreen.liveMPCGDGenome)
+        }
+
+        guard isStudyModeActive(),
+              let modificationStartTime = pendingDesignModificationStartTimeByGame[gameID],
+              let pendingChanges = pendingDesignModificationChangesByGame[gameID],
+              pendingChanges.count > 0 else { return }
+
+        let changes = pendingChanges.keys.sorted().map { gene in
+            let change = pendingChanges[gene]!
+            return ["gene": gene, "oldValue": change.oldValue, "newValue": change.newValue] as [String : Any]
+        }
+
+        var payload: Dictionary<String, Any> = [:]
+        payload["interaction"] = "design_modifications"
+        payload["gameID"] = gameID
+        payload["modificationStartTime"] = formatServerDateTime(modificationStartTime)
+        payload["modificationEndTime"] = formatServerDateTime(Date().timeIntervalSince1970)
+        payload["changes"] = changes
+        db_client?.sendDesignPath(dataDict: payload)
+
+        pendingDesignModificationStartTimeByGame.removeValue(forKey: gameID)
+        pendingDesignModificationChangesByGame.removeValue(forKey: gameID)
+        if let genome = loadedMPCGDGenomes[gameID] {
+            rememberGenomeSnapshot(gameID: gameID, genome: genome)
+        }
+    }
     
     func handlePlayTap(){
         if canPressPlay{
+            sendPendingDesignModificationsForPlay()
             restartAfterTutorial(true)
         }
     }
@@ -2377,6 +2710,36 @@ class MainScene: BaseScene, UITextFieldDelegate{
         if !quit{
             currentGamePack.handlePotentialBestChange(gameID: currentGameName)
         }
+    }
+
+    func prepareStudyGameRatingPayload(gameEndDetails: Fascinator.GameEndDetails) {
+        pendingStudyGameRatingPayload = nil
+        guard isStudyModeActive(), let playedGenome = loadedMPCGDGenomes[currentGameName] else { return }
+        guard let chromosome = playedGenome.asJSONDictionary() else {
+            print("Could not encode played chromosome for study rating")
+            return
+        }
+
+        var payload: Dictionary<String, Any> = [:]
+        payload["interaction"] = "game_rating"
+        payload["gameID"] = currentGameName
+        payload["chromosome"] = chromosome
+        payload["chromosomeBase64"] = playedGenome.encodeAsBase64() ?? ""
+        payload["won"] = gameEndDetails.gameIsWon ?? false
+        payload["time"] = gameEndDetails.currentTimeElapsed ?? 0
+        payload["score"] = gameEndDetails.currentScore ?? fascinator.score
+        pendingStudyGameRatingPayload = payload
+    }
+
+    func submitStudyGameRating(ratings: Dictionary<String, Int>) {
+        if var payload = pendingStudyGameRatingPayload {
+            payload["difficulty"] = ratings["Difficulty"] ?? 4
+            payload["creativity"] = ratings["Creativity"] ?? 4
+            payload["fun"] = ratings["Fun"] ?? 4
+            payload["winnable"] = ratings["Winnable"] ?? 2
+            db_client?.sendDesignPath(dataDict: payload)
+        }
+        pendingStudyGameRatingPayload = nil
     }
     
     func handleSettingsTap(){
@@ -2747,7 +3110,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
             settingsButton.run(fadeIn)
         }
         else if state == .playing{
-            if fascinator != nil && !fascinator.gameIsOver && fascinator.wantsTouchesFromUser() {
+            if let fascinator = fascinator, !fascinator.gameIsOver && fascinator.wantsTouchesFromUser() {
                // fascinator.tapAt(touchPoint)
                 tapsPerSession += 1
             }
@@ -2769,20 +3132,20 @@ class MainScene: BaseScene, UITextFieldDelegate{
             }
         }
 
-        if fascinator != nil {
+        if let fascinator = fascinator {
             fascinator.tick(currentTime)
         }
     }
     
     override func didFinishUpdate() {
         MPCGDAudio.tick(audioDeltaTime)
-        if self.currentGamePack != nil && self.currentGamePack.gameIDOnShow != nil {
-            BackgroundTextureShadeCache.update(MPCGDGenome: self.currentGamePack.MPCGDGenomeShowingInBackground)
+        if let currentGamePack = self.currentGamePack, currentGamePack.gameIDOnShow != nil {
+            BackgroundTextureShadeCache.update(MPCGDGenome: currentGamePack.MPCGDGenomeShowingInBackground)
         }
     }
 
     func audioConfigurationChanged() {
-        if fascinator != nil {
+        if let fascinator = fascinator {
             fascinator.audioConfigurationChanged()
         }
     }
@@ -2808,7 +3171,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
                 
                 var logoColour = currentGamePack.logoColour
                 if loadedMPCGDGenomes[currentGameName]!.dayNightCycle > 0{
-                    logoColour = cycleBackgroundShade > 4 ? Colours.getColour(.antiqueWhite) : Colours.getColour(.black)
+                    logoColour = getTextColourForMPCGDGenome(loadedMPCGDGenomes[currentGameName]!)
                 }
                 changeLabelColour(logoImageCycler.selectedHKComponent, textColour: logoColour!)
                 
@@ -3146,7 +3509,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
         let uploadButton = HKButton(image: ImageUtils.getBlankImage(CGSize(width: 1, height: 1), colour: UIColor.clear), dilateTapBy: CGSize(width: labelSize.width, height: 60))
         let shareButton = HKButton(image: ImageUtils.getBlankImage(CGSize(width: 1, height: 1), colour: UIColor.clear), dilateTapBy: CGSize(width: labelSize.width, height: 60))
         
-        if (getUser().studyMode != 1 ){
+        if !isStudyModeActive(){
         var shareTextArray: [SKNode] = []
         
         do { // UPLOAD
@@ -3238,9 +3601,10 @@ class MainScene: BaseScene, UITextFieldDelegate{
         
         let designScreen = GeneratorScreen(size: base.size, lineColour: Colours.getColour(.antiqueWhite), isLocked: isLocked, gameID: gameID)
         designScreen.liveMPCGDGenome = loadedMPCGDGenomes[gameID]!
+        rememberGenomeSnapshot(gameID: gameID, genome: designScreen.liveMPCGDGenome)
         designScreen.alterButtonsForLiveMPCGDGenome()
         
-        let pipsColour = MPCGDGenome.backgroundShade > 4 && MPCGDGenome.dayNightCycle == 0 ? Colours.getColour(.antiqueWhite) : Colours.getColour(.black)
+        let pipsColour = getTextColourForMPCGDGenome(MPCGDGenome)
         
         changeLogoPipsColour(pipsColour)
         
@@ -3248,10 +3612,10 @@ class MainScene: BaseScene, UITextFieldDelegate{
         
         //TODO: CHANGE FOR TEST FLIGHT
         // horrible fix for the below code with hoardcoded number of elements
-        let components = getUser().studyMode == 1 ? [statsScreen,designScreen]: [statsScreen, buttonsScreen, designScreen]
+        let components = isStudyModeActive() ? [statsScreen,designScreen]: [statsScreen, buttonsScreen, designScreen]
 
         
-        let ids = getUser().studyMode == 1 ? ["\(gameID) stats", gameID] : ["\(gameID) stats", "buttons", gameID]
+        let ids = isStudyModeActive() ? ["\(gameID) stats", gameID] : ["\(gameID) stats", "buttons", gameID]
 
         let cycler = HKComponentCycler(hkComponents: components, ids: ids, size: base.size, tapToCycle: false, cropNode: cropNode, name: "\(gameID) cycler")
 
@@ -3261,7 +3625,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
             self.handleBackgroundChange(designScreen, hasMoved: true)
         }
         cycler.generatorScreen = designScreen
-        if (getUser().studyMode != 1){
+        if !isStudyModeActive(){
             cycler.liveTapComponents.append((uploadButton, buttonsScreen))
             cycler.liveTapComponents.append((shareButton, buttonsScreen))
         }
@@ -3322,6 +3686,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
     
     func handleSavedGameGenomeChange(_ alteredGenome: MPCGDGenome, isLocked: Bool){
         let encoding = alteredGenome.encodeAsBase64()!
+        recordDesignGenomeModification(gameID: currentGameName, alteredGenome: alteredGenome)
         loadedMPCGDGenomes[currentGameName] = alteredGenome
         isLockedHash[currentGameName] = isLocked
         loadRightGenome()
@@ -3477,7 +3842,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
         node.addChild(tintNode)
         node.addChild(genScreen)
         
-        let fontColour = isBackgroundDark(genScreen.liveMPCGDGenome) ? Colours.getColour(.antiqueWhite) : Colours.getColour(.black)
+        let fontColour = getTextColourForMPCGDGenome(genScreen.liveMPCGDGenome)
 
         let textNode = SKLabelNode(text: "Made with #MPCGD")
         textNode.fontName = "Helvetica Neue Thin"
