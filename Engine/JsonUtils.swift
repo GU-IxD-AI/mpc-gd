@@ -13,12 +13,14 @@ class JsonUtils {
     static func jsonStringToObject(_ jsonString: String) -> AnyObject {
         guard let data = jsonString.data(using: String.Encoding.utf8) else {
             print("Could not encode JSON string")
+            Diagnostics.report("Could not encode JSON string")
             return NSDictionary()
         }
         do {
             return try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions(rawValue: 0)) as AnyObject
         } catch {
             print("Could not parse JSON string: \(error)")
+            Diagnostics.report("Could not parse JSON: \(error.localizedDescription)")
             return NSDictionary()
         }
     }
@@ -30,6 +32,7 @@ class JsonUtils {
             return String(data: data, encoding: String.Encoding.utf8) ?? "{}"
         } catch {
             print("Could not serialize JSON object: \(error)")
+            Diagnostics.report("Could not serialize JSON: \(error.localizedDescription)")
             return "{}"
         }
     }

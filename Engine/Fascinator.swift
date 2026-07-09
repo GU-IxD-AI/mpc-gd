@@ -907,7 +907,7 @@ class Fascinator: NSObject, SKPhysicsContactDelegate{
         timeDisplay.text = "\(Int(floor(restartTimeElapsed)))s"
         livesDisplay.text = "Lives: \(livesLeft)"
         scoreDisplay.fontColor = scoreColour
-        (scoreDisplay.children[0] as! SKLabelNode).fontColor = scoreColour
+        (scoreDisplay.children.first as? SKLabelNode)?.fontColor = scoreColour
         timeDisplay.fontColor = scoreColour
         livesDisplay.fontColor = scoreColour
         

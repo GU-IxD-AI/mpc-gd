@@ -209,6 +209,7 @@ class MPCGDAudio {
     static var audioBufferCache : [String : AVAudioPCMBuffer] = [:]
     static var shouldInitializeOnlyOnce = true
     static var shouldRestart = false
+    static var isAvailable = true
     
     static var streamRequests: [StreamRequest] = []
     static var soundRequests: [SoundRequest] = []
@@ -251,34 +252,57 @@ class MPCGDAudio {
     }
     
     static func initialize() {
+        guard isAvailable else { return }
         if shouldInitializeOnlyOnce {
             NotificationCenter.default.addObserver(self, selector: #selector(MPCGDAudio.audioConfigurationChanged), name: NSNotification.Name.AVAudioEngineConfigurationChange, object: nil)
             for _ in 0..<maxStreams { streams.append(Stream()) }
             for i in 0..<maxSounds { sounds.append(Sound(i)) }
             shouldInitializeOnlyOnce = false
         }
-        
-        engine = AVAudioEngine()
-        _ = engine.mainMixerNode
-        
-        for s in streams {
-            engine.attach(s.playback)
-            engine.attach(s.player)
-            engine.connect(s.player, to: s.playback, format: nil)
-            engine.connect(s.playback, to: engine.mainMixerNode, format: nil)
+
+        let initError = tryBlock {
+            engine = AVAudioEngine()
+            _ = engine.mainMixerNode
         }
-        
-        for s in sounds {
-            engine.attach(s.playback)
-            engine.attach(s.player)
-            engine.connect(s.player, to: s.playback, format: nil)
-            engine.connect(s.playback, to: engine.mainMixerNode, format: nil)
+        if let initError = initError {
+            isAvailable = false
+            engine = nil
+            Diagnostics.report("Audio disabled: \(initError.reason ?? initError.name.rawValue)")
+            return
+        }
+        guard engine != nil else {
+            isAvailable = false
+            Diagnostics.report("Audio disabled: engine unavailable")
+            return
+        }
+
+        let setupError = tryBlock {
+            for s in streams {
+                engine.attach(s.playback)
+                engine.attach(s.player)
+                engine.connect(s.player, to: s.playback, format: nil)
+                engine.connect(s.playback, to: engine.mainMixerNode, format: nil)
+            }
+
+            for s in sounds {
+                engine.attach(s.playback)
+                engine.attach(s.player)
+                engine.connect(s.player, to: s.playback, format: nil)
+                engine.connect(s.playback, to: engine.mainMixerNode, format: nil)
+            }
+        }
+        if let setupError = setupError {
+            isAvailable = false
+            engine = nil
+            Diagnostics.report("Audio disabled during setup: \(setupError.reason ?? setupError.name.rawValue)")
+            return
         }
         _ = start()
         outputStreamVolume = 0.0
     }
     
     static func deinitialize() {
+        guard isAvailable, engine != nil else { return }
         engine.stop()
         masterStreamFader = nil
         for s in streams {
@@ -310,6 +334,7 @@ class MPCGDAudio {
     }
     
     static func start(_ retries : Int = 20) -> NSException? {
+        guard isAvailable, engine != nil else { return nil }
         let error = tryBlock {
             do {
                 try engine.start()
@@ -330,6 +355,7 @@ class MPCGDAudio {
     }
     
     static private func restart() {
+        guard isAvailable else { return }
         deinitialize()
         initialize()
         
@@ -350,6 +376,7 @@ class MPCGDAudio {
     }
     
     static func playStream(index i: Int, path: String, volume: Float = 1.0, rate: Float = 1.0) {
+        guard isAvailable, streams.indices.contains(i) else { return }
         streamRequests.append(StreamRequest(i, path, volume, rate))
         streams[i].player.stop()
     }
@@ -381,6 +408,7 @@ class MPCGDAudio {
     }
     
     static func playSound(path: String, volume: Float = 1.0, rate: Float = 1.0, priority: Float = 0.0, tracker: MPCGDAudioTracker? = nil) {
+        guard isAvailable else { return }
         guard MPCGDSounds.soundsAllowed.contains(path) else { return }
         guard let b = loadAudioBuffer(path) else { return }
         soundRequests.append(SoundRequest(path: path, volume: volume, rate: rate, priority: priority, buffer: b, tracker: tracker))
@@ -388,14 +416,17 @@ class MPCGDAudio {
     }
 
     static func setMasterStreamVolume(to volume: Float, duration d: Float = 0.0, completion fn: (()->())? = nil) {
+        guard isAvailable else { return }
         masterStreamFader = Fader(to: volume, from: masterStreamVolume, duration: d, completion: fn)
     }
     
     static func setStreamVolume(index i: Int, to volume: Float, duration d: Float = 0.0, completion fn: (()->())? = nil) {
+        guard isAvailable, streams.indices.contains(i) else { return }
         streams[i].fader = Fader(to: volume, from: streams[i].volume, duration: d, completion: fn)
     }
     
     static func tick(_ dt: CFTimeInterval) {
+        guard isAvailable, engine != nil else { return }
         if shouldRestart {
             restart()
         }
@@ -611,6 +642,7 @@ class MPCGDAudioPlayer{
     }
     
     static func loadAndPlayAudio(trackName: String, channelNum: Int, volume: Float, rate: Float){
+        guard MPCGDAudio.isAvailable else { return }
         // channelNum will be between 0 and 4
         
         // This will quickly fade out the existing track in this channel if there
@@ -630,6 +662,7 @@ class MPCGDAudioPlayer{
     }
     
     static func setVolume(channelNum: Int, volume: CGFloat){
+        guard MPCGDAudio.isAvailable else { return }
         
         // volume will be between 0 and 1, with 0 turning off the audio in this channel entirely
         // the audio in the channel should fade (in/out) quickly to the new volume
@@ -642,17 +675,20 @@ class MPCGDAudioPlayer{
     }
     
     static func setTempo(channelNum: Int, tempo: CGFloat){
+        guard MPCGDAudio.isAvailable else { return }
         
         // tempo will be between 0.2 and 5
         
         print("Changing channel \(channelNum) tempo to \(tempo)")
         do {
             let i = channelNum-1
+            guard MPCGDAudio.streams.indices.contains(i) else { return }
             MPCGDAudio.streams[i].rate = Float(tempo)
         }
     }
     
     static func setAppAudioVolume(volume: CGFloat){
+        guard MPCGDAudio.isAvailable else { return }
 
         // volume will be between 0 and 1, with 0 turning off the audio in the app entirely
         // the app audio should fade (in/out) quickly to the new volume
@@ -664,17 +700,20 @@ class MPCGDAudioPlayer{
     }
     
     static func setAppAudioTempo(tempo: CGFloat){
+        guard MPCGDAudio.isAvailable else { return }
         
         // this sets the same tempo for all the channels
         // tempo will be between 0.1 and 5 (TBD)
         
         print("Changing audio tempo to \(tempo)")
         for i in 0..<MPCGDAudio.maxStreams {
+            guard MPCGDAudio.streams.indices.contains(i) else { continue }
             MPCGDAudio.streams[i].rate = Float(tempo)
         }
     }
     
     static func setSoundEffectsVolume(volume: CGFloat){
+        guard MPCGDAudio.isAvailable else { return }
         // this should be done immediately with no fading
         MPCGDAudio.masterSoundVolume = Float(volume)
     }

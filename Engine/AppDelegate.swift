@@ -16,6 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        Diagnostics.install()
         return true
     }
     
@@ -98,6 +99,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return model
         }
         guard let model = NSManagedObjectModel.mergedModel(from: [Bundle.main]) else {
+            Diagnostics.recordFatal("Unable to load MPCGD Core Data model")
             fatalError("Unable to load MPCGD Core Data model")
         }
         return model
@@ -124,6 +126,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // Replace this with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             NSLog("Unresolved error \(wrappedError), \(wrappedError.userInfo)")
+            Diagnostics.recordFatal("Persistent store error: \(wrappedError.localizedDescription)")
             abort()
         }
         
@@ -149,6 +152,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
                 let nserror = error as NSError
                 NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
+                Diagnostics.recordFatal("Core Data save error: \(nserror.localizedDescription)")
                 abort()
             }
         }

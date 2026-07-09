@@ -296,6 +296,8 @@ class MainScene: BaseScene, UITextFieldDelegate{
     
     static let isTestFlight = true
     var pauseNode: SKLabelNode! = nil
+    var debugLogNode: SKMultilineLabel! = nil
+    var debugLogLines: [String] = []
     
     var backgroundSize: CGSize! = nil
     //NOTE: suegy integrate remote connection to db
@@ -371,6 +373,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
     var canPressPlay = false
     
     var scoreNode: SKNode! = nil
+    var isShowingEndGameFlow = false
     
     var isAnimatingOpening = false
     
@@ -630,6 +633,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
         pauseNode.zPosition = 1000
         pauseNode.alpha = 0
         addChild(pauseNode)
+        setupDebugLogNode()
     }
     
     var menuNode : SKNode?
@@ -668,6 +672,57 @@ class MainScene: BaseScene, UITextFieldDelegate{
 
     func isStudyModeActive() -> Bool {
         return getUser().studyMode == 1 || db_client?.isStudyMode == true
+    }
+
+    func setupDebugLogNode() {
+        guard MainScene.isTestFlight || DeviceType.isIPad else { return }
+        debugLogNode = SKMultilineLabel(text: "", size: CGSize(width: size.width * 0.84, height: size.height * 0.22), pos: CGPoint(x: size.width * 0.08, y: size.height * 0.88), fontName: "Helvetica Neue Thin", fontSize: 10, fontColor: Colours.getColour(.orange), alignment: .left, shouldShowBorder: false, spacing: 1.15)
+        debugLogNode.zPosition = 5000
+        debugLogNode.alpha = 0
+        debugLogNode.isUserInteractionEnabled = false
+        addChild(debugLogNode)
+        Diagnostics.onError = { [weak self] message in
+            self?.debugError(message)
+        }
+        Diagnostics.onClear = { [weak self] in
+            self?.clearDebugErrors()
+        }
+        if let lastFatal = Diagnostics.consumeLastFatal() {
+            debugError("Previous crash: \(lastFatal)")
+        }
+    }
+
+    func debugLog(_ message: String) {
+        let line = "\(Int(Date().timeIntervalSince1970.truncatingRemainder(dividingBy: 100000))): \(message)"
+        print("MPCGD DEBUG: \(line)")
+    }
+
+    func debugError(_ message: String) {
+        let line = "\(Int(Date().timeIntervalSince1970.truncatingRemainder(dividingBy: 100000))): ERROR: \(message)"
+        print("MPCGD DEBUG: \(line)")
+        guard MainScene.isTestFlight || DeviceType.isIPad else { return }
+        debugLogLines.append(line)
+        if debugLogLines.count > 7 {
+            debugLogLines.removeFirst(debugLogLines.count - 7)
+        }
+        debugLogNode?.text = debugLogLines.joined(separator: "\n")
+        debugLogNode?.alpha = 0.88
+    }
+
+    func clearDebugErrors() {
+        debugLogLines.removeAll()
+        debugLogNode?.text = ""
+        debugLogNode?.run(SKAction.fadeOut(withDuration: 0.25))
+    }
+
+    func removeEndGameNodes() {
+        scoreNode?.removeAllActions()
+        scoreNode?.removeFromParent()
+        scoreNode = nil
+        for child in children where child.name == "EndGameOKButton" || child.name == "EndGameScoreNode" {
+            child.removeAllActions()
+            child.removeFromParent()
+        }
     }
 
     func addPresets(_ gamePackID: String){
@@ -979,6 +1034,11 @@ class MainScene: BaseScene, UITextFieldDelegate{
         
         //TODO: suegy fix db connection
         self.db_client = DBConnection(endpoint: endpoint,uuid: getUser().userID, isStudyMode: getUser().studyMode == 1)
+        self.db_client.onError = { [weak self] message in
+            DispatchQueue.main.async {
+                self?.debugError(message)
+            }
+        }
         
         let sfLogo = SKSpriteNode(imageNamed: "MPCGDLogo")
         sfLogo.setScale(0.5 * size.width / sfLogo.width)
@@ -1286,6 +1346,13 @@ class MainScene: BaseScene, UITextFieldDelegate{
         logoImageCycler.position.x += size.width
         let _ = infoGraphicsImageCycler.cycleToComponent(firstPackID)
     }
+
+    func restoreDefaultGamesForCurrentMode() {
+        debugLog("restoring default games study=\(isStudyModeActive())")
+        resetLoadedGamePacks(newPacks: isStudyModeActive() ? ["StudyPack"] : GameHandler.getPackNames())
+        initGame()
+    }
+
     func initGame(){
         self.startTheGame()
         self.state = .start
@@ -1721,6 +1788,13 @@ class MainScene: BaseScene, UITextFieldDelegate{
     }
     
     func gameOver() {
+        debugLog("gameOver start game=\(currentGameName) state=\(state)")
+        guard state == .playing && !isShowingEndGameFlow else {
+            debugError("duplicate gameOver ignored state=\(state) showing=\(isShowingEndGameFlow)")
+            return
+        }
+        isShowingEndGameFlow = true
+        removeEndGameNodes()
         view!.isPaused = false
         playButton.isHidden = false
         menuNode!.isHidden = false
@@ -1752,17 +1826,20 @@ class MainScene: BaseScene, UITextFieldDelegate{
         logoImageCycler.enabled = false
  
         let okButton = createOKButton()
+        okButton.name = "EndGameOKButton"
         okButton.alpha = 0
         okButton.zPosition = 1100
         okButton.enabled = false
         okButton.isUserInteractionEnabled = false
         addChild(okButton)
         okButton.onTapStartCode = {
-            self.scoreNode.removeAllActions()
-            self.scoreNode.run(self.fadeOut)
+            okButton.enabled = false
+            okButton.isUserInteractionEnabled = false
             self.fadeOutFascinator()
             okButton.isHot = false
-            okButton.run(self.fadeOut)
+            okButton.run(self.fadeOut, completion: {
+                okButton.removeFromParent()
+            })
         }
         
         
@@ -1788,7 +1865,8 @@ class MainScene: BaseScene, UITextFieldDelegate{
         prepareStudyGameRatingPayload(gameEndDetails: gameEndDetails)
 
         scoreNode = createScoreScreen(logoColour!, gameEndDetails: gameEndDetails, size: scene!.size * 0.9, continueButton: okButton)
-        if pendingStudyGameRatingPayload == nil || !isStudyModeActive() {
+        scoreNode.name = "EndGameScoreNode"
+        if !isStudyModeActive() {
             okButton.run(fadeIn, completion: {
                 okButton.isUserInteractionEnabled = true
                 okButton.enabled = true
@@ -1831,6 +1909,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
         scoreNode?.run(fadeOut, completion: {
             self.scoreNode.removeFromParent()
             self.scoreNode = nil
+            self.isShowingEndGameFlow = false
         })
         if infoGraphicsImageCycler.isHidden{
             infoGraphicsImageCycler.alpha = 0
@@ -1903,6 +1982,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
 
         let shouldShowRating = pendingStudyGameRatingPayload != nil && isStudyModeActive()
         endContentNode.alpha = shouldShowRating ? 0 : 1
+        endContentNode.name = "EndGameResultPanel"
         scoreNode.addChild(endContentNode)
 
         if shouldShowRating {
@@ -1923,7 +2003,10 @@ class MainScene: BaseScene, UITextFieldDelegate{
                     })
                 })
             }
+            ratingPanel.name = "EndGameRatingPanel"
             scoreNode.addChild(ratingPanel)
+        } else if isStudyModeActive() {
+            debugError("study rating missing; showing result only")
         }
         
         return scoreNode
@@ -1941,8 +2024,11 @@ class MainScene: BaseScene, UITextFieldDelegate{
         GameHandler.renameGame(gameID, newGameID: newGameID, genome: loadedMPCGDGenomes[currentGameName]!, packID: gamePackScreen.packID, isLocked: isLocked, userID: getUser().userID)
         //FIXME: Add tracking
         SessionHandler.renameGame(oldGameID: gameID, newGameID: newGameID)
-        let statsScreen = infoCyclers[currentGameName]!.hkComponents[0] as! StatsScreen
-        statsScreen.reactToGameIDChange(newGameID: newGameID)
+        if let cycler = infoCyclers[currentGameName], cycler.hkComponents.indices.contains(0), let statsScreen = cycler.hkComponents[0] as? StatsScreen {
+            statsScreen.reactToGameIDChange(newGameID: newGameID)
+        } else {
+            debugError("rename missing stats screen for \(currentGameName)")
+        }
         let label = getGamePackComponent(newGameID, packID: gamePackScreen.packID)
         loadedMPCGDGenomes[newGameID] = loadedMPCGDGenomes[currentGameName]!
         loadedMPCGDGenomes.removeValue(forKey: currentGameName)
@@ -2074,6 +2160,10 @@ class MainScene: BaseScene, UITextFieldDelegate{
         logoImageCycler.setPositionTo(CGPoint(x: size.width/2, y: size.height * logoYPos))
         logoImageCycler.imageChosenCode = { [unowned self] () -> () in
             self.loadRightGenome()
+            guard self.gamePacks.indices.contains(self.logoImageCycler.imagePosition) else {
+                self.debugError("logo cycler index invalid \(self.logoImageCycler.imagePosition)/\(self.gamePacks.count)")
+                return
+            }
             self.currentGamePack = self.gamePacks[self.logoImageCycler.imagePosition]
             
             // Game is showing
@@ -2113,8 +2203,12 @@ class MainScene: BaseScene, UITextFieldDelegate{
         infoGraphicsImageCycler.position = CGPoint(x: size.width/2, y: size.height * infoGraphicsY)
         menuNode?.addChild(infoGraphicsImageCycler)
         
-        logoImageCycler.selectedID = allPackIDs[0]
-        infoGraphicsImageCycler.selectedID = allPackIDs[0]
+        guard let firstPackID = allPackIDs.first else {
+            debugError("no pack id available for cyclers")
+            return
+        }
+        logoImageCycler.selectedID = firstPackID
+        infoGraphicsImageCycler.selectedID = firstPackID
         infoGraphicsImageCycler.enabled = false
         infoGraphicsImageCycler.name = "dead one"
         
@@ -2159,6 +2253,10 @@ class MainScene: BaseScene, UITextFieldDelegate{
     }
     
     func handleSwipeToGame(){
+        guard gamePacks.indices.contains(logoImageCycler.nextSelectedIndex) else {
+            debugError("next pack index invalid \(logoImageCycler.nextSelectedIndex)/\(gamePacks.count)")
+            return
+        }
         let nextGamePack = gamePacks[logoImageCycler.nextSelectedIndex]
         changeBackground(nextGamePack.MPCGDGenomeShowingInBackground)
         if nextGamePack.gameIDOnShow != nil{
@@ -2370,7 +2468,11 @@ class MainScene: BaseScene, UITextFieldDelegate{
                     
                     self.changeLabelColour(self.fascinator.timeDisplay, textColour: self.fascinator.scoreColour)
                     self.changeLabelColour(self.fascinator.scoreDisplay, textColour: self.fascinator.scoreColour)
-                    self.changeLabelColour(self.fascinator.scoreDisplay.children[0] as! SKLabelNode, textColour: self.fascinator.scoreColour)
+                    if let scoreLabel = self.fascinator.scoreDisplay.children.first as? SKLabelNode {
+                        self.changeLabelColour(scoreLabel, textColour: self.fascinator.scoreColour)
+                    } else {
+                        self.debugError("scoreDisplay missing child during bg cycle")
+                    }
                     self.changeLabelColour(self.fascinator.livesDisplay, textColour: self.fascinator.scoreColour)
                 })
             }
@@ -2384,7 +2486,11 @@ class MainScene: BaseScene, UITextFieldDelegate{
                     self.fascinator.scoreColour = self.getTextColourForMPCGDGenome(wG)
                     self.changeLabelColour(self.fascinator.timeDisplay, textColour: self.fascinator.scoreColour)
                     self.changeLabelColour(self.fascinator.scoreDisplay, textColour: self.fascinator.scoreColour)
-                    self.changeLabelColour(self.fascinator.scoreDisplay.children[0] as! SKLabelNode, textColour: self.fascinator.scoreColour)
+                    if let scoreLabel = self.fascinator.scoreDisplay.children.first as? SKLabelNode {
+                        self.changeLabelColour(scoreLabel, textColour: self.fascinator.scoreColour)
+                    } else {
+                        self.debugError("scoreDisplay missing child during short bg cycle")
+                    }
                     self.changeLabelColour(self.fascinator.livesDisplay, textColour: self.fascinator.scoreColour)
                     self.cycleBackground(backgrounds, imageStem: imageStem, nextShadePos: nextShadePos + 1, preFadeTime: preFadeTime, fadeDuration: fadeDuration)
                 })
@@ -2492,13 +2598,6 @@ class MainScene: BaseScene, UITextFieldDelegate{
     func changeLogoPipsColour(_ newColour: UIColor){
         logoImageCycler.animatePipColourChange(newColour.withAlphaComponent(0.8), unselectedColour: newColour.withAlphaComponent(0.2), duration: 0.5)
     }
-    
-    /*
-    func changeGenScreenHelpTextColour(_ newColour: UIColor, genScreen: GeneratorScreen){
-        changeLabelColour(genScreen.helpTextNode, textColour: newColour)
-    }
- */
-    
     func changeInfoGraphicsPipsColour(_ newColour: UIColor, generatorScreenMoved: Bool){
         /*
         let cycler = infoCyclers[currentGameName]!
@@ -2516,20 +2615,6 @@ class MainScene: BaseScene, UITextFieldDelegate{
             }
         }
     }
-    
-    /*
-    func changeLabelColourImmediately(node: SKNode, textColour: UIColor){
-        if node is SKLabelNode{
-            (node as! SKLabelNode).fontColor = textColour
-        }
-        else{
-            for c in node.children{
-                changeLabelColourImmediately(c, textColour: textColour)
-            }
-        }
-    }
- */
-    
     func changeColourForLabelNode(_ labelNode: SKLabelNode, toColour: UIColor, withDuration: TimeInterval) {
         
         if labelNode.fontColor == toColour{
@@ -2593,9 +2678,13 @@ class MainScene: BaseScene, UITextFieldDelegate{
     }
 
     func recordDesignGenomeModification(gameID: String, alteredGenome: MPCGDGenome) {
-        guard isStudyModeActive(), let newChromosome = alteredGenome.asJSONDictionary() else { return }
+        guard isStudyModeActive(), let newChromosome = alteredGenome.asJSONDictionary() else {
+            debugError("design mod skipped study=\(isStudyModeActive())")
+            return
+        }
         guard let oldChromosome = lastGenomeSnapshotByGame[gameID] else {
             lastGenomeSnapshotByGame[gameID] = newChromosome
+            debugLog("design snapshot initialized \(gameID)")
             return
         }
 
@@ -2620,6 +2709,10 @@ class MainScene: BaseScene, UITextFieldDelegate{
         }
 
         lastGenomeSnapshotByGame[gameID] = newChromosome
+        let changeCount = pendingDesignModificationChangesByGame[gameID]?.count ?? 0
+        if changeCount > 0 {
+            debugLog("design mods pending \(changeCount) for \(gameID)")
+        }
     }
 
     func sendPendingDesignModificationsForPlay() {
@@ -2631,7 +2724,10 @@ class MainScene: BaseScene, UITextFieldDelegate{
         guard isStudyModeActive(),
               let modificationStartTime = pendingDesignModificationStartTimeByGame[gameID],
               let pendingChanges = pendingDesignModificationChangesByGame[gameID],
-              pendingChanges.count > 0 else { return }
+              pendingChanges.count > 0 else {
+            debugLog("no design mods to queue for \(gameID)")
+            return
+        }
 
         let changes = pendingChanges.keys.sorted().map { gene in
             let change = pendingChanges[gene]!
@@ -2645,6 +2741,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
         payload["modificationEndTime"] = formatServerDateTime(Date().timeIntervalSince1970)
         payload["changes"] = changes
         db_client?.sendDesignPath(dataDict: payload)
+        debugLog("design mods queued changes=\(changes.count) backlog=\(db_client?.pendingBacklogCount() ?? -1)")
 
         pendingDesignModificationStartTimeByGame.removeValue(forKey: gameID)
         pendingDesignModificationChangesByGame.removeValue(forKey: gameID)
@@ -2697,6 +2794,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
     }
 
     func saveSession(_ quit: Bool, gameEndDetails: Fascinator.GameEndDetails) {
+        debugLog("saveSession quit=\(quit) game=\(currentGameName)")
         let wasWon = (quit == true) ? false : gameEndDetails.gameIsWon
         
         let session = Session(date: Date(), level: currentGameName, user: getUser().userID, elapsedTime: gameEndDetails.currentTimeElapsed, score: fascinator.score, quit: quit, wasWon: wasWon!)
@@ -2704,17 +2802,26 @@ class MainScene: BaseScene, UITextFieldDelegate{
         SessionHandler.saveSession(session)
         SessionHandler.sessions.append(session)
         
-        let statsScreen = infoCyclers[currentGameName]?.hkComponents[0] as! StatsScreen
-        statsScreen.refresh(gameID: currentGameName, wG: loadedMPCGDGenomes[currentGameName]!)
+        if let cycler = infoCyclers[currentGameName],
+           cycler.hkComponents.indices.contains(0),
+           let statsScreen = cycler.hkComponents[0] as? StatsScreen,
+           let genome = loadedMPCGDGenomes[currentGameName] {
+            statsScreen.refresh(gameID: currentGameName, wG: genome)
+        } else {
+            debugError("missing stats screen for \(currentGameName)")
+        }
         
         if !quit{
-            currentGamePack.handlePotentialBestChange(gameID: currentGameName)
+            currentGamePack?.handlePotentialBestChange(gameID: currentGameName)
         }
     }
 
     func prepareStudyGameRatingPayload(gameEndDetails: Fascinator.GameEndDetails) {
         pendingStudyGameRatingPayload = nil
-        guard isStudyModeActive(), let playedGenome = loadedMPCGDGenomes[currentGameName] else { return }
+        guard isStudyModeActive(), let playedGenome = loadedMPCGDGenomes[currentGameName] else {
+            debugError("rating payload skipped study=\(isStudyModeActive()) game=\(currentGameName)")
+            return
+        }
         guard let chromosome = playedGenome.asJSONDictionary() else {
             print("Could not encode played chromosome for study rating")
             return
@@ -2729,6 +2836,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
         payload["time"] = gameEndDetails.currentTimeElapsed ?? 0
         payload["score"] = gameEndDetails.currentScore ?? fascinator.score
         pendingStudyGameRatingPayload = payload
+        debugLog("rating payload ready game=\(currentGameName)")
     }
 
     func submitStudyGameRating(ratings: Dictionary<String, Int>) {
@@ -2738,6 +2846,9 @@ class MainScene: BaseScene, UITextFieldDelegate{
             payload["fun"] = ratings["Fun"] ?? 4
             payload["winnable"] = ratings["Winnable"] ?? 2
             db_client?.sendDesignPath(dataDict: payload)
+            debugLog("rating payload queued backlog=\(db_client?.pendingBacklogCount() ?? -1)")
+        } else {
+            debugError("rating submit with no payload")
         }
         pendingStudyGameRatingPayload = nil
     }
@@ -2829,7 +2940,6 @@ class MainScene: BaseScene, UITextFieldDelegate{
             changeLogoColour(currentGamePack.logoColour, logo: currentGamePack.packLogo)
             changeLogoPipsColour(currentGamePack.logoColour)
             
-     //       changeGenScreenHelpTextColour(currentGamePack.logoColour, genScreen: infoCyclers[currentGameName]?.selectedHKComponent as! GeneratorScreen)
      //       changeInfoGraphicsPipsColour(currentGamePack.logoColour, generatorScreenMoved: false)
         }
         } // autoreleasepool
@@ -2909,6 +3019,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
 
     func restartAfterTutorial(_ newGame: Bool){
         settingsNode.run(fadeOut)
+        isShowingEndGameFlow = false
         scoreNode?.run(fadeOut, completion: {
             self.scoreNode.removeFromParent()
             self.scoreNode = nil
@@ -2969,6 +3080,8 @@ class MainScene: BaseScene, UITextFieldDelegate{
     
     func startGame(_ newGame: Bool){
         if !isRestarting{
+            isShowingEndGameFlow = false
+            removeEndGameNodes()
             
             isRestarting = true
             loadRightGenome()
@@ -3189,7 +3302,6 @@ class MainScene: BaseScene, UITextFieldDelegate{
                 logoImageCycler.enabled = true
                 logoImageCycler.pipsNode.isHidden = false
                 showInfoCycler()
-       //         changeGenScreenHelpTextColour(logoColour!, genScreen: infoCyclers[currentGameName]?.selectedHKComponent as! GeneratorScreen)
                 hideLetterBox({
                     self.run(SKAction.wait(forDuration: 0.1), completion: {
                         self.backgroundNode.removeAllActions()
@@ -3592,7 +3704,11 @@ class MainScene: BaseScene, UITextFieldDelegate{
         shareTextArray.append(helpTextNode)
         
         let ind = logoImageCycler.imagePosition
-        shareTexts[ind] = shareTextArray
+        if shareTexts.indices.contains(ind) {
+            shareTexts[ind] = shareTextArray
+        } else {
+            debugError("shareTexts index invalid \(ind)/\(shareTexts.count)")
+        }
         }
         let cropNode = SKCropNode()
         let base = HKImage(image: UIImage(named: "BlankGraphic")!)
@@ -3691,10 +3807,17 @@ class MainScene: BaseScene, UITextFieldDelegate{
         isLockedHash[currentGameName] = isLocked
         loadRightGenome()
         let ind = infoGraphicsImageCycler.indexShowing()
+        guard allPackIDs.indices.contains(ind) else {
+            debugError("pack index invalid on genome change \(ind)/\(allPackIDs.count)")
+            return
+        }
         GameHandler.overwriteGenome(currentGameName, userID: getUser().userID, alteredGenome: alteredGenome, packID: allPackIDs[ind], isLocked: isLocked)
-        currentGamePack.handlePotentialBestChange(gameID: currentGameName)
-        let statsScreen = infoCyclers[currentGameName]!.hkComponents[0] as! StatsScreen
-        statsScreen.reactToGenomeChange(alteredMPCGDGenome: alteredGenome)
+        currentGamePack?.handlePotentialBestChange(gameID: currentGameName)
+        if let cycler = infoCyclers[currentGameName], cycler.hkComponents.indices.contains(0), let statsScreen = cycler.hkComponents[0] as? StatsScreen {
+            statsScreen.reactToGenomeChange(alteredMPCGDGenome: alteredGenome)
+        } else {
+            debugError("genome change missing stats screen for \(currentGameName)")
+        }
     }
     
     static let useBase64 = true

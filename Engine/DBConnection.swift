@@ -24,6 +24,16 @@ class DBConnection {
     private let maxBacklogItems = 200
     private let maxBacklogBytes = 1024 * 1024
     private var isFlushingBacklog = false
+    private var retryBacklogWorkItem: DispatchWorkItem? = nil
+    var onError: ((String) -> ())? = nil
+
+    private func reportError(_ message: String) {
+        if let onError = onError {
+            onError(message)
+        } else {
+            Diagnostics.report(message)
+        }
+    }
     
     init(endpoint: String, uuid : String, isStudyMode: Bool = false) {
         self.endpoint = endpoint
@@ -34,6 +44,7 @@ class DBConnection {
     func request(api: String) -> URLRequest?{
         guard let url = URL(string:endpoint+api) else {
             print("Invalid DB URL: \(endpoint)\(api)")
+            reportError("Invalid DB URL")
             return nil
         }
         var request = URLRequest(url: url )
@@ -46,6 +57,7 @@ class DBConnection {
     func sendDesignPath(dataDict : Dictionary<String,Any>){
         guard isStudyMode else {
             print("not sending anything! (not in study mode)")
+            reportError("DB send skipped: not in study mode")
             return
         }
         guard enqueue(dataDict: dataDict) else { return }
@@ -56,14 +68,20 @@ class DBConnection {
         flushBacklog()
     }
 
+    func pendingBacklogCount() -> Int {
+        return performOnMainSyncWithResult { self.fetchBacklog().count } ?? 0
+    }
+
     private func sendBacklogItem(dataDict : Dictionary<String,Any>, completion: @escaping (Bool) -> ()){
         guard isStudyMode else {
             print("not sending anything! (not in study mode)")
+            reportError("DB backlog skipped: not in study mode")
             completion(false)
             return
         }
         if self.user.isEmpty || self.authToken.isEmpty{
             print("not sending anything! (no confirmed server connection)")
+            reportError("DB backlog waiting: no auth token")
             completion(false)
             return
         }
@@ -74,6 +92,7 @@ class DBConnection {
         // Serialize HTTP Body data as JSON
         guard HiddenParameters.db_query.count >= 3 else {
             print("DB query configuration is incomplete")
+            reportError("DB query config incomplete")
             completion(false)
             return
         }
@@ -84,6 +103,7 @@ class DBConnection {
             options: []
         ) else {
             print("Could not serialize DB request body")
+            reportError("Could not serialize DB request")
             completion(false)
             return
         }
@@ -94,12 +114,15 @@ class DBConnection {
             if let error=error
             {
                 print("Error: \(error)")
+                self.reportError("DB write error: \(error.localizedDescription)")
                 completion(false)
                 return
             }
             guard let httpResponse = response as? HTTPURLResponse,
                   httpResponse.statusCode >= 200 && httpResponse.statusCode < 300 else {
                 print("DB write did not return a success status")
+                let status = (response as? HTTPURLResponse)?.statusCode ?? -1
+                self.reportError("DB write failed status=\(status)")
                 completion(false)
                 return
             }
@@ -112,6 +135,7 @@ class DBConnection {
                     print("could not deserialize network data: \(error)")
                 }
             }
+            Diagnostics.clear()
             completion(true)
         }
         task.resume()
@@ -121,6 +145,7 @@ class DBConnection {
         guard JSONSerialization.isValidJSONObject(dataDict),
               let data = try? JSONSerialization.data(withJSONObject: dataDict, options: []) else {
             print("Could not cache outgoing DB data")
+            reportError("Could not cache DB data")
             return false
         }
 
@@ -129,6 +154,7 @@ class DBConnection {
             guard let context = getManagedObjectContext(),
                   let entity = NSEntityDescription.entity(forEntityName: OUTGOINGBACKLOGDBTOKEN, in: context) else {
                 print("Could not access outgoing backlog storage")
+                self.reportError("Could not access DB backlog")
                 return
             }
             let entry = NSManagedObject(entity: entity, insertInto: context)
@@ -174,9 +200,20 @@ class DBConnection {
                     self.flushNextBacklogItem()
                 } else {
                     self.isFlushingBacklog = false
+                    self.scheduleBacklogRetry()
                 }
             }
         }
+    }
+
+    private func scheduleBacklogRetry() {
+        guard isStudyMode, !user.isEmpty, !authToken.isEmpty else { return }
+        retryBacklogWorkItem?.cancel()
+        let workItem = DispatchWorkItem { [weak self] in
+            self?.flushBacklog()
+        }
+        retryBacklogWorkItem = workItem
+        DispatchQueue.main.asyncAfter(deadline: .now() + 20, execute: workItem)
     }
 
     private func fetchBacklog(limit: Int? = nil) -> [NSManagedObject] {
@@ -191,6 +228,7 @@ class DBConnection {
             return try context.fetch(request) as? [NSManagedObject] ?? []
         } catch {
             print("Could not fetch outgoing backlog: \(error)")
+            reportError("Could not fetch DB backlog")
             return []
         }
     }
@@ -228,6 +266,7 @@ class DBConnection {
             return true
         } catch {
             print("Could not save outgoing backlog: \(error)")
+            reportError("Could not save DB backlog")
             context.rollback()
             return false
         }
@@ -239,6 +278,17 @@ class DBConnection {
         } else {
             DispatchQueue.main.sync(execute: work)
         }
+    }
+
+    private func performOnMainSyncWithResult<T>(_ work: () -> T) -> T? {
+        if Thread.isMainThread {
+            return work()
+        }
+        var result: T? = nil
+        DispatchQueue.main.sync {
+            result = work()
+        }
+        return result
     }
 
     private func performOnMainAsync(_ work: @escaping () -> ()) {
@@ -258,6 +308,7 @@ class DBConnection {
             options: []
         ) else {
             print("Could not serialize auth request body")
+            reportError("Could not serialize auth request")
             return
         }
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -266,11 +317,13 @@ class DBConnection {
             if let error=error
             {
                 print("Error: \(error)")
+                self.reportError("DB auth error: \(error.localizedDescription)")
                 return
             }
             guard let httpResponse = response as? HTTPURLResponse,
                   httpResponse.statusCode >= 200 && httpResponse.statusCode < 300 else {
                 print("Auth did not return a success status")
+                self.reportError("DB auth failed status=\((response as? HTTPURLResponse)?.statusCode ?? -1)")
                 self.authToken = ""
                 return
             }
@@ -279,14 +332,17 @@ class DBConnection {
                     guard let answer = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String: Any],
                           let token = answer["token"] as? String else {
                         print("Auth response did not contain a token")
+                        self.reportError("DB auth missing token")
                         self.authToken = ""
                         return
                     }
                     self.authToken = token
                     self.user = user
+                    Diagnostics.clear()
                     self.flushBacklog()
                 } catch let error as NSError {
                     print("could not deserialize network data: \(error)")
+                    self.reportError("Could not parse DB auth response")
                     self.authToken = ""
                     return
                 }

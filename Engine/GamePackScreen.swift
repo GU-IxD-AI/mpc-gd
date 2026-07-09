@@ -242,6 +242,10 @@ class GamePackScreen: HKImage{
         pipNode.size = CGSize(width: 10, height: 10)
         return pipNode
     }
+
+    func hasOrgButtons(forGameIndex index: Int) -> Bool {
+        return orgButtons.indices.contains((index * 3) + 2)
+    }
     
     func changeShowingGameNameColour(_ newButton: HKButton){
         let ind = gameIDs.index(of: gameIDOnShow)!
@@ -273,6 +277,10 @@ class GamePackScreen: HKImage{
         addGameNode = SKNode()
         cropNode.addChild(addGameNode)
         addGameNode.isHidden = true
+        guard GamePackScreen.mainScene.isStudyModeActive() == false else {
+            gameNodeButtons = []
+            return
+        }
         let labelSize = self.size
         let textColour = Colours.getColour(.antiqueWhite)
         
@@ -434,13 +442,17 @@ class GamePackScreen: HKImage{
     }
 
     func addOrgButtons(_ comp: HKButton, insertOrgButtonsAt: Int! = nil){
-        if (GamePackScreen.mainScene.getUser().studyMode == 1){ //MARK: do not add move,delete,copy game if in study mode
-            return
-        }
+        let isStudyMode = GamePackScreen.mainScene.isStudyModeActive()
         let moveButton = getOrgButton("MoveGameButton", buttonText: "Move", tapCode: handleMoveTap)
         let copyButton = getOrgButton("AddGameButton", buttonText: "Copy", tapCode: handleCopyTap)
         let deleteButton = getOrgButton("DeleteButton", buttonText: "Delete", tapCode: {})
         deleteButton.onTapStartCode = {self.handleDeleteTap(deleteButton)}
+        if isStudyMode {
+            moveButton.enabled = false
+            moveButton.alpha = 0.15
+            moveButton.onTapStartCode = nil
+            copyButton.onTapStartCode = { self.copyGameInCurrentPack() }
+        }
 
         if insertOrgButtonsAt == nil{
             orgButtons.append(moveButton)
@@ -459,6 +471,27 @@ class GamePackScreen: HKImage{
         copyButton.position.x = moveButton.position.x + copyButton.hkImage.size.width
         deleteButton.position.x = copyButton.position.x + deleteButton.hkImage.size.width
         normalDeletePositionX = deleteButton.position.x
+    }
+
+    func copyGameInCurrentPack() {
+        guard let gameIndex = gameButtons.index(of: activeOrgGameButton), gameIDs.indices.contains(gameIndex) else {
+            GamePackScreen.mainScene.debugLog("copy missing active game")
+            return
+        }
+        let gameID = gameIDs[gameIndex]
+        guard let genome = GamePackScreen.mainScene.loadedMPCGDGenomes[gameID] ?? GameHandler.retrieveGame(gameID, packID: packID).0 else {
+            GamePackScreen.mainScene.debugLog("copy missing genome \(gameID)")
+            return
+        }
+        let isLocked = GamePackScreen.mainScene.isLockedHash[gameID] ?? false
+        let gameName = gameID.components(separatedBy: "@")[0]
+        let newGameID = "\(gameName) copy@\(Date().timeIntervalSince1970)"
+        _ = GameHandler.saveGame(genome, gameID: newGameID, packID: packID, isLocked: isLocked, userID: GamePackScreen.mainScene.getUser().userID)
+        GamePackScreen.mainScene.loadedMPCGDGenomes[newGameID] = genome
+        GamePackScreen.mainScene.isLockedHash[newGameID] = isLocked
+        addGameButton(newGameID)
+        resetTrayState()
+        GamePackScreen.mainScene.debugLog("copied game in pack \(packID ?? "")")
     }
     
     func loadButtons(_ size: CGSize, gameButtons: [HKButton], gameIDs: [String]){
@@ -702,7 +735,10 @@ class GamePackScreen: HKImage{
     func deleteGame(){
         let FADE_DURATION = 0.2
         
-        let gameIndex = gameButtons.index(of: activeGameButton)!
+        guard let gameIndex = gameButtons.index(of: activeGameButton), gameIDs.indices.contains(gameIndex) else {
+            GamePackScreen.mainScene.debugLog("delete missing active game")
+            return
+        }
         let gameID = gameIDs[gameIndex]
         
         activeGameButton.zPosition -= 10.0
@@ -730,7 +766,7 @@ class GamePackScreen: HKImage{
             self.maxTravelDistance = abs(self.gameButtons.last!.position.y - self.bottomYPos)
         }
         
-        for _ in 1...3{
+        for _ in 1...3 where orgButtons.indices.contains(gameIndex * 3) {
             orgButtons.remove(at: gameIndex * 3)
         }
         if !gameButtons.isEmpty{
@@ -772,7 +808,11 @@ class GamePackScreen: HKImage{
         setGameButtonState(b, state: .closed)
         b?.run(SKAction.fadeOut(withDuration: FADE_DURATION), completion: {
             b?.removeFromParent()
-            self.resetTrayState()
+            if self.gameButtons.isEmpty {
+                GamePackScreen.mainScene.restoreDefaultGamesForCurrentMode()
+            } else {
+                self.resetTrayState()
+            }
         })
         activeGameButton = nil
     }
@@ -793,6 +833,7 @@ class GamePackScreen: HKImage{
     }
     
     func updateScrollBarNode(){
+        guard !gameButtons.isEmpty, maxTravelDistance != 0 else { return }
         let prop = 1 + (gameButtons.last!.position.y + trayNode.y - bottomYPos)/maxTravelDistance
         scrollBarNode.position.y = round(maxScrollBarY - (prop * scrollBarTravel))
     }
@@ -875,7 +916,7 @@ class GamePackScreen: HKImage{
         }
         for i in 0..<gameButtons.count {
             let hidden = gameButtons[i].position.x >= -0.001
-            if (orgButtons.count < 3) {// horrible fix for the below code with hoardcoded number of elements
+            if !hasOrgButtons(forGameIndex: i) {
                 continue
             }
             if (orgButtons[i*3+0]?.isHidden)! && !(orgButtons[i*3+2]?.isHidden)! {
@@ -932,7 +973,7 @@ class GamePackScreen: HKImage{
                     }
                     let bstate = getGameButtonState(b)
                     if bstate == .open {
-                        if (orgButtons.count < 3) {// horrible fix for the below code with hoardcoded number of elements
+                        if !hasOrgButtons(forGameIndex: i) {
                             break
                         }
                         if (orgButtons[i*3+0]?.isHidden)! && !(orgButtons[i*3+2]?.isHidden)! {
@@ -985,7 +1026,8 @@ class GamePackScreen: HKImage{
             // Clipboard, CleanSlate, etc
             activeGameButton = nil
             for b in gameNodeButtons {
-                if buttonHot(b!, touchDownPoint) {
+                guard let b = b else { continue }
+                if buttonHot(b, touchDownPoint) {
                     button = b
                     break
                 }
@@ -1064,6 +1106,7 @@ class GamePackScreen: HKImage{
         }
         
         if activeDir == .upAndDown {
+            guard !gameButtons.isEmpty else { return }
             // Scroll
             if dy > 0{
                 dy = min(dy, abs(bottomYPos - (gameButtons.last!.position.y + trayNode.y)))
@@ -1118,7 +1161,7 @@ class GamePackScreen: HKImage{
             }
 
             for i in 0..<gameButtons.count {
-                if (orgButtons.count < 3) {// horrible fix for the below code with hoardcoded number of elements
+                if !hasOrgButtons(forGameIndex: i) {
                     continue
                 }
                 let hidden = gameButtons[i].position.x >= -0.001
@@ -1140,6 +1183,7 @@ class GamePackScreen: HKImage{
             }
         }
         else if activeDir == .leftAndRight && activeGameButton == nil {
+            guard GamePackScreen.mainScene.isStudyModeActive() == false else { return }
             // Just drag tray
             if dx < 0.0 {
                 if trayNode.position.x < 0.0 {
@@ -1223,12 +1267,13 @@ class GamePackScreen: HKImage{
                                 }
                             } else {
                                 // Org buttons
+                                guard hasOrgButtons(forGameIndex: i) else { continue }
                                 for j in 0..<3 {
                                     let o = orgButtons[i*3+j]
-                                    if (o?.isHot)! && buttonHit(o!, touchLocation) {
+                                    if let o = o, o.isHot && buttonHit(o, touchLocation) {
                                         HKDisableUserInteractions = true
                                         activeOrgGameButton = b
-                                        o?.onTapStartCode?()
+                                        o.onTapStartCode?()
                                         if j == 2 {
                                             activeGameButton = b
                                             resetActiveGameButton = false
@@ -1264,10 +1309,13 @@ class GamePackScreen: HKImage{
                 }
             } else if activeDx < 0.0 && nodeShowing.x < -30 {
                 swipedLeftOrRight = true
-                handleSwipeLeft()
+                if GamePackScreen.mainScene.isStudyModeActive() == false {
+                    handleSwipeLeft()
+                }
             }
         } else if activeDir == .upAndDown {
             var scrollBy = activeDy * 20
+            guard !gameButtons.isEmpty else { return }
             if activeDy > 0{
                 scrollBy = min(scrollBy, abs(bottomYPos - (gameButtons.last!.position.y + trayNode.y)))
             }
@@ -1318,6 +1366,10 @@ class GamePackScreen: HKImage{
         let flyInFromLeft = HKEasing.moveXTo(0, duration: d, easingFunction: BackEaseOut)
         nodeShowing.removeAllActions()
         if nodeShowing == trayNode {
+            guard GamePackScreen.mainScene.isStudyModeActive() == false else {
+                startXMoveBack(trayNode)
+                return
+            }
             changeHelpText("Add a new game")
             uiRunActionOn(trayNode, flyOutToRight, {
                 self.addGameNode.isHidden = false
