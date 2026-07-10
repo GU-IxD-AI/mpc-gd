@@ -57,7 +57,6 @@ class DBConnection {
     func sendDesignPath(dataDict : Dictionary<String,Any>){
         guard isStudyMode else {
             print("not sending anything! (not in study mode)")
-            reportError("DB send skipped: not in study mode")
             return
         }
         guard enqueue(dataDict: dataDict) else { return }
@@ -75,7 +74,6 @@ class DBConnection {
     private func sendBacklogItem(dataDict : Dictionary<String,Any>, completion: @escaping (Bool) -> ()){
         guard isStudyMode else {
             print("not sending anything! (not in study mode)")
-            reportError("DB backlog skipped: not in study mode")
             completion(false)
             return
         }

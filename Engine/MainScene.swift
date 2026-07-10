@@ -295,6 +295,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
     }
     
     static let isTestFlight = true
+    static let isDebugOverlayEnabled = true
     var pauseNode: SKLabelNode! = nil
     var debugLogNode: SKMultilineLabel! = nil
     var debugLogLines: [String] = []
@@ -675,7 +676,8 @@ class MainScene: BaseScene, UITextFieldDelegate{
     }
 
     func setupDebugLogNode() {
-        guard MainScene.isTestFlight || DeviceType.isIPad else { return }
+        guard MainScene.isDebugOverlayEnabled, MainScene.isTestFlight || DeviceType.isIPad else { return }
+        if debugLogNode != nil { return }
         debugLogNode = SKMultilineLabel(text: "", size: CGSize(width: size.width * 0.84, height: size.height * 0.22), pos: CGPoint(x: size.width * 0.08, y: size.height * 0.88), fontName: "Helvetica Neue Thin", fontSize: 10, fontColor: Colours.getColour(.orange), alignment: .left, shouldShowBorder: false, spacing: 1.15)
         debugLogNode.zPosition = 5000
         debugLogNode.alpha = 0
@@ -700,7 +702,10 @@ class MainScene: BaseScene, UITextFieldDelegate{
     func debugError(_ message: String) {
         let line = "\(Int(Date().timeIntervalSince1970.truncatingRemainder(dividingBy: 100000))): ERROR: \(message)"
         print("MPCGD DEBUG: \(line)")
-        guard MainScene.isTestFlight || DeviceType.isIPad else { return }
+        guard MainScene.isDebugOverlayEnabled, MainScene.isTestFlight || DeviceType.isIPad else { return }
+        if debugLogNode == nil {
+            setupDebugLogNode()
+        }
         debugLogLines.append(line)
         if debugLogLines.count > 7 {
             debugLogLines.removeFirst(debugLogLines.count - 7)
@@ -713,6 +718,15 @@ class MainScene: BaseScene, UITextFieldDelegate{
         debugLogLines.removeAll()
         debugLogNode?.text = ""
         debugLogNode?.run(SKAction.fadeOut(withDuration: 0.25))
+    }
+
+    func disableDebugOverlay() {
+        debugLogLines.removeAll()
+        debugLogNode?.removeAllActions()
+        debugLogNode?.removeFromParent()
+        debugLogNode = nil
+        Diagnostics.onError = nil
+        Diagnostics.onClear = nil
     }
 
     func removeEndGameNodes() {
@@ -847,6 +861,41 @@ class MainScene: BaseScene, UITextFieldDelegate{
         startInfoNode.zPosition = 10
         return startInfoNode
     }
+
+    func createStudyConsentNode() -> SKNode {
+        let consentNode = SKNode()
+        consentNode.position = CGPoint(x: scene!.size.width * 1.5, y: scene!.size.height * infoGraphicsY)
+        consentNode.zPosition = 10
+
+        let studyText = """
+        To better understand games we invite you to participate in our study.
+
+        We only gather your interactions within this app, demographics and ratings.
+
+        To participate in our study you must be 18+.
+
+        Do you consent to recording?
+        """
+
+        let textWidth = scene!.size.width * 0.75
+        let fontSize: CGFloat = DeviceType.isIPad ? 25 : 18
+        let leading: Int = DeviceType.isIPad ? 25 : 18
+        let textNode = SKMultilineLabel(
+            text: studyText,
+            size: CGSize(width: textWidth, height: scene!.size.height * 0.62),
+            pos: CGPoint(x: 0, y: DeviceType.isIPad ? 20 : 20),
+            fontName: "Dolce Vita",
+            altFontName: "Dolce Vita Bold",
+            fontSize: fontSize,
+            fontColor: Colours.getColour(.black),
+            leading: leading,
+            alignment: .center,
+            shouldShowBorder: false,
+            spacing: 1.2
+        )
+        consentNode.addChild(textNode)
+        return consentNode
+    }
     
     func createOKButton() -> HKButton {
         let okButton = HKButton(image: UIImage(named: "OKButton")!)
@@ -927,10 +976,10 @@ class MainScene: BaseScene, UITextFieldDelegate{
 
         var ratingValues: Dictionary<String, Int> = [:]
         let rows = [
-            ("Difficulty", 7, 4),
+            ("Challenge", 7, 4),
             ("Creativity", 7, 4),
-            ("Fun", 7, 4),
-            ("Winnable", 3, 2)
+            ("Enjoyment", 7, 4),
+            ("Visual Appeal", 7, 4)
         ]
         let rowYStart = panelSize.height/2 - 118
         for (pos, row) in rows.enumerated() {
@@ -1143,8 +1192,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
         
         self.isAnimatingOpening = true
         
-        let image = UIImage(named: "StudyGraphics")!
-        let startInfoNode = createStartNode(image: image)
+        let startInfoNode = createStudyConsentNode()
         let buttonJoin = HKButton(image: UIImage(named: "JoinButton")!)
         buttonJoin.position = CGPoint(x: scene!.size.width/3, y: scene!.size.height * buttonYPos)
         buttonJoin.zPosition = 10
@@ -1210,6 +1258,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
         
         let _user = self.getUser()
         UserHandler.saveUser(User(userID:_user.userID,userName: _user.userName,mode: 1))
+        setupDebugLogNode()
         
         //self.run(SKAction.wait(forDuration: 4), completion: { self.db_client.sendDesignPath(dataDict: ["key":"testing","key2":"testing2",])})
         
@@ -2005,8 +2054,6 @@ class MainScene: BaseScene, UITextFieldDelegate{
             }
             ratingPanel.name = "EndGameRatingPanel"
             scoreNode.addChild(ratingPanel)
-        } else if isStudyModeActive() {
-            debugError("study rating missing; showing result only")
         }
         
         return scoreNode
@@ -2313,6 +2360,22 @@ class MainScene: BaseScene, UITextFieldDelegate{
     func getTextColourForMPCGDGenome(_ MPCGDGenome: MPCGDGenome) -> UIColor{
         return isBackgroundDark(MPCGDGenome) ? Colours.getColour(.antiqueWhite) : Colours.getColour(.black)
     }
+
+    func getGameplayTextColour(_ MPCGDGenome: MPCGDGenome) -> UIColor {
+        if let texture = backgroundNode.texture {
+            return getTextColourForTexture(texture, fallbackGenome: MPCGDGenome)
+        }
+        return getTextColourForMPCGDGenome(MPCGDGenome)
+    }
+
+    func updateGameplayTextColour(_ MPCGDGenome: MPCGDGenome) {
+        guard fascinator != nil else { return }
+        let textColour = getGameplayTextColour(MPCGDGenome)
+        fascinator.scoreColour = textColour
+        changeLabelColour(fascinator.timeDisplay, textColour: textColour)
+        changeLabelColour(fascinator.scoreDisplay, textColour: textColour)
+        changeLabelColour(fascinator.livesDisplay, textColour: textColour)
+    }
     
     func changeInfoColours(_ MPCGDGenome: MPCGDGenome){
         let backgroundIsDark = isBackgroundDark(MPCGDGenome)
@@ -2464,16 +2527,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
                         self.cycleBackgroundShadePos = nextShadePos
                     })
                     
-                    self.fascinator.scoreColour = self.getTextColourForMPCGDGenome(wG)
-                    
-                    self.changeLabelColour(self.fascinator.timeDisplay, textColour: self.fascinator.scoreColour)
-                    self.changeLabelColour(self.fascinator.scoreDisplay, textColour: self.fascinator.scoreColour)
-                    if let scoreLabel = self.fascinator.scoreDisplay.children.first as? SKLabelNode {
-                        self.changeLabelColour(scoreLabel, textColour: self.fascinator.scoreColour)
-                    } else {
-                        self.debugError("scoreDisplay missing child during bg cycle")
-                    }
-                    self.changeLabelColour(self.fascinator.livesDisplay, textColour: self.fascinator.scoreColour)
+                    self.updateGameplayTextColour(wG)
                 })
             }
             else{
@@ -2483,15 +2537,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
                     }
                     self.cycleBackgroundShade = backgrounds[nextShadePos]
                     self.cycleBackgroundShadePos = nextShadePos
-                    self.fascinator.scoreColour = self.getTextColourForMPCGDGenome(wG)
-                    self.changeLabelColour(self.fascinator.timeDisplay, textColour: self.fascinator.scoreColour)
-                    self.changeLabelColour(self.fascinator.scoreDisplay, textColour: self.fascinator.scoreColour)
-                    if let scoreLabel = self.fascinator.scoreDisplay.children.first as? SKLabelNode {
-                        self.changeLabelColour(scoreLabel, textColour: self.fascinator.scoreColour)
-                    } else {
-                        self.debugError("scoreDisplay missing child during short bg cycle")
-                    }
-                    self.changeLabelColour(self.fascinator.livesDisplay, textColour: self.fascinator.scoreColour)
+                    self.updateGameplayTextColour(wG)
                     self.cycleBackground(backgrounds, imageStem: imageStem, nextShadePos: nextShadePos + 1, preFadeTime: preFadeTime, fadeDuration: fadeDuration)
                 })
             }
@@ -2535,6 +2581,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
                 DispatchQueue.main.async {
                     //print(">>> SWITCHED TO BACKGROUND: choice=\(choice), shade=\(shade), \(debugBackgroundName)")
                     self.backgroundNode.texture = texture
+                    self.updateGameplayTextColour(MPCGDGenome)
                     if let currentGamePack = self.currentGamePack, self.oldBackgroundChoice == choice && (self.oldDayNightChoice > 0 || self.oldBackgroundShade == shade) {
                         let textColour = self.getTextColourForMPCGDGenome(MPCGDGenome)
                         currentGamePack.logoColour = textColour
@@ -2679,7 +2726,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
 
     func recordDesignGenomeModification(gameID: String, alteredGenome: MPCGDGenome) {
         guard isStudyModeActive(), let newChromosome = alteredGenome.asJSONDictionary() else {
-            debugError("design mod skipped study=\(isStudyModeActive())")
+            debugLog("design mod skipped study=\(isStudyModeActive())")
             return
         }
         guard let oldChromosome = lastGenomeSnapshotByGame[gameID] else {
@@ -2819,7 +2866,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
     func prepareStudyGameRatingPayload(gameEndDetails: Fascinator.GameEndDetails) {
         pendingStudyGameRatingPayload = nil
         guard isStudyModeActive(), let playedGenome = loadedMPCGDGenomes[currentGameName] else {
-            debugError("rating payload skipped study=\(isStudyModeActive()) game=\(currentGameName)")
+            debugLog("rating payload skipped study=\(isStudyModeActive()) game=\(currentGameName)")
             return
         }
         guard let chromosome = playedGenome.asJSONDictionary() else {
@@ -2841,10 +2888,10 @@ class MainScene: BaseScene, UITextFieldDelegate{
 
     func submitStudyGameRating(ratings: Dictionary<String, Int>) {
         if var payload = pendingStudyGameRatingPayload {
-            payload["difficulty"] = ratings["Difficulty"] ?? 4
+            payload["challenge"] = ratings["Challenge"] ?? 4
             payload["creativity"] = ratings["Creativity"] ?? 4
-            payload["fun"] = ratings["Fun"] ?? 4
-            payload["winnable"] = ratings["Winnable"] ?? 2
+            payload["enjoyment"] = ratings["Enjoyment"] ?? 4
+            payload["visual_appeal"] = ratings["Visual Appeal"] ?? 4
             db_client?.sendDesignPath(dataDict: payload)
             debugLog("rating payload queued backlog=\(db_client?.pendingBacklogCount() ?? -1)")
         } else {
@@ -3104,6 +3151,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
             
             applyPreDeviceSimulationModifications(fascinator)
             fascinator.restart()
+            updateGameplayTextColour(wG)
             applyPostDeviceSimulationModifications(fascinator)
             restartBackgroundCycle(fascinator.chromosome.duration.value, nextShadePos: 0, resetBackground: true)
             
