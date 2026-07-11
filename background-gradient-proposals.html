@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Paravida Background Gradient Proposals</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #18202a;
+      --muted: #5e6875;
+      --paper: #f7f3ea;
+      --card: #fffaf0;
+      --line: rgba(24, 32, 42, 0.16);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.45;
+    }
+
+    main {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 48px 24px 72px;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(32px, 5vw, 60px);
+      letter-spacing: -0.045em;
+      line-height: 0.95;
+    }
+
+    .intro {
+      max-width: 820px;
+      margin: 0 0 32px;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .note {
+      max-width: 900px;
+      margin: 0 0 34px;
+      padding: 16px 18px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255, 250, 240, 0.74);
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 22px;
+    }
+
+    .card {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: var(--card);
+      box-shadow: 0 18px 48px rgba(24, 32, 42, 0.08);
+    }
+
+    .preview {
+      min-height: 180px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.36);
+    }
+
+    .content {
+      padding: 18px 18px 20px;
+    }
+
+    .eyebrow {
+      margin: 0 0 5px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin: 0 0 8px;
+      font-size: 24px;
+      letter-spacing: -0.025em;
+    }
+
+    p {
+      margin: 0 0 15px;
+      color: var(--muted);
+    }
+
+    .stops {
+      display: grid;
+      grid-template-columns: repeat(9, 1fr);
+      gap: 6px;
+    }
+
+    .stop {
+      min-height: 76px;
+      display: flex;
+      align-items: end;
+      justify-content: center;
+      padding: 6px 2px;
+      border-radius: 12px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
+      text-shadow: 0 1px 6px rgba(0, 0, 0, 0.55);
+    }
+
+    .hexes {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px 10px;
+      margin-top: 14px;
+      color: var(--muted);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 11px;
+    }
+
+    .theory {
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .theory strong {
+      color: var(--ink);
+    }
+
+    .motifs {
+      margin-top: -3px;
+      padding-left: 10px;
+      border-left: 3px solid rgba(93, 74, 57, 0.22);
+      font-size: 13px;
+      color: #4c4038;
+    }
+
+    .motifs strong {
+      color: var(--ink);
+    }
+
+    .preview-link {
+      display: inline-block;
+      margin: -2px 0 14px;
+      color: #5d372a;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .preview-link:hover {
+      text-decoration: underline;
+    }
+
+    .preview-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: -2px 0 14px;
+    }
+
+    .preview-links a {
+      color: #5d372a;
+      border: 1px solid rgba(93, 74, 57, 0.18);
+      border-radius: 999px;
+      padding: 3px 7px;
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      background: rgba(255, 250, 240, 0.55);
+    }
+
+    .preview-links a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 520px) {
+      main { padding: 32px 14px 48px; }
+      .grid { grid-template-columns: 1fr; }
+      .preview { min-height: 150px; }
+      .stop { min-height: 58px; }
+      .hexes { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Background Gradient Proposals</h1>
+    <p class="intro">
+      Nine proposed nine-step background families for the existing Paravida convention where one theme is rendered as <strong>Name0</strong> through <strong>Name8</strong>. The card gradient is only a palette overview; generated previews are separate solid-colour files for each stop.
+    </p>
+    <p class="note">
+      These are inspired by broad cultural colour associations, academic colour theory, research traditions, theological colour symbolism, and civic/scientific visual languages. They are not intended as fixed or universal meanings. Patterns use adjacent palette colours and drift consistently across each family's nine files.
+    </p>
+
+    <section class="grid" id="cards"></section>
+  </main>
+
+  <script>
+    const gradients = [
+      {
+        name: "Saffron Monsoon",
+        stem: "SaffronMonsoon",
+        inspiration: "South Asian saffron, turmeric, marigold, monsoon green, and blue-black rain clouds. Light-to-dark, but warmer and greener than City.",
+        theory: "Draws on rasa/aesthetic theory, where colour supports emotional flavour, and on Hindu/Buddhist saffron associations with renunciation, learning, ritual attention, and sacred heat.",
+        motifs: "Kolam/rangoli-inspired loop paths, rain streaks, monsoon wash bands, and organic bleaching. The sacred/geometric layer is restrained, while weather and material aging use more randomness.",
+        colors: ["#fff7c7", "#ffd13d", "#ff8f1f", "#e24d2e", "#6cae45", "#197b5e", "#0f5570", "#173057", "#080d25"]
+      },
+      {
+        name: "Hanami Lantern",
+        stem: "HanamiLantern",
+        inspiration: "Japanese spring blossom, paper lantern red, matcha green, twilight violet, and sumi ink. Light-to-dark with a softer pink start.",
+        theory: "Uses Japanese seasonal aesthetics, including mono no aware and hanami temporality. Red/white also echoes Shinto purification and festival colour, while ink-black references calligraphic restraint.",
+        motifs: "Seigaiha-style repeated arcs, drifting petal ellipses, washi fibers, and soft brush-wash randomness. Pattern regularity is softened by clustered natural variation.",
+        colors: ["#fff0f5", "#f8bfd4", "#f06984", "#c9263c", "#8aa85a", "#40766a", "#355f89", "#2b285f", "#0a0b17"]
+      },
+      {
+        name: "Maghreb Zellige",
+        stem: "MaghrebZellige",
+        inspiration: "Moroccan zellige tile: white lime, cobalt, turquoise, emerald, saffron, terracotta, and blackened indigo. Non-linear and ornamental rather than day/night.",
+        theory: "References Islamic geometric visual culture, where repeated colour fields support pattern, proportion, and non-figurative contemplation. Cobalt/turquoise/green draw from ceramic and paradise-garden symbolism.",
+        motifs: "Diamond tessellations, eight-point star construction, grid-line proportion, ceramic glaze mottling, and sparse tile chips. Randomness is deliberately light so the mathematical order remains dominant.",
+        colors: ["#f9f1dc", "#0069a8", "#00a0a8", "#0b7a53", "#f0b429", "#d85f2f", "#8b1e3f", "#262261", "#070b22"]
+      },
+      {
+        name: "Andean Weave",
+        stem: "AndeanWeave",
+        inspiration: "Quechua and Andean textile intensity: alpaca white, maize, cochineal red, turquoise lake, and high-altitude purple dusk. Light-to-dark with strong chroma.",
+        theory: "Draws from Andean textile semiotics, where colour, repetition, and contrast encode social and cosmological relations. The palette moves between earth, maize, lake, mountain, and night-world registers.",
+        motifs: "Tocapu-like stepped units, woven warp/weft grids, banded thread gaps, and slub irregularities. Randomness follows textile axes rather than free-floating noise.",
+        colors: ["#fff2b2", "#ffd02e", "#ff6b2a", "#d31f4f", "#00a6a6", "#00758f", "#284c8f", "#552b7a", "#160521"]
+      },
+      {
+        name: "Nordic Aurora",
+        stem: "NordicAurora",
+        inspiration: "Sami and Nordic winter references: snow, ice blue, lichen green, aurora cyan, violet, and polar night. Light-to-dark and very cool.",
+        theory: "Combines ecological colour perception in low-light northern landscapes with auroral spectral contrast. The theological/cosmological note is sky-as-threshold: atmosphere, spirit, weather, and navigation.",
+        motifs: "Aurora curtain curves, cold-grain speckles, banded diagonals, and sparse constellation-like flecks. The natural atmosphere receives stronger clustered randomness.",
+        colors: ["#f4ffff", "#c8eff7", "#7fd7e9", "#42f0b2", "#14a879", "#246f9e", "#353d91", "#2b1f67", "#050817"]
+      },
+      {
+        name: "Yoruba Indigo Gold",
+        stem: "YorubaIndigoGold",
+        inspiration: "West African adire indigo, brass gold, kola red, palm green, and midnight blue. Light-to-dark with deep textile contrast.",
+        theory: "References Yoruba adire dye traditions and material colour systems where indigo, brass/gold, and red-earth tones carry status, ritual, and ancestral resonances. Uses strong complementary opposition for visibility.",
+        motifs: "Adire-inspired resist circles, repeated wave bands, indigo bleed, and axis-aligned missing-dye marks. Wear is banded and textile-like rather than uniformly noisy.",
+        colors: ["#fff0a8", "#f1c232", "#d77d1f", "#a83232", "#276f3f", "#0a5a73", "#063d78", "#08285c", "#03091f"]
+      },
+      {
+        name: "Navajo Sand Painting",
+        stem: "NavajoSandPainting",
+        inspiration: "Dine/Navajo sand painting references: chalk white, yellow ochre, turquoise, red earth, charcoal, and night. Non-linear ceremonial colour blocks.",
+        theory: "Inspired by Dine colour-direction systems and sand painting as ordered, ceremonial colour placement. The design is intentionally non-linear because meaning emerges through relation and orientation, not only brightness.",
+        motifs: "Balanced directional crosses, stepped forms, sand granulation, and sparse chips. The pattern is built around center-balanced placement rather than top/bottom composition.",
+        colors: ["#f4ead2", "#d7b35a", "#2fa7b3", "#c94c2f", "#7e4b33", "#1f6f78", "#353535", "#6c2d5c", "#0b1020"]
+      },
+      {
+        name: "Oceanic Tapa",
+        stem: "OceanicTapa",
+        inspiration: "Pacific tapa bark, coral, lagoon cyan, breadfruit green, sunset magenta, and deep sea. Light-to-dark with a tropical ocean shift.",
+        theory: "Draws on Oceanic tapa/barkcloth material palettes and sea-navigation colour knowledge. The sequence uses warm organic browns against high-chroma lagoon blues to connect land, reef, ritual object, and ocean depth.",
+        motifs: "Kupesi/tapa-like diamond stamping, bark fibers, repeated rubbings, and organic bleaching. Randomness is stronger because the reference material is handmade fiber and pigment.",
+        colors: ["#fff1bf", "#e8b66b", "#b96b3c", "#ff6f61", "#20c5b5", "#148c9c", "#17628b", "#233564", "#07162d"]
+      },
+      {
+        name: "Civic Bio Dome",
+        stem: "CivicBioDome",
+        inspiration: "Western civic openness, glass-and-steel architecture, secular science institutions, public squares, and bio-inspired structural optimism. The second stop uses the measured dominant City colour #ecd6de, with pink and orange kept as public-warmth accents.",
+        theory: "Uses the existing City family's soft rose-lilac average as a civic memory, then moves through coral/orange civic warmth into engineered blue-grey and night steel. Pattern inspiration combines Renaissance proportion, modernist grids, geodesic/truss systems, biomimetic cells, and branching networks to suggest hopeful agnostic science-based societies without religious iconography.",
+        motifs: "Known algorithmic systems rather than freeform marks: Truchet tile arcs, hexagonal/geodesic lattice geometry, Fibonacci phyllotaxis, reaction-diffusion-like wave bands, and dome rib construction. Warm pink/orange tones are used as human-scale optimism inside the civic-scientific architecture, while the pattern opacity is intentionally low so it feels embedded rather than symbolic foreground.",
+        colors: ["#fff8fb", "#ecd6de", "#ffd4c2", "#f59b72", "#d8e5f1", "#8fb7ca", "#5f8798", "#314a58", "#101923"]
+      }
+    ];
+
+    const cards = document.getElementById("cards");
+
+    gradients.forEach((gradient) => {
+      const card = document.createElement("article");
+      card.className = "card";
+      const cssGradient = `linear-gradient(180deg, ${gradient.colors.join(", ")})`;
+      card.innerHTML = `
+        <div class="preview" style="background:${cssGradient}"></div>
+        <div class="content">
+          <p class="eyebrow">${gradient.stem}0 ... ${gradient.stem}8</p>
+          <h2>${gradient.name}</h2>
+          <p>${gradient.inspiration}</p>
+          <p class="theory"><strong>Theory note:</strong> ${gradient.theory}</p>
+          <p class="motifs"><strong>Motif system:</strong> ${gradient.motifs}</p>
+          <div class="preview-links">
+            ${gradient.colors.map((color, index) => `<a href="background-gradient-previews/${gradient.stem}${index}-preview.svg">${index}</a>`).join("")}
+          </div>
+          <div class="stops">
+            ${gradient.colors.map((color, index) => `<div class="stop" style="background:${color}">${index}</div>`).join("")}
+          </div>
+          <div class="hexes">
+            ${gradient.colors.map((color, index) => `<span>${gradient.stem}${index}: ${color}</span>`).join("")}
+          </div>
+        </div>
+      `;
+      cards.appendChild(card);
+    });
+  </script>
+</body>
+</html>

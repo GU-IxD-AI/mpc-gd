@@ -153,6 +153,7 @@
 		46CF978B2E463E35005FF91B /* DBConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46CF978A2E463E2D005FF91B /* DBConnection.swift */; };
 		46D000012F00000100D1A6E0 /* Diagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D000002F00000100D1A6E0 /* Diagnostics.swift */; };
 		46D000022F00000100D1A6E0 /* Diagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D000002F00000100D1A6E0 /* Diagnostics.swift */; };
+		46D100012F10000000D1A6E0 /* Generated Backgrounds in Resources */ = {isa = PBXBuildFile; fileRef = 46D100002F10000000D1A6E0 /* Generated Backgrounds */; };
 		5C04C66F1E2CD4590034F716 /* StatsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C04C66E1E2CD4590034F716 /* StatsScreen.swift */; };
 		5C65D40B1CA29E70002A2FAB /* AutoSizedLabelNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314F07261CA19B9B00090ED5 /* AutoSizedLabelNode.swift */; };
 		5CD0885E1CB7A720003F2CAB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41D77A01BC7EDEF00956D26 /* AppDelegate.swift */; };
@@ -845,6 +846,7 @@
 		46A929F82CE2CC410081F96D /* MPCGD.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MPCGD.xcdatamodel; sourceTree = "<group>"; };
 		46CF978A2E463E2D005FF91B /* DBConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBConnection.swift; sourceTree = "<group>"; };
 		46D000002F00000100D1A6E0 /* Diagnostics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diagnostics.swift; sourceTree = "<group>"; };
+		46D100002F10000000D1A6E0 /* Generated Backgrounds */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "Generated Backgrounds"; path = Engine/Backgrounds; sourceTree = "<group>"; };
 		5C04C66E1E2CD4590034F716 /* StatsScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatsScreen.swift; sourceTree = "<group>"; };
 		852B02261DFAF11D00B7F420 /* ExceptionCatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExceptionCatcher.h; sourceTree = "<group>"; };
 		852B02271DFAF11D00B7F420 /* MPCGD-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MPCGD-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -2664,6 +2666,7 @@
 		F495126A1EC673FB00735785 /* Backgrounds */ = {
 			isa = PBXGroup;
 			children = (
+				46D100002F10000000D1A6E0 /* Generated Backgrounds */,
 				4694E0772D5B9FCA00AA1891 /* City0.pdf */,
 				4694E0702D5B9FC900AA1891 /* City1.pdf */,
 				4694E0722D5B9FC900AA1891 /* City2.pdf */,
@@ -2892,6 +2895,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				46D100012F10000000D1A6E0 /* Generated Backgrounds in Resources */,
 				F42B45111EC4FEAC00622C88 /* Bees.m4a in Resources */,
 				C17305F01EC47E0A00729046 /* Music_6_2.m4a in Resources */,
 				F47026A21EB24AD0006D738E /* Leaf.pdf in Resources */,
@@ -3911,7 +3915,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = org.metamakers.Paravida;
 				PRODUCT_NAME = MPCGD;
 				PROVISIONING_PROFILE = "";
@@ -3938,7 +3942,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = org.metamakers.Paravida;
 				PRODUCT_NAME = MPCGD;
 				PROVISIONING_PROFILE = "";

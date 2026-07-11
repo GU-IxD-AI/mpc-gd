@@ -70,7 +70,7 @@ class PDFCache {
             return provider
         }
         
-        guard let path = Bundle.main.path(forResource: name, ofType: "pdf") else { return nil }
+        guard let path = Bundle.main.path(forResource: name, ofType: "pdf") ?? Bundle.main.path(forResource: name, ofType: "pdf", inDirectory: "Backgrounds") else { return nil }
         let url = URL(fileURLWithPath: path)
         guard let provider = CGDataProvider(url: url as CFURL) else { return nil }
         //        print(">> PDF File \(name) size = \(CFDataGetLength(provider.data!))")
@@ -308,8 +308,11 @@ class MainScene: BaseScene, UITextFieldDelegate{
     var pendingDesignModificationStartTimeByGame: [String: TimeInterval] = [:]
     var pendingDesignModificationChangesByGame: [String: [String: (oldValue: Int, newValue: Int)]] = [:]
     var checkStudyMode : Bool = true
+    var studyChoiceNode: SKNode? = nil
+    let backgroundTintedTextNodeName = "BackgroundTintedText"
     
-    static let backgroundIDs = ["City", "City", "City", "City", "City", "City", "City", "City", "City"] //FIXME: these should be different colored backgrounds which are linked in Assets
+    static let backgroundIDs = ["CivicBioDome", "HanamiLantern", "MaghrebZellige", "NavajoSandPainting", "NordicAurora", "OceanicTapa", "SaffronMonsoon", "YorubaIndigoGold", "AndeanWeave"]
+    //static let backgroundIDs = ["City", "City", "City", "City", "City", "City", "City", "City", "City"]
     
     var numTimesTwoFingersShown = 0
     
@@ -862,8 +865,9 @@ class MainScene: BaseScene, UITextFieldDelegate{
         return startInfoNode
     }
 
-    func createStudyConsentNode() -> SKNode {
+    func createStudyConsentNode(textColour: UIColor? = nil) -> SKNode {
         let consentNode = SKNode()
+        consentNode.name = backgroundTintedTextNodeName
         consentNode.position = CGPoint(x: scene!.size.width * 1.5, y: scene!.size.height * infoGraphicsY)
         consentNode.zPosition = 10
 
@@ -887,7 +891,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
             fontName: "Dolce Vita",
             altFontName: "Dolce Vita Bold",
             fontSize: fontSize,
-            fontColor: Colours.getColour(.black),
+            fontColor: textColour ?? getTextColourForCurrentBackground(),
             leading: leading,
             alignment: .center,
             shouldShowBorder: false,
@@ -905,14 +909,17 @@ class MainScene: BaseScene, UITextFieldDelegate{
         return okButton
     }
     
-    func createLogoNode(label : String,size : CGFloat) -> SKNode {
+    func createLogoNode(label : String,size : CGFloat, textColour: UIColor? = nil) -> SKNode {
         let (fluidicLogoNodes, _) = getWordLabels(label, fontSize: size)
         let logoNode = SKNode()
+        logoNode.name = backgroundTintedTextNodeName
+        let resolvedTextColour = textColour ?? getTextColourForCurrentBackground()
         for node in fluidicLogoNodes{
             logoNode.addChild(node)
             node.position.y += scene!.size.height * logoYPos
             node.position.x += scene!.size.width * 1.5
             node.zPosition = 10
+            setLabelColour(node, textColour: resolvedTextColour)
         }
         return logoNode
     }
@@ -1192,7 +1199,8 @@ class MainScene: BaseScene, UITextFieldDelegate{
         
         self.isAnimatingOpening = true
         
-        let startInfoNode = createStudyConsentNode()
+        let studyTextColour = getTextColourForCurrentBackground()
+        let startInfoNode = createStudyConsentNode(textColour: studyTextColour)
         let buttonJoin = HKButton(image: UIImage(named: "JoinButton")!)
         buttonJoin.position = CGPoint(x: scene!.size.width/3, y: scene!.size.height * buttonYPos)
         buttonJoin.zPosition = 10
@@ -1203,8 +1211,9 @@ class MainScene: BaseScene, UITextFieldDelegate{
         buttonSkip.hkImage.size = buttonSize
         buttonSkip.zPosition = 10
         buttonSkip.alpha = 0
-        let logoNode = createLogoNode(label: "Para Vida", size: 35)
+        let logoNode = createLogoNode(label: "Para Vida", size: 35, textColour: studyTextColour)
         let studyChoiceNode = SKNode()
+        self.studyChoiceNode = studyChoiceNode
         
         
         studyChoiceNode.addChild(startInfoNode)
@@ -1212,6 +1221,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
         studyChoiceNode.addChild(buttonSkip)
         studyChoiceNode.addChild(logoNode)
         self.addChild(studyChoiceNode)
+        updateStudyChoiceTextColour()
             
         startInfoNode.run(actions[3])
         logoNode.run(actions[2], completion: {
@@ -1232,6 +1242,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
                 child.removeAllActions()
             }
             studyChoiceNode.removeFromParent()
+            self.studyChoiceNode = nil
             completion()
         }
               
@@ -2174,7 +2185,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
                 self.gameNameTextBox.alpha = 0
                 self.gameNameTextBox.run(self.fadeIn)
                 self.gameNameTextBox.reset()
-                self.gameNameTextBox.setColour(self.currentGamePack.logoColour)
+                self.gameNameTextBox.setColour(gamePack.logoColour)
                 self.textField.text = ""
                 self.textFieldStartText = gamePack.alias
                 self.textFieldCompletionHandler = { [unowned self, unowned gamePack] (newPackAlias: String) -> Void in
@@ -2555,7 +2566,10 @@ class MainScene: BaseScene, UITextFieldDelegate{
         let shade = MPCGDGenome.dayNightCycle > 0 ? 0 : MPCGDGenome.backgroundShade
         
         BackgroundTextureCache.request(choice, shade, completion: { (texture: SKTexture?) in
-            self.backgroundNode.texture = texture
+            DispatchQueue.main.async {
+                self.backgroundNode.texture = texture
+                self.updateBackgroundTintedTextColour()
+            }
         })
         let f = SKAction.fadeOut(withDuration: 0.5)
         self.backgroundMaskNode.run(f)
@@ -2581,9 +2595,10 @@ class MainScene: BaseScene, UITextFieldDelegate{
                 DispatchQueue.main.async {
                     //print(">>> SWITCHED TO BACKGROUND: choice=\(choice), shade=\(shade), \(debugBackgroundName)")
                     self.backgroundNode.texture = texture
+                    self.updateBackgroundTintedTextColour()
                     self.updateGameplayTextColour(MPCGDGenome)
                     if let currentGamePack = self.currentGamePack, self.oldBackgroundChoice == choice && (self.oldDayNightChoice > 0 || self.oldBackgroundShade == shade) {
-                        let textColour = self.getTextColourForMPCGDGenome(MPCGDGenome)
+                        let textColour = texture.map { self.getTextColourForTexture($0, fallbackGenome: MPCGDGenome) } ?? self.getTextColourForMPCGDGenome(MPCGDGenome)
                         currentGamePack.logoColour = textColour
                         if let gameLogo = currentGamePack.gameLogo {
                             self.changeLogoColour(textColour, logo: gameLogo)
@@ -2624,6 +2639,27 @@ class MainScene: BaseScene, UITextFieldDelegate{
 
     func getTextColourForTexture(_ texture: SKTexture, fallbackGenome: MPCGDGenome) -> UIColor {
         return getTextColourForImage(UIImage(cgImage: texture.cgImage()), fallbackGenome: fallbackGenome)
+    }
+
+    func getTextColourForCurrentBackground(fallbackGenome: MPCGDGenome? = nil) -> UIColor {
+        if let texture = backgroundNode.texture, let isDark = BackgroundTextureCache.isImageDark(UIImage(cgImage: texture.cgImage())) {
+            return isDark ? Colours.getColour(.antiqueWhite) : Colours.getColour(.black)
+        }
+        if let fallbackGenome = fallbackGenome {
+            return getTextColourForMPCGDGenome(fallbackGenome)
+        }
+        return Colours.getColour(.black)
+    }
+
+    func updateBackgroundTintedTextColour() {
+        let textColour = getTextColourForCurrentBackground()
+        enumerateChildNodes(withName: "//\(backgroundTintedTextNodeName)") { node, _ in
+            self.setLabelColour(node, textColour: textColour)
+        }
+    }
+
+    func updateStudyChoiceTextColour() {
+        updateBackgroundTintedTextColour()
     }
 
     func getTextColourForImage(_ image: UIImage, fallbackGenome: MPCGDGenome) -> UIColor {
@@ -2981,7 +3017,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
 
             let MPCGDGenome = loadedMPCGDGenomes[currentGameName]!
             changeBackground(MPCGDGenome, forceIt: true)
-            currentGamePack.logoColour = getTextColourForMPCGDGenome(MPCGDGenome)
+            currentGamePack.logoColour = getTextColourForCurrentBackground(fallbackGenome: MPCGDGenome)
             
             changeLogoColour(currentGamePack.logoColour, logo: currentGamePack.gameLogo)
             changeLogoColour(currentGamePack.logoColour, logo: currentGamePack.packLogo)
