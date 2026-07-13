@@ -146,6 +146,7 @@ class SKMultilineLabel: SKNode {
                 var lineStringBeforeAddingWord = lineString
                 var wi = wordInfo(words[wordCount + 1])
                 fontIndex = wi.1
+                let lineLengthAtStartOfSegment = lineLength
                 
                 // creation of the SKLabelNode itself
                 let label = SKLabelNode(fontNamed: fontNames[fontIndex])
@@ -173,7 +174,7 @@ class SKMultilineLabel: SKNode {
                         lineStringBeforeAddingWord = lineString
                         lineString = "\(lineString) \(wi.0)"
                         label.text = lineString
-                        lineLength = label.frame.size.width
+                        lineLength = lineLengthAtStartOfSegment + label.frame.size.width
                     }
                 }
                 if lineLength > 0 {
@@ -182,6 +183,7 @@ class SKMultilineLabel: SKNode {
                         lineString = lineStringBeforeAddingWord
                     }
                     label.text = lineString + " "
+                    lineLength = lineLengthAtStartOfSegment + label.frame.size.width
                     self.addChild(label)
                     labels.append(label)
                     startNewLine = wi.1 == fontIndex
