@@ -865,6 +865,91 @@ class MainScene: BaseScene, UITextFieldDelegate{
         return startInfoNode
     }
 
+    func createWelcomeNode(textColour: UIColor? = nil) -> SKNode {
+        let welcomeNode = SKNode()
+        welcomeNode.name = backgroundTintedTextNodeName
+        welcomeNode.position = CGPoint(x: scene!.size.width * 1.5, y: scene!.size.height * infoGraphicsY)
+        welcomeNode.zPosition = 10
+
+        let welcomeText = """
+        Welcome to ~Game ~Design
+
+        Here are four pre-designed games you can ~play and use as ~inspiration.
+
+        Within a game, use a ~two-finger ~swipe 
+        to ~pause and get to the ~menu.
+        
+        """
+
+        let textWidth = scene!.size.width * 0.75
+        let fontSize: CGFloat = DeviceType.isIPad ? 18 : 18
+        let leading: Int = DeviceType.isIPad ? 15 : 18
+        let textNode = SKMultilineLabel(
+            text: welcomeText,
+            size: CGSize(width: textWidth, height: scene!.size.height * 0.50),
+            pos: CGPoint(x: 0, y: DeviceType.isIPad ? 12 : 24),
+            fontName: "Dolce Vita",
+            altFontName: "Dolce Vita Heavy Bold",
+            fontSize: fontSize,
+            fontColor: textColour ?? getTextColourForCurrentBackground(),
+            leading: leading,
+            alignment: .center,
+            shouldShowBorder: false,
+            spacing: 1.08
+        )
+        welcomeNode.addChild(textNode)
+
+        if let handImage = UIImage(named: "swipe") ?? UIImage(named: "TapHand") {
+            let handNode = SKSpriteNode(texture: SKTexture(image: handImage))
+            let handSize = scene!.size.width * (DeviceType.isIPad ? 0.20 : 0.25)
+            handNode.size = CGSize(width: handSize, height: handSize)
+            handNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+            handNode.position = CGPoint(x: textWidth * 0.30, y: -scene!.size.height * 0.19)
+            handNode.zPosition = welcomeNode.zPosition + 1
+            handNode.alpha = 0.85
+            welcomeNode.addChild(handNode)
+        }
+
+        return welcomeNode
+    }
+
+    func createStudyStartingPointNode(textColour: UIColor? = nil) -> SKNode {
+        let startNode = SKNode()
+        startNode.name = backgroundTintedTextNodeName
+        startNode.position = CGPoint(x: scene!.size.width * 1.5, y: scene!.size.height * infoGraphicsY)
+        startNode.zPosition = 10
+
+        let startText = """
+        Here comes a ~starting ~point.
+
+        Adjust the games to your liking and design games which you enjoy.
+        
+        For resetting the games, 
+        delete all games 
+        and you get the pre-designed games back.
+        """
+
+        let textWidth = scene!.size.width * 0.68
+        let fontSize: CGFloat = DeviceType.isIPad ? 18 : 18
+        let leading: Int = DeviceType.isIPad ? 15 : 18
+        let textNode = SKMultilineLabel(
+            text: startText,
+            size: CGSize(width: textWidth, height: scene!.size.height * 0.50),
+            pos: CGPoint(x: 0, y: DeviceType.isIPad ? 12 : 24),
+            fontName: "Dolce Vita",
+            altFontName: "Dolce Vita Heavy Bold",
+            fontSize: fontSize,
+            fontColor: textColour ?? getTextColourForCurrentBackground(),
+            leading: leading,
+            alignment: .center,
+            shouldShowBorder: false,
+            spacing: 1.08
+        )
+        startNode.addChild(textNode)
+
+        return startNode
+    }
+
     func createStudyConsentNode(textColour: UIColor? = nil) -> SKNode {
         let consentNode = SKNode()
         consentNode.name = backgroundTintedTextNodeName
@@ -872,24 +957,24 @@ class MainScene: BaseScene, UITextFieldDelegate{
         consentNode.zPosition = 10
 
         let studyText = """
-        To better understand games we invite you to participate in our study.
+        To better understand games we invite you to ~participate in our study.
 
         We only gather your interactions within this app, demographics and ratings.
 
-        To participate in our study you must be 18+.
+        To ~participate in our study you must be ~18+.
 
-        Do you consent to recording?
+        Do you ~consent to recording?
         """
 
         let textWidth = scene!.size.width * 0.75
-        let fontSize: CGFloat = DeviceType.isIPad ? 25 : 18
-        let leading: Int = DeviceType.isIPad ? 25 : 18
+        let fontSize: CGFloat = DeviceType.isIPad ? 18 : 18
+        let leading: Int = DeviceType.isIPad ? 15 : 18
         let textNode = SKMultilineLabel(
             text: studyText,
             size: CGSize(width: textWidth, height: scene!.size.height * 0.62),
-            pos: CGPoint(x: 0, y: DeviceType.isIPad ? 20 : 20),
+            pos: CGPoint(x: 0, y: DeviceType.isIPad ? 00 : 10),
             fontName: "Dolce Vita",
-            altFontName: "Dolce Vita Bold",
+            altFontName: "Dolce Vita Heavy Bold",
             fontSize: fontSize,
             fontColor: textColour ?? getTextColourForCurrentBackground(),
             leading: leading,
@@ -1130,8 +1215,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
         self.settingsButton.alpha = 0
         self.settingsButton.isHidden = true
         
-        let image = UIImage(named: "OpeningGraphics1")!
-        let startInfoNode = createStartNode(image: image)
+        let startInfoNode = createWelcomeNode()
         addChild(startInfoNode)
         
         let okButton = createOKButton()
@@ -1215,11 +1299,11 @@ class MainScene: BaseScene, UITextFieldDelegate{
         let studyChoiceNode = SKNode()
         self.studyChoiceNode = studyChoiceNode
         
-        
+        studyChoiceNode.addChild(logoNode)
+        //startInfoNode.position.y = logoNode.position.y + 10
         studyChoiceNode.addChild(startInfoNode)
         studyChoiceNode.addChild(buttonJoin)
         studyChoiceNode.addChild(buttonSkip)
-        studyChoiceNode.addChild(logoNode)
         self.addChild(studyChoiceNode)
         updateStudyChoiceTextColour()
             
@@ -1353,8 +1437,7 @@ class MainScene: BaseScene, UITextFieldDelegate{
         
         
         
-        let image = UIImage(named: "StudyGraphics-Instructions")!
-        let startInfoNode = createStartNode(image: image)
+        let startInfoNode = createStudyStartingPointNode()
         let logoNode = createLogoNode(label: "Para vida", size: 35)
         let okButton = createOKButton()
         self.addChild(startInfoNode)

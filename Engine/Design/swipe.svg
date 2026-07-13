@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="210mm"
+   viewBox="0 0 210 210"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.4 (dcaf3e7d, 2026-05-05)"
+   sodipodi:docname="swipe.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="0.19298279"
+     inkscape:cx="427.49925"
+     inkscape:cy="500.04458"
+     inkscape:window-width="944"
+     inkscape:window-height="586"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g10"
+       transform="matrix(14.597224,0,0,13.732633,-4.6966961,5.2529146)"
+       style="display:inline;fill:none;stroke:#1a1a1a">
+      <path
+         d="m 8.69375,8.08125 v -4.175 a 1.18125,1.18125 0 0 0 -0.35,-0.84375 1.1625,1.1625 0 0 0 -0.95,-0.34375 1.25,1.25 0 0 0 -1.0875,1.25 V 9.875 L 5.48125,9.05 A 1.25,1.25 0 0 0 4.5875,8.68125 1.25,1.25 0 0 0 3.69375,10.8375 l 3.2125,3.2125"
+         fill="none"
+         stroke="#000000"
+         stroke-miterlimit="10"
+         stroke-width="1"
+         id="path1"
+         style="fill:none;stroke:#1a1a1a" />
+      <path
+         d="M 8.69375,8.08125 V 3.375 a 1.25,1.25 0 0 1 0.9,-1.21875 1.15,1.15 0 0 1 1.13125,0.3125 1.15,1.15 0 0 1 0.35625,0.84375 V 7.825 l 1.95,0.16875 A 1.125,1.125 0 0 1 14.0625,9.1125 10.7625,10.7625 0 0 1 12.925,13.9375 L 12.86875,14.05"
+         fill="none"
+         stroke="#000000"
+         stroke-miterlimit="10"
+         stroke-width="1"
+         id="path2"
+         style="fill:none;stroke:#1a1a1a" />
+      <path
+         d="M 4.51875,4.50625 2.725,6.29375 0.9375,4.50625"
+         fill="none"
+         stroke="#000000"
+         stroke-miterlimit="10"
+         stroke-width="1"
+         id="path3"
+         style="fill:none;stroke:#1a1a1a" />
+      <path
+         d="M 2.725,0.325 V 6.29375"
+         fill="none"
+         stroke="#000000"
+         stroke-miterlimit="10"
+         stroke-width="1"
+         id="path4"
+         style="fill:none;stroke:#1a1a1a" />
+    </g>
+  </g>
+</svg>

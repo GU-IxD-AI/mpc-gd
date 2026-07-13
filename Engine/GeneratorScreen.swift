@@ -3153,7 +3153,7 @@ class GeneratorScreen: HKComponent{
             buttons[pos].alpha = 1
             buttons[pos].buttonSet = .backgroundChoice
             buttons[pos].setImageAndText(nilImage, text: "")
-            let backgroundIcon = (DeviceType.simulationIs == .iPad) ? GeneratorScreen.backgroundIconsIPad[pos][0] : GeneratorScreen.backgroundIconsIPhone[pos][0]
+            let backgroundIcon = (DeviceType.simulationIs == .iPad) ? GeneratorScreen.backgroundIconsIPad[pos][3] : GeneratorScreen.backgroundIconsIPhone[pos][3]
             let backgroundSprite = SKSpriteNode(texture: SKTexture(image: backgroundIcon))
             backgroundSprite.size = backgroundIcon.size *  0.2
             buttons[pos].hkImage.imageNode.addChild(backgroundSprite)
