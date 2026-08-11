@@ -11,6 +11,124 @@
 import Foundation
 import SpriteKit
 
+class ConsentScrollBox: SKNode {
+    private let contentNode: SKNode
+    private let minContentY: CGFloat
+    private let maxContentY: CGFloat
+    private let scrollThumb: SKSpriteNode
+    private let scrollMinY: CGFloat
+    private let scrollMaxY: CGFloat
+    private var lastTouchY: CGFloat? = nil
+    private var touchStartY: CGFloat? = nil
+    private var tapCandidateButton: HKButton? = nil
+    private var hasDragged = false
+
+    init(size: CGSize, contentSize: CGSize, contentNode: SKNode) {
+        self.contentNode = contentNode
+        minContentY = min(0, (size.height - contentSize.height)/2)
+        maxContentY = max(0, (contentSize.height - size.height)/2)
+        let thumbHeight = max(36, size.height * min(1, size.height / contentSize.height))
+        scrollMinY = -size.height/2 + thumbHeight/2 + 8
+        scrollMaxY = size.height/2 - thumbHeight/2 - 8
+        scrollThumb = SKSpriteNode(color: UIColor.white.withAlphaComponent(0.65), size: CGSize(width: 4, height: thumbHeight))
+        super.init()
+        isUserInteractionEnabled = true
+
+        let cropNode = SKCropNode()
+        cropNode.maskNode = SKSpriteNode(texture: SKTexture(image: ImageUtils.getBlankImage(size, colour: UIColor.white)))
+        addChild(cropNode)
+
+        let border = SKShapeNode(rectOf: size, cornerRadius: 14)
+        border.strokeColor = UIColor.white.withAlphaComponent(0.25)
+        border.lineWidth = 1
+        border.zPosition = 1
+        addChild(border)
+
+        let scrollTrack = SKSpriteNode(color: UIColor.white.withAlphaComponent(0.18), size: CGSize(width: 4, height: size.height - 16))
+        scrollTrack.position = CGPoint(x: size.width/2 - 8, y: 0)
+        scrollTrack.zPosition = 2
+        addChild(scrollTrack)
+
+        scrollThumb.position = CGPoint(x: scrollTrack.position.x, y: scrollMaxY)
+        scrollThumb.zPosition = scrollTrack.zPosition + 1
+        addChild(scrollThumb)
+
+        contentNode.position.y = minContentY
+        cropNode.addChild(contentNode)
+        updateScrollThumb()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let touch = touches.first else { return }
+        let location = touch.location(in: self)
+        lastTouchY = location.y
+        touchStartY = location.y
+        hasDragged = false
+        tapCandidateButton = button(at: touch.location(in: contentNode))
+    }
+
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let touch = touches.first, let lastY = lastTouchY else { return }
+        let y = touch.location(in: self).y
+        if let startY = touchStartY, abs(y - startY) > 6 {
+            hasDragged = true
+            tapCandidateButton = nil
+        }
+        contentNode.position.y = min(max(contentNode.position.y + (y - lastY), minContentY), maxContentY)
+        lastTouchY = y
+        updateScrollThumb()
+    }
+
+    private func button(at location: CGPoint) -> HKButton? {
+        for child in contentNode.children.reversed() {
+            guard let button = child as? HKButton, button.enabled, button.alpha == 1.0 else { continue }
+            let buttonLocation = contentNode.convert(location, to: button)
+            if button.contains(buttonLocation) {
+                return button
+            }
+        }
+        return nil
+    }
+
+    private func dispatchTapIfNeeded(_ touches: Set<UITouch>) {
+        guard HKDisableUserInteractions == false, !hasDragged, let touch = touches.first, let button = tapCandidateButton else { return }
+        let endLocation = touch.location(in: contentNode)
+        let buttonLocation = contentNode.convert(endLocation, to: button)
+        guard button.contains(buttonLocation) else { return }
+        button.tappedAt = touch.location(in: button)
+        button.onTapStartCode?()
+        button.tapCode?()
+    }
+
+    private func updateScrollThumb() {
+        guard maxContentY > minContentY else {
+            scrollThumb.position.y = scrollMaxY
+            return
+        }
+        let progress = (contentNode.position.y - minContentY) / (maxContentY - minContentY)
+        scrollThumb.position.y = scrollMaxY - (progress * (scrollMaxY - scrollMinY))
+    }
+
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        dispatchTapIfNeeded(touches)
+        lastTouchY = nil
+        touchStartY = nil
+        tapCandidateButton = nil
+        hasDragged = false
+    }
+
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        lastTouchY = nil
+        touchStartY = nil
+        tapCandidateButton = nil
+        hasDragged = false
+    }
+}
+
 class FontCache {
     struct Entry {
         var size: CGFloat
@@ -957,13 +1075,15 @@ class MainScene: BaseScene, UITextFieldDelegate{
         consentNode.zPosition = 10
 
         let studyText = """
-        To better understand games we invite you to ~participate in our study.
+        We invite you to ~join a study about game design.
 
-        We only gather your interactions within this app, demographics and ratings.
+        If you join, we will show a detailed consent form before recording starts.
 
-        To ~participate in our study you must be ~18+.
+        You can also skip the study and use the app normally.
 
-        Do you ~consent to recording?
+        To join the study you must be ~18+.
+        
+        ~Participate in the Study?
         """
 
         let textWidth = scene!.size.width * 0.75
@@ -984,6 +1104,228 @@ class MainScene: BaseScene, UITextFieldDelegate{
         )
         consentNode.addChild(textNode)
         return consentNode
+    }
+
+    func createDetailedStudyConsentScrollBox(textColour: UIColor, buttonSize: CGSize, onYes: @escaping () -> (), onNo: @escaping () -> ()) -> ConsentScrollBox {
+        let mainConsentText = """
+        ~Consent ~Form
+        
+        ~Purpose of the study
+        This study investigates how people play, modify and rate casual game designs. It explores the creative process of game design.
+        
+        ~Duration of the study
+        This study will initially run for 6 months.
+
+        ~Data collection and handling
+        The app records interactions within the app, initial demographic answers, game ratings, game outcomes and game-design changes. Data is stored anonymized on a secure server and is not shared with third parties. The anonymized data will be used for research purposes only, and the outputs of the research will be made available on the project page. 
+
+        ~Risks, ~benefits and personal data
+        There is no foreseeable risk involved in participating. The benefit of the research and the app is to understand the creative processes of designing games as well as exploring computational thinking. No personal data is collected.
+
+        ~Withdrawal
+        You can withdraw from continued participation by deleting the app. This stops further participation and data collection.
+        """
+
+        let contactText = """
+        ~Contact
+        The study is conducted by Swen Gaudl, University of Gothenburg.
+        """
+
+        let projectWebsiteText = """
+        ~Project website
+        """
+
+        let consentQuestionText = """
+        Do you consent to participate?
+        """
+
+        let viewportSize = CGSize(width: scene!.size.width * 0.84, height: scene!.size.height * 0.62)
+        let contentSize = CGSize(width: viewportSize.width, height: scene!.size.height * (DeviceType.isIPad ? 2.16 : 1.66))
+        let contentNode = SKNode()
+        contentNode.name = backgroundTintedTextNodeName
+
+        let textWidth = viewportSize.width * 0.88
+        let fontSize: CGFloat = DeviceType.isIPad ? 18 : 14
+        let leading: Int = DeviceType.isIPad ? 17 : 14
+
+        var cursorY = contentSize.height/2 - 12
+        let mainTextNode = createConsentTextBlock(text: mainConsentText, textWidth: textWidth, contentHeight: contentSize.height, fontSize: fontSize, textColour: textColour, leading: leading)
+        contentNode.addChild(mainTextNode)
+        positionConsentNode(mainTextNode, topY: cursorY)
+        cursorY = mainTextNode.calculateAccumulatedFrame().minY - 18
+
+
+        let questionNode = SKMultilineLabel(
+            text: consentQuestionText,
+            size: CGSize(width: textWidth, height: contentSize.height * 0.16),
+            pos: CGPoint.zero,
+            fontName: "Dolce Vita",
+            altFontName: "Dolce Vita Heavy Bold",
+            fontSize: fontSize,
+            fontColor: textColour,
+            leading: leading,
+            alignment: .center,
+            shouldShowBorder: false,
+            spacing: 1.08
+        )
+        contentNode.addChild(questionNode)
+        positionConsentNode(questionNode, topY: cursorY)
+        cursorY = questionNode.calculateAccumulatedFrame().minY - 34
+
+        let yesButton = HKButton(image: UIImage(named: "JoinButton")!)
+        yesButton.hkImage.size = buttonSize
+        yesButton.position = CGPoint(x: -viewportSize.width * 0.22, y: 0)
+        yesButton.zPosition = 10
+        yesButton.onTapStartCode = onYes
+        contentNode.addChild(yesButton)
+
+        let noButton = HKButton(image: UIImage(named: "SkipButton")!)
+        noButton.hkImage.size = buttonSize
+        noButton.position = CGPoint(x: viewportSize.width * 0.22, y: 0)
+        noButton.zPosition = 10
+        noButton.onTapStartCode = onNo
+        contentNode.addChild(noButton)
+
+        let buttonFrame = yesButton.calculateAccumulatedFrame().union(noButton.calculateAccumulatedFrame())
+        let buttonY = cursorY - buttonFrame.height/2
+        yesButton.position.y = buttonY
+        noButton.position.y = buttonY
+        cursorY = noButton.calculateAccumulatedFrame().minY - 34
+        
+        let contactTextNode = createConsentTextBlock(text: contactText, textWidth: textWidth, contentHeight: contentSize.height, fontSize: fontSize, textColour: textColour, leading: leading)
+        contentNode.addChild(contactTextNode)
+        positionConsentNode(contactTextNode, topY: cursorY)
+        cursorY = contactTextNode.calculateAccumulatedFrame().minY - 4
+
+        let emailButton = createEmailLinkButton(textColour: textColour)
+        emailButton.zPosition = 10
+        contentNode.addChild(emailButton)
+        positionConsentNode(emailButton, topY: cursorY)
+        cursorY = emailButton.calculateAccumulatedFrame().minY - 18
+
+        let projectWebsiteTextNode = createConsentTextBlock(text: projectWebsiteText, textWidth: textWidth, contentHeight: contentSize.height, fontSize: fontSize, textColour: textColour, leading: leading)
+        contentNode.addChild(projectWebsiteTextNode)
+        positionConsentNode(projectWebsiteTextNode, topY: cursorY)
+        cursorY = projectWebsiteTextNode.calculateAccumulatedFrame().minY - 2
+
+        let websiteButton = createWebsiteLinkButton(textColour: textColour)
+        websiteButton.zPosition = 10
+        contentNode.addChild(websiteButton)
+        positionConsentNode(websiteButton, topY: cursorY)
+        cursorY = websiteButton.calculateAccumulatedFrame().minY - 22
+
+        let scrollBox = ConsentScrollBox(size: viewportSize, contentSize: contentSize, contentNode: contentNode)
+        scrollBox.name = backgroundTintedTextNodeName
+        scrollBox.position = CGPoint(x: scene!.size.width * 1.5, y: scene!.size.height * infoGraphicsY)
+        scrollBox.zPosition = 10
+        return scrollBox
+    }
+
+    func positionConsentNode(_ node: SKNode, topY: CGFloat) {
+        node.position = CGPoint.zero
+        let frame = node.calculateAccumulatedFrame()
+        node.position = CGPoint(x: node.position.x - frame.midX, y: node.position.y + topY - frame.maxY)
+    }
+
+    func createConsentTextBlock(text: String, textWidth: CGFloat, contentHeight: CGFloat, fontSize: CGFloat, textColour: UIColor, leading: Int) -> SKMultilineLabel {
+        return SKMultilineLabel(
+            text: text,
+            size: CGSize(width: textWidth, height: contentHeight * 0.68),
+            pos: CGPoint.zero,
+            fontName: "Dolce Vita",
+            altFontName: "Dolce Vita Heavy Bold",
+            fontSize: fontSize,
+            fontColor: textColour,
+            leading: leading,
+            alignment: .center,
+            shouldShowBorder: false,
+            spacing: 1.08
+        )
+    }
+
+    func createEmailLinkButton(textColour: UIColor) -> HKButton {
+        let email = "info@interactions.se"
+        let font = UIFontCache(name: "Dolce Vita Heavy Bold", size: DeviceType.isIPad ? 15 : 12) ?? UIFont.boldSystemFont(ofSize: DeviceType.isIPad ? 15 : 12)
+        let textSize = NSString(string: email).size(withAttributes: [NSAttributedStringKey.font: font])
+        let tapImage = ImageUtils.getBlankImage(CGSize(width: textSize.width + 28, height: textSize.height + 20), colour: UIColor.clear)
+        let button = HKButton(image: tapImage, dilateTapBy: CGSize(width: 1.0, height: 1.0))
+
+        let label = SKLabelNode(fontNamed: font.fontName)
+        label.text = email
+        label.fontSize = font.pointSize
+        label.fontColor = textColour
+        label.verticalAlignmentMode = .center
+        label.horizontalAlignmentMode = .center
+        label.zPosition = 1
+        button.addChild(label)
+
+        let underline = SKShapeNode(rectOf: CGSize(width: textSize.width, height: 1))
+        underline.fillColor = textColour
+        underline.strokeColor = textColour
+        underline.position = CGPoint(x: 0, y: -textSize.height * 0.45)
+        underline.zPosition = 1
+        button.addChild(underline)
+
+        button.onTapStartCode = {
+            if let url = URL(string: "mailto:\(email)") {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
+        return button
+    }
+
+    func createWebsiteLinkButton(textColour: UIColor) -> HKButton {
+        let website = "https://parametric.interactions.se/paravida/"
+        let linkText = "parametric.interactions.se/paravida"
+        let font = UIFontCache(name: "Dolce Vita Heavy Bold", size: DeviceType.isIPad ? 13 : 10) ?? UIFont.boldSystemFont(ofSize: DeviceType.isIPad ? 13 : 10)
+        let textSize = NSString(string: linkText).size(withAttributes: [NSAttributedStringKey.font: font])
+        let tapImage = ImageUtils.getBlankImage(CGSize(width: textSize.width + 28, height: textSize.height + 20), colour: UIColor.clear)
+        let button = HKButton(image: tapImage, dilateTapBy: CGSize(width: 1.0, height: 1.0))
+
+        let label = SKLabelNode(fontNamed: font.fontName)
+        label.text = linkText
+        label.fontSize = font.pointSize
+        label.fontColor = textColour
+        label.verticalAlignmentMode = .center
+        label.horizontalAlignmentMode = .center
+        label.zPosition = 1
+        button.addChild(label)
+
+        let underline = SKShapeNode(rectOf: CGSize(width: textSize.width, height: 1))
+        underline.fillColor = textColour
+        underline.strokeColor = textColour
+        underline.position = CGPoint(x: 0, y: -textSize.height * 0.45)
+        underline.zPosition = 1
+        button.addChild(underline)
+
+        button.onTapStartCode = {
+            if let url = URL(string: website) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
+        return button
+    }
+
+    func createStudyDecisionButton(title: String, textColour: UIColor, tintColour: UIColor) -> HKButton {
+        let buttonSize = CGSize(width: 100, height: 44)
+        UIGraphicsBeginImageContextWithOptions(buttonSize, false, 0)
+        let context = UIGraphicsGetCurrentContext()!
+        let rect = CGRect(origin: .zero, size: buttonSize).insetBy(dx: 2, dy: 2)
+        context.setFillColor(UIColor.clear.cgColor)
+        context.fill(CGRect(origin: .zero, size: buttonSize))
+        DrawingShapes.fillRoundedRectOnContext(context, rect: rect, colour: tintColour.withAlphaComponent(0.28), cornerRadius: 12)
+        let borderPath = UIBezierPath(roundedRect: rect, cornerRadius: 12)
+        tintColour.withAlphaComponent(0.72).setStroke()
+        borderPath.lineWidth = 2
+        borderPath.stroke()
+        let font = UIFontCache(name: "Dolce Vita Heavy Bold", size: 18) ?? UIFont.boldSystemFont(ofSize: 18)
+        let attributes = [NSAttributedStringKey.font: font, NSAttributedStringKey.foregroundColor: textColour]
+        let textSize = NSString(string: title).size(withAttributes: attributes)
+        let textRect = CGRect(x: (buttonSize.width - textSize.width)/2, y: (buttonSize.height - textSize.height)/2 - 1, width: textSize.width, height: textSize.height)
+        NSString(string: title).draw(in: textRect, withAttributes: attributes)
+        let image = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return HKButton(image: image, dilateTapBy: CGSize(width: 1.4, height: 1.4))
     }
     
     func createOKButton() -> HKButton {
@@ -1338,10 +1680,53 @@ class MainScene: BaseScene, UITextFieldDelegate{
                   
         buttonJoin.onTapStartCode =  {
             dismissStudyChoice {
-                self.joinStudyStage2(user: user, pwd: pwd,actions: actions)
+                self.joinStudyConsentStage(user: user, pwd: pwd, buttonSize: buttonSize, actions: actions)
             }
         }
         
+    }
+
+    func joinStudyConsentStage(user: String, pwd: String, buttonSize: CGSize, actions: [SKAction]) {
+        self.isAnimatingOpening = true
+
+        let studyTextColour = getTextColourForCurrentBackground()
+        let logoNode = createLogoNode(label: "Para Vida", size: 35, textColour: studyTextColour)
+        let studyChoiceNode = SKNode()
+        self.studyChoiceNode = studyChoiceNode
+
+        let dismissDetailedConsent = { (completion: @escaping () -> ()) in
+            HKButton.lock = nil
+            studyChoiceNode.removeAllActions()
+            for child in studyChoiceNode.children {
+                child.removeAllActions()
+            }
+            studyChoiceNode.removeFromParent()
+            self.studyChoiceNode = nil
+            completion()
+        }
+
+        let consentNode = createDetailedStudyConsentScrollBox(
+            textColour: studyTextColour,
+            buttonSize: buttonSize,
+            onYes: {
+                dismissDetailedConsent {
+                    self.joinStudyStage2(user: user, pwd: pwd, actions: actions)
+                }
+            },
+            onNo: {
+                dismissDetailedConsent {
+                    self.skipStudy()
+                }
+            }
+        )
+
+        studyChoiceNode.addChild(logoNode)
+        studyChoiceNode.addChild(consentNode)
+        self.addChild(studyChoiceNode)
+        updateStudyChoiceTextColour()
+
+        consentNode.run(actions[3])
+        logoNode.run(actions[2])
     }
         
     func joinStudyStage2 (user :String, pwd: String, actions : [SKAction]) {

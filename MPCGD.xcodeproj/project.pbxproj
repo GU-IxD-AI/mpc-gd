@@ -1573,6 +1573,14 @@
 			name = ArtImageController;
 			sourceTree = "<group>";
 		};
+		462435583005099D00D29C23 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				46D100022F10000000D1A6E0 /* swipe.png */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		E99F52BE1BD6314100413199 /* Fascinator */ = {
 			isa = PBXGroup;
 			children = (
@@ -1614,6 +1622,7 @@
 				312D79F71C9080B800560133 /* EngineOSX */,
 				F41D779E1BC7EDEF00956D26 /* Products */,
 				31C301501BD8F60C006A01F1 /* Tools */,
+				462435583005099D00D29C23 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -3913,12 +3922,12 @@
 				INFOPLIST_FILE = Engine/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Paravida;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.3;
+				MARKETING_VERSION = 1.1.6;
 				PRODUCT_BUNDLE_IDENTIFIER = org.metamakers.Paravida;
 				PRODUCT_NAME = MPCGD;
 				PROVISIONING_PROFILE = "";
@@ -3940,12 +3949,12 @@
 				INFOPLIST_FILE = Engine/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Paravida;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.3;
+				MARKETING_VERSION = 1.1.6;
 				PRODUCT_BUNDLE_IDENTIFIER = org.metamakers.Paravida;
 				PRODUCT_NAME = MPCGD;
 				PROVISIONING_PROFILE = "";
